@@ -10,7 +10,7 @@ class DataFileType(Enum):
 
 class Path(Enum): 
     originDataset = 'E:\\projects\\webGener\\pix2code\\datasets\\pix2code_datasets\\web\\all_data\\'
-    targetDataset = 'E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code-row-col\\'
+    targetDataset = 'E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\'
     assest = 'E:\\projects\\NTUST\\webimg-to-code\\transform-pix2code-dataset\\assest\\'
 
 ROW = ['header', 'row', 'others']
@@ -40,7 +40,7 @@ def toRowColData(originDataList):
     data = []
     headerFlag = False
     # commaFlag = False
-    print(originDataList)
+    # print(originDataList)
     for i, element in enumerate(originDataList):
         if element in BRACKET:
             data.append(element)
@@ -76,7 +76,7 @@ if __name__ == "__main__":
     for i, dataFileName in enumerate(dataFileNames):
         originList = readFile(Path.originDataset.value, dataFileName, DataFileType.gui.value, 'splitBySpec')
         targetList = toRowColData(originList)
-        writeFile(targetList, Path.targetDataset.value, str(i), DataFileType.gui.value)
+        writeFile(targetList, Path.targetDataset.value, 'row-col-gui\\'+str(i), DataFileType.gui.value)
         img = cv2.imread(Path.originDataset.value + dataFileName + DataFileType.img.value)
-        cv2.imwrite(Path.targetDataset.value + str(i) + DataFileType.img.value, img )
-        break
+        cv2.imwrite(Path.targetDataset.value + 'origin-png\\'+ str(i) + DataFileType.img.value, img )
+        print(i) if i %100 == 0 else None
