@@ -62,5 +62,6 @@ if __name__ == "__main__":
     for i in range(20):
         input_seq = encoder_input_data[i: i+1]
         decoded_sentence = seq2seq(input_seq, decoder_tokens, max_decoder_len, encoder_model, decoder_model)
-        writeFile(decoded_sentence, SEQ2SEQ_PREDIT_GUI_SAVE_PATH, str(i), TYPE_GUI, dataDim = 0)
+        if i % 20 == 0:
+            writeFile(decoded_sentence, SEQ2SEQ_PREDIT_GUI_SAVE_PATH, str(i), TYPE_GUI, dataDim = 0)
         

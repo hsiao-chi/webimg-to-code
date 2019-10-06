@@ -1,5 +1,5 @@
 from __future__ import print_function
-from tool.util import showLoss
+from tool.util import showLoss, showAccuracy
 from tool.config import *
 from keras.models import Model
 from keras.layers import Input, LSTM, Dense
@@ -48,14 +48,15 @@ def seq2seqTraining(encoder_input_data, decoder_input_data, decoder_target_token
     model.compile(optimizer='rmsprop', loss='categorical_crossentropy',
                   metrics=['accuracy'])
 
-    mc = callbacks.ModelCheckpoint(SEQ2SEQ_WEIGHT_SAVE_PATH + 'seq2seq-weights{epoch:08d}.h5', 
-                                     save_weights_only=True, period=1)
+    mc = callbacks.ModelCheckpoint(SEQ2SEQ_WEIGHT_SAVE_PATH + 'seq2seq-weights{epoch:05d}.h5', 
+                                     save_weights_only=True, period=MODE_SAVE_PERIOD)
     history = model.fit([encoder_input_data, decoder_input_data], decoder_target_data,
               batch_size=BATCH_SIZE,
               epochs=SEQ2SEQ_EPOCHES,
               validation_split=0.2,
               callbacks=[mc])
-    showLoss(history, SEQ2SEQ_IMG_SAVE_PATH, 'row-col-position-'+ SEQ2SEQ_EPOCHES)
+    showLoss(history, SEQ2SEQ_IMG_SAVE_PATH, 'row-col-position-'+ str(SEQ2SEQ_EPOCHES))
+    showAccuracy(history, SEQ2SEQ_IMG_SAVE_PATH, 'row-col-position-'+ str(SEQ2SEQ_EPOCHES))
     # Save model
     # model.save(SEQ2SEQ_WEIGHT_SAVE_NAME)
     # 1) encode input and retrieve initial decoder state
