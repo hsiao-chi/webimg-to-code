@@ -2,7 +2,7 @@ LSTM_ENCODER_DIM = 256 # Latent dimensionality of the encoding space.
 LSTM_DECODER_DIM = 256
 BATCH_SIZE = 64  # Batch size for training.
 SEQ2SEQ_EPOCHES = 3  # Number of epochs to train for.
-MODE_SAVE_PERIOD = 20
+MODE_SAVE_PERIOD = 1
 NUM_SAMPLE = 10000  # Number of samples to train on.
 
 SEQ2SEQ_MODEL_GRAPH_FILE = 'E:\\projects\\NTUST\\webimg-to-code\\assets\\seq2seq\\seq2seq-model.png'

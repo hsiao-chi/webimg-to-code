@@ -1,7 +1,7 @@
 from model.layoutGenerator import  seq2seqTraining
 from tool.data2Input import positionToSeq2SeqInput
 from tool.config import *
-from tool.util import writeFile
+from tool.util import writeFile, createFolder
 from keras.models import Model
 from keras.layers import Input, LSTM, Dense
 import keras
@@ -57,11 +57,14 @@ if __name__ == "__main__":
     list1 = os.listdir(PATH_PIX2CODE_DATASET+PIX2CODE_POSITION_FOLDER)
     num_total_data = len(list1)
     
+    createFolder(SEQ2SEQ_PREDIT_GUI_SAVE_PATH + str(SEQ2SEQ_EPOCHES))
+    createFolder(SEQ2SEQ_WEIGHT_SAVE_PATH + str(SEQ2SEQ_EPOCHES))
+    
     encoder_input_data, decoder_input_data, decoder_tokens, max_decoder_len = positionToSeq2SeqInput(num_total_data, PATH_PIX2CODE_DATASET+PIX2CODE_POSITION_FOLDER, PATH_PIX2CODE_DATASET+PIX2CODE_GUI_FOLDER)
     encoder_model, decoder_model = seq2seqTraining(encoder_input_data, decoder_input_data, decoder_tokens)
-    for i in range(20):
+    for i in range(100):
         input_seq = encoder_input_data[i: i+1]
         decoded_sentence = seq2seq(input_seq, decoder_tokens, max_decoder_len, encoder_model, decoder_model)
         if i % 20 == 0:
-            writeFile(decoded_sentence, SEQ2SEQ_PREDIT_GUI_SAVE_PATH, str(i), TYPE_GUI, dataDim = 0)
+            writeFile(decoded_sentence, SEQ2SEQ_PREDIT_GUI_SAVE_PATH +str(SEQ2SEQ_EPOCHES) + '\\', str(i), TYPE_GUI, dataDim = 0)
         

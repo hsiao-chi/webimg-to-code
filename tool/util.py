@@ -1,4 +1,12 @@
 import matplotlib.pyplot as plt
+import os
+def createFolder(directory):
+    try:
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+    except OSError:
+        print ('Error: Creating directory. ' +  directory)
+
 def readFile(filePath, fileName, fileType, spType = 'splitlines' or 'splitBySpec'):
     data = None
     with open(str(filePath) + fileName + str(fileType), 'r') as file:
