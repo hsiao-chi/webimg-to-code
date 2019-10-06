@@ -8,6 +8,7 @@ import keras
 import numpy as np
 import tensorflow as tf
 import os, os.path
+import random
 
 """
 decoder_token = dict(), eg. {'{': 0, '}':1, 'row':2, 'col': 3, 'EOS': 4}
@@ -65,7 +66,7 @@ if __name__ == "__main__":
     print('max_decoder_len:', max_decoder_len)
     encoder_model, decoder_model = seq2seqTraining(encoder_input_data, decoder_input_data, decoder_tokens)
     for i in range(10):
-        ii = i*10
+        ii = random.randint(0,num_total_data+1)
         input_seq = encoder_input_data[ii: ii+1]
         decoded_sentence = seq2seq(input_seq, decoder_tokens, max_decoder_len, encoder_model, decoder_model)
         print('decoded_sentence length: ', ii,len(decoded_sentence))
