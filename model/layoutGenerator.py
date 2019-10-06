@@ -1,5 +1,5 @@
 from __future__ import print_function
-from tool.util import showLoss, showAccuracy
+from tool.util import showLoss, showAccuracy, writeFile
 from tool.config import *
 from keras.models import Model
 from keras.layers import Input, LSTM, Dense
@@ -57,6 +57,7 @@ def seq2seqTraining(encoder_input_data, decoder_input_data, decoder_target_token
               callbacks=[mc])
     showLoss(history, SEQ2SEQ_IMG_SAVE_PATH, 'row-col-position-'+ str(SEQ2SEQ_EPOCHES))
     showAccuracy(history, SEQ2SEQ_IMG_SAVE_PATH, 'row-col-position-'+ str(SEQ2SEQ_EPOCHES))
+    writeFile(history.history, SEQ2SEQ_IMG_SAVE_PATH, 'history'+str(SEQ2SEQ_EPOCHES), TYPE_TXT, 'JSON')
     # Save model
     # model.save(SEQ2SEQ_WEIGHT_SAVE_NAME)
     # 1) encode input and retrieve initial decoder state

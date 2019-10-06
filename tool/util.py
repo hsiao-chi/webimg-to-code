@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import os
+import json
 def createFolder(directory):
     try:
         if not os.path.exists(directory):
@@ -25,6 +26,8 @@ def writeFile(data, filePath, fileName, fileType, dataDim = 1):
         elif dataDim == 2:
             for dataLine in data:
                 file.write(' '.join(str(line) for line in dataLine) + '\n')
+        elif dataDim == 'JSON':
+            file.write(json.dumps(data))
 
 def showLoss(history, save_path, title):
    

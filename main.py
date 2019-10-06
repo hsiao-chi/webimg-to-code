@@ -26,7 +26,7 @@ def seq2seq(input_seq, decoder_tokens, max_decoder_seq_length, encoder_model, de
     # Sampling loop for a batch of sequences
     # (to simplify, here we assume a batch of size 1).
     stop_condition = False
-    decoded_sentence = ''
+    decoded_sentence = []
     while not stop_condition:
         output_tokens, h, c = decoder_model.predict(
             [target_seq] + states_value)
@@ -34,7 +34,8 @@ def seq2seq(input_seq, decoder_tokens, max_decoder_seq_length, encoder_model, de
         # Sample a token
         sampled_token_index = np.argmax(output_tokens[0, -1, :])
         sampled_token = reverse_decoder_tokens[sampled_token_index]
-        decoded_sentence += sampled_token+' '
+        if sampled_token != 'EOS':
+            decoded_sentence.append(sampled_token)
 
         # Exit condition: either hit max length
         # or find stop character.
@@ -61,10 +62,11 @@ if __name__ == "__main__":
     createFolder(SEQ2SEQ_WEIGHT_SAVE_PATH + str(SEQ2SEQ_EPOCHES))
     
     encoder_input_data, decoder_input_data, decoder_tokens, max_decoder_len = positionToSeq2SeqInput(num_total_data, PATH_PIX2CODE_DATASET+PIX2CODE_POSITION_FOLDER, PATH_PIX2CODE_DATASET+PIX2CODE_GUI_FOLDER)
+    print('max_decoder_len:', max_decoder_len)
     encoder_model, decoder_model = seq2seqTraining(encoder_input_data, decoder_input_data, decoder_tokens)
-    for i in range(100):
-        input_seq = encoder_input_data[i: i+1]
+    for i in range(10):
+        ii = i*10
+        input_seq = encoder_input_data[ii: ii+1]
         decoded_sentence = seq2seq(input_seq, decoder_tokens, max_decoder_len, encoder_model, decoder_model)
-        if i % 20 == 0:
-            writeFile(decoded_sentence, SEQ2SEQ_PREDIT_GUI_SAVE_PATH +str(SEQ2SEQ_EPOCHES) + '\\', str(i), TYPE_GUI, dataDim = 0)
+        writeFile(decoded_sentence, SEQ2SEQ_PREDIT_GUI_SAVE_PATH +str(SEQ2SEQ_EPOCHES) + '\\', str(ii), TYPE_GUI, dataDim = 1)
         
