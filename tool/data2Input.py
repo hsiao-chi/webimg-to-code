@@ -3,15 +3,9 @@ from .config import *
 import os, os.path
 import numpy as np
 
-# PATH_PIX2CODE_DATASET = 'E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\'
-# PIX2CODE_POSITION_FOLDER = 'row-col-yolo-position-txt'
-# PIX2CODE_GUI_FOLDER = 'row-col-gui'
-# TYPE_TXT = '.txt'
-# TYPE_GUI = '.gui'
-
 
 def positionToSeq2SeqInput(num_total_data, encoder_file_folder, decoder_file_folder):
-    decoder_target_token = {'{': 0, '}':1, 'row':2, 'col': 3, 'EOS': 4}
+    decoder_target_token = {'{': 0, '}':1, 'row':2, 'col': 3, 'START': 4, 'EOS': 5}
     temp_encoder_all_data =  []
     temp_decoder_all_data =  []
     max_encoder_len = 0
@@ -27,14 +21,14 @@ def positionToSeq2SeqInput(num_total_data, encoder_file_folder, decoder_file_fol
         if len(temp_data) > max_encoder_len:
             max_encoder_len = len(temp_data)
 
-        temp_decoder_all_data.append(gui)
-        if len(gui) > max_decoder_len:
-            max_decoder_len = len(gui)
+        temp_decoder_all_data.append(['START']+gui)
+        if len(gui)+1 > max_decoder_len:
+            max_decoder_len = len(gui)+1
         
 
 
     encoder_input_data = np.zeros((num_total_data, max_encoder_len, 5), dtype='float32')
-    decoder_input_data = np.zeros((num_total_data, max_decoder_len, 5), dtype='float32')
+    decoder_input_data = np.zeros((num_total_data, max_decoder_len, len(decoder_target_token)), dtype='float32')
     for i, (temp_data, gui) in enumerate(zip(temp_encoder_all_data, temp_decoder_all_data)):
         for j, data in enumerate(temp_data):
             encoder_input_data[i, j] = data

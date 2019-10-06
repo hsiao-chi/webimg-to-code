@@ -19,7 +19,7 @@ def seq2seq(input_seq, decoder_tokens, max_decoder_seq_length, encoder_model, de
     # Generate empty target sequence of length 1.
     target_seq = np.zeros((1, 1, len(decoder_tokens)))
     # Populate the first character of target sequence with the start character.
-    target_seq[0, 0, decoder_tokens['EOS']] = 1.
+    target_seq[0, 0, decoder_tokens['START']] = 1.
 
     reverse_decoder_tokens = dict(
         (i, token) for token, i in decoder_tokens.items())
@@ -68,5 +68,6 @@ if __name__ == "__main__":
         ii = i*10
         input_seq = encoder_input_data[ii: ii+1]
         decoded_sentence = seq2seq(input_seq, decoder_tokens, max_decoder_len, encoder_model, decoder_model)
+        print('decoded_sentence length: ', ii,len(decoded_sentence))
         writeFile(decoded_sentence, SEQ2SEQ_PREDIT_GUI_SAVE_PATH +str(SEQ2SEQ_EPOCHES) + '\\', str(ii), TYPE_GUI, dataDim = 1)
         
