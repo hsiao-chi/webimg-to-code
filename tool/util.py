@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 def readFile(filePath, fileName, fileType, spType = 'splitlines' or 'splitBySpec'):
     data = None
     with open(str(filePath) + fileName + str(fileType), 'r') as file:
@@ -9,8 +10,31 @@ def readFile(filePath, fileName, fileType, spType = 'splitlines' or 'splitBySpec
 
 def writeFile(data, filePath, fileName, fileType, dataDim = 1): 
     with open(str(filePath) + fileName + str(fileType), 'w+') as file:
-        if dataDim == 1:
+        if dataDim == 0:
+            file.write(data)
+        elif dataDim == 1:
             file.write(' '.join(data))
         elif dataDim == 2:
             for dataLine in data:
                 file.write(' '.join(str(line) for line in dataLine) + '\n')
+
+def showLoss(history, save_path, title):
+    # Plot training & validation accuracy values
+    plt.plot(history.history['acc'])
+    plt.plot(history.history['val_acc'])
+    plt.title('Model accuracy')
+    plt.ylabel('Accuracy')
+    plt.xlabel('Epoch')
+    plt.legend(['Train', 'Test'], loc='upper left')
+    plt.savefig(save_path + title + "-accuracy.png")
+    # plt.show()
+
+    # Plot training & validation loss values
+    plt.plot(history.history['loss'])
+    plt.plot(history.history['val_loss'])
+    plt.title('Model loss')
+    plt.ylabel('Loss')
+    plt.xlabel('Epoch')
+    plt.legend(['Train', 'Test'], loc='upper left')
+    plt.savefig(save_path + title + "-training-loss.png")
+    # plt.show()  

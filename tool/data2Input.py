@@ -1,12 +1,13 @@
-from util import readFile, writeFile
+from .util import readFile, writeFile
+from .config import *
 import os, os.path
 import numpy as np
 
-PATH_PIX2CODE_DATASET = 'E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\'
-PIX2CODE_POSITION_FOLDER = 'row-col-yolo-position-txt'
-PIX2CODE_GUI_FOLDER = 'row-col-gui'
-TYPE_TXT = '.txt'
-TYPE_GUI = '.gui'
+# PATH_PIX2CODE_DATASET = 'E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\'
+# PIX2CODE_POSITION_FOLDER = 'row-col-yolo-position-txt'
+# PIX2CODE_GUI_FOLDER = 'row-col-gui'
+# TYPE_TXT = '.txt'
+# TYPE_GUI = '.gui'
 
 
 def positionToSeq2SeqInput(num_total_data, encoder_file_folder, decoder_file_folder):
@@ -17,7 +18,7 @@ def positionToSeq2SeqInput(num_total_data, encoder_file_folder, decoder_file_fol
     max_decoder_len = 0
     for i in range(num_total_data):
         positions = readFile(encoder_file_folder, str(i), TYPE_TXT, 'splitlines')
-        gui = readFile(decoder_file_folder, str(i), TYPE_TXT, 'splitBySpec')
+        gui = readFile(decoder_file_folder, str(i), TYPE_GUI, 'splitBySpec')
         temp_data = []
         for position in  positions:
             p = position.split()
@@ -29,18 +30,19 @@ def positionToSeq2SeqInput(num_total_data, encoder_file_folder, decoder_file_fol
         temp_decoder_all_data.append(gui)
         if len(gui) > max_decoder_len:
             max_decoder_len = len(gui)
+        
 
 
     encoder_input_data = np.zeros((num_total_data, max_encoder_len, 5), dtype='float32')
     decoder_input_data = np.zeros((num_total_data, max_decoder_len, 5), dtype='float32')
-    for i, temp_data, gui in enumerate(zip(temp_encoder_all_data, temp_decoder_all_data)):
+    for i, (temp_data, gui) in enumerate(zip(temp_encoder_all_data, temp_decoder_all_data)):
         for j, data in enumerate(temp_data):
             encoder_input_data[i, j] = data
-        for j, token in gui:
+        for j, token in enumerate(gui):
             decoder_input_data[i, j, decoder_target_token[token]] = 1
         decoder_input_data[i, j+1:, decoder_target_token['EOS']] = 1
 
-    return encoder_input_data, decoder_input_data
+    return encoder_input_data, decoder_input_data, decoder_target_token, max_decoder_len
         
 
     
@@ -53,4 +55,6 @@ if __name__ == "__main__":
     list1 = os.listdir(PATH_PIX2CODE_DATASET+PIX2CODE_POSITION_FOLDER)
     num_total_data = len(list1)
     
-    encoder_input_data, decoder_input_data = positionToSeq2SeqInput(num_total_data, PATH_PIX2CODE_DATASET+PIX2CODE_POSITION_FOLDER, PATH_PIX2CODE_DATASET+PIX2CODE_GUI_FOLDER)
+    encoder_input_data, decoder_input_data = positionToSeq2SeqInput(2, PATH_PIX2CODE_DATASET+PIX2CODE_POSITION_FOLDER, PATH_PIX2CODE_DATASET+PIX2CODE_GUI_FOLDER)
+    print('encoder_input_data', encoder_input_data)
+    print('decoder_input_data', decoder_input_data)
