@@ -25,17 +25,18 @@ class Node:
                 child.show()
             print("{}{} ".format('\t'*self.depth, Tag.node_closing.value))
 
-    def toDSL(self, place=""):
-        if self.key in list(LeafKey):
-            place = place + "{}{} {} \n".format('\t'*self.depth, self.key, self.attributes.toString())
+    def toDSL(self):
+        place = ""
+        if self.key in [key.value for key in list(LeafKey)]:
+            place = place + "{}{}{} {} \n".format(self.depth, '\t'*self.depth, self.key, self.attributes.toString())
         else:
             if self.attributes.isEmpty():
-                place = place + "{}{} {} \n".format('\t'*self.depth, self.key, Tag.node_opening.value)
+                place = place + "{}{}{} {} \n".format(self.depth,'\t'*self.depth, self.key, Tag.node_opening.value)
             else:
-                place = place + "{}{} {} {} \n".format('\t'*self.depth, self.key, self.attributes.toString(),  Tag.node_opening.value)
+                place = place + "{}{}{} {} {} \n".format(self.depth, '\t'*self.depth, self.key, self.attributes.toString(),  Tag.node_opening.value)
             for child in self.children:
-                child.toDSL(place)
-            place = place + "{}{} \n".format('\t'*self.depth, Tag.node_closing.value)
+                place = place + child.toDSL()
+            place = place + "{}{}{} \n".format(self.depth, '\t'*self.depth, Tag.node_closing.value)
 
         return place
 

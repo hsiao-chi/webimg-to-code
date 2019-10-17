@@ -1,6 +1,6 @@
 from enum import Enum
-
-
+MAX_EACH_LAYER_NODE_NUM = 5
+MAX_DEPTH = 6
 class Path(Enum):
     assest = 'E:\\projects\\NTUST\\webimg-to-code\\dataset-2-generator\\assests\\'
 
@@ -77,8 +77,23 @@ GENERATE_RULE = {
         NodeKey.list.value: [NodeKey.col, NodeKey.absolute],
         NodeKey.absolute.value: [RootKey.body],
     },
+    "enabled_brothers": {
+        "same": [NodeKey.list],
+    },
+    "children_quantity_limit": {
+        NodeKey.button.value: 1,
+        NodeKey.list.value: MAX_EACH_LAYER_NODE_NUM,
+    },
+    "children_group": {
+        # NodeKey.button.value: [LeafKey.icon, LeafKey.text],
+        NodeKey.col.value: [LeafKey.title, LeafKey.text, NodeKey.button]
+    },
     "disabled_layer": {
         "last_1": [NodeKey.row, NodeKey.absolute],
         "last": list(NodeKey)
-    }
+    },
 }
+
+
+def getEnumList(enums):
+    return [key.value for key in enums]
