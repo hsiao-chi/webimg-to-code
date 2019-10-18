@@ -28,17 +28,42 @@ class Node:
     def toDSL(self):
         place = ""
         if self.key in [key.value for key in list(LeafKey)]:
-            place = place + "{}{}{} {} \n".format(self.depth, '\t'*self.depth, self.key, self.attributes.toString())
+            place = place + "{}{} {} \n".format('\t'*self.depth, self.key, self.attributes.toString())
         else:
             if self.attributes.isEmpty():
-                place = place + "{}{}{} {} \n".format(self.depth,'\t'*self.depth, self.key, Tag.node_opening.value)
+                place = place + "{}{} {} \n".format('\t'*self.depth, self.key, Tag.node_opening.value)
             else:
-                place = place + "{}{}{} {} {} \n".format(self.depth, '\t'*self.depth, self.key, self.attributes.toString(),  Tag.node_opening.value)
+                place = place + "{}{} {} {} \n".format('\t'*self.depth, self.key, self.attributes.toString(),  Tag.node_opening.value)
             for child in self.children:
                 place = place + child.toDSL()
-            place = place + "{}{}{} \n".format(self.depth, '\t'*self.depth, Tag.node_closing.value)
+            place = place + "{}{} \n".format('\t'*self.depth, Tag.node_closing.value)
 
         return place
+
+    def to_row_col_DSL(self):
+        place=""
+        have_child = True if len(self.children) > 0 else False
+        have_child = False if self.key == NodeKey.button.value else have_child
+        
+        if have_child:
+            if (self.depth %2 == 0):
+                if (self.depth != 0):
+                    place = place + "{}{} {}\n".format('\t'*(self.depth-1), NodeKey.col.value, Tag.node_opening.value)
+            else:
+                place = place + "{}{} {}\n".format('\t'*(self.depth-1), NodeKey.row.value, Tag.node_opening.value)
+            for child in self.children:
+                place = place + child.to_row_col_DSL()
+            if (self.depth != 0):
+                place = place + "{}{}\n".format('\t'*(self.depth-1), Tag.node_closing.value)
+        
+        else:
+            if (self.depth %2 == 0):
+                place = place + "{}{}\n".format('\t'*(self.depth-1), NodeKey.col.value)
+            else:
+                place = place + "{}{}\n".format('\t'*(self.depth-1), NodeKey.row.value)
+
+        return place
+
 
 class Attribute:
     def __init__(self, font_color, context, bg_color=None):

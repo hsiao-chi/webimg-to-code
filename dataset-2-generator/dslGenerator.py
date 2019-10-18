@@ -2,8 +2,6 @@ import random
 from util import get_random_text
 from dslModel import Node, Attribute
 from config import *
-# MAX_DEPTH = 6
-# MAX_EACH_LAYER_NODE_NUM = 5
 
 
 def generateNodeTree(parent_node, depth) -> Node:
@@ -15,14 +13,15 @@ def generateNodeTree(parent_node, depth) -> Node:
         node_num = GENERATE_RULE["children_quantity_limit"][parent_node.key]
 
     if parent_node.key in GENERATE_RULE["children_group"]:
-        node_num = len(GENERATE_RULE["children_group"][parent_node.key])
-        group_pool = GENERATE_RULE["children_group"][parent_node.key]
+        if random.choice([False, True]) or (MAX_DEPTH-depth) <=2:
+            node_num = len(GENERATE_RULE["children_group"][parent_node.key])
+            group_pool = GENERATE_RULE["children_group"][parent_node.key]
     
     if parent_node.key in getEnumList(GENERATE_RULE["enabled_brothers"]["same"]):
         same_brother = True
 
     for index in range(node_num):
-        print("depth: ", depth, "  num_node: ", index, "/", node_num, "  parent: ", parent_node.key)
+        # print("depth: ", depth, "  num_node: ", index, "/", node_num, "  parent: ", parent_node.key, "  group_pool: ", group_pool)
         if len(group_pool) > 0:
             node = generateNode(parent_node, depth+1, group_pool[index].value)
         elif same_brother and index == 0:
@@ -60,7 +59,7 @@ def generateNode(parent_node, depth, assigned_key=None) -> Node:
                 if node_enum in pool:
                     pool.remove(node_enum)
         key= random.choice(pool).value
-    print(parent_node.key, depth, pool)
+    # print(parent_node.key, depth, pool)
     attribute = Attribute(None, None, None)
     if key in getEnumList(GENERATE_RULE['attributes']['none']):
         pass
@@ -72,8 +71,8 @@ def generateNode(parent_node, depth, assigned_key=None) -> Node:
             color =  random.choice(list(Color)).value
             attribute.set_bg_color(color)
         if key in getEnumList(GENERATE_RULE['attributes']['have_context_node']):
-            context = get_random_text(5, 0)
-            attribute.set_context(context)
+            context = get_random_text(5 if parent_node.key == NodeKey.button.value else 20 )
+            attribute.set_context("\"" + context + "\"")
 
     return Node(key, parent_node, attribute, depth)
 
@@ -84,3 +83,5 @@ if __name__ == "__main__":
     root = Node(RootKey.body.value, None, Attribute(None, None, None))
     tree = generateNodeTree(root, 0)
     print(tree.toDSL())
+    print("=================================")
+    print(tree.to_row_col_DSL())

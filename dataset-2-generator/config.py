@@ -1,5 +1,5 @@
 from enum import Enum
-MAX_EACH_LAYER_NODE_NUM = 5
+MAX_EACH_LAYER_NODE_NUM = 4
 MAX_DEPTH = 6
 class Path(Enum):
     assest = 'E:\\projects\\NTUST\\webimg-to-code\\dataset-2-generator\\assests\\'
@@ -63,12 +63,14 @@ GENERATE_RULE = {
         "have_context_node": [LeafKey.text, LeafKey.title],
     },
     "enabled_children": {
-        RootKey.body.value: [NodeKey.row, NodeKey.absolute],
+        # RootKey.body.value: [NodeKey.row, NodeKey.absolute],
+        RootKey.body.value: [NodeKey.row],
         NodeKey.button.value: [LeafKey.text],
         NodeKey.row.value: [NodeKey.col],
-        NodeKey.col.value: [NodeKey.button, NodeKey.list, LeafKey.text, LeafKey.title],
-        NodeKey.list.value: [NodeKey.button, LeafKey.text, LeafKey.title],
-        NodeKey.absolute.value: [NodeKey.row, NodeKey.list],
+        # NodeKey.col.value: [NodeKey.row, NodeKey.button, NodeKey.list, LeafKey.text, LeafKey.title],
+        NodeKey.col.value: [NodeKey.row],
+        # NodeKey.list.value: [NodeKey.button, LeafKey.text, LeafKey.title],
+        # NodeKey.absolute.value: [NodeKey.row, NodeKey.list],
     },
     "enabled_parent": {
         NodeKey.button.value: [NodeKey.col, NodeKey.list],
