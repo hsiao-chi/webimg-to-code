@@ -1,0 +1,143 @@
+row { 
+	col { 
+		title [ light None "Uscesealgnusfr Rqndt" ] 
+		text [ light None "Ypgdhlpsqxiwr Rimlnj" ] 
+		button [ None white None ] { 
+			text [ primary None "Xj Je" ] 
+		} 
+	} 
+	col { 
+		row { 
+			col { 
+				title [ dander None "Iprcsnxrpd Dxeawjdut" ] 
+				text [ dander None "Cxaelqcdynnouykw Wtd" ] 
+				button [ None primary None ] { 
+					text [ success None "Qx Xd" ] 
+				} 
+			} 
+			col { 
+				title [ secondary None "Shcoqlfikpekwc Ccahv" ] 
+				text [ secondary None "Zphd Ddoglyewuepkoxz" ] 
+				button [ None warning None ] { 
+					text [ info None "Le Et" ] 
+				} 
+			} 
+		} 
+		row { 
+			col { 
+				title [ white None "Oeqqzu Ukzlfbtawcytp" ] 
+				text [ light None "Ajqzhyqiujrjvk Klcuk" ] 
+				button [ None success None ] { 
+					text [ success None "He Ed" ] 
+				} 
+			} 
+			col { 
+				title [ info None "Vrhf Fdngmmgvpmeavld" ] 
+				text [ white None "Fzjsgnqspscxtixk Kpd" ] 
+				button [ None success None ] { 
+					text [ secondary None "Ig Gt" ] 
+				} 
+			} 
+			col { 
+				title [ light None "Eftlfywayfnyssuj Jqw" ] 
+				text [ white None "Ezbazzwihqzqve Eldjt" ] 
+				button [ None dark None ] { 
+					text [ light None "Vw Wm" ] 
+				} 
+			} 
+		} 
+	} 
+	col { 
+		row { 
+			col { 
+				title [ warning None "Eamyv Vgluoounbrudmk" ] 
+				text [ light None "Gtnjbwqqsn Nvvsckkwg" ] 
+				button [ None success None ] { 
+					text [ secondary None "Tc Ch" ] 
+				} 
+			} 
+		} 
+		row { 
+			col { 
+				title [ dander None "Qnvmbokmj Jcxdfiyqkr" ] 
+				text [ light None "Punsxubhvdzhgtdo Oqd" ] 
+				button [ None dark None ] { 
+					text [ white None "Yx Xn" ] 
+				} 
+			} 
+		} 
+	} 
+} 
+row { 
+	col { 
+		row { 
+			col { 
+				title [ warning None "Tiifyssms Sgltgogtlb" ] 
+				text [ white None "Qxs Slqcicxyxmiskiry" ] 
+				button [ None warning None ] { 
+					text [ secondary None "Cr Ri" ] 
+				} 
+			} 
+			col { 
+				title [ dander None "Lsonc Ceaogfxfrjwghw" ] 
+				text [ secondary None "Xzkdayfwmgegtr Rmlkx" ] 
+				button [ None warning None ] { 
+					text [ white None "Be Eg" ] 
+				} 
+			} 
+			col { 
+				title [ info None "Yqrgubeqbiwnpt Tehev" ] 
+				text [ light None "Sapflec Ciwhrpgkdiww" ] 
+				button [ None dark None ] { 
+					text [ white None "Wn Nc" ] 
+				} 
+			} 
+		} 
+		row { 
+			col { 
+				title [ info None "Laakyoxjr Ryiozdxdwg" ] 
+				text [ dark None "Xyf Fzuocqyompzfsncn" ] 
+				button [ None light None ] { 
+					text [ dander None "Vq Qr" ] 
+				} 
+			} 
+			col { 
+				title [ dark None "Rrjirztpyx Xxymemtni" ] 
+				text [ info None "Uyzkwkavjucxnei Iypo" ] 
+				button [ None dander None ] { 
+					text [ light None "Vv Vg" ] 
+				} 
+			} 
+		} 
+	} 
+	col { 
+		title [ dander None "Yco Odamxotjronyllqo" ] 
+		text [ light None "Mkwoueqcmfeddjlt Tdi" ] 
+		button [ None secondary None ] { 
+			text [ primary None "Av Vc" ] 
+		} 
+	} 
+} 
+row { 
+	col { 
+		title [ dander None "Iidlpkmbsc Cdjarowlt" ] 
+		text [ info None "Awxwxy Yjbffvpzwzcgs" ] 
+		button [ None dark None ] { 
+			text [ success None "Dv Vu" ] 
+		} 
+	} 
+	col { 
+		title [ success None "Mbufdrru Uuxvcfmfckj" ] 
+		text [ dark None "Okrddlwrt Tndkpdhueb" ] 
+		button [ None warning None ] { 
+			text [ dark None "Mx Xz" ] 
+		} 
+	} 
+	col { 
+		title [ dark None "Gdtuzxqnlezi Ihwboaz" ] 
+		text [ dark None "Cswfnbffhrldyli Iyjl" ] 
+		button [ None primary None ] { 
+			text [ white None "Pt Tc" ] 
+		} 
+	} 
+} 

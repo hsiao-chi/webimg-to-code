@@ -3,6 +3,10 @@ MAX_EACH_LAYER_NODE_NUM = 4
 MAX_DEPTH = 6
 class Path(Enum):
     assest = 'E:\\projects\\NTUST\\webimg-to-code\\dataset-2-generator\\assests\\'
+    origin_gui = 'E:\\projects\\NTUST\\webimg-to-code\\dataset\\dataset2\\origin_gui\\'
+    origin_html = 'E:\\projects\\NTUST\\webimg-to-code\\dataset\\dataset2\\origin_html\\'
+    row_col_gui = 'E:\\projects\\NTUST\\webimg-to-code\\dataset\\dataset2\\row_col_gui\\'
+    web_dsl_mapping_json = 'E:\\projects\\NTUST\\webimg-to-code\\dataset-2-generator\\mapping\\web-dsl-mapping.json'
 
 
 class RootKey(Enum):
@@ -31,9 +35,9 @@ class Color(Enum):
     danger = 'dander'
     info = 'info'
     dark = 'dark'
-    light = 'light'
+    # light = 'light'
     secondary = 'secondary'
-    white = 'white'
+    # white = 'white'
 
 
 class Size(Enum):
@@ -49,10 +53,13 @@ class Tag(Enum):
 
 
 class Placeholder(Enum):
+    node = '{}'
+    data_title = '$data_title'
     color = '$color'
-    bgcolor = '$bgcolor'
+    bg_color = '$bg_color'
     size = '$size'
-    context = '$context'
+    content = '$content'
+    leaf_col = '$leaf_col'
 
 GENERATE_RULE = {
     "attributes": {
@@ -60,7 +67,7 @@ GENERATE_RULE = {
         "have_font_color_node": [LeafKey.text, LeafKey.title],
         "have_bg_color_node": [LeafKey.div, NodeKey.button],
         "have_size_node": [NodeKey.button, LeafKey.title],
-        "have_context_node": [LeafKey.text, LeafKey.title],
+        "have_content_node": [LeafKey.text, LeafKey.title],
     },
     "enabled_children": {
         # RootKey.body.value: [NodeKey.row, NodeKey.absolute],

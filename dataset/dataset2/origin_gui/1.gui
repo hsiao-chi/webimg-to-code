@@ -1,0 +1,34 @@
+row { 
+	col { 
+		title [ info None "Cij Jssacbyoqlbvfnpy" ] 
+		text [ white None "Fcbxiaunjgjtqh Hahmf" ] 
+		button [ None white None ] { 
+			text [ dark None "Nr Rl" ] 
+		} 
+	} 
+	col { 
+		row { 
+			col { 
+				title [ light None "Ru Uuztklucaodyvbpua" ] 
+				text [ dander None "Jfeaovdeycrc Czzwkki" ] 
+				button [ None primary None ] { 
+					text [ secondary None "Xg Gs" ] 
+				} 
+			} 
+			col { 
+				title [ success None "Fwokpbjciuofbdhn Njk" ] 
+				text [ dark None "Tomufeyvczwb Bysdbft" ] 
+				button [ None dark None ] { 
+					text [ secondary None "Hp Pf" ] 
+				} 
+			} 
+		} 
+	} 
+	col { 
+		title [ info None "Qyxpzvybhv Vkngecdjj" ] 
+		text [ dark None "Ctuqedvcuzn Nfbawnfw" ] 
+		button [ None success None ] { 
+			text [ dander None "Nd Dz" ] 
+		} 
+	} 
+} 

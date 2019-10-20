@@ -1,6 +1,6 @@
 import random
 from util import get_random_text
-from dslModel import Node, Attribute
+from nodeModel import Node, Attribute
 from config import *
 
 
@@ -70,9 +70,9 @@ def generateNode(parent_node, depth, assigned_key=None) -> Node:
         if key in getEnumList(GENERATE_RULE['attributes']['have_bg_color_node']):
             color =  random.choice(list(Color)).value
             attribute.set_bg_color(color)
-        if key in getEnumList(GENERATE_RULE['attributes']['have_context_node']):
-            context = get_random_text(5 if parent_node.key == NodeKey.button.value else 20 )
-            attribute.set_context("\"" + context + "\"")
+        if key in getEnumList(GENERATE_RULE['attributes']['have_content_node']):
+            content = get_random_text(5 if parent_node.key == NodeKey.button.value else 20 )
+            attribute.set_content("\"" + content + "\"")
 
     return Node(key, parent_node, attribute, depth)
 
