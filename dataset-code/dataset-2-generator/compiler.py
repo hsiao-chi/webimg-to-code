@@ -1,6 +1,7 @@
 import json
-from nodeModel import Node, Attribute
-from config import *
+from general.node.nodeModel import Node, Attribute
+from general.node.nodeEnum import RootKey, NodeKey, LeafKey, Color, Tag
+
 
 
 

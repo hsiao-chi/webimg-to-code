@@ -1,9 +1,6 @@
 import random
 import string
 
-
-
-
 def get_random_text(length_text=10, space_number=1, with_upper_case=True):
         results = []
         while len(results) < length_text:

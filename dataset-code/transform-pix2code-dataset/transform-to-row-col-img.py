@@ -3,8 +3,9 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import cv2
 import numpy as np
-from config import DataFileType, Path
-import general
+import general.path as path
+import general.dataType as TYPE
+from general.util import createFolder, readFile, writeFile
 
 
 def convert2RowCol(img):
@@ -46,30 +47,30 @@ def toYoloPosition(imgWidth, imgHigh, positions):
 
 
 if __name__ == "__main__":
-    dataFileNames = general.readFile(
-        Path.assest.value, 'pix2code-dataset-filemane', DataFileType.txt.value, 'splitlines')
+    dataFileNames = readFile(
+        path.DATASET1_ASSEST, 'pix2code-dataset-filemane', TYPE.TXT, 'splitlines')
     for i, dataFileName in enumerate(dataFileNames):
         flag= True
         if flag:
-            img = cv2.imread(Path.originDataset.value +
-                             dataFileName + DataFileType.img.value, 0)
+            img = cv2.imread(path.PIX2CODE_ORIGIN_DATASET +
+                             dataFileName + TYPE.IMG, 0)
 
             detectionList, rolColImg = convert2RowCol(img)
             print(len(detectionList), detectionList)
-            general.writeFile(detectionList, Path.targetDataset.value, 'row-col-position-txt\\'+ str(i),  DataFileType.txt.value, 2 )
+            writeFile(detectionList, path.DATASET1_ROWCOL_POSITION_TXT, str(i),  TYPE.TXT, 2 )
 
             # plt.subplot(1, 2, 1), plt.imshow(img, 'gray')
             # plt.subplot(1, 2, 2), plt.imshow(rolColImg, 'gray')
             # plt.show()
             # break
-            cv2.imwrite(Path.targetDataset.value + 'row-col-png\\'+ str(i) + DataFileType.img.value, rolColImg )
+            cv2.imwrite(path.DATASET1_ROWCOL_PNG + str(i) + TYPE.IMG, rolColImg )
 
         else:
-            img = cv2.imread(Path.targetDataset.value + 'row-col-png\\'+str(i) + DataFileType.img.value, 0)
+            img = cv2.imread(path.DATASET1_ROWCOL_PNG +str(i) + TYPE.IMG, 0)
             
-            positions = general.readFile(Path.targetDataset.value , 'row-col-position-txt\\'+str(i), DataFileType.txt.value, 'splitlines')
+            positions = readFile(path.DATASET1_ROWCOL_POSITION_TXT , str(i), TYPE.TXT, 'splitlines')
             yoloPositions = toYoloPosition(img.shape[0], img.shape[1], positions)
-            general.writeFile(yoloPositions, Path.targetDataset.value, 'row-col-yolo-position-txt\\'+ str(i), DataFileType.txt.value, 2 )
+            writeFile(yoloPositions, path.DATASET1_ROWCOL_YOLO_POSITION_TXT, str(i), TYPE.TXT, 2 )
 
 
         print(i) if i % 100 == 0 else None

@@ -1,7 +1,8 @@
-from .util import readFile, writeFile
-from .config import *
 import os, os.path
 import numpy as np
+import general.path as path
+import general.dataType as TYPE
+from general.util import createFolder, readFile, writeFile
 
 
 def positionToSeq2SeqInput(num_total_data, encoder_file_folder, decoder_file_folder):
@@ -11,8 +12,8 @@ def positionToSeq2SeqInput(num_total_data, encoder_file_folder, decoder_file_fol
     max_encoder_len = 0
     max_decoder_len = 0
     for i in range(num_total_data):
-        positions = readFile(encoder_file_folder, str(i), TYPE_TXT, 'splitlines')
-        gui = readFile(decoder_file_folder, str(i), TYPE_GUI, 'splitBySpec')
+        positions = readFile(encoder_file_folder, str(i), TYPE.TXT, 'splitlines')
+        gui = readFile(decoder_file_folder, str(i), TYPE.GUI, 'splitBySpec')
         temp_data = []
         for position in  positions:
             p = position.split()
@@ -45,10 +46,10 @@ def positionToSeq2SeqInput(num_total_data, encoder_file_folder, decoder_file_fol
 
 
 if __name__ == "__main__":
-    print(PATH_PIX2CODE_DATASET+PIX2CODE_POSITION_FOLDER)
-    list1 = os.listdir(PATH_PIX2CODE_DATASET+PIX2CODE_POSITION_FOLDER)
+    print(path.DATASET1_ROWCOL_POSITION_TXT)
+    list1 = os.listdir(path.DATASET1_ROWCOL_POSITION_TXT)
     num_total_data = len(list1)
     
-    encoder_input_data, decoder_input_data = positionToSeq2SeqInput(2, PATH_PIX2CODE_DATASET+PIX2CODE_POSITION_FOLDER, PATH_PIX2CODE_DATASET+PIX2CODE_GUI_FOLDER)
+    encoder_input_data, decoder_input_data = positionToSeq2SeqInput(2, path.DATASET1_ROWCOL_POSITION_TXT, path.DATASET1_ROWCOL_GUI)
     print('encoder_input_data', encoder_input_data)
     print('decoder_input_data', decoder_input_data)

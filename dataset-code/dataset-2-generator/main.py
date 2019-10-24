@@ -1,12 +1,10 @@
 from nodeTreeGenerator import generateNode, generateNodeTree
-from nodeModel import Node, Attribute
+from general.node.nodeModel import Node, Attribute
+import general.path as path
+import general.dataType as TYPE
 from compiler import Compiler
-from config import *
-import os
 
-TYPE_TXT = '.txt'
-TYPE_GUI = '.gui'
-TYPE_HTML = '.html'
+import os
 
 if __name__ == "__main__":
     # for i in range(2):
@@ -16,11 +14,11 @@ if __name__ == "__main__":
         # compiler.node_tree_to_dsl(Path.origin_gui.value+str(i)+TYPE_GUI)
         # compiler.node_tree_to_dsl(Path.row_col_gui.value+str(i)+TYPE_GUI, True)
 
-    data_file_length = len(os.listdir(Path.origin_gui.value))
+    data_file_length = len(os.listdir(path.DATASET2_ORIGIN_GUI))
     # for i in range(data_file_length):
-    compiler = Compiler(Path.web_dsl_mapping_json.value)
-    tree = compiler.dsl_to_node_tree(Path.origin_gui.value+str(0)+TYPE_GUI)
+    compiler = Compiler(path.DATASET2_DSL_MAPPING_JSON_FILE)
+    tree = compiler.dsl_to_node_tree(path.DATASET2_ORIGIN_GUI+str(0)+TYPE.GUI)
     print(tree.show())
-    html = compiler.node_tree_to_html(Path.origin_html.value+str(0)+TYPE_HTML, str(0))
+    html = compiler.node_tree_to_html(path.DATASET2_ORIGIN_HTML+str(0)+TYPE.HTML, str(0))
     print(html)
 

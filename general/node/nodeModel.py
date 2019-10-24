@@ -1,5 +1,4 @@
-from config import NodeKey, Tag, LeafKey, Placeholder
-
+from .nodeEnum import NodeKey, Tag, LeafKey, Placeholder
 
 class Node:
     def __init__(self, key, parent_node, attributes, depth=0):

@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import os
 import json
+
 def createFolder(directory):
     try:
         if not os.path.exists(directory):

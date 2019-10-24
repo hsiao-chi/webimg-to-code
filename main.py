@@ -1,7 +1,3 @@
-from model.layoutGenerator import  seq2seqTraining
-from tool.data2Input import positionToSeq2SeqInput
-from tool.config import *
-from tool.util import writeFile, createFolder
 from keras.models import Model
 from keras.layers import Input, LSTM, Dense
 import keras
@@ -9,6 +5,11 @@ import numpy as np
 import tensorflow as tf
 import os, os.path
 import random
+import general.path as path
+import general.dataType as TYPE
+from general.util import createFolder, readFile, writeFile, showLoss, showAccuracy
+from classes.model.layoutGenerator import seq2seqTraining
+from classes.data2Input import positionToSeq2SeqInput, SEQ2SEQ_EPOCHES
 
 """
 decoder_token = dict(), eg. {'{': 0, '}':1, 'row':2, 'col': 3, 'EOS': 4}
@@ -55,14 +56,14 @@ def seq2seq(input_seq, decoder_tokens, max_decoder_seq_length, encoder_model, de
 
 
 if __name__ == "__main__":
-    print(PATH_PIX2CODE_DATASET+PIX2CODE_POSITION_FOLDER)
-    list1 = os.listdir(PATH_PIX2CODE_DATASET+PIX2CODE_POSITION_FOLDER)
+    print(path.DATASET1_ROWCOL_YOLO_POSITION_TXT)
+    list1 = os.listdir(path.DATASET1_ROWCOL_YOLO_POSITION_TXT)
     num_total_data = len(list1)
     
-    createFolder(SEQ2SEQ_PREDIT_GUI_SAVE_PATH + str(SEQ2SEQ_EPOCHES))
-    createFolder(SEQ2SEQ_WEIGHT_SAVE_PATH + str(SEQ2SEQ_EPOCHES))
+    createFolder(path.CLASS_SEQ2SEQ_PREDIT_GUI_PATH + str(SEQ2SEQ_EPOCHES))
+    createFolder(path.CLASS_SEQ2SEQ_WEIGHT + str(SEQ2SEQ_EPOCHES))
     
-    encoder_input_data, decoder_input_data, decoder_tokens, max_decoder_len = positionToSeq2SeqInput(num_total_data, PATH_PIX2CODE_DATASET+PIX2CODE_POSITION_FOLDER, PATH_PIX2CODE_DATASET+PIX2CODE_GUI_FOLDER)
+    encoder_input_data, decoder_input_data, decoder_tokens, max_decoder_len = positionToSeq2SeqInput(num_total_data, path.DATASET1_ROWCOL_YOLO_POSITION_TXT, path.DATASET1_ROWCOL_GUI)
     print('max_decoder_len:', max_decoder_len)
     encoder_model, decoder_model = seq2seqTraining(encoder_input_data, decoder_input_data, decoder_tokens)
     for i in range(10):
@@ -70,5 +71,5 @@ if __name__ == "__main__":
         input_seq = encoder_input_data[ii: ii+1]
         decoded_sentence = seq2seq(input_seq, decoder_tokens, max_decoder_len, encoder_model, decoder_model)
         print('decoded_sentence length: ', ii,len(decoded_sentence))
-        writeFile(decoded_sentence, SEQ2SEQ_PREDIT_GUI_SAVE_PATH +str(SEQ2SEQ_EPOCHES) + '\\', str(ii), TYPE_GUI, dataDim = 1)
+        writeFile(decoded_sentence, path.CLASS_SEQ2SEQ_PREDIT_GUI_PATH +str(SEQ2SEQ_EPOCHES) + '\\', str(ii), TYPE.GUI, dataDim = 1)
         

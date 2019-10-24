@@ -2,16 +2,17 @@ from os import listdir
 from os.path import isfile, join, splitext
 from enum import Enum
 import cv2
-from config import DataFileType, Path
-import general
 
+import general.path as path
+import general.dataType as TYPE
+from general.util import createFolder, readFile, writeFile
 
 ROW = ['header', 'row', 'others']
 COL = ['single', 'double', 'quadruple']
 BRACKET = ['{', '}', ',']
 
 def getFileNameList(dataPath, savedPath, savedName):
-    files = [splitext(f)[0] for f in listdir(dataPath) if (isfile(join(dataPath, f)) and splitext(f)[-1] == DataFileType.gui)]
+    files = [splitext(f)[0] for f in listdir(dataPath) if (isfile(join(dataPath, f)) and splitext(f)[-1] == TYPE.GUI)]
     with open(savedPath + savedName, 'w') as file:
         for f in files:
             file.write(f + '\n')
@@ -46,11 +47,11 @@ if __name__ == "__main__":
     
     # getFileNameList(originDataPath, 'assest\\', 'filemane.txt')
 
-    dataFileNames = general.readFile(Path.assest.value, 'pix2code-dataset-filemane', DataFileType.txt.value, 'splitlines')
+    dataFileNames = readFile(path.DATASET1_ASSEST, 'pix2code-dataset-filemane', TYPE.TXT, 'splitlines')
     for i, dataFileName in enumerate(dataFileNames):
-        originList = general.readFile(Path.originDataset.value, dataFileName, DataFileType.gui.value, 'splitBySpec')
+        originList = readFile(path.PIX2CODE_ORIGIN_DATASET, dataFileName, TYPE.GUI, 'splitBySpec')
         targetList = toRowColData(originList)
         print(targetList)
-        general.writeFile(targetList, Path.targetDataset.value, 'row-col-gui\\'+str(i), DataFileType.gui.value)
-        img = cv2.imread(Path.originDataset.value + dataFileName + DataFileType.img.value)
-        cv2.imwrite(Path.targetDataset.value + 'origin-png\\'+ str(i) + DataFileType.img.value, img )
+        writeFile(targetList, path.DATASET1_ROWCOL_GUI, str(i), TYPE.GUI)
+        img = cv2.imread(path.PIX2CODE_ORIGIN_DATASET + dataFileName + TYPE.IMG)
+        cv2.imwrite(path.DATASET1_ORIGIN_PNG + str(i) + TYPE.IMG, img )

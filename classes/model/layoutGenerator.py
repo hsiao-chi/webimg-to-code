@@ -1,6 +1,7 @@
 from __future__ import print_function
-from tool.util import showLoss, showAccuracy, writeFile
-from tool.config import *
+import general.path as path
+import general.dataType as TYPE
+from general.util import createFolder, readFile, writeFile, showLoss, showAccuracy
 from keras.models import Model
 from keras.layers import Input, LSTM, Dense
 from keras import backend as K, callbacks
@@ -9,6 +10,13 @@ from keras.utils import plot_model
 import numpy as np
 import tensorflow as tf
 K.tensorflow_backend._get_available_gpus()
+
+LSTM_ENCODER_DIM = 256 # Latent dimensionality of the encoding space.
+LSTM_DECODER_DIM = 256
+BATCH_SIZE = 64  # Batch size for training.
+SEQ2SEQ_EPOCHES = 400  # Number of epochs to train for.
+MODE_SAVE_PERIOD = 20
+NUM_SAMPLE = 10000  # Number of samples to train on.
 
 # input: [num_sample, max_input_seg_length, tokens]
 # targets:[num_sample, max_target_seq_length, tokens]
@@ -48,16 +56,16 @@ def seq2seqTraining(encoder_input_data, decoder_input_data, decoder_target_token
     model.compile(optimizer='rmsprop', loss='categorical_crossentropy',
                   metrics=['accuracy'])
 
-    mc = callbacks.ModelCheckpoint(SEQ2SEQ_WEIGHT_SAVE_PATH + str(SEQ2SEQ_EPOCHES) +'\\' + 'seq2seq-weights{epoch:05d}.h5', 
+    mc = callbacks.ModelCheckpoint(path.CLASS_SEQ2SEQ_MODEL_GRAPH_FILE + str(SEQ2SEQ_EPOCHES) +'\\' + 'seq2seq-weights{epoch:05d}.h5', 
                                      save_weights_only=True, period=MODE_SAVE_PERIOD)
     history = model.fit([encoder_input_data, decoder_input_data], decoder_target_data,
               batch_size=BATCH_SIZE,
               epochs=SEQ2SEQ_EPOCHES,
               validation_split=0.2,
               callbacks=[mc])
-    showLoss(history, SEQ2SEQ_IMG_SAVE_PATH, 'row-col-position-'+ str(SEQ2SEQ_EPOCHES))
-    showAccuracy(history, SEQ2SEQ_IMG_SAVE_PATH, 'row-col-position-'+ str(SEQ2SEQ_EPOCHES))
-    writeFile(history.history, SEQ2SEQ_IMG_SAVE_PATH, 'history'+str(SEQ2SEQ_EPOCHES), TYPE_TXT, 'JSON')
+    showLoss(history, path.CLASS_SEQ2SEQ_ANALYSIS_PATH, 'row-col-position-'+ str(SEQ2SEQ_EPOCHES))
+    showAccuracy(history, path.CLASS_SEQ2SEQ_ANALYSIS_PATH, 'row-col-position-'+ str(SEQ2SEQ_EPOCHES))
+    writeFile(history.history, path.CLASS_SEQ2SEQ_ANALYSIS_PATH, 'history'+str(SEQ2SEQ_EPOCHES), TYPE.TXT, 'JSON')
     # Save model
     # model.save(SEQ2SEQ_WEIGHT_SAVE_NAME)
     # 1) encode input and retrieve initial decoder state
