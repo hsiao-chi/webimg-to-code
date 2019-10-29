@@ -17,8 +17,8 @@ if __name__ == "__main__":
     data_file_length = len(os.listdir(path.DATASET2_ORIGIN_GUI))
     # for i in range(data_file_length):
     compiler = Compiler(path.DATASET2_DSL_MAPPING_JSON_FILE)
-    tree = compiler.dsl_to_node_tree(path.DATASET2_ORIGIN_GUI+str(0)+TYPE.GUI)
+    tree = compiler.dsl_to_node_tree(path.DATASET2_ORIGIN_GUI+str(1)+TYPE.GUI)
     print(tree.show())
-    html = compiler.node_tree_to_html(path.DATASET2_ORIGIN_HTML+str(0)+TYPE.HTML, str(0))
+    html = compiler.node_tree_to_html(path.DATASET2_ORIGIN_HTML+str(1)+TYPE.HTML, str(1))
     print(html)
 

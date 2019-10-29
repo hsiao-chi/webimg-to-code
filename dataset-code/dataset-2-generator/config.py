@@ -31,10 +31,10 @@ GENERATE_RULE = {
     "enabled_brothers": {
         "same": [NodeKey.list],
     },
-    "children_quantity_limit": {
-        NodeKey.button.value: 1,
-        NodeKey.list.value: MAX_EACH_LAYER_NODE_NUM,
-    },
+    # "children_quantity_limit": {
+    #     NodeKey.button.value: 1,
+    #     NodeKey.list.value: MAX_EACH_LAYER_NODE_NUM,
+    # },
     "children_group": {
         # NodeKey.button.value: [LeafKey.icon, LeafKey.text],
         NodeKey.col.value: [LeafKey.title, LeafKey.text, NodeKey.button]
@@ -43,6 +43,16 @@ GENERATE_RULE = {
         "last_1": [NodeKey.row, NodeKey.absolute],
         "last": list(NodeKey)
     },
+    "child_node_num": {
+        "more_then": {
+            "row2col": 1,   # more then one child
+        },
+        "equal": {
+            "col2row": 1,   # only one child
+             NodeKey.list.value: MAX_EACH_LAYER_NODE_NUM,
+             NodeKey.button.value: 1,
+        }
+    }
 }
 
 

@@ -72,7 +72,7 @@ def generateNode(parent_node, depth, assigned_key=None) -> Node:
             color =  random.choice(list(Color)).value
             attribute.set_bg_color(color)
         if key in getEnumList(GENERATE_RULE['attributes']['have_content_node']):
-            content = get_random_text(5 if parent_node.key == NodeKey.button.value else 20 )
+            content = get_random_text(5 if parent_node.key == NodeKey.button.value else 10 )
             attribute.set_content("\"" + content + "\"")
 
     return Node(key, parent_node, attribute, depth)
