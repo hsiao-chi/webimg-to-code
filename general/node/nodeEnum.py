@@ -18,6 +18,11 @@ class LeafKey(Enum):
     title = 'title'
     icon = 'icon'
 
+class AttributeSet(Enum):
+    font_color = Color
+    bg_color = Color
+    content = 'string'
+
 
 class Color(Enum):
     primary = 'primary'

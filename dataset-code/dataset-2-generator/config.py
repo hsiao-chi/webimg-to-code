@@ -49,8 +49,8 @@ GENERATE_RULE = {
         },
         "equal": {
             "col2row": 1,   # only one child
-             NodeKey.list.value: MAX_EACH_LAYER_NODE_NUM,
-             NodeKey.button.value: 1,
+            NodeKey.list.value: MAX_EACH_LAYER_NODE_NUM,
+            NodeKey.button.value: 1,
         }
     }
 }

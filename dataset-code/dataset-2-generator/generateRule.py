@@ -1,5 +1,5 @@
 from enum import Enum
-from general.node.nodeEnum import RootKey, NodeKey, LeafKey
+from general.node.nodeEnum import RootKey, NodeKey, LeafKey, AttributeSet
 
 
 class Operator(Enum):
@@ -8,6 +8,9 @@ class Operator(Enum):
     whole = "whole"  # any
     more_then = "more_then"
     equal = "equal"
+    random = 'random'
+    true = True
+    false = False
 
 
 class NodeLayer(Enum):
@@ -17,13 +20,16 @@ class NodeLayer(Enum):
     whole = 'whole'  # any
 
 
-def getRule(rule=0):
-    if rule == 0:
-        return type1_rule
+def getRule(rule=1):
+    if rule == 1:
+        return rule_1
 
 
-type1_rule = {
-    "ATTRIBUTES": ['font_color', 'bg_color', 'content'],
+rule_1 = {
+    "attributes": [AttributeSet.font_color, AttributeSet.bg_color, AttributeSet.content],
+    "use_children_group": Operator.random,
+    "max_each_layer_node_num": 5,
+    "max_depth": 6,
     RootKey.body.value: {
         "attributes": [],
         "children": [NodeKey.row],
