@@ -10,30 +10,66 @@ class NodeTreeGenerator:
         self.rule = getRule(rule)
         self.max_depth = self.rule["max_depth"]
         self.attribute = self.rule["attributes"]
-        self.use_children_group = self.rule["use_children_group"]
+        # self.use_children_group = self.rule["use_children_group"]
         self.max_each_layer_node_num = self.rule["max_each_layer_node_num"]
 
-    def generateNodeTree(self, parent_node: Node, depth):
+    def generateNodeTree(self, parent_node: Node, parent_depth):
         node = None
         pool = []
-        children_num = 0
+        children_num = 1
         children_group_flag = False
-        if self.rule[parent_node.key]["children_group"] > 0:
-            if ((self.use_children_group == Operator.random) and (random.choice([False, True]))) or (self.use_children_group == Operator.true):
-                pool = self.rule[parent_node.key]["children_group"]
+        reciprocal_layer_layer = self.max_depth - parent_depth - 1
+        brothers_limit = self.rule[parent_node.key]["children_brothers"]
+        children_brother_node = None
+
+        if (self.rule[parent_node.key]["children_group"] and len(self.rule[parent_node.key]["children"] == 0)) or (reciprocal_layer_layer <= 0):
+            return parent_node
+
+        if self.rule[parent_node.key]["children_group"]:
+            if ((self.rule[parent_node.key]["children_group"]["enable"] == Operator.random) and (random.choice([False, True]))) or (self.rule[parent_node.key]["children_group"]["enable"]) or (reciprocal_layer_layer <=1):
+                pool = self.rule[parent_node.key]["children_group"]["nodes"]
                 children_group_flag = True
-        else: 
+        
+        if not children_group_flag:
             pool = self.rule[parent_node.key]["children"]
+            for node in pool:
+                if children_group_flag in self.rule[node.value]["disabled_reciprocal_layer"]:
+                    pool.remove(node)
+
+        print("pool num: ", len(pool))
 
         if children_group_flag:
             children_num = len(pool)
-        elif len(self.rule[parent_node.key]["children_quantity"]) > 0:
-            
-            pass
-        else: 
+        elif self.rule[parent_node.key]["children_quantity"]:
+            if self.rule[parent_node.key]["children_quantity"]["operator"] == Operator.equal:
+                children_num = self.rule[parent_node.key]["children_quantity"]["value"]
+            elif self.rule[parent_node.key]["children_quantity"]["operator"] == Operator.more_then:
+                children_num = random.randrange(
+                    self.rule[parent_node.key]["children_quantity"]["value"], self.max_each_layer_node_num)
+        else:
             children_num = random.randrange(1, self.max_each_layer_node_num)
-        # node_num = if len(self.rule[parent_node.key]["children_quantity"]) > 0
-        pass
+        print("children num: ", children_num)
 
-    def generateNode(self, parent_node, depth, pool):
+        for index in range(children_num):
+            if children_group_flag:
+                node = generateNode(
+                    parent_node,  parent_depth+1, pool[index].value)
+            elif brothers_limit == Operator.same:
+                if index == 0:
+                    node = generateNode(
+                        parent_node,  parent_depth+1, random.choice(pool).value)
+                    children_brother_node = node.key
+                else:
+                    node = generateNode(
+                        parent_node,  parent_depth+1, children_brother_node)
+            else:
+                node = generateNode(
+                    parent_node,  parent_depth+1, random.choice(pool).value)
+
+            node = generateNodeTree(node, parent_depth+1)
+            parent_node.add_child(node)
+
+        return parent_node
+
+    def generateNode(self, parent_node, depth, assigned_key):
         pass

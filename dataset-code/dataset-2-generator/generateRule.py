@@ -7,6 +7,8 @@ class Operator(Enum):
     same = "same"
     whole = "whole"  # any
     more_then = "more_then"
+    equal_more_then = "equal_more_then"
+
     equal = "equal"
     random = 'random'
     true = True
@@ -27,79 +29,76 @@ def getRule(rule=1):
 
 rule_1 = {
     "attributes": [AttributeSet.font_color, AttributeSet.bg_color, AttributeSet.content],
-    "use_children_group": Operator.random,
+    # "use_children_group": Operator.random,
     "max_each_layer_node_num": 5,
     "max_depth": 6,
     RootKey.body.value: {
         "attributes": [],
         "children": [NodeKey.row],
         "parents": [],
-        "brothers": Operator.none,
-        "disabled_layer": [],
-        "children_group": [],
-        "children_quantity": []
+        "children_brothers": Operator.none,
+        "disabled_reciprocal_layer": [],
+        "children_group": None,
+        "children_quantity": None
     },
     NodeKey.row.value: {
         "attributes": [],
         "children": [NodeKey.col],
         "parents": [RootKey.body, NodeKey.col],
-        "brothers": Operator.whole,
-        "disabled_layer": [NodeLayer.last_1, NodeLayer.last],
-        "children_group": [],
-        "children_quantity": [
-            {
-                "child": NodeKey.col,
-                "operator": Operator.more_then,
-                "value": 1,
-            }
-        ]
+        "children_brothers": Operator.whole,
+        "disabled__layer": [0, 1],
+        "children_group": None,
+        "children_quantity": {
+            "operator": Operator.equal_more_then,
+            "value": 2,
+        }
     },
     NodeKey.col.value: {
         "attributes": [],
         "children": [NodeKey.row],
         "parents": [NodeKey.row],
-        "brothers": Operator.whole,
-        "disabled_layer": [NodeLayer.last, NodeLayer.last_1],
-        "children_group": [LeafKey.title, LeafKey.text, NodeKey.button],
-        "children_quantity": [
-            {
-                "child": NodeKey.row,
-                "operator": Operator.equal,
-                "value": 1,
-            }
-        ]
+        "children_brothers": Operator.whole,
+        "disabled__layer": [0, 1],
+        "children_group": {
+            "enable": Operator.random,
+            "nodes": [LeafKey.title, LeafKey.text, NodeKey.button]
+        },
+        "children_quantity": {
+            "operator": Operator.equal,
+            "value": 1,
+        }
     },
     NodeKey.button.value: {
         "attributes": [False, True, False],
-        "children": [LeafKey.text],
+        "children": [],
         "parents": [NodeKey.col],
-        "brothers": Operator.whole,
-        "disabled_layer": [NodeLayer.last],
-        "children_group": [],
-        "children_quantity": [
-            {
-                "child": LeafKey.text,
-                "operator": Operator.equal,
-                "value": 1,
-            }
-        ]
+        "children_brothers": Operator.whole,
+        "disabled__layer": [0],
+        "children_group": {
+            "enable": True,
+            "nodes": [LeafKey.text]
+        },
+        "children_quantity": {
+            "operator": Operator.equal,
+            "value": 1,
+        }
     },
     LeafKey.text.value: {
         "attributes": [True, False, True],
         "children": [],
         "parents": [NodeKey.col, NodeKey.button],
-        "brothers": Operator.whole,
-        "disabled_layer": [],
-        "children_group": [],
-        "children_quantity": []
+        "children_brothers": Operator.whole,
+        "disabled__layer": [],
+        "children_group": None,
+        "children_quantity": None
     },
     LeafKey.title.value: {
         "attributes": [True, False, True],
         "children": [],
         "parents": [NodeKey.col],
-        "brothers": Operator.whole,
-        "disabled_layer": [],
-        "children_group": [],
-        "children_quantity": []
+        "children_brothers": Operator.whole,
+        "disabled__layer": [],
+        "children_group": None,
+        "children_quantity": None
     },
 }
