@@ -33,7 +33,7 @@ rule_1 = {
     "max_each_layer_node_num": 5,
     "max_depth": 6,
     RootKey.body.value: {
-        "attributes": [],
+        "attributes": [False, False, False],
         "children": [NodeKey.row],
         "parents": [],
         "children_brothers": Operator.none,
@@ -42,7 +42,7 @@ rule_1 = {
         "children_quantity": None
     },
     NodeKey.row.value: {
-        "attributes": [],
+        "attributes": [False, False, False],
         "children": [NodeKey.col],
         "parents": [RootKey.body, NodeKey.col],
         "children_brothers": Operator.whole,
@@ -54,7 +54,7 @@ rule_1 = {
         }
     },
     NodeKey.col.value: {
-        "attributes": [],
+        "attributes": [False, False, False],
         "children": [NodeKey.row],
         "parents": [NodeKey.row],
         "children_brothers": Operator.whole,

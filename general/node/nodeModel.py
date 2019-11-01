@@ -1,4 +1,5 @@
-from .nodeEnum import NodeKey, Tag, LeafKey, Placeholder
+from .nodeEnum import NodeKey, Tag, LeafKey, Placeholder, AttributeSet, Color
+
 
 class Node:
     def __init__(self, key, parent_node, attributes, depth=0):
@@ -122,7 +123,7 @@ class Node:
         return template
 
 
-class Attribute:
+class Attribute_old:
     def __init__(self, font_color=None, bg_color=None, content=None,):
         self.font_color = font_color
         self.bg_color = bg_color
@@ -168,7 +169,50 @@ class Attribute:
                 template = template.replace(
                     Placeholder.bg_color.value, "" if self.bg_color == None else ("bg-"+self.bg_color))
             if template.find(Placeholder.content.value) != -1:
-                
+
                 template = template.replace(
                     Placeholder.content.value, "" if self.content == None else self.content)
         return template
+
+
+class Attribute:
+    def __init__(self, activatedAttributes: list, enabledAttributes: list):
+        #  [AttributeEnum]
+        self.activatedAttributes = activatedAttributes
+        # [True, False...]
+        self.enabledAttributes = enabledAttributes
+        self.attributeValue = [None]*len(self.activatedAttributes)
+
+        def assign_value(self, index, value):
+            self.attributeValue[index] = value
+
+        def to_string(self):
+            return " ".join(self.attributeValue)
+
+        def is_empty(self):
+            return False if True in self.enabledAttributes else True
+
+        def list_to_attribut(self, attrs):
+            self.attributeValue = attrs
+
+        def render_attribute(self, template) -> str:
+            print(template.find(Placeholder.content.value))
+            if self.isEmpty():
+                pass
+            else:
+                for i, value, activated in enumerate(zip(self.attributeValue, self.activatedAttributes)):
+                    if value:
+                        placeholder, prefix = self._placeholder_mapping(
+                            activated)
+                        if template.find(placeholder) != -1:
+                            template = template.replace(
+                                placeholder, "" if value == None else (prefix+value))
+            return template
+
+        def _placeholder_mapping(self, activated):
+            if activated == AttributeSet.font_color:
+                return Placeholder.color.value, "text-"
+            elif activated == AttributeSet.bg_color:
+                return Placeholder.bg_color.value, "bg-"
+            elif activated == AttributeSet.content:
+                return Placeholder.content.value, ""

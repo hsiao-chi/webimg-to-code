@@ -1,6 +1,6 @@
 import random
 from general.node.nodeModel import Node, Attribute
-from general.node.nodeEnum import RootKey, NodeKey, LeafKey, Color
+from general.node.nodeEnum import RootKey, NodeKey, LeafKey, Color, AttributeSet
 from util import get_random_text
 from generateRule import Operator, NodeLayer, getRule
 
@@ -67,9 +67,20 @@ class NodeTreeGenerator:
                     parent_node,  parent_depth+1, random.choice(pool).value)
 
             node = generateNodeTree(node, parent_depth+1)
-            parent_node.add_child(node)
+            parent_node.add_child(node) 
 
         return parent_node
 
     def generateNode(self, parent_node, depth, assigned_key):
-        pass
+        attribute = Attribute(self.attribute, self.rule[assigned_key]["attributes"])
+        # node = Node(parent_node, )
+        for i,  enabled in enumerate(attribute.enabledAttributes):
+            value = None
+            if enabled:
+                if attribute.activatedAttributes[i] == AttributeSet.content:
+                    value = get_random_text(5 if parent_node.key == NodeKey.button.value else 10 )
+                else:
+                    value = random.choice(list(attribute.activatedAttributes[i].value)).value
+                attribute.assign_value(i, value)
+
+        return Node(assigned_key, parent_node, attribute, depth)
