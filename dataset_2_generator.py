@@ -1,0 +1,28 @@
+from general.node.nodeModel import Node, Attribute
+from general.node.nodeEnum import RootKey, NodeKey, LeafKey, Font_color, Bg_color
+import general.path as path
+import general.dataType as TYPE
+from datasetCode.dataset_2_generator.generateRule import getRule
+from datasetCode.dataset_2_generator.nodeTreeGenerateClass import NodeTreeGenerator
+from datasetCode.dataset_2_generator.compiler import Compiler
+
+import os
+
+if __name__ == "__main__":
+    rule = getRule()
+    generator = NodeTreeGenerator()
+    for i in range(5, 6):
+        root = Node(RootKey.body.value, None, Attribute(rule["attributes"], rule[RootKey.body.value]["attributes"]))
+        tree = generator.generateNodeTree(root, 0)
+        compiler = Compiler(path.DATASET2_DSL_MAPPING_JSON_FILE, 1, tree)
+        compiler.node_tree_to_dsl(path.DATASET2_ORIGIN_GUI+str(i)+TYPE.GUI)
+        compiler.node_tree_to_dsl(path.DATASET2_ROWCOL_GUI+str(i)+TYPE.GUI, True)
+
+    # data_file_length = len(os.listdir(path.DATASET2_ORIGIN_GUI))
+    # # for i in range(data_file_length):
+    # compiler = Compiler(path.DATASET2_DSL_MAPPING_JSON_FILE, getRule())
+    # tree = compiler.dsl_to_node_tree(path.DATASET2_ORIGIN_GUI+str(1)+TYPE.GUI)
+    # print(tree.show())
+    # html = compiler.node_tree_to_html(path.DATASET2_ORIGIN_HTML+str(1)+TYPE.HTML, str(1))
+    # print(html)
+    pass

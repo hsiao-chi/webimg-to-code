@@ -46,7 +46,7 @@ rule_1 = {
         "children": [NodeKey.col],
         "parents": [RootKey.body, NodeKey.col],
         "children_brothers": Operator.whole,
-        "disabled__layer": [0, 1],
+        "disabled_reciprocal_layer": [0, 1],
         "children_group": None,
         "children_quantity": {
             "operator": Operator.equal_more_then,
@@ -58,7 +58,7 @@ rule_1 = {
         "children": [NodeKey.row],
         "parents": [NodeKey.row],
         "children_brothers": Operator.whole,
-        "disabled__layer": [0, 1],
+        "disabled_reciprocal_layer": [0, 1],
         "children_group": {
             "enable": Operator.random,
             "nodes": [LeafKey.title, LeafKey.text, NodeKey.button]
@@ -73,9 +73,9 @@ rule_1 = {
         "children": [],
         "parents": [NodeKey.col],
         "children_brothers": Operator.whole,
-        "disabled__layer": [0],
+        "disabled_reciprocal_layer": [0],
         "children_group": {
-            "enable": True,
+            "enable": Operator.true,
             "nodes": [LeafKey.text]
         },
         "children_quantity": {
@@ -88,7 +88,7 @@ rule_1 = {
         "children": [],
         "parents": [NodeKey.col, NodeKey.button],
         "children_brothers": Operator.whole,
-        "disabled__layer": [],
+        "disabled_reciprocal_layer": [],
         "children_group": None,
         "children_quantity": None
     },
@@ -97,7 +97,7 @@ rule_1 = {
         "children": [],
         "parents": [NodeKey.col],
         "children_brothers": Operator.whole,
-        "disabled__layer": [],
+        "disabled_reciprocal_layer": [],
         "children_group": None,
         "children_quantity": None
     },

@@ -1,7 +1,7 @@
 import random
 from config import GENERATE_RULE, MAX_DEPTH, MAX_EACH_LAYER_NODE_NUM, getEnumList
 from general.node.nodeModel import Node, Attribute
-from general.node.nodeEnum import RootKey, NodeKey, LeafKey, Color
+from general.node.nodeEnum import RootKey, NodeKey, LeafKey, Font_color, Bg_color
 from util import get_random_text
 
 

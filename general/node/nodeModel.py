@@ -1,8 +1,48 @@
-from .nodeEnum import NodeKey, Tag, LeafKey, Placeholder, AttributeSet, Color
+from .nodeEnum import NodeKey, Tag, LeafKey, Placeholder, AttributeSet, Font_color, Bg_color
 
+class Attribute:
+    def __init__(self, activatedAttributes: list = [], enabledAttributes: list = []):
+        #  [AttributeEnum]
+        self.activatedAttributes = activatedAttributes
+        # [True, False...]
+        self.enabledAttributes = enabledAttributes
+        self.attributeValue = [None]*len(self.activatedAttributes)
+
+    def assign_value(self, index, value):
+        self.attributeValue[index] = value
+
+    def to_string(self):
+        return " ".join([Tag.attr_opening.value] + [str(a) for a in self.attributeValue] + [Tag.attr_closing.value])
+
+    def is_empty(self): 
+        return False if True in self.enabledAttributes else True
+
+    def list_to_attribut(self, attrs):
+        self.attributeValue = attrs
+
+    def render_attribute(self, template) -> str:
+        if self.is_empty():
+            pass
+        else:
+            for value, activated in zip(self.attributeValue, self.activatedAttributes):
+                if value:
+                    placeholder, prefix = self._placeholder_mapping(
+                        activated)
+                    if template.find(placeholder) != -1:
+                        template = template.replace(
+                            placeholder, "" if value == None else (prefix+value))
+        return template
+
+    def _placeholder_mapping(self, activated):
+        if activated == AttributeSet.font_color:
+            return Placeholder.color.value, "text-"
+        elif activated == AttributeSet.bg_color:
+            return Placeholder.bg_color.value, "bg-"
+        elif activated == AttributeSet.content:
+            return Placeholder.content.value, ""
 
 class Node:
-    def __init__(self, key, parent_node, attributes, depth=0):
+    def __init__(self, key, parent_node, attributes: Attribute, depth=0):
         self.key = key
         self.parent = parent_node
         self.children = []
@@ -13,17 +53,20 @@ class Node:
     def add_child(self, child):
         self.children.append(child)
 
+    def set_attributes(self, attributes):
+        self.attributes = attributes
+
     def show(self):
         if self.key in [key.value for key in list(LeafKey)]:
             print("{}{} {} ".format('\t'*self.depth,
-                                    self.key, self.attributes.toString()))
+                                    self.key, self.attributes.to_string()))
         else:
-            if self.attributes.isEmpty():
+            if self.attributes.is_empty():
                 print("{}{} {} ".format('\t'*self.depth,
                                         self.key, Tag.node_opening.value))
             else:
                 print("{}{} {} {} ".format('\t'*self.depth, self.key,
-                                           self.attributes.toString(),  Tag.node_opening.value))
+                                           self.attributes.to_string(),  Tag.node_opening.value))
             for child in self.children:
                 child.show()
             print("{}{} ".format('\t'*self.depth, Tag.node_closing.value))
@@ -33,16 +76,16 @@ class Node:
         if self.key in [key.value for key in list(LeafKey)]:
             place = place + \
                 "{}{} {} \n".format('\t'*(self.depth-1),
-                                    self.key, self.attributes.toString())
+                                    self.key, self.attributes.to_string())
         else:
             if (self.depth != 0):
-                if self.attributes.isEmpty():
+                if self.attributes.is_empty():
                     place = place + \
                         "{}{} {} \n".format(
                             '\t'*(self.depth-1), self.key, Tag.node_opening.value)
                 else:
                     place = place + "{}{} {} {} \n".format('\t'*(
-                        self.depth-1), self.key, self.attributes.toString(),  Tag.node_opening.value)
+                        self.depth-1), self.key, self.attributes.to_string(),  Tag.node_opening.value)
 
             for child in self.children:
                 place = place + child.toDSL()
@@ -175,44 +218,4 @@ class Attribute_old:
         return template
 
 
-class Attribute:
-    def __init__(self, activatedAttributes: list, enabledAttributes: list):
-        #  [AttributeEnum]
-        self.activatedAttributes = activatedAttributes
-        # [True, False...]
-        self.enabledAttributes = enabledAttributes
-        self.attributeValue = [None]*len(self.activatedAttributes)
 
-        def assign_value(self, index, value):
-            self.attributeValue[index] = value
-
-        def to_string(self):
-            return " ".join(self.attributeValue)
-
-        def is_empty(self):
-            return False if True in self.enabledAttributes else True
-
-        def list_to_attribut(self, attrs):
-            self.attributeValue = attrs
-
-        def render_attribute(self, template) -> str:
-            print(template.find(Placeholder.content.value))
-            if self.isEmpty():
-                pass
-            else:
-                for i, value, activated in enumerate(zip(self.attributeValue, self.activatedAttributes)):
-                    if value:
-                        placeholder, prefix = self._placeholder_mapping(
-                            activated)
-                        if template.find(placeholder) != -1:
-                            template = template.replace(
-                                placeholder, "" if value == None else (prefix+value))
-            return template
-
-        def _placeholder_mapping(self, activated):
-            if activated == AttributeSet.font_color:
-                return Placeholder.color.value, "text-"
-            elif activated == AttributeSet.bg_color:
-                return Placeholder.bg_color.value, "bg-"
-            elif activated == AttributeSet.content:
-                return Placeholder.content.value, ""

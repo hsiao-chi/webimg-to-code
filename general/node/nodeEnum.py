@@ -18,13 +18,10 @@ class LeafKey(Enum):
     title = 'title'
     icon = 'icon'
 
-class AttributeSet(Enum):
-    font_color = Color
-    bg_color = Color
-    content = 'string'
 
 
-class Color(Enum):
+
+class Font_color(Enum):
     primary = 'primary'
     success = 'success'
     warning = 'warning'
@@ -35,6 +32,21 @@ class Color(Enum):
     secondary = 'secondary'
     # white = 'white'
 
+class Bg_color(Enum):
+    primary = 'primary'
+    success = 'success'
+    warning = 'warning'
+    danger = 'dander'
+    info = 'info'
+    dark = 'dark'
+    # light = 'light'
+    secondary = 'secondary'
+    # white = 'white'
+    
+class AttributeSet(Enum):
+    font_color = Font_color
+    bg_color = Bg_color
+    content = 'string'
 
 class Size(Enum):
     lg = 'lg'

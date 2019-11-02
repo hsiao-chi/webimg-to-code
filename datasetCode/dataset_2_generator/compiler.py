@@ -1,14 +1,17 @@
 import json
 from general.node.nodeModel import Node, Attribute
-from general.node.nodeEnum import RootKey, NodeKey, LeafKey, Color, Tag
+from general.node.nodeEnum import RootKey, NodeKey, LeafKey, Font_color, Bg_color, Tag
+from datasetCode.dataset_2_generator.generateRule import getRule
 
 
 
 
 class Compiler:
-    def __init__(self, mapping_file_path, node_tree=Node(RootKey.body.value, None, Attribute(None, None, None))):
+    def __init__(self, mapping_file_path, rule=1, node_tree=Node(RootKey.body.value, None, Attribute())):
         with open(mapping_file_path) as data_file:
             self.html_mapping = json.load(data_file)
+        self.rule = getRule(rule)
+        self.activatedAttributes = self.rule["attributes"]
         self.node_tree = node_tree
         self.node_opening_tag = Tag.node_opening.value
         self.node_closing_tag = Tag.node_closing.value
@@ -16,7 +19,7 @@ class Compiler:
         self.attr_closing_tag = Tag.attr_closing.value
 
     def dsl_to_node_tree(self, dsl_file_path) -> Node:
-        self.node_tree = Node(RootKey.body.value, None, Attribute())
+        self.node_tree = Node(RootKey.body.value, None, Attribute(self.activatedAttributes, self.rule[RootKey.body.value]["attributes"]))
         depth = 1
         dsl = []
         with open(dsl_file_path, 'r') as dsl_file:
@@ -43,7 +46,7 @@ class Compiler:
                 if in_attr_flag:
                     attr.append(token)
                 else:
-                    current_node = Node(token, current_parent_node, Attribute(), depth)
+                    current_node = Node(token, current_parent_node, Attribute(self.activatedAttributes, self.rule[token]["attributes"]), depth)
                     current_parent_node.add_child(current_node)
             # print("now Deep: ", depth, "  current_parent: ", current_parent_node.key, "  current: ", current_node, "now_attr: ", attr)
         return self.node_tree

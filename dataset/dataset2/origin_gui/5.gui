@@ -1,0 +1,215 @@
+row { 
+	col { 
+		row { 
+			col { 
+				title [ warning None "Exadxcb Bn" ] 
+				text [ dark None "Zi Iptuqrf" ] 
+				button [ None warning None ] { 
+					text [ primary None "Cg Gc" ] 
+				} 
+			} 
+			col { 
+				title [ primary None "Rqe Emtaej" ] 
+				text [ secondary None "Gj Jizajlu" ] 
+				button [ None primary None ] { 
+					text [ success None "Fh He" ] 
+				} 
+			} 
+		} 
+	} 
+	col { 
+		row { 
+			col { 
+				title [ primary None "Ccxho Ogpc" ] 
+				text [ primary None "Jwx Xqhxbq" ] 
+				button [ None warning None ] { 
+					text [ warning None "By Ys" ] 
+				} 
+			} 
+			col { 
+				title [ warning None "Cetx Xxido" ] 
+				text [ info None "Kjv Vjafkd" ] 
+				button [ None info None ] { 
+					text [ primary None "Ct Tm" ] 
+				} 
+			} 
+		} 
+	} 
+} 
+row { 
+	col { 
+		title [ dark None "Efzvt Tbdf" ] 
+		text [ secondary None "Bnfmw Wzru" ] 
+		button [ None info None ] { 
+			text [ primary None "Fm Mp" ] 
+		} 
+	} 
+	col { 
+		title [ info None "Ohkrjcm Mb" ] 
+		text [ success None "Jndjgo Odf" ] 
+		button [ None info None ] { 
+			text [ success None "Gb Bl" ] 
+		} 
+	} 
+} 
+row { 
+	col { 
+		title [ dark None "Thncrk Khi" ] 
+		text [ dark None "Tuplhc Cmr" ] 
+		button [ None primary None ] { 
+			text [ info None "Re Er" ] 
+		} 
+	} 
+	col { 
+		title [ secondary None "Wlohncs Sm" ] 
+		text [ secondary None "Jxmuu Uada" ] 
+		button [ None dander None ] { 
+			text [ success None "Xv Vw" ] 
+		} 
+	} 
+	col { 
+		row { 
+			col { 
+				title [ success None "Taltodz Zh" ] 
+				text [ dark None "Gbqg Gdqtq" ] 
+				button [ None primary None ] { 
+					text [ dander None "Ij Ji" ] 
+				} 
+			} 
+			col { 
+				title [ dander None "Mi Iexcack" ] 
+				text [ dark None "Cracpe Eic" ] 
+				button [ None primary None ] { 
+					text [ warning None "Ih Ha" ] 
+				} 
+			} 
+		} 
+	} 
+	col { 
+		row { 
+			col { 
+				title [ info None "Xotrib Bhq" ] 
+				text [ warning None "Thhnqx Xri" ] 
+				button [ None secondary None ] { 
+					text [ info None "Vs Si" ] 
+				} 
+			} 
+			col { 
+				title [ info None "Rc Cdyimsm" ] 
+				text [ primary None "Nxv Vxfoqs" ] 
+				button [ None success None ] { 
+					text [ secondary None "Ch Hh" ] 
+				} 
+			} 
+			col { 
+				title [ info None "Oye Eqobft" ] 
+				text [ warning None "Yxukai Ila" ] 
+				button [ None secondary None ] { 
+					text [ info None "Ps Sb" ] 
+				} 
+			} 
+			col { 
+				title [ success None "Kjvtu Ubdu" ] 
+				text [ success None "Opoksz Zhz" ] 
+				button [ None secondary None ] { 
+					text [ warning None "Sy Yl" ] 
+				} 
+			} 
+		} 
+	} 
+} 
+row { 
+	col { 
+		row { 
+			col { 
+				title [ primary None "Buk Kbzvzo" ] 
+				text [ warning None "Ge Erbstcp" ] 
+				button [ None success None ] { 
+					text [ secondary None "Rr Ry" ] 
+				} 
+			} 
+			col { 
+				title [ primary None "Qs Szygvlz" ] 
+				text [ info None "Dwa Affnfd" ] 
+				button [ None warning None ] { 
+					text [ primary None "Xz Zz" ] 
+				} 
+			} 
+			col { 
+				title [ primary None "Nvoo Osljh" ] 
+				text [ success None "Cver Rcahj" ] 
+				button [ None dander None ] { 
+					text [ dark None "An No" ] 
+				} 
+			} 
+		} 
+	} 
+	col { 
+		row { 
+			col { 
+				title [ info None "Wfghqs Snd" ] 
+				text [ info None "Ec Cplhbja" ] 
+				button [ None secondary None ] { 
+					text [ success None "Wb Bh" ] 
+				} 
+			} 
+			col { 
+				title [ dark None "Deopwh Huw" ] 
+				text [ dark None "Tngofsj Jz" ] 
+				button [ None success None ] { 
+					text [ success None "Oi Iv" ] 
+				} 
+			} 
+		} 
+	} 
+	col { 
+		row { 
+			col { 
+				title [ warning None "Nd Dmurzpk" ] 
+				text [ info None "Dwt Twttid" ] 
+				button [ None primary None ] { 
+					text [ secondary None "Xp Pa" ] 
+				} 
+			} 
+			col { 
+				title [ dander None "Awzi Idfnp" ] 
+				text [ dark None "Ahfajes Sv" ] 
+				button [ None dark None ] { 
+					text [ primary None "Vf Fh" ] 
+				} 
+			} 
+			col { 
+				title [ secondary None "Ixklo Olbt" ] 
+				text [ warning None "Kp Ptcddnm" ] 
+				button [ None info None ] { 
+					text [ info None "Fq Qc" ] 
+				} 
+			} 
+		} 
+	} 
+	col { 
+		row { 
+			col { 
+				title [ info None "Hrw Wfkguw" ] 
+				text [ warning None "Djbtwtz Zr" ] 
+				button [ None dander None ] { 
+					text [ success None "Xn Nh" ] 
+				} 
+			} 
+			col { 
+				title [ secondary None "Fusj Junbu" ] 
+				text [ warning None "Ztz Zohius" ] 
+				button [ None dander None ] { 
+					text [ warning None "Gu Uy" ] 
+				} 
+			} 
+			col { 
+				title [ warning None "Bjhswku Ug" ] 
+				text [ warning None "Gmlrki Izl" ] 
+				button [ None primary None ] { 
+					text [ info None "Sp Pn" ] 
+				} 
+			} 
+		} 
+	} 
+} 
