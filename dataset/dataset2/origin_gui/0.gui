@@ -1,0 +1,66 @@
+row { 
+	col { 
+		title [ dark None "Yde Ecsamg" ] 
+		text [ primary None "Tc Ckyigam" ] 
+		button [ None warning None ] { 
+			text [ success None "Fffud" ] 
+		} 
+	} 
+	col { 
+		row { 
+			col { 
+				title [ dark None "Jhxxu Unsg" ] 
+				text [ info None "Th Hueddgl" ] 
+				button [ None danger None ] { 
+					text [ warning None "Ofakq" ] 
+				} 
+			} 
+			col { 
+				title [ success None "Ed Dsvflfz" ] 
+				text [ warning None "Lotxf Fynp" ] 
+				button [ None secondary None ] { 
+					text [ success None "Kflkt" ] 
+				} 
+			} 
+			col { 
+				title [ primary None "Eqygy Ytat" ] 
+				text [ secondary None "Pipin Nlje" ] 
+				button [ None info None ] { 
+					text [ info None "Puagu" ] 
+				} 
+			} 
+			col { 
+				title [ success None "Tskfa Aenn" ] 
+				text [ success None "Id Defnipl" ] 
+				button [ None warning None ] { 
+					text [ warning None "Wdvld" ] 
+				} 
+			} 
+		} 
+	} 
+	col { 
+		row { 
+			col { 
+				title [ success None "Cms Spgpxf" ] 
+				text [ secondary None "Jp Pkuucbj" ] 
+				button [ None secondary None ] { 
+					text [ danger None "Ltsut" ] 
+				} 
+			} 
+			col { 
+				title [ warning None "Ss Sfuhzsq" ] 
+				text [ secondary None "Ugdwq Qsaj" ] 
+				button [ None info None ] { 
+					text [ info None "Micxp" ] 
+				} 
+			} 
+		} 
+	} 
+	col { 
+		title [ success None "Cjjnzwf Fa" ] 
+		text [ danger None "Hb Btsjwzc" ] 
+		button [ None success None ] { 
+			text [ success None "Kydjn" ] 
+		} 
+	} 
+} 

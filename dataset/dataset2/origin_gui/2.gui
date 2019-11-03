@@ -1,0 +1,184 @@
+row { 
+	col { 
+		row { 
+			col { 
+				title [ secondary None "Jqo Orypmy" ] 
+				text [ success None "Az Ztbumkh" ] 
+				button [ None success None ] { 
+					text [ warning None "Gmlua" ] 
+				} 
+			} 
+			col { 
+				title [ warning None "Ysog Gkfgx" ] 
+				text [ danger None "Dcpeo Orgw" ] 
+				button [ None danger None ] { 
+					text [ dark None "Fmcnp" ] 
+				} 
+			} 
+			col { 
+				title [ info None "Mzchm Mmmg" ] 
+				text [ dark None "Shbnre Eue" ] 
+				button [ None info None ] { 
+					text [ info None "Uwdum" ] 
+				} 
+			} 
+			col { 
+				title [ warning None "Obl Ltzoki" ] 
+				text [ warning None "Vai Ibzrcb" ] 
+				button [ None primary None ] { 
+					text [ warning None "Deqws" ] 
+				} 
+			} 
+		} 
+	} 
+	col { 
+		title [ danger None "Skhutk Kzi" ] 
+		text [ info None "Cbb Bptwdd" ] 
+		button [ None success None ] { 
+			text [ success None "Dgxnk" ] 
+		} 
+	} 
+	col { 
+		title [ info None "Xiw Wgbzwq" ] 
+		text [ success None "An Nwqejip" ] 
+		button [ None warning None ] { 
+			text [ dark None "Gmqnh" ] 
+		} 
+	} 
+} 
+row { 
+	col { 
+		row { 
+			col { 
+				title [ primary None "Rjrajq Qbj" ] 
+				text [ secondary None "Epkid Denq" ] 
+				button [ None danger None ] { 
+					text [ success None "Otakv" ] 
+				} 
+			} 
+			col { 
+				title [ warning None "Ckpnkww Wg" ] 
+				text [ secondary None "Lk Kzsufip" ] 
+				button [ None success None ] { 
+					text [ warning None "Mwqyi" ] 
+				} 
+			} 
+		} 
+	} 
+	col { 
+		title [ info None "Jcfjm Mnuw" ] 
+		text [ danger None "Slp Pfzpyq" ] 
+		button [ None dark None ] { 
+			text [ primary None "Fcvyq" ] 
+		} 
+	} 
+	col { 
+		row { 
+			col { 
+				title [ warning None "Cnus Slhtl" ] 
+				text [ success None "Veho Orldu" ] 
+				button [ None danger None ] { 
+					text [ primary None "Ndhly" ] 
+				} 
+			} 
+			col { 
+				title [ primary None "Exbza Aacj" ] 
+				text [ warning None "Bic Cfhzsl" ] 
+				button [ None secondary None ] { 
+					text [ info None "Hxbva" ] 
+				} 
+			} 
+			col { 
+				title [ warning None "Jmqcq Qedf" ] 
+				text [ secondary None "Zsb Bhzhrn" ] 
+				button [ None primary None ] { 
+					text [ secondary None "Wevoi" ] 
+				} 
+			} 
+		} 
+	} 
+} 
+row { 
+	col { 
+		title [ info None "Nzzrxid Dh" ] 
+		text [ warning None "Yplo Oekct" ] 
+		button [ None secondary None ] { 
+			text [ warning None "Rjsum" ] 
+		} 
+	} 
+	col { 
+		row { 
+			col { 
+				title [ primary None "Lpeetv Vwf" ] 
+				text [ primary None "Dwh Huiegi" ] 
+				button [ None secondary None ] { 
+					text [ danger None "Fbspz" ] 
+				} 
+			} 
+			col { 
+				title [ info None "Fwqvc Csrl" ] 
+				text [ danger None "Zr Rflwnwz" ] 
+				button [ None secondary None ] { 
+					text [ primary None "Fgldf" ] 
+				} 
+			} 
+		} 
+	} 
+	col { 
+		row { 
+			col { 
+				title [ secondary None "Lmuhwyc Ca" ] 
+				text [ success None "Otbcdw Wra" ] 
+				button [ None success None ] { 
+					text [ danger None "Daurn" ] 
+				} 
+			} 
+			col { 
+				title [ warning None "Uepf Fmgfn" ] 
+				text [ primary None "Mropar Rzd" ] 
+				button [ None info None ] { 
+					text [ dark None "Kxxxz" ] 
+				} 
+			} 
+			col { 
+				title [ success None "Ff Fkscbka" ] 
+				text [ secondary None "Mivzg Gvok" ] 
+				button [ None danger None ] { 
+					text [ secondary None "Ucuzu" ] 
+				} 
+			} 
+		} 
+	} 
+	col { 
+		row { 
+			col { 
+				title [ secondary None "Sjvjr Ryqm" ] 
+				text [ info None "Rr Rcfasnd" ] 
+				button [ None danger None ] { 
+					text [ success None "Vspeu" ] 
+				} 
+			} 
+			col { 
+				title [ primary None "Euegp Pewt" ] 
+				text [ dark None "Ubnplef Fb" ] 
+				button [ None dark None ] { 
+					text [ danger None "Najix" ] 
+				} 
+			} 
+			col { 
+				title [ dark None "Lnzkz Zwki" ] 
+				text [ dark None "Njhkyw Wyi" ] 
+				button [ None dark None ] { 
+					text [ dark None "Dvlrr" ] 
+				} 
+			} 
+			col { 
+				title [ dark None "Sxyufrv Vc" ] 
+				text [ secondary None "Vdn Ndqosx" ] 
+				button [ None success None ] { 
+					text [ primary None "Kmxpo" ] 
+				} 
+			} 
+		} 
+	} 
+} 

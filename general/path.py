@@ -24,7 +24,10 @@ PIX2CODE_ORIGIN_DATASET = 'E:\\projects\\webGener\\pix2code\\datasets\\pix2code_
 DATASET2_ASSESTS = 'E:\\projects\\NTUST\\webimg-to-code\\datasetCode\\dataset_2_generator\\assests\\'
 DATASET2_ORIGIN_GUI = 'E:\\projects\\NTUST\\webimg-to-code\\dataset\\dataset2\\origin_gui\\'
 DATASET2_ORIGIN_HTML = 'E:\\projects\\NTUST\\webimg-to-code\\dataset\\dataset2\\origin_html\\'
+DATASET2_ORIGIN_PNG = 'E:\\projects\\NTUST\\webimg-to-code\\dataset\\dataset2\\origin_png\\'
 DATASET2_ROWCOL_GUI = 'E:\\projects\\NTUST\\webimg-to-code\\dataset\\dataset2\\row_col_gui\\'
 DATASET2_ROWCOL_IMG = 'E:\\projects\\NTUST\\webimg-to-code\\dataset\\dataset2\\row_col_png\\'
+
+# DATASET2_ORIGIN_PNG_PATH = 'E:\\projects\\NTUST\\webimg-to-code\\dataset\\dataset2\\origin_png'
 
 DATASET2_DSL_MAPPING_JSON_FILE = 'E:\\projects\\NTUST\\webimg-to-code\\datasetCode\\dataset_2_generator\\mapping\\web-dsl-mapping.json'
