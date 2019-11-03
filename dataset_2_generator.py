@@ -11,18 +11,18 @@ import os
 if __name__ == "__main__":
     rule = getRule()
     generator = NodeTreeGenerator()
-    for i in range(5, 6):
+    for i in range(0, 3):
         root = Node(RootKey.body.value, None, Attribute(rule["attributes"], rule[RootKey.body.value]["attributes"]))
         tree = generator.generateNodeTree(root, 0)
         compiler = Compiler(path.DATASET2_DSL_MAPPING_JSON_FILE, 1, tree)
         compiler.node_tree_to_dsl(path.DATASET2_ORIGIN_GUI+str(i)+TYPE.GUI)
         compiler.node_tree_to_dsl(path.DATASET2_ROWCOL_GUI+str(i)+TYPE.GUI, True)
-
+        html = compiler.node_tree_to_html(path.DATASET2_ORIGIN_HTML+str(i)+TYPE.HTML, str(i))
+        # print(html)
     # data_file_length = len(os.listdir(path.DATASET2_ORIGIN_GUI))
     # # for i in range(data_file_length):
-    # compiler = Compiler(path.DATASET2_DSL_MAPPING_JSON_FILE, getRule())
-    # tree = compiler.dsl_to_node_tree(path.DATASET2_ORIGIN_GUI+str(1)+TYPE.GUI)
+    # compiler = Compiler(path.DATASET2_DSL_MAPPING_JSON_FILE, 1)
+    # tree = compiler.dsl_to_node_tree(path.DATASET2_ORIGIN_GUI+str(5)+TYPE.GUI)
     # print(tree.show())
-    # html = compiler.node_tree_to_html(path.DATASET2_ORIGIN_HTML+str(1)+TYPE.HTML, str(1))
+    # html = compiler.node_tree_to_html(path.DATASET2_ORIGIN_HTML+str(5)+TYPE.HTML, str(5))
     # print(html)
-    pass

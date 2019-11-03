@@ -25,7 +25,7 @@ class Font_color(Enum):
     primary = 'primary'
     success = 'success'
     warning = 'warning'
-    danger = 'dander'
+    danger = 'danger'
     info = 'info'
     dark = 'dark'
     # light = 'light'
@@ -36,7 +36,7 @@ class Bg_color(Enum):
     primary = 'primary'
     success = 'success'
     warning = 'warning'
-    danger = 'dander'
+    danger = 'danger'
     info = 'info'
     dark = 'dark'
     # light = 'light'
@@ -68,3 +68,4 @@ class Placeholder(Enum):
     size = '$size'
     content = '$content'
     leaf_col = '$leaf_col'
+    col = "$col"

@@ -26,20 +26,20 @@ class Attribute:
         else:
             for value, activated in zip(self.attributeValue, self.activatedAttributes):
                 if value:
-                    placeholder, prefix = self._placeholder_mapping(
-                        activated)
+                    placeholder, data = self._placeholder_mapping(
+                        activated, value)
                     if template.find(placeholder) != -1:
                         template = template.replace(
-                            placeholder, "" if value == None else (prefix+value))
+                            placeholder, "" if value == None else data)
         return template
 
-    def _placeholder_mapping(self, activated):
+    def _placeholder_mapping(self, activated, value):
         if activated == AttributeSet.font_color:
-            return Placeholder.color.value, "text-"
+            return Placeholder.color.value, "text-"+value
         elif activated == AttributeSet.bg_color:
-            return Placeholder.bg_color.value, "bg-"
+            return Placeholder.bg_color.value, "bg-"+value
         elif activated == AttributeSet.content:
-            return Placeholder.content.value, ""
+            return Placeholder.content.value, value[1:-1]
 
 class Node:
     def __init__(self, key, parent_node, attributes: Attribute, depth=0):
@@ -135,7 +135,7 @@ class Node:
             content += child.toHTML(mapping)
         template = mapping[self._get_template_type()]
         template = self.attributes.render_attribute(template)
-        template = self._set_col_bg_color(template)
+        # template = self._set_col_class(template)
         template = self._set_data_title(template, file_name)
 
         if len(self.children) != 0:
@@ -148,15 +148,20 @@ class Node:
                 return 'span_text'
             else:
                 return self.key
-        return self.key
-
-    def _set_col_bg_color(self, template):
         if self.key == NodeKey.col.value:
             if NodeKey.row.value in [node.key for node in self.children]:
-                template = template.replace(Placeholder.leaf_col.value, "")
+                return 'col'
+            else:
+                return 'leaf_col'
+        return self.key
+
+    def _set_col_class(self, template):
+        if self.key == NodeKey.col.value:
+            if NodeKey.row.value in [node.key for node in self.children]:
+                template = template.replace(Placeholder.col.value, "col-auto")
             else:
                 template = template.replace(
-                    Placeholder.leaf_col.value, "leaf-col")
+                    Placeholder.col.value, "col leaf-col")
         return template
 
     def _set_data_title(self, template, file_name):

@@ -87,7 +87,11 @@ class NodeTreeGenerator:
             value = None
             if enabled:
                 if attribute.activatedAttributes[i] == AttributeSet.content:
-                    value = "\"" + get_random_text(5 if parent_node.key == NodeKey.button.value else 10 ) + "\""
+                    if parent_node.key == NodeKey.button.value:
+                        value = "\"" + get_random_text(5, 0) + "\""
+                    else:
+                        value = "\"" + get_random_text(10) + "\""
+
                 else:
                     value = random.choice(list(attribute.activatedAttributes[i].value)).value
                 attribute.assign_value(i, value)
