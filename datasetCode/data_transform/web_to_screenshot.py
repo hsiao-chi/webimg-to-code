@@ -24,11 +24,13 @@ class Webscreenshooter():
 
 
 def webscreenshoot(urls: list, output_dir):
+    output_file_list = []
     ws = Webscreenshooter()
     for url in urls:
         output_path, file_name = ws.gen_output_path(url, output_dir)
         ws.take_screenshot(url, output_path)
-        print(output_path, file_name)
+        output_file_list.append(output_path)
+    return output_file_list
 
 
 

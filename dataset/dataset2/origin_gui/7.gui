@@ -1,0 +1,169 @@
+row { 
+	col { 
+		row { 
+			col { 
+				title [ dark None "Dfuidc Cgr" ] 
+				text [ dark None "Ie Evtaqtk" ] 
+				button [ None primary None ] { 
+					text [ dark None "Tjtju" ] 
+				} 
+			} 
+			col { 
+				title [ dark None "Kpu Ufzkzg" ] 
+				text [ dark None "Ge Egriaue" ] 
+				button [ None danger None ] { 
+					text [ dark None "Czsbq" ] 
+				} 
+			} 
+			col { 
+				title [ dark None "Jgweuv Vsg" ] 
+				text [ dark None "Fmlkd Dtel" ] 
+				button [ None success None ] { 
+					text [ dark None "Nggvs" ] 
+				} 
+			} 
+			col { 
+				title [ dark None "Aoxg Gsdvp" ] 
+				text [ dark None "Lwmnb Bblz" ] 
+				button [ None warning None ] { 
+					text [ dark None "Shlgf" ] 
+				} 
+			} 
+		} 
+	} 
+	col { 
+		row { 
+			col { 
+				title [ dark None "Otclqtx Xn" ] 
+				text [ dark None "Oxyho Oxri" ] 
+				button [ None warning None ] { 
+					text [ dark None "Dlvaf" ] 
+				} 
+			} 
+			col { 
+				title [ dark None "Zhbbvty Yo" ] 
+				text [ dark None "Sfb Beacsl" ] 
+				button [ None secondary None ] { 
+					text [ dark None "Wlcrt" ] 
+				} 
+			} 
+			col { 
+				title [ dark None "Reiqr Rgvd" ] 
+				text [ dark None "Cmsm Mgtvw" ] 
+				button [ None info None ] { 
+					text [ dark None "Rvdnx" ] 
+				} 
+			} 
+			col { 
+				title [ dark None "Fja Afdfko" ] 
+				text [ dark None "Ie Eyqgbzc" ] 
+				button [ None primary None ] { 
+					text [ dark None "Nakmk" ] 
+				} 
+			} 
+		} 
+	} 
+	col { 
+		title [ dark None "Gsyaf Fbry" ] 
+		text [ dark None "Sjxqex Xde" ] 
+		button [ None info None ] { 
+			text [ dark None "Iakbp" ] 
+		} 
+	} 
+	col { 
+		title [ dark None "Pofrb Bcuu" ] 
+		text [ dark None "Ieylvbn Nz" ] 
+		button [ None info None ] { 
+			text [ dark None "Yyytg" ] 
+		} 
+	} 
+} 
+row { 
+	col { 
+		title [ dark None "Dzjmfi Itm" ] 
+		text [ dark None "Eztcpc Cez" ] 
+		button [ None danger None ] { 
+			text [ dark None "Enztm" ] 
+		} 
+	} 
+	col { 
+		row { 
+			col { 
+				title [ dark None "Zz Zgadjlh" ] 
+				text [ dark None "Xam Mteqkv" ] 
+				button [ None danger None ] { 
+					text [ dark None "Xawdy" ] 
+				} 
+			} 
+			col { 
+				title [ dark None "Gjngc Cami" ] 
+				text [ dark None "Vrzfpkn Ng" ] 
+				button [ None info None ] { 
+					text [ dark None "Obtdd" ] 
+				} 
+			} 
+			col { 
+				title [ dark None "Ed Dvnbtei" ] 
+				text [ dark None "Cdltxk Kqz" ] 
+				button [ None danger None ] { 
+					text [ dark None "Ktrkl" ] 
+				} 
+			} 
+		} 
+	} 
+	col { 
+		title [ dark None "Yjcrlaa Ap" ] 
+		text [ dark None "Bp Pzouhtn" ] 
+		button [ None primary None ] { 
+			text [ dark None "Khfre" ] 
+		} 
+	} 
+} 
+row { 
+	col { 
+		title [ dark None "Ncslif Fjp" ] 
+		text [ dark None "Kt Tyguufu" ] 
+		button [ None secondary None ] { 
+			text [ dark None "Midnj" ] 
+		} 
+	} 
+	col { 
+		title [ dark None "Cnipnj Jir" ] 
+		text [ dark None "Dubun Nsdh" ] 
+		button [ None primary None ] { 
+			text [ dark None "Swtrs" ] 
+		} 
+	} 
+	col { 
+		row { 
+			col { 
+				title [ dark None "Xu Ulafllx" ] 
+				text [ dark None "Qrcgxd Dpz" ] 
+				button [ None success None ] { 
+					text [ dark None "Rzsoh" ] 
+				} 
+			} 
+			col { 
+				title [ dark None "Uwvwdma Ah" ] 
+				text [ dark None "Edo Oowqhf" ] 
+				button [ None info None ] { 
+					text [ dark None "Sngej" ] 
+				} 
+			} 
+			col { 
+				title [ dark None "Jaw Wcchdm" ] 
+				text [ dark None "Jdpk Kctad" ] 
+				button [ None secondary None ] { 
+					text [ dark None "Ixsxv" ] 
+				} 
+			} 
+		} 
+	} 
+	col { 
+		title [ dark None "Samuhj Jkk" ] 
+		text [ dark None "Ezwol Lrmj" ] 
+		button [ None secondary None ] { 
+			text [ dark None "Vkryh" ] 
+		} 
+	} 
+} 

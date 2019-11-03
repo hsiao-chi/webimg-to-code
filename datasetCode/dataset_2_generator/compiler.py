@@ -29,7 +29,6 @@ class Compiler:
         in_attr_flag = False
         attr = []
         for token in dsl:
-            # print(token)
             if token == self.node_opening_tag:
                 current_parent_node = current_node
                 depth +=1
@@ -48,7 +47,6 @@ class Compiler:
                 else:
                     current_node = Node(token, current_parent_node, Attribute(self.activatedAttributes, self.rule[token]["attributes"]), depth)
                     current_parent_node.add_child(current_node)
-            # print("now Deep: ", depth, "  current_parent: ", current_parent_node.key, "  current: ", current_node, "now_attr: ", attr)
         return self.node_tree
             
     def _reconstruct_attr_block(self, attr) -> list:

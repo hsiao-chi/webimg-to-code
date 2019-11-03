@@ -22,14 +22,14 @@ class LeafKey(Enum):
 
 
 class Font_color(Enum):
-    primary = 'primary'
-    success = 'success'
-    warning = 'warning'
-    danger = 'danger'
-    info = 'info'
+    # primary = 'primary'
+    # success = 'success'
+    # warning = 'warning'
+    # danger = 'danger'
+    # info = 'info'
     dark = 'dark'
     # light = 'light'
-    secondary = 'secondary'
+    # secondary = 'secondary'
     # white = 'white'
 
 class Bg_color(Enum):
@@ -38,7 +38,7 @@ class Bg_color(Enum):
     warning = 'warning'
     danger = 'danger'
     info = 'info'
-    dark = 'dark'
+    # dark = 'dark'
     # light = 'light'
     secondary = 'secondary'
     # white = 'white'

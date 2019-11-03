@@ -5,16 +5,15 @@ import cv2
 import numpy as np
 import general.path as path
 import general.dataType as TYPE
-from general.util import createFolder, readFile, writeFile
+from general.util import createFolder, readFile, writeFile, write_file
 
 
-def convert2RowCol(img):
+def convert2RowCol(img, filter_last: bool=False):
     ret, thresh = cv2.threshold(img, 180, 255, cv2.THRESH_BINARY_INV)
     kernel = np.ones((5, 20), np.uint8)
     convert = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, kernel)
     image, contours, hierarchy = cv2.findContours(
         convert, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    # print(np.size(contours))
     lastX, lastY, lastW, lastH = 0, 0, 0, 0
     lastIdx = 0
     detectionList = []
@@ -23,14 +22,12 @@ def convert2RowCol(img):
         if y > lastY:
             lastX, lastY, lastW, lastH = x, y, w, h
             lastIdx = i
-            # print(lastX, lastY)
-        # print(x, y)
         detectionList.append([0, x, y, w, h])
         cv2.rectangle(thresh, (x, y), (x+w, y+h), 255, -1)
-    # print(lastX, lastY)
-    if lastIdx < len(detectionList):
-        del detectionList[lastIdx]
-    cv2.rectangle(thresh, (lastX, lastY), (lastX+lastW, lastY+lastH), 0, -1)
+    if filter_last:
+        if lastIdx < len(detectionList):
+            del detectionList[lastIdx]
+        cv2.rectangle(thresh, (lastX, lastY), (lastX+lastW, lastY+lastH), 0, -1)
     sortedList = sorted(detectionList, key=lambda l: l[0])
     sortedList = sorted(sortedList, key=lambda l: l[1])
 
@@ -44,6 +41,21 @@ def toYoloPosition(imgWidth, imgHigh, positions):
         yoloPosition.append([element[0], int(element[1])/imgWidth,
                              int(element[2])/imgHigh, int(element[3])/imgWidth, int(element[4])/imgHigh])
     return yoloPosition
+
+def to_yolo_position_from_2dim_list(imgWidth, imgHigh, positions):
+    yoloPosition = []
+    for position in positions:
+        yoloPosition.append([position[0], int(position[1])/imgWidth,
+                             int(position[2])/imgHigh, int(position[3])/imgWidth, int(position[4])/imgHigh])
+    return yoloPosition
+
+def convert_to_position_and_rowcol_img(img_path, output_position_path, output_img_path):
+    img = cv2.imread(img_path, 0)
+    detectionList, rolColImg = convert2RowCol(img)
+    yolo_position_list = to_yolo_position_from_2dim_list(img.shape[0], img.shape[1], detectionList)
+    write_file(yolo_position_list, output_position_path, 2 )
+    cv2.imwrite(output_img_path, rolColImg )
+
 
 
 if __name__ == "__main__":
