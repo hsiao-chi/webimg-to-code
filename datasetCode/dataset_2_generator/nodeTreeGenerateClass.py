@@ -12,7 +12,7 @@ class NodeTreeGenerator:
         self.attribute = self.rule["attributes"]
         # self.use_children_group = self.rule["use_children_group"]
         self.max_each_layer_node_num = self.rule["max_each_layer_node_num"]
-        print("max depth: ", self.max_depth, "  attribute: ", self.attribute, "  max each layer: ", self.max_each_layer_node_num)
+        # print("max depth: ", self.max_depth, "  attribute: ", self.attribute, "  max each layer: ", self.max_each_layer_node_num)
 
     def generateNodeTree(self, parent_node: Node, parent_depth):
         node = None
@@ -22,8 +22,8 @@ class NodeTreeGenerator:
         reciprocal_layer_layer = self.max_depth - parent_depth - 1
         brothers_limit = self.rule[parent_node.key]["children_brothers"]
         children_brother_node = None
-        print("-----\n", parent_node.key)
-        print("children len: ", len(self.rule[parent_node.key]["children"]), " / group: ", self.rule[parent_node.key]["children_group"] , " / reciprocal: ", (reciprocal_layer_layer))
+        # print("-----\n", parent_node.key)
+        # print("children len: ", len(self.rule[parent_node.key]["children"]), " / group: ", self.rule[parent_node.key]["children_group"] , " / reciprocal: ", (reciprocal_layer_layer))
         if ((self.rule[parent_node.key]["children_group"] == None) and len(self.rule[parent_node.key]["children"]) == 0) or (reciprocal_layer_layer < 0):
             return parent_node
 
@@ -31,7 +31,7 @@ class NodeTreeGenerator:
             
             if self.rule[parent_node.key]["children_group"]["enable"] == Operator.random:
                 children_group_flag = random.choice([False, True])
-                print("random group: ", children_group_flag)
+                # print("random group: ", children_group_flag)
             elif self.rule[parent_node.key]["children_group"]["enable"] == Operator.true:
                 children_group_flag = True
             if reciprocal_layer_layer <=1:
@@ -45,7 +45,7 @@ class NodeTreeGenerator:
                 if reciprocal_layer_layer in self.rule[node.value]["disabled_reciprocal_layer"]:
                     pool.remove(node)
 
-        print("children_group_flag: ", children_group_flag,"  pool num: ", len(pool))
+        # print("children_group_flag: ", children_group_flag,"  pool num: ", len(pool))
 
         if children_group_flag:
             children_num = len(pool)
@@ -57,7 +57,7 @@ class NodeTreeGenerator:
                     self.rule[parent_node.key]["children_quantity"]["value"], self.max_each_layer_node_num)
         else:
             children_num = random.randrange(1, self.max_each_layer_node_num)
-        print("children num: ", children_num)
+        # print("children num: ", children_num)
 
         for index in range(children_num):
             if children_group_flag:

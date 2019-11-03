@@ -6,31 +6,22 @@ from datasetCode.dataset_2_generator.generateRule import getRule
 from datasetCode.dataset_2_generator.nodeTreeGenerateClass import NodeTreeGenerator
 from datasetCode.dataset_2_generator.compiler import Compiler
 from datasetCode.data_transform.web_to_screenshot import webscreenshoot
+from datasetCode.data_transform.transform_to_row_col_position import convert_to_position_and_rowcol_img
 
 import os
 
 if __name__ == "__main__":
     rule = getRule()
     generator = NodeTreeGenerator()
-    for i in range(4,5):
+    for i in range(7,8):
         root = Node(RootKey.body.value, None, Attribute(rule["attributes"], rule[RootKey.body.value]["attributes"]))
         tree = generator.generateNodeTree(root, 0)
         compiler = Compiler(path.DATASET2_DSL_MAPPING_JSON_FILE, 1, tree)
         compiler.node_tree_to_dsl(path.DATASET2_ORIGIN_GUI+str(i)+TYPE.GUI)
         compiler.node_tree_to_dsl(path.DATASET2_ROWCOL_GUI+str(i)+TYPE.GUI, True)
         html = compiler.node_tree_to_html(path.DATASET2_ORIGIN_HTML+str(i)+TYPE.HTML, str(i))
-        webscreenshoot([path.DATASET2_ORIGIN_HTML+str(i)+TYPE.HTML], path.DATASET2_ORIGIN_PNG)
+        [web_img_path] = webscreenshoot([path.DATASET2_ORIGIN_HTML+str(i)+TYPE.HTML], path.DATASET2_ORIGIN_PNG)
+        convert_to_position_and_rowcol_img(web_img_path,
+                                       path.DATASET2_ROWCOL_YOLO_POSITION_TXT + str(i) + TYPE.TXT, path.DATASET2_ROWCOL_IMG + str(i) + TYPE.IMG)
 
-
-
-        # print(html)
-    # data_file_length = len(os.listdir(path.DATASET2_ORIGIN_GUI))
-    # # for i in range(data_file_length):
-    # compiler = Compiler(path.DATASET2_DSL_MAPPING_JSON_FILE, 1)
-    # tree = compiler.dsl_to_node_tree(path.DATASET2_ORIGIN_GUI+str(5)+TYPE.GUI)
-    # print(tree.show())
-    # html = compiler.node_tree_to_html(path.DATASET2_ORIGIN_HTML+str(5)+TYPE.HTML, str(5))
-    # print(html)
-
-
-
+        
