@@ -28,10 +28,12 @@ def convert2RowCol(img, filter_last: bool=False):
         if lastIdx < len(detectionList):
             del detectionList[lastIdx]
         cv2.rectangle(thresh, (lastX, lastY), (lastX+lastW, lastY+lastH), 0, -1)
-    sortedList = sorted(detectionList, key=lambda l: l[0])
-    sortedList = sorted(sortedList, key=lambda l: l[1])
+    detectionList.sort(key=lambda x: x[1])
+    detectionList.sort(key=lambda x: x[2])
+    # sortedList = sorted(detectionList, key=lambda l: l[1])
+    # sortedList = sorted(sortedList, key=lambda l: l[1])
 
-    return sortedList, thresh
+    return detectionList, thresh
 
 
 def toYoloPosition(imgWidth, imgHigh, positions):
@@ -45,6 +47,7 @@ def toYoloPosition(imgWidth, imgHigh, positions):
 def to_yolo_position_from_2dim_list(imgWidth, imgHigh, positions):
     yoloPosition = []
     for position in positions:
+        print(position)
         yoloPosition.append([position[0], int(position[1])/imgWidth,
                              int(position[2])/imgHigh, int(position[3])/imgWidth, int(position[4])/imgHigh])
     return yoloPosition
@@ -52,9 +55,10 @@ def to_yolo_position_from_2dim_list(imgWidth, imgHigh, positions):
 def convert_to_position_and_rowcol_img(img_path, output_position_path, output_img_path):
     img = cv2.imread(img_path, 0)
     detectionList, rolColImg = convert2RowCol(img)
-    yolo_position_list = to_yolo_position_from_2dim_list(img.shape[0], img.shape[1], detectionList)
+    yolo_position_list = to_yolo_position_from_2dim_list(img.shape[1], img.shape[0], detectionList)
     write_file(yolo_position_list, output_position_path, 2 )
     cv2.imwrite(output_img_path, rolColImg )
+    return rolColImg, yolo_position_list
 
 
 

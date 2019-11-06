@@ -28,6 +28,7 @@ DATASET2_ORIGIN_PNG = 'E:\\projects\\NTUST\\webimg-to-code\\dataset\\dataset2\\o
 DATASET2_ROWCOL_GUI = 'E:\\projects\\NTUST\\webimg-to-code\\dataset\\dataset2\\row_col_gui\\'
 DATASET2_ROWCOL_IMG = 'E:\\projects\\NTUST\\webimg-to-code\\dataset\\dataset2\\row_col_png\\'
 DATASET2_ROWCOL_YOLO_POSITION_TXT = 'E:\\projects\\NTUST\\webimg-to-code\\dataset\\dataset2\\row_col_yolo_position_txt\\'
+DATASET2_YOLO_POSITION_TXT = 'E:\\projects\\NTUST\\webimg-to-code\\dataset\\dataset2\\yolo_position_txt\\'
 
 # DATASET2_ORIGIN_PNG_PATH = 'E:\\projects\\NTUST\\webimg-to-code\\dataset\\dataset2\\origin_png'
 
