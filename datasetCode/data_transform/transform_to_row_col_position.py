@@ -47,14 +47,14 @@ def toYoloPosition(imgWidth, imgHigh, positions):
 def to_yolo_position_from_2dim_list(imgWidth, imgHigh, positions):
     yoloPosition = []
     for position in positions:
-        print(position)
+        # print(position)
         yoloPosition.append([position[0], int(position[1])/imgWidth,
                              int(position[2])/imgHigh, int(position[3])/imgWidth, int(position[4])/imgHigh])
     return yoloPosition
 
-def convert_to_position_and_rowcol_img(img_path, output_position_path, output_img_path):
+def convert_to_position_and_rowcol_img(img_path, output_position_path, output_img_path, filter_last=False):
     img = cv2.imread(img_path, 0)
-    detectionList, rolColImg = convert2RowCol(img)
+    detectionList, rolColImg = convert2RowCol(img, filter_last)
     yolo_position_list = to_yolo_position_from_2dim_list(img.shape[1], img.shape[0], detectionList)
     write_file(yolo_position_list, output_position_path, 2 )
     cv2.imwrite(output_img_path, rolColImg )

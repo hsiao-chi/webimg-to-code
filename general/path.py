@@ -17,6 +17,8 @@ DATASET1_ROWCOL_GUI = 'E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\r
 DATASET1_ROWCOL_PNG = 'E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\row-col-png\\'
 DATASET1_ROWCOL_POSITION_TXT = 'E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\row-col-position-txt\\'
 DATASET1_ROWCOL_YOLO_POSITION_TXT = 'E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\row-col-yolo-position-txt\\'
+DATASET1_YOLO_POSITION_TXT = 'E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\yolo-position-txt\\'
+DATASET1_FULL_YOLO_POSITION_TXT = 'E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\full-yolo-position-txt\\'
 DATASET1_ORIGIN_PNG = 'E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\origin-png\\'
 PIX2CODE_ORIGIN_DATASET = 'E:\\projects\\webGener\\pix2code\\datasets\\pix2code_datasets\\web\\all_data\\'
 
@@ -33,3 +35,6 @@ DATASET2_YOLO_POSITION_TXT = 'E:\\projects\\NTUST\\webimg-to-code\\dataset\\data
 # DATASET2_ORIGIN_PNG_PATH = 'E:\\projects\\NTUST\\webimg-to-code\\dataset\\dataset2\\origin_png'
 
 DATASET2_DSL_MAPPING_JSON_FILE = 'E:\\projects\\NTUST\\webimg-to-code\\datasetCode\\dataset_2_generator\\mapping\\web-dsl-mapping.json'
+
+
+DATASETCODE_ASSESTS = 'E:\\projects\\NTUST\\webimg-to-code\\datasetCode\\assests\\'
