@@ -36,7 +36,7 @@ class ManualTagClass(ttk.Frame):
         self.origin_img.grid(row=1, column=0, rowspan=7, columnspan=2, padx=5)
 
         imgtk = ImageTk.PhotoImage(Image.open(
-            'E:\\projects\\NTUST\\webimg-to-code\\datasetCode\\data_transform\\assest\\lay.jpg').resize((550, 360), Image.ANTIALIAS))
+            'E:\\projects\\NTUST\\webimg-to-code\\datasetCode\\data_transform\\assest\\xwz.jpg').resize((600, 337), Image.ANTIALIAS))
         lay = tk.Label(self, text="趙磊最棒", image=imgtk)
         lay.image = imgtk
         lay.grid(row=8, column=0, rowspan=7, columnspan=2, padx=5)
