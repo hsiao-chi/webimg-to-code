@@ -1,5 +1,7 @@
+from environment.environment import SELF, DATASET
+
 # class
-SELF = 'D:\\Chi\\webimg-to-code\\'
+# SELF = 'D:\\Chi\\webimg-to-code\\'
 CLASS_SEQ2SEQ_MODEL_GRAPH_FILE = SELF+'assets\\seq2seq-position\\seq2seq-model.png'
 
 CLASS_SEQ2SEQ_WEIGHT = SELF+'assets\\seq2seq-position\\weight\\'
@@ -12,7 +14,7 @@ CLASS_SEQ2SEQ_PREDIT_GUI_PATH = SELF+'assets\\seq2seq-position\\test-predit-gui\
 
 
 # DATASET
-DATASET = 'D:\\Chi\\dataset\\'
+# DATASET = 'D:\\Chi\\dataset\\'
 DATASET1_ASSEST = SELF+'transform_pix2code_dataset\\assest\\'
 DATASET1_ROWCOL_GUI = DATASET+'pix2code\\row-col-gui\\'
 DATASET1_ROWCOL_PNG = DATASET+'pix2code\\row-col-png\\'

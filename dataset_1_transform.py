@@ -22,17 +22,17 @@ if __name__ == "__main__":
     list1 = os.listdir(path.DATASET1_ORIGIN_PNG)
     num_total_data = len(list1)
 
-    to_yolo_training_file(path.DATASET1_ORIGIN_PNG, path.DATASET1_FULL_YOLO_POSITION_TXT, 150, path.DATASETCODE_ASSESTS+"pix2code_full_yolo"+TYPE.TXT)
+    # to_yolo_training_file(path.DATASET1_ORIGIN_PNG, path.DATASET1_FULL_YOLO_POSITION_TXT, 150, path.DATASETCODE_ASSESTS+"pix2code_full_yolo"+TYPE.TXT)
 
 
-    # for i in range(162,200):
-    #     root = tk.Tk()
-    #     app = ManualTagClass(root, buttonList, path.DATASET1_ORIGIN_PNG + str(i) + TYPE.IMG,
-    #                          path.DATASET1_ROWCOL_YOLO_POSITION_TXT + str(i) + TYPE.TXT, path.DATASET1_FULL_YOLO_POSITION_TXT + str(i)+TYPE.TXT)
-    #     root.mainloop()
+    for i in range(400,500):
+        root = tk.Tk()
+        app = ManualTagClass(root, buttonList, path.DATASET1_ORIGIN_PNG + str(i) + TYPE.IMG,
+                             path.DATASET1_ROWCOL_YOLO_POSITION_TXT + str(i) + TYPE.TXT, path.DATASET1_FULL_YOLO_POSITION_TXT + str(i)+TYPE.TXT)
+        root.mainloop()
 
-    #     if app.is_close():
-    #         break
+        if app.is_close():
+            break
 
     # -----------------------------------
         # detectionList, rolColImg = convert_to_position_and_rowcol_img(path.DATASET1_ORIGIN_PNG + str(i)+ TYPE.IMG, path.DATASET1_ROWCOL_YOLO_POSITION_TXT+str(i)+TYPE.TXT, path.DATASET1_ROWCOL_PNG+str(i)+TYPE.IMG, True)
