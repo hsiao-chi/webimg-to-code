@@ -56,7 +56,7 @@ def seq2seqTraining(encoder_input_data, decoder_input_data, decoder_target_token
     model.compile(optimizer='rmsprop', loss='categorical_crossentropy',
                   metrics=['accuracy'])
 
-    mc = callbacks.ModelCheckpoint(path.CLASS_SEQ2SEQ_MODEL_GRAPH_FILE + str(SEQ2SEQ_EPOCHES) +'\\' + 'seq2seq-weights{epoch:05d}.h5', 
+    mc = callbacks.ModelCheckpoint(path.CLASS_SEQ2SEQ_WEIGHT + str(SEQ2SEQ_EPOCHES) +'\\' + 'seq2seq-weights{epoch:05d}.h5', 
                                      save_weights_only=True, period=MODE_SAVE_PERIOD)
     history = model.fit([encoder_input_data, decoder_input_data], decoder_target_data,
               batch_size=BATCH_SIZE,

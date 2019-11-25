@@ -30,16 +30,19 @@ def writeFile(data, filePath, fileName, fileType, dataDim = 1):
         elif dataDim == 'JSON':
             file.write(json.dumps(data))
 
-def read_file(file_path, spType = 'splitlines' or 'splitBySpec'):
+def read_file(file_path, spType = 'noSplit' or 'splitlines' or 'splitBySpec'):
     data = None
     with open(file_path, 'r') as file:
         if spType == 'splitlines':
             data = file.read().splitlines()
         elif spType == 'splitBySpec':
             data = file.read().split()
+        elif spType == 'noSplit':
+            data = file.read()
     return data
 
 def write_file(data, file_path, dataDim = 1): 
+    directory = file_path.split('\\')
     with open(file_path, 'w+') as file:
         if dataDim == 0:
             file.write(data)

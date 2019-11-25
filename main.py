@@ -8,8 +8,9 @@ import random
 import general.path as path
 import general.dataType as TYPE
 from general.util import createFolder, readFile, writeFile, showLoss, showAccuracy
-from classes.model.layoutGenerator import seq2seqTraining
-from classes.data2Input import positionToSeq2SeqInput, SEQ2SEQ_EPOCHES
+from classes.model.layoutGenerator import seq2seqTraining, SEQ2SEQ_EPOCHES
+from classes.data2Input import positionToSeq2SeqInput
+
 
 """
 decoder_token = dict(), eg. {'{': 0, '}':1, 'row':2, 'col': 3, 'EOS': 4}
@@ -56,14 +57,30 @@ def seq2seq(input_seq, decoder_tokens, max_decoder_seq_length, encoder_model, de
 
 
 if __name__ == "__main__":
-    print(path.DATASET1_ROWCOL_YOLO_POSITION_TXT)
-    list1 = os.listdir(path.DATASET1_ROWCOL_YOLO_POSITION_TXT)
+    # SEQ2SEQ_EPOCHES = 2
+    print(path.DATASET1_FULL_YOLO_POSITION_TXT)
+    list1 = os.listdir(path.DATASET1_FULL_YOLO_POSITION_TXT)
     num_total_data = len(list1)
     
     createFolder(path.CLASS_SEQ2SEQ_PREDIT_GUI_PATH + str(SEQ2SEQ_EPOCHES))
     createFolder(path.CLASS_SEQ2SEQ_WEIGHT + str(SEQ2SEQ_EPOCHES))
+
+
+    # decoder_target_tokens = {
+    #     '{': 0, '}':1, 
+    #     'row':2, 'header': 3, 'single': 4, 'double': 5, 'quadruple': 6,
+    #     'title': 7, 'text': 8,
+    #     'btn-active': 9, 'btn-inactive': 10, 'btn-green': 11, 'btn-orange': 12, 'btn-red': 13,   
+    #     'START': 14, 'EOS': 15}
+
+    decoder_target_tokens = {
+        '{': 0, '}':1, 
+        'row':2, 'col': 3,
+        'title': 4, 'text': 5,
+        'btn-active': 6, 'btn-inactive': 7, 'btn-green': 8, 'btn-orange': 9, 'btn-red': 10,   
+        'START': 11, 'EOS': 12}
     
-    encoder_input_data, decoder_input_data, decoder_tokens, max_decoder_len = positionToSeq2SeqInput(num_total_data, path.DATASET1_ROWCOL_YOLO_POSITION_TXT, path.DATASET1_ROWCOL_GUI)
+    encoder_input_data, decoder_input_data, decoder_tokens, max_decoder_len = positionToSeq2SeqInput(decoder_target_tokens, num_total_data, path.DATASET1_FULL_YOLO_POSITION_TXT, path.DATASET1_ROWCOL_ELEMENT_GUI)
     print('max_decoder_len:', max_decoder_len)
     encoder_model, decoder_model = seq2seqTraining(encoder_input_data, decoder_input_data, decoder_tokens)
     for i in range(10):

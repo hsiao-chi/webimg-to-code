@@ -1,0 +1,1 @@
+header { btn-inactive btn-inactive btn-inactive btn-active btn-inactive } row { single { title text btn-red } } row { quadruple { title text btn-green } quadruple { title text btn-green } quadruple { title text btn-red } quadruple { title text btn-orange } } row { double { title text btn-orange } double { title text btn-orange } }
