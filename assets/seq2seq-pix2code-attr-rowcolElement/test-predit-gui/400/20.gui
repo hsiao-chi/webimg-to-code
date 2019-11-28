@@ -1,0 +1,1 @@
+row { btn-inactive btn-inactive btn-inactive btn-active btn-inactive } row { col { title text btn-green } col { title text btn-red } col { title text btn-orange } col { title text btn-red } } row { col { title text btn-red } col { title text btn-orange } } row { col { title text btn-red } }

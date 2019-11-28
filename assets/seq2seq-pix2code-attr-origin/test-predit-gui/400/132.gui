@@ -1,0 +1,1 @@
+header { btn-inactive btn-active btn-inactive } row { double { title text btn-green } double { title text btn-orange } }

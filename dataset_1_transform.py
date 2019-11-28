@@ -59,31 +59,28 @@ if __name__ == "__main__":
 
     # -------------- Full Yolo position -- to -- Attribute Yolo position ---------
 
-    # bg_color = [None, None, Bg_color.primary.value, Bg_color.dark.value,
-    #             Bg_color.success.value, Bg_color.warning.value, Bg_color.danger.value]
-    # text_color = [Font_color.dark.value, Font_color.dark.value, Font_color.white.value,
-    #               Font_color.primary.value, Font_color.white.value, Font_color.white.value, Font_color.white.value]
-    # for i in range(400):
-    #     new_labels = []
-    #     labels = read_file(
-    #         path.DATASET1_FULL_YOLO_POSITION_TXT+str(i)+TYPE.TXT, 'splitlines')
-    #     for label in labels:
-    #         c = int(label.split()[0])
-    #         position = label.split()[1:]
-    #         new_label = []
-    #         if c == 0 or c == 1:
-    #             new_label.append(str(c))
-    #             new_label.append(text_color[c])
-    #         else:
-    #             new_label.append(str(2))
-    #             new_label.append(text_color[c])
-    #             new_label.append(bg_color[c])
-    #         new_label += position
-    #         new_labels.append(new_label)
-    #     write_file(new_labels, path.DATASET1_ATTRIBUTE_YOLO_POSITION+str(i)+TYPE.TXT, 2)
+    bg_color = [None, None, Bg_color.primary.value, Bg_color.dark.value,
+                Bg_color.success.value, Bg_color.warning.value, Bg_color.danger.value]
+    text_color = [Font_color.dark.value, Font_color.dark.value, Font_color.white.value,
+                  Font_color.primary.value, Font_color.white.value, Font_color.white.value, Font_color.white.value]
+    for i in range(400):
+        new_labels = []
+        labels = read_file(
+            path.DATASET1_FULL_YOLO_POSITION_TXT+str(i)+TYPE.TXT, 'splitlines')
+        for label in labels:
+            c = int(label.split()[0])
+            position = label.split()[1:]
+            new_label = []
+            new_label.append(str(min(c, 2)))
+            new_label += position
+            new_label.append(text_color[c])
+            if c >= 2:
+                new_label.append(bg_color[c])
+            new_labels.append(new_label)
+        write_file(new_labels, path.DATASET1_ATTRIBUTE_YOLO_POSITION_TXT+str(i)+TYPE.TXT, 2)
 
 
-    # --------------- origin-SDL Dataset transfor for row-col-element SDL ------------------
+    # --------------- origin-SDL Dataset transfor to row-col-element SDL ------------------
     
     # pix_file_names = read_file('E:\\projects\\NTUST\\webimg-to-code\\datasetCode\\data_transform\\assest\\pix2code_filenames.txt', 'splitlines' )
     # for i, file_name in enumerate(pix_file_names):
@@ -93,3 +90,24 @@ if __name__ == "__main__":
     #     sdl = sdl.split()
     #     write_file(sdl, path.DATASET1_ORIGIN_GUI+str(i)+TYPE.GUI, 1)
 
+
+    #  ------------ origin-SDL Dataset transfor to row-col-attribute-subElement SDL -------
+
+    # pix_file_names = read_file('E:\\projects\\NTUST\\webimg-to-code\\datasetCode\\data_transform\\assest\\pix2code_filenames.txt', 'splitlines' )
+    # for i, file_name in enumerate(pix_file_names):
+    #     sdl = read_file(path.PIX2CODE_ORIGIN_DATASET+file_name+TYPE.GUI, 'noSplit')
+    #     sdl = sdl.replace('small-title', 'title')
+    #     sdl = sdl.replace(',', '')
+    #     sdl = sdl.replace('header', 'row')
+    #     sdl = sdl.replace('single', 'col')
+    #     sdl = sdl.replace('double', 'col')
+    #     sdl = sdl.replace('quadruple', 'col')
+    #     sdl = sdl.replace('text', 'text [ text-dark ]')
+    #     sdl = sdl.replace('title', 'title [ text-dark ]')
+    #     sdl = sdl.replace('btn-active', 'btn [ text-white bg-primary ]')
+    #     sdl = sdl.replace('btn-inactive', 'btn [ text-primary bg-dark ]')
+    #     sdl = sdl.replace('btn-green', 'btn [ text-white bg-success ]')
+    #     sdl = sdl.replace('btn-orange', 'btn [ text-white bg-warning ]')
+    #     sdl = sdl.replace('btn-red', 'btn [ text-white bg-danger ]')
+    #     sdl = sdl.split()
+    #     write_file(sdl, path.DATASET1_ROWCOL_ATTRIBUTE_GUI+str(i)+TYPE.GUI, 1)
