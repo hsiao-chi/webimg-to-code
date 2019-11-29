@@ -44,10 +44,16 @@ from general.util import createFolder, read_file, write_file
 def to_Seq2Seq_input(encoder_file_folder, decoder_file_folder, encoder_config, decoder_token_list: list):
     list1 = os.listdir(encoder_file_folder)
     num_total_data = len(list1)
+    # num_total_data = 1
     decoder_target_tokens = {e: i for i, e in enumerate(decoder_token_list)}
     encoder_direct_part = encoder_config['direct_part']
-    encoder_tokens = {e: i for i, e in enumerate(encoder_config['token_list'])}
+    encoder_tokens = None
+    if encoder_config['class_mode']:
+        encoder_tokens = [{e: (i+1) for i, e in enumerate(c)} for c in encoder_config['token_list']]
+    else:
+        encoder_tokens = {e: i for i, e in enumerate(encoder_config['token_list'])}
     
+    print('encoder_tokens', encoder_tokens)
 
     temp_encoder_all_data =  []
     temp_decoder_all_data =  []
@@ -63,7 +69,14 @@ def to_Seq2Seq_input(encoder_file_folder, decoder_file_folder, encoder_config, d
             data = l[:encoder_direct_part]
             attrs = [0]*len(encoder_tokens)
             for attr in l[encoder_direct_part:] :
-                attrs[encoder_tokens[attr]] = 1
+                if encoder_config['class_mode']:
+                    for idx, target_list in enumerate(encoder_tokens):
+                        try:
+                            attrs[idx] = target_list[attr]
+                        except KeyError:
+                            pass
+                else:
+                    attrs[encoder_tokens[attr]] = 1
             temp_data.append(data+attrs)
         temp_encoder_all_data.append(temp_data)
         if len(temp_data) > max_encoder_len:
