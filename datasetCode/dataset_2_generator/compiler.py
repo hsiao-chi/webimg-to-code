@@ -1,6 +1,6 @@
 import json
 from general.node.nodeModel import Node, Attribute
-from general.node.nodeEnum import RootKey, NodeKey, LeafKey, Font_color, Bg_color, Tag
+from general.node.nodeEnum import RootKey, NodeKey, LeafKey, Font_color, Bg_color, Tag, AttributeSet
 from datasetCode.dataset_2_generator.generateRule import getRule
 
 
@@ -40,7 +40,7 @@ class Compiler:
                 attr = []
             elif token == self.attr_closing_tag:
                 in_attr_flag = False
-                current_node.attributes.list_to_attribut(self._reconstruct_attr_block(attr))
+                current_node.attributes.list_to_attribut(self._reconstruct_attr_block(current_node.key, attr))
             else:
                 if in_attr_flag:
                     attr.append(token)
@@ -49,8 +49,8 @@ class Compiler:
                     current_parent_node.add_child(current_node)
         return self.node_tree
             
-    def _reconstruct_attr_block(self, attr) -> list:
-        temp=[]
+    def _reconstruct_attr_block(self, node, attr) -> list:
+        temp=[None]*len(self.activatedAttributes)
         temp_text=""
         isText = False
         for token in attr:
@@ -60,15 +60,20 @@ class Compiler:
             elif isText and ('\"' in token):
                 isText = False
                 temp_text+= " "+token
-                temp.append(temp_text[1:-1])
+                temp[self.activatedAttributes.index(AttributeSet.content)] = temp_text[1:-1]
             elif isText:
                 temp_text+= " "+token
             
-            elif token == "None":
-                temp.append(None)
+            # elif token == "None":
+            #     temp.append(None)
             else:
-                temp.append(token)
-
+                for attrIdx, activatedAttr in enumerate(self.activatedAttributes):
+                    try:
+                        attr_set = self.rule[node]["attributes_set"][activatedAttr.value]
+                        if token in [attr.value for attr in attr_set]:
+                            temp[attrIdx] = token
+                    except KeyError:
+                        pass
         return temp
 
            

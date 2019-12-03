@@ -17,19 +17,20 @@ class LeafKey(Enum):
     text = 'text'
     title = 'title'
     icon = 'icon'
+    button = 'button'
 
 
 
 
 class Font_color(Enum):
     primary = 'text-primary'
-    # success = 'success'
-    # warning = 'warning'
-    # danger = 'danger'
-    # info = 'info'
+    success = 'text-success'
+    warning = 'text-warning'
+    danger = 'text-danger'
+    info = 'text-info'
     dark = 'text-dark'
-    # light = 'light'
-    # secondary = 'secondary'
+    light = 'text-light'
+    secondary = 'text-secondary'
     white = 'text-white'
 
 class Bg_color(Enum):
@@ -39,21 +40,21 @@ class Bg_color(Enum):
     danger = 'bg-danger'
     info = 'bg-info'
     dark = 'bg-dark'
-    # light = 'light'
+    light = 'bg-light'
     secondary = 'bg-secondary'
-    # white = 'white'
-    # activate = 'activate'
-    # inactivate = 'inactivate'
+    white = 'bg-white'
+    # activate = 'bg-activate'
+    # inactivate = 'bg-inactivate'
     
-class AttributeSet(Enum):
-    font_color = Font_color
-    bg_color = Bg_color
-    content = 'string'
-
 class Size(Enum):
     lg = 'lg'
     sm = 'sm'
 
+
+class AttributeSet(Enum):
+    font_color = 'font_color'
+    bg_color = 'bg_color'
+    content = 'string'
 
 class Tag(Enum):
     node_opening = '{'

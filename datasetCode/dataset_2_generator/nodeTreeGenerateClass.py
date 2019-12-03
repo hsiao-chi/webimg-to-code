@@ -83,17 +83,26 @@ class NodeTreeGenerator:
     def generateNode(self, parent_node, depth, assigned_key):
         attribute = Attribute(self.attribute, self.rule[assigned_key]["attributes"])
         # node = Node(parent_node, )
+        for i in range(len(self.rule[assigned_key]["attributes"])):
+            attribute.assign_value(i, None)
         for i,  enabled in enumerate(attribute.enabledAttributes):
             value = None
             if enabled:
                 if attribute.activatedAttributes[i] == AttributeSet.content:
-                    if parent_node.key == NodeKey.button.value:
+                    if assigned_key == LeafKey.button.value:
+                        value = "\"" + get_random_text(10, 1) + "\""
+                    elif assigned_key == LeafKey.title.value:
                         value = "\"" + get_random_text(5, 0) + "\""
                     else:
-                        value = "\"" + get_random_text(10) + "\""
-
+                        value = "\"" + get_random_text(30, 5, False) + "\""
+                    attribute.assign_value(i, value)
                 else:
-                    value = random.choice(list(attribute.activatedAttributes[i].value)).value
-                attribute.assign_value(i, value)
+                    try:
+                        group_value = random.choice(list(self.rule[assigned_key]["attributes_set"]["groups"]))
+                        for j, v in enumerate(group_value):
+                            attribute.assign_value(i+j, v.value)
+                    except KeyError:
+                        value = random.choice(list(self.rule[assigned_key]["attributes_set"][attribute.activatedAttributes[i].value])).value
+                        attribute.assign_value(i, value)
 
         return Node(assigned_key, parent_node, attribute, depth)

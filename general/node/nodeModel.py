@@ -12,7 +12,7 @@ class Attribute:
         self.attributeValue[index] = value
 
     def to_string(self):
-        return " ".join([Tag.attr_opening.value] + [str(a) for a in self.attributeValue] + [Tag.attr_closing.value])
+        return " ".join([Tag.attr_opening.value] + list(filter(lambda x: x !=None, self.attributeValue)) + [Tag.attr_closing.value])
 
     def is_empty(self): 
         return False if True in self.enabledAttributes else True

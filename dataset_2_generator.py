@@ -11,16 +11,18 @@ from datasetCode.data_transform.transform_to_row_col_position import convert_to_
 from datasetCode.data_transform.tag_for_yolo import manual_class_tag_from_file
 
 import os
-3
 if __name__ == "__main__":
     rule = getRule()
-    generator = NodeTreeGenerator()
-    for i in range(7,8):
+    generator = NodeTreeGenerator(rule=2)
+    for i in range(16,17):
         root = Node(RootKey.body.value, None, Attribute(rule["attributes"], rule[RootKey.body.value]["attributes"]))
         tree = generator.generateNodeTree(root, 0)
-        compiler = Compiler(path.DATASET2_DSL_MAPPING_JSON_FILE, 1, tree)
+        compiler = Compiler(path.DATASET2_DSL_MAPPING_JSON_FILE, rule=2, node_tree=tree)
+        # compiler = Compiler(path.DATASET2_DSL_MAPPING_JSON_FILE, rule=2)
         compiler.node_tree_to_dsl(path.DATASET2_ORIGIN_GUI+str(i)+TYPE.GUI)
         compiler.node_tree_to_dsl(path.DATASET2_ROWCOL_GUI+str(i)+TYPE.GUI, True)
+        # tree = compiler.dsl_to_node_tree(path.DATASET2_ORIGIN_GUI+str(i)+TYPE.GUI)
+        # print(tree.show())
         html = compiler.node_tree_to_html(path.DATASET2_ORIGIN_HTML+str(i)+TYPE.HTML, str(i))
         [web_img_path] = webscreenshoot([path.DATASET2_ORIGIN_HTML+str(i)+TYPE.HTML], path.DATASET2_ORIGIN_PNG)
         convert_to_position_and_rowcol_img(web_img_path,
@@ -30,3 +32,5 @@ if __name__ == "__main__":
     # value = manual_class_tag_from_file(path.DATASET2_ORIGIN_PNG+ str(2) + TYPE.IMG, path.DATASET2_ROWCOL_YOLO_POSITION_TXT + str(2) + TYPE.TXT)  
     # print(value)
     # write_file(value, path.DATASET2_YOLO_POSITION_TXT + str(2)+TYPE.TXT, 2)
+
+
