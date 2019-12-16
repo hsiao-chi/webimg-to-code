@@ -21,6 +21,8 @@ NUM_SAMPLE = 10000  # Number of samples to train on.
 # input: [num_sample, max_input_seg_length, tokens]
 # targets:[num_sample, max_target_seq_length, tokens]
 # 
+
+
 def seq2seqTraining(encoder_input_data, decoder_input_data, decoder_target_token):
 
     num_sample, max_input_seq_length, num_input_token = encoder_input_data.shape
@@ -151,7 +153,7 @@ checkpoint_folder, analysis_saved_folder, final_model_saved_path):
     decoder_target_data[:, -1] = 0
     decoder_target_data[:, -1, decoder_target_token['EOS']] = 1
 
-    mc = callbacks.ModelCheckpoint(checkpoint_folder + 'seq2seq-weights{epoch:05d}.h5', 
+    mc = callbacks.ModelCheckpoint(checkpoint_folder+ str(SEQ2SEQ_EPOCHES) + 'seq2seq-weights{epoch:05d}.h5', 
                                      save_weights_only=True, period=MODE_SAVE_PERIOD)
     history = train_model.fit([encoder_input_data, decoder_input_data], decoder_target_data,
               batch_size=BATCH_SIZE,
