@@ -1,6 +1,6 @@
 import sys
 import argparse
-from yolo import YOLO, detect_video
+from classes.model.yolo.yolo import YOLO, detect_video
 from PIL import Image
 
 def detect_img(yolo):
