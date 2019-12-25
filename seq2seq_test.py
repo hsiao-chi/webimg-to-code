@@ -45,6 +45,7 @@ if __name__ == "__main__":
     for i in range(5):
         ii = random.randint(0, num_total_data+1)
         input_seq = encoder_input_data[ii: ii+1]
+        print(input_seq)
         decoded_sentence = seq2seq_predit(encoder_model, decoder_model, input_seq,
                                           decoder_target_tokens, max_decoder_len,
                                           result_saved_path=path.CLASS_SEQ2SEQ_PREDIT_GUI_PATH + str(SEQ2SEQ_EPOCHES)+'\\'+str(ii)+TYPE.GUI)

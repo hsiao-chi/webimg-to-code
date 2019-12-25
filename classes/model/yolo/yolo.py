@@ -17,12 +17,15 @@ from classes.model.yolo.yolo3.model import yolo_eval, yolo_body, tiny_yolo_body
 from classes.model.yolo.yolo3.utils import letterbox_image
 import os
 from keras.utils import multi_gpu_model
+import general.path as path
+
+YOLOPATH = 'classes\\model\\yolo\\'
 
 class YOLO(object):
     _defaults = {
-        "model_path": 'weight/trained_weights_final(400).h5',
-        "anchors_path": 'model_data/yolo_anchors.txt',
-        "classes_path": 'model_data/pix2code_full_classes.txt',
+        "model_path": path.SELF + YOLOPATH + 'weight\\trained_weights_final(400).h5',
+        "anchors_path": path.SELF + YOLOPATH + 'model_data\\yolo_anchors.txt',
+        "classes_path": path.SELF + YOLOPATH + 'model_data\\pix2code_full_classes.txt',
         "score" : 0.3,
         "iou" : 0.45,
         "model_image_size" : (416, 416),
@@ -38,7 +41,7 @@ class YOLO(object):
 
     def __init__(self, **kwargs):
         self.__dict__.update(self._defaults) # set up default values
-        self.__dict__.update(kwargs) # and update with user overrides
+        # self.__dict__.update(kwargs) # and update with user overrides
         self.class_names = self._get_class()
         self.anchors = self._get_anchors()
         self.sess = K.get_session()
@@ -126,11 +129,14 @@ class YOLO(object):
 
         print('Found {} boxes for {}'.format(len(out_boxes), 'img'))
 
-        font = ImageFont.truetype(font='font/FiraMono-Medium.otf',
+        font = ImageFont.truetype(font=path.SELF + YOLOPATH +'font\\FiraMono-Medium.otf',
                     size=np.floor(3e-2 * image.size[1] + 0.5).astype('int32'))
         thickness = (image.size[0] + image.size[1]) // 300
-
-        for i, c in reversed(list(enumerate(out_classes))):
+        targets = []  # [class, x, y ,width, high]
+        print('image size: ', image.size)
+        for i, c in enumerate(out_classes):
+            target = []
+            target.append(c)
             predicted_class = self.class_names[c]
             box = out_boxes[i]
             score = out_scores[i]
@@ -145,6 +151,12 @@ class YOLO(object):
             bottom = min(image.size[1], np.floor(bottom + 0.5).astype('int32'))
             right = min(image.size[0], np.floor(right + 0.5).astype('int32'))
             print(label, (left, top), (right, bottom))
+
+            target.append(left / image.size[0])
+            target.append(top / image.size[1])
+            target.append((right-left) / image.size[0])
+            target.append((bottom-top) / image.size[1])
+            targets.append(target)
 
             if top - label_size[1] >= 0:
                 text_origin = np.array([left, top - label_size[1]])
@@ -164,7 +176,9 @@ class YOLO(object):
 
         end = timer()
         print(end - start)
-        return image
+        targets.sort(key=lambda x: x[1])
+        targets.sort(key=lambda x: x[2])
+        return image, targets
 
     def close_session(self):
         self.sess.close()
