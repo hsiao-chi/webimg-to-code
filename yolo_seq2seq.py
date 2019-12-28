@@ -22,7 +22,7 @@ def detect_img(yolo, img_name) -> list:
 if __name__ == "__main__":
     INPUT_TYPE = 1
     TARGET_TYPE = 3
-
+    USE_EPOCH = 300
     encoder_config = get_encoder_config(INPUT_TYPE)
     decoder_config = get_decoder_config(TARGET_TYPE)
 
@@ -42,7 +42,7 @@ if __name__ == "__main__":
     input_seq=input_seq, 
     decoder_tokens=decoder_target_tokens, 
     max_decoder_seq_length=max_decoder_len, 
-    result_saved_path=str(9)+TYPE.GUI)
+    result_saved_path='9_noice1'+TYPE.GUI)
 
     print(decoded_sentence)
     
