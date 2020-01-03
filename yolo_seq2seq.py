@@ -4,7 +4,7 @@ import numpy as np
 from classes.model.yolo.yolo import YOLO, detect_video 
 from PIL import Image
 from keras.models import load_model
-from classes.model.layoutGenerator import seq2seq_predit_model, seq2seq_predit
+from classes.model.layoutGenerator import seq2seq_predit_model, seq2seq_predit, SEQ2SEQ_EPOCHES
 import general.path as path
 import general.dataType as TYPE
 
@@ -36,13 +36,13 @@ if __name__ == "__main__":
         encoder_config['data_folder'], decoder_config['data_folder'], encoder_config, decoder_config['token_list'])
 
 
-    final_model_path = path.CLASS_SEQ2SEQ_MODEL_PATH+'model'+TYPE.H5
+    final_model_path = path.CLASS_SEQ2SEQ_MODEL_PATH+ str(SEQ2SEQ_EPOCHES)+'\\model'+TYPE.H5
     encoder_model, decoder_model = seq2seq_predit_model(load_model(final_model_path))
     decoded_sentence = seq2seq_predit(encoder_model, decoder_model, 
     input_seq=input_seq, 
     decoder_tokens=decoder_target_tokens, 
     max_decoder_seq_length=max_decoder_len, 
-    result_saved_path='9_noice1'+TYPE.GUI)
+    result_saved_path='9_noice_1'+TYPE.GUI)
 
     print(decoded_sentence)
     

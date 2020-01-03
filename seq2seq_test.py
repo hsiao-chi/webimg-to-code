@@ -37,7 +37,7 @@ if __name__ == "__main__":
 
     final_model_path = path.CLASS_SEQ2SEQ_MODEL_PATH+ str(SEQ2SEQ_EPOCHES)+'\\model'+TYPE.H5
     seq2seq_training_model = seq2seq_training(seq2seq_training_model, encoder_input_data, decoder_input_data, decoder_target_tokens,
-                                              analysis_saved_folder=path.CLASS_SEQ2SEQ_ANALYSIS_PATH+ str(SEQ2SEQ_EPOCHES)+"\\",
+                                              analysis_saved_folder=path.CLASS_SEQ2SEQ_ANALYSIS_PATH,
                                               checkpoint_folder=path.CLASS_SEQ2SEQ_WEIGHT+ str(SEQ2SEQ_EPOCHES)+"\\",
                                               final_model_saved_path=final_model_path)
 

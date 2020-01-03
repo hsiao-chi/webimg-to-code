@@ -14,7 +14,7 @@ K.tensorflow_backend._get_available_gpus()
 LSTM_ENCODER_DIM = 256 # Latent dimensionality of the encoding space.
 LSTM_DECODER_DIM = 256
 BATCH_SIZE = 64  # Batch size for training.
-SEQ2SEQ_EPOCHES = 300  # Number of epochs to train for.
+SEQ2SEQ_EPOCHES = 400  # Number of epochs to train for.
 MODE_SAVE_PERIOD = 100
 NUM_SAMPLE = 10000  # Number of samples to train on.
 

@@ -22,21 +22,21 @@ if __name__ == "__main__":
     list1 = os.listdir(path.DATASET1_ORIGIN_PNG)
     num_total_data = len(list1)
 
-''' 
-=================================================================================
---------------- full yolo position to yolo training datafile --------------------
-=================================================================================
-'''
+    ''' 
+    =================================================================================
+    --------------- full yolo position to yolo training datafile --------------------
+    =================================================================================
+    '''
     
     # to_yolo_training_file(path.DATASET1_ORIGIN_PNG, path.DATASET1_FULL_YOLO_POSITION_TXT, 150, path.DATASETCODE_ASSESTS+"pix2code_full_yolo"+TYPE.TXT)
 
-''' 
-=================================================================================
------------------------------ Manual tag yolo class -----------------------------
-=================================================================================
-'''
+    ''' 
+    =================================================================================
+    ----------------------------- Manual tag yolo class -----------------------------
+    =================================================================================
+    '''
    
-    # for i in range(541,600):
+    # for i in range(600,700):
     #     root = tk.Tk()
     #     app = ManualTagClass(root, buttonList, path.DATASET1_ORIGIN_PNG + str(i) + TYPE.IMG,
     #                          path.DATASET1_ROWCOL_YOLO_POSITION_TXT + str(i) + TYPE.TXT, path.DATASET1_FULL_YOLO_POSITION_TXT + str(i)+TYPE.TXT)
@@ -44,11 +44,12 @@ if __name__ == "__main__":
 
     #     if app.is_close():
     #         break
-''' 
-=================================================================================
---------------------------------- 忘了幹啥子的 ----------------------------------
-=================================================================================
-'''
+
+    ''' 
+    =================================================================================
+    --------------------------------- 忘了幹啥子的 ----------------------------------
+    =================================================================================
+    '''
     # detectionList, rolColImg = convert_to_position_and_rowcol_img(path.DATASET1_ORIGIN_PNG + str(i)+ TYPE.IMG, path.DATASET1_ROWCOL_YOLO_POSITION_TXT+str(i)+TYPE.TXT, path.DATASET1_ROWCOL_PNG+str(i)+TYPE.IMG, True)
     # if i % 100 == 0:
     #     print(i)
@@ -62,11 +63,11 @@ if __name__ == "__main__":
     #     break
     # write_file(value, path.DATASET1_FULL_YOLO_POSITION_TXT + str(i)+TYPE.TXT, 2)
 
-''' 
-=================================================================================
-------------------------------- CHECK DATASET ERROR -----------------------------
-=================================================================================
-'''
+    ''' 
+    =================================================================================
+    ------------------------------- CHECK DATASET ERROR -----------------------------
+    =================================================================================
+    '''
 
     # for i in range(400):
     #     labels = read_file(path.DATASET1_FULL_YOLO_POSITION_TXT+str(i)+TYPE.TXT, 'splitlines')
@@ -76,39 +77,39 @@ if __name__ == "__main__":
     #             print('你就是個問題: ', i, '  值:', c)
     #     print('now: ', str(i)) if i % 50 == 0 else None
 
-''' 
-=================================================================================
-------------- Full Yolo position -- to -- Attribute Yolo position ---------------
-=================================================================================
-'''
+    ''' 
+    =================================================================================
+    ------------- Full Yolo position -- to -- Attribute Yolo position ---------------
+    =================================================================================
+    '''
 
 
-    # bg_color = [None, None, Bg_color.primary.value, Bg_color.dark.value,
-    #             Bg_color.success.value, Bg_color.warning.value, Bg_color.danger.value]
-    # text_color = [Font_color.dark.value, Font_color.dark.value, Font_color.white.value,
-    #               Font_color.primary.value, Font_color.white.value, Font_color.white.value, Font_color.white.value]
-    # for i in range(400, 500):
-    #     new_labels = []
-    #     labels = read_file(
-    #         path.DATASET1_FULL_YOLO_POSITION_TXT+str(i)+TYPE.TXT, 'splitlines')
-    #     for label in labels:
-    #         c = int(label.split()[0])
-    #         position = label.split()[1:]
-    #         new_label = []
-    #         new_label.append(str(min(c, 2)))
-    #         new_label += position
-    #         new_label.append(text_color[c])
-    #         if c >= 2:
-    #             new_label.append(bg_color[c])
-    #         new_labels.append(new_label)
-    #     write_file(new_labels, path.DATASET1_ATTRIBUTE_YOLO_POSITION_TXT+str(i)+TYPE.TXT, 2)
+    bg_color = [None, None, Bg_color.primary.value, Bg_color.dark.value,
+                Bg_color.success.value, Bg_color.warning.value, Bg_color.danger.value]
+    text_color = [Font_color.dark.value, Font_color.dark.value, Font_color.white.value,
+                  Font_color.primary.value, Font_color.white.value, Font_color.white.value, Font_color.white.value]
+    for i in range(500, 600):
+        new_labels = []
+        labels = read_file(
+            path.DATASET1_FULL_YOLO_POSITION_TXT+str(i)+TYPE.TXT, 'splitlines')
+        for label in labels:
+            c = int(label.split()[0])
+            position = label.split()[1:]
+            new_label = []
+            new_label.append(str(min(c, 2)))
+            new_label += position
+            new_label.append(text_color[c])
+            if c >= 2:
+                new_label.append(bg_color[c])
+            new_labels.append(new_label)
+        write_file(new_labels, path.DATASET1_ATTRIBUTE_YOLO_POSITION_TXT+str(i)+TYPE.TXT, 2)
 
 
-''' 
-=================================================================================
---------------- origin-SDL Dataset transfor to row-col-element SDL --------------
-=================================================================================
-'''
+    ''' 
+    =================================================================================
+    --------------- origin-SDL Dataset transfor to row-col-element SDL --------------
+    =================================================================================
+    '''
     
     # pix_file_names = read_file('E:\\projects\\NTUST\\webimg-to-code\\datasetCode\\data_transform\\assest\\pix2code_filenames.txt', 'splitlines' )
     # for i, file_name in enumerate(pix_file_names):
@@ -118,11 +119,11 @@ if __name__ == "__main__":
     #     sdl = sdl.split()
     #     write_file(sdl, path.DATASET1_ORIGIN_GUI+str(i)+TYPE.GUI, 1)
 
-''' 
-=================================================================================
------- origin-SDL Dataset transfor to row-col-attribute-subElement SDL ----------
-=================================================================================
-'''
+    ''' 
+    =================================================================================
+    ------ origin-SDL Dataset transfor to row-col-attribute-subElement SDL ----------
+    =================================================================================
+    '''
 
     # pix_file_names = read_file('E:\\projects\\NTUST\\webimg-to-code\\datasetCode\\data_transform\\assest\\pix2code_filenames.txt', 'splitlines' )
     # for i, file_name in enumerate(pix_file_names):
