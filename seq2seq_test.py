@@ -33,13 +33,16 @@ if __name__ == "__main__":
     # seq2seq_training_model = seq2seq_train_model(
     #     num_input_token, num_target_token, weight_path='E:\\projects\\NTUST\\webimg-to-code\\assets\\seq2seq-pix2code-full-rowcolAttrElement\\weight\\400\\seq2seq-weights00400.h5')
     seq2seq_training_model = seq2seq_train_model(
-        num_input_token, num_target_token)
+        num_input_token, num_target_token, 
+        weight_path='E:\\projects\\NTUST\\webimg-to-code\\assets\\2020\\seq2seq-pix2code\\full-rowcolAttrElement\\noice-encoder_1\\weight\\400\\400seq2seq-weights00200.h5',
+        encoder_bidirectional_lstm=False, decoder_bidirectional_lstm=False)
 
     final_model_path = path.CLASS_SEQ2SEQ_MODEL_PATH+ str(SEQ2SEQ_EPOCHES)+'\\model'+TYPE.H5
     seq2seq_training_model = seq2seq_training(seq2seq_training_model, encoder_input_data, decoder_input_data, decoder_target_tokens,
                                               analysis_saved_folder=path.CLASS_SEQ2SEQ_ANALYSIS_PATH,
                                               checkpoint_folder=path.CLASS_SEQ2SEQ_WEIGHT+ str(SEQ2SEQ_EPOCHES)+"\\",
-                                              final_model_saved_path=final_model_path)
+                                              final_model_saved_path=final_model_path,
+                                              initial_epoch=200)
 
     encoder_model, decoder_model = seq2seq_predit_model(
         load_model(final_model_path))
