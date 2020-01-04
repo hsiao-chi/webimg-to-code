@@ -33,7 +33,7 @@ if __name__ == "__main__":
 
     
     seq2seq_training_model = seq2seq_train_model(
-        num_input_token, num_target_token, gaussian_noise=None,
+        num_input_token, num_target_token, gaussian_noise=1,
         encoder_bidirectional_lstm=encoder_bidirectional_lstm)
 
     final_model_path = path.CLASS_SEQ2SEQ_MODEL_PATH+ str(SEQ2SEQ_EPOCHES)+'\\model'+TYPE.H5

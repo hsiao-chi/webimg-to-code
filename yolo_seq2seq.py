@@ -15,7 +15,7 @@ def detect_img(yolo, img_name) -> list:
         print('Open Error! Try again!')
     else:
         r_image, r_targets = yolo.detect_image(image)
-        r_image.show()
+        # r_image.show()
     # yolo.close_session()
     return r_targets
 
@@ -37,12 +37,12 @@ if __name__ == "__main__":
 
 
     final_model_path = path.CLASS_SEQ2SEQ_MODEL_PATH+ str(SEQ2SEQ_EPOCHES)+'\\model'+TYPE.H5
-    encoder_model, decoder_model = seq2seq_predit_model(load_model(final_model_path))
+    encoder_model, decoder_model = seq2seq_predit_model(load_model(final_model_path), bidirectional_lstm=False)
     decoded_sentence = seq2seq_predit(encoder_model, decoder_model, 
     input_seq=input_seq, 
     decoder_tokens=decoder_target_tokens, 
     max_decoder_seq_length=max_decoder_len, 
-    result_saved_path='9_noice_1_300_2020_2500'+TYPE.GUI)
+    result_saved_path='9_noice_1_300_2020_2500_R'+TYPE.GUI)
 
     print(decoded_sentence)
     
