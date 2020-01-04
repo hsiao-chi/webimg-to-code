@@ -42,7 +42,7 @@ if __name__ == "__main__":
     input_seq=input_seq, 
     decoder_tokens=decoder_target_tokens, 
     max_decoder_seq_length=max_decoder_len, 
-    result_saved_path='9_noice_1_300_2020'+TYPE.GUI)
+    result_saved_path='9_noice_1_300_2020_2500'+TYPE.GUI)
 
     print(decoded_sentence)
     

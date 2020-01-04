@@ -12,7 +12,7 @@ import random
 if __name__ == "__main__":
     INPUT_TYPE = 1
     TARGET_TYPE = 3
-    encoder_bidirectional_lstm=False
+    encoder_bidirectional_lstm=True
 
     encoder_config = get_encoder_config(INPUT_TYPE)
     decoder_config = get_decoder_config(TARGET_TYPE)
