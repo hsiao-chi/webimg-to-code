@@ -4,7 +4,7 @@ from environment.environment import SELF, DATASET
 # SELF = 'D:\\Chi\\webimg-to-code\\'
 CLASS_SEQ2SEQ_MODEL_GRAPH_FILE = SELF+'assets\\seq2seq-position\\seq2seq-model.png'
 
-CLASS_SEQ2SEQ_TRAINING_TYPE = '2020\\seq2seq-pix2code\\full-rowcolAttrElement\\bidirectional\\noice-encoder_1\\'
+CLASS_SEQ2SEQ_TRAINING_TYPE = '2020\\seq2seq-pix2code\\full-rowcolAttrElement\\2500\\normal\\'
 CLASS_SEQ2SEQ_WEIGHT = SELF+'assets\\'+CLASS_SEQ2SEQ_TRAINING_TYPE+'weight\\'
 CLASS_SEQ2SEQ_MODEL_PATH = SELF+'assets\\'+CLASS_SEQ2SEQ_TRAINING_TYPE+'model\\'
 CLASS_SEQ2SEQ_ANALYSIS_PATH = SELF+'assets\\'+CLASS_SEQ2SEQ_TRAINING_TYPE
@@ -35,6 +35,12 @@ DATASET1_ATTRIBUTE_YOLO_POSITION_TXT = DATASET+'pix2code\\attribute-yolo-positio
 DATASET1_ORIGIN_PNG = DATASET+'pix2code\\origin-png\\'
 DATASET1_ORIGIN_GUI = DATASET+'pix2code\\origin-gui\\'
 PIX2CODE_ORIGIN_DATASET = 'E:\\projects\\webGener\\pix2code\\datasets\\pix2code_datasets\\web\\all_data\\'
+
+DATASET1_FULL_YOLO_NOISE = DATASET+'pix2code\\full-yolo-noise-txt\\'
+DATASET1_FULL_YOLO_NOISE_TXT = DATASET1_FULL_YOLO_NOISE+"position_txt\\"
+DATASET1_FULL_YOLO_NOISE_GUI = DATASET1_FULL_YOLO_NOISE+"gui\\"
+
+
 
 
 DATASET2_ASSESTS = SELF+'datasetCode\\dataset_2_generator\\assests\\'

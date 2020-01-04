@@ -8,7 +8,7 @@ from datasetCode.dataset_2_generator.nodeTreeGenerateClass import NodeTreeGenera
 from datasetCode.dataset_2_generator.compiler import Compiler
 from datasetCode.data_transform.web_to_screenshot import webscreenshoot
 from datasetCode.data_transform.transform_to_row_col_position import convert_to_position_and_rowcol_img
-from datasetCode.data_transform.tag_for_yolo import manual_class_tag_from_file, ManualTagClass, to_yolo_training_file
+from datasetCode.data_transform.tag_for_yolo import manual_class_tag_from_file, ManualTagClass, to_yolo_training_file, yolo_position_with_noise_generator
 from datasetCode.assests.yolo_class_lists import pix2code_full_classes as buttonList
 import cv2
 
@@ -84,25 +84,25 @@ if __name__ == "__main__":
     '''
 
 
-    bg_color = [None, None, Bg_color.primary.value, Bg_color.dark.value,
-                Bg_color.success.value, Bg_color.warning.value, Bg_color.danger.value]
-    text_color = [Font_color.dark.value, Font_color.dark.value, Font_color.white.value,
-                  Font_color.primary.value, Font_color.white.value, Font_color.white.value, Font_color.white.value]
-    for i in range(500, 600):
-        new_labels = []
-        labels = read_file(
-            path.DATASET1_FULL_YOLO_POSITION_TXT+str(i)+TYPE.TXT, 'splitlines')
-        for label in labels:
-            c = int(label.split()[0])
-            position = label.split()[1:]
-            new_label = []
-            new_label.append(str(min(c, 2)))
-            new_label += position
-            new_label.append(text_color[c])
-            if c >= 2:
-                new_label.append(bg_color[c])
-            new_labels.append(new_label)
-        write_file(new_labels, path.DATASET1_ATTRIBUTE_YOLO_POSITION_TXT+str(i)+TYPE.TXT, 2)
+    # bg_color = [None, None, Bg_color.primary.value, Bg_color.dark.value,
+    #             Bg_color.success.value, Bg_color.warning.value, Bg_color.danger.value]
+    # text_color = [Font_color.dark.value, Font_color.dark.value, Font_color.white.value,
+    #               Font_color.primary.value, Font_color.white.value, Font_color.white.value, Font_color.white.value]
+    # for i in range(500, 600):
+    #     new_labels = []
+    #     labels = read_file(
+    #         path.DATASET1_FULL_YOLO_POSITION_TXT+str(i)+TYPE.TXT, 'splitlines')
+    #     for label in labels:
+    #         c = int(label.split()[0])
+    #         position = label.split()[1:]
+    #         new_label = []
+    #         new_label.append(str(min(c, 2)))
+    #         new_label += position
+    #         new_label.append(text_color[c])
+    #         if c >= 2:
+    #             new_label.append(bg_color[c])
+    #         new_labels.append(new_label)
+    #     write_file(new_labels, path.DATASET1_ATTRIBUTE_YOLO_POSITION_TXT+str(i)+TYPE.TXT, 2)
 
 
     ''' 
@@ -133,13 +133,24 @@ if __name__ == "__main__":
     #     sdl = sdl.replace('header', 'row')
     #     sdl = sdl.replace('single', 'col')
     #     sdl = sdl.replace('double', 'col')
-    #     sdl = sdl.replace('quadruple', 'col')
+    #    new_positions_folderce('quadruple', 'col')
     #     sdl = sdl.replace('text', 'text [ text-dark ]')
-    #     sdl = sdl.replace('title', 'title [ text-dark ]')
+#    new_positions_folder.replace('title', 'title [ text-dark ]')
     #     sdl = sdl.replace('btn-active', 'btn [ text-white bg-primary ]')
     #     sdl = sdl.replace('btn-inactive', 'btn [ text-primary bg-dark ]')
     #     sdl = sdl.replace('btn-green', 'btn [ text-white bg-success ]')
     #     sdl = sdl.replace('btn-orange', 'btn [ text-white bg-warning ]')
-    #     sdl = sdl.replace('btn-red', 'btn [ text-white bg-danger ]')
-    #     sdl = sdl.split()
+    #     sdl = sdl.replace('btn-red', 'btn [ text-white bnew_positions_folder  #     sdl = sdl.split()
     #     write_file(sdl, path.DATASET1_ROWCOL_ATTRIBUTE_GUI+str(i)+TYPE.GUI, 1)
+
+    ''' 
+    =================================================================================
+    ----------------------------- FULL YOLO positions add noinew_positions_folder-------
+    =================================================================================
+    '''
+
+    yolo_position_with_noise_generator(
+        path.DATASET1_FULL_YOLO_POSITION_TXT, 
+        path.DATASET1_ROWCOL_ATTRIBUTE_GUI, 
+        path.DATASET1_FULL_YOLO_NOISE_TXT, 
+        path.DATASET1_FULL_YOLO_NOISE_GUI)
