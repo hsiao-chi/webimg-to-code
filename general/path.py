@@ -36,7 +36,7 @@ DATASET1_ORIGIN_PNG = DATASET+'pix2code\\origin-png\\'
 DATASET1_ORIGIN_GUI = DATASET+'pix2code\\origin-gui\\'
 PIX2CODE_ORIGIN_DATASET = 'E:\\projects\\webGener\\pix2code\\datasets\\pix2code_datasets\\web\\all_data\\'
 
-DATASET1_FULL_YOLO_NOISE = DATASET+'pix2code\\full-yolo-noise-txt\\'
+DATASET1_FULL_YOLO_NOISE = DATASET+'pix2code\\full-yolo-noise-resort-txt\\'
 DATASET1_FULL_YOLO_NOISE_TXT = DATASET1_FULL_YOLO_NOISE+"position_txt\\"
 DATASET1_FULL_YOLO_NOISE_GUI = DATASET1_FULL_YOLO_NOISE+"gui\\"
 

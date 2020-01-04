@@ -154,7 +154,9 @@ def to_yolo_training_file(img_folder, positions_folder, data_length, target_path
 import random
 import numpy as np
 
-def yolo_position_with_noise_generator(yolo_position_folder, gui_folder, new_positions_folder, new_gui_folder, data_num=500,multiple=5):
+def yolo_position_with_noise_generator(yolo_position_folder, gui_folder, 
+new_positions_folder, new_gui_folder, 
+data_num=500,multiple=5, resort=False):
     # new_positions_folder = new_folder+"position_txt\\"
     # new_gui_folder = new_folder+"gui\\"
     createFolder(new_positions_folder)
@@ -180,6 +182,10 @@ def yolo_position_with_noise_generator(yolo_position_folder, gui_folder, new_pos
                 new_positions = new_positions.tolist()
                 for position in new_positions:
                     position[0] = int(position[0])
+                if resort:
+                    new_positions.sort(key=lambda x: x[1])
+                    new_positions.sort(key=lambda x: x[2])
+
             write_file(read_gui, new_gui_file_name, 0)
             write_file(new_positions, new_position_file_name, 2)
         print(i) if i %50 ==0 else None

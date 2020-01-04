@@ -153,4 +153,5 @@ if __name__ == "__main__":
         path.DATASET1_FULL_YOLO_POSITION_TXT, 
         path.DATASET1_ROWCOL_ATTRIBUTE_GUI, 
         path.DATASET1_FULL_YOLO_NOISE_TXT, 
-        path.DATASET1_FULL_YOLO_NOISE_GUI)
+        path.DATASET1_FULL_YOLO_NOISE_GUI, 
+        resort=True)
