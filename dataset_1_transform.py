@@ -2,7 +2,7 @@ from general.node.nodeModel import Node, Attribute
 from general.node.nodeEnum import RootKey, NodeKey, LeafKey, Font_color, Bg_color
 import general.path as path
 import general.dataType as TYPE
-from general.util import write_file, read_file
+from general.util import write_file, read_file, copy_files
 from datasetCode.dataset_2_generator.generateRule import getRule
 from datasetCode.dataset_2_generator.nodeTreeGenerateClass import NodeTreeGenerator
 from datasetCode.dataset_2_generator.compiler import Compiler
@@ -27,7 +27,7 @@ if __name__ == "__main__":
     --------------- full yolo position to yolo training datafile --------------------
     =================================================================================
     '''
-    
+
     # to_yolo_training_file(path.DATASET1_ORIGIN_PNG, path.DATASET1_FULL_YOLO_POSITION_TXT, 150, path.DATASETCODE_ASSESTS+"pix2code_full_yolo"+TYPE.TXT)
 
     ''' 
@@ -35,7 +35,7 @@ if __name__ == "__main__":
     ----------------------------- Manual tag yolo class -----------------------------
     =================================================================================
     '''
-   
+
     # for i in range(600,700):
     #     root = tk.Tk()
     #     app = ManualTagClass(root, buttonList, path.DATASET1_ORIGIN_PNG + str(i) + TYPE.IMG,
@@ -83,7 +83,6 @@ if __name__ == "__main__":
     =================================================================================
     '''
 
-
     # bg_color = [None, None, Bg_color.primary.value, Bg_color.dark.value,
     #             Bg_color.success.value, Bg_color.warning.value, Bg_color.danger.value]
     # text_color = [Font_color.dark.value, Font_color.dark.value, Font_color.white.value,
@@ -104,13 +103,12 @@ if __name__ == "__main__":
     #         new_labels.append(new_label)
     #     write_file(new_labels, path.DATASET1_ATTRIBUTE_YOLO_POSITION_TXT+str(i)+TYPE.TXT, 2)
 
-
     ''' 
     =================================================================================
     --------------- origin-SDL Dataset transfor to row-col-element SDL --------------
     =================================================================================
     '''
-    
+
     # pix_file_names = read_file('E:\\projects\\NTUST\\webimg-to-code\\datasetCode\\data_transform\\assest\\pix2code_filenames.txt', 'splitlines' )
     # for i, file_name in enumerate(pix_file_names):
     #     sdl = read_file(path.PIX2CODE_ORIGIN_DATASET+file_name+TYPE.GUI, 'noSplit')
@@ -145,13 +143,23 @@ if __name__ == "__main__":
 
     ''' 
     =================================================================================
-    ----------------------------- FULL YOLO positions add noinew_positions_folder-------
+    ---------------------- FULL YOLO positions add noinew_positions_folder-----------
     =================================================================================
     '''
 
-    yolo_position_with_noise_generator(
-        path.DATASET1_FULL_YOLO_POSITION_TXT, 
-        path.DATASET1_ROWCOL_ATTRIBUTE_GUI, 
-        path.DATASET1_FULL_YOLO_NOISE_TXT, 
-        path.DATASET1_FULL_YOLO_NOISE_GUI, 
-        resort=True)
+    # yolo_position_with_noise_generator(
+    #     path.DATASET1_FULL_YOLO_POSITION_TXT,
+    #     path.DATASET1_ROWCOL_ATTRIBUTE_GUI,
+    #     path.DATASET1_FULL_YOLO_NOISE_TXT,
+    #     path.DATASET1_FULL_YOLO_NOISE_GUI,
+    #     resort=True)
+    ''' 
+    =================================================================================
+    ---------------------- COPY FILES for TestingDataset ----------------------------
+    =================================================================================
+    '''
+
+    copy_files(path.DATASET1_FULL_YOLO_POSITION_TXT, 500, 599, TYPE.TXT,
+               path.DATASET1_TESTING_SEQ2SEQ_POSITION_TXT, 0, TYPE.TXT)
+    copy_files(path.DATASET1_ROWCOL_ATTRIBUTE_GUI, 500, 599, TYPE.GUI,
+               path.DATASET1_TESTING_SEQ2SEQ_ATTR_GUI, 0, TYPE.GUI)

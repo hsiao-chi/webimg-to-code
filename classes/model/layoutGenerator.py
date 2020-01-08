@@ -200,6 +200,14 @@ def seq2seq_training(train_model: Model, encoder_input_data, decoder_input_data,
     train_model.save(final_model_saved_path)
     return train_model
 
+def seq2seq_evaluate(model: Model, encoder_input_data, decoder_input_data, decoder_target_token):
+    decoder_target_data = np.roll(decoder_input_data, -1, axis=1)
+    decoder_target_data[:, -1] = 0
+    decoder_target_data[:, -1, decoder_target_token['EOS']] = 1
+    loss, acc = model.evaluate([encoder_input_data, decoder_input_data], decoder_target_data)
+    print("\nLoss: %.2f, Accuracy: %.3f%%" % (loss, acc*100))
+
+
 
 def seq2seq_predit(encoder_model: Model, decoder_model: Model, input_seq, decoder_tokens, max_decoder_seq_length, result_saved_path):
     # Encode the input as state vectors.

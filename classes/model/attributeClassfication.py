@@ -14,10 +14,10 @@ LSTM_DECODER_DIM = 256
 MODE_SAVE_PERIOD = 50
 
 
-def cnn_vgg(weight_path=None) -> Model:
+def cnn_vgg(input_shape, weight_path=None) -> Model:
     model = Sequential(name='vision_model')
     model.add(Conv2D(
-        64, (3, 3), activation='relu', padding='same', input_shape=(112, 112, 3)))
+        64, (3, 3), activation='relu', padding='same', input_shape=input_shape))
     model.add(
         Conv2D(64, (3, 3), activation='relu'))  # 112*112*64
     model.add(MaxPooling2D((2, 2)))
@@ -41,15 +41,15 @@ def cnn_vgg(weight_path=None) -> Model:
     return model
 
 
-def get_cnn_model(cnnType='VGG', pre_trained_weight=None)-> Model:
+def get_cnn_model(cnnType='VGG',input_shape=(112, 112, 3), pre_trained_weight=None)-> Model:
     if cnnType == 'VGG':
-        return cnn_vgg(pre_trained_weight)
+        return cnn_vgg(input_shape, pre_trained_weight)
 
 
 def attribute_classification_train_model(num_target_token,  cnn_model='VGG', input_shape=(112, 112, 3),
                                          cnn_model_weight_path=None, optimizer='rmsprop', loss='categorical_crossentropy',
                                          weight_path=None):
-    vision_model = get_cnn_model(cnn_model, cnn_model_weight_path)
+    vision_model = get_cnn_model(cnn_model, input_shape, cnn_model_weight_path)
     image_input = Input(shape=input_shape, name='image_input')
     encoded_image = vision_model(image_input)
     encoder = LSTM(LSTM_ENCODER_DIM, return_state=True, name='encoder_lstm')
@@ -61,7 +61,7 @@ def attribute_classification_train_model(num_target_token,  cnn_model='VGG', inp
 
     decoder_outputs, _, _ = decoder_lstm(decoder_inputs,
                                          initial_state=encoder_states)
-    decoder_dense = Dense(num_target_token, activation='softmax', name='decoder_output')
+    decoder_dense = Dense(num_target_token, activation='softmax', name='decoder_dense')
     decoder_outputs = decoder_dense(decoder_outputs)
     train_model = Model(
         [image_input, decoder_inputs], decoder_outputs)
@@ -72,12 +72,12 @@ def attribute_classification_train_model(num_target_token,  cnn_model='VGG', inp
 
 
 def attribute_classification_predit_model(model: Model)-> Model:
-    encoder_inputs = model.get_layer('image_input')  # input_1
-    encoder_outputs, state_h_enc, state_c_enc = model.layers[2].output
+    encoder_inputs = model.get_layer('image_input').input  # input_1
+    encoder_outputs, state_h_enc, state_c_enc = model.get_layer('encoder_lstm').output
     encoder_states = [state_h_enc, state_c_enc]
     encoder_model = Model(encoder_inputs, encoder_states)
     encoder_model.summary()
-    decoder_inputs = model.get_layer('decoder_input')   # input_2
+    decoder_inputs = model.get_layer('decoder_input').input   # input_2
     decoder_state_input_h = Input(shape=(LSTM_DECODER_DIM,), name='decoder_state_input_h')
     decoder_state_input_c = Input(shape=(LSTM_DECODER_DIM,), name='decoder_state_input_c')
     decoder_states_inputs = [decoder_state_input_h, decoder_state_input_c]
@@ -86,7 +86,7 @@ def attribute_classification_predit_model(model: Model)-> Model:
     decoder_outputs, state_h, state_c = decoder_lstm(
         decoder_inputs, initial_state=decoder_states_inputs)
     decoder_states = [state_h, state_c]
-    decoder_dense = model.get_layer('decoder_output')
+    decoder_dense = model.get_layer('decoder_dense')
     decoder_outputs = decoder_dense(decoder_outputs)
     decoder_model = Model(
         [decoder_inputs] + decoder_states_inputs,
@@ -94,50 +94,6 @@ def attribute_classification_predit_model(model: Model)-> Model:
     decoder_model.summary()
     return encoder_model, decoder_model
 
-
-def attribute_classfication_model(num_target_token, weight_path=None):
-   # First, let's define a vision model using a Sequential model.
-    # This model will encode an image into a vector.
-    vision_model = get_cnn_model('VGG')
-
-    # Now let's get a tensor with the output of our vision model:
-    image_input = Input(shape=(112, 112, 3))
-    encoded_image = vision_model(image_input)
-
-    # Next, let's define a language model to encode the question into a vector.
-    # Each question will be at most 100 words long,
-    # and we will index words as integers from 1 to 9999.
-
-    encoder = LSTM(LSTM_ENCODER_DIM, return_state=True)
-    encoder_outputs, state_h, state_c = encoder(encoded_image)
-    encoder_states = [state_h, state_c]
-    # encoder_model = Model(encoder_inputs, encoder_states)
-    decoder_inputs = Input(shape=(None, num_target_token))
-    decoder_lstm = LSTM(
-        LSTM_DECODER_DIM, return_sequences=True, return_state=True)
-
-    decoder_outputs, _, _ = decoder_lstm(decoder_inputs,
-                                         initial_state=encoder_states)
-    decoder_dense = Dense(num_target_token, activation='softmax')
-    decoder_outputs = decoder_dense(decoder_outputs)
-    attr_classfy_training_model = Model(
-        [image_input, decoder_inputs], decoder_outputs)
-    attr_classfy_training_model.compile(optimizer='rmsprop', loss='categorical_crossentropy',
-                                        metrics=['accuracy'])
-
-    encoder_model = Model(image_input, encoder_states)
-    decoder_state_input_h = Input(shape=(LSTM_DECODER_DIM,))
-    decoder_state_input_c = Input(shape=(LSTM_DECODER_DIM,))
-    decoder_states_inputs = [decoder_state_input_h, decoder_state_input_c]
-    decoder_outputs, state_h, state_c = decoder_lstm(
-        decoder_inputs, initial_state=decoder_states_inputs)
-    decoder_states = [state_h, state_c]
-    decoder_outputs = decoder_dense(decoder_outputs)
-    decoder_model = Model(
-        [decoder_inputs] + decoder_states_inputs,
-        [decoder_outputs] + decoder_states)
-
-    return attr_classfy_training_model, vision_model, decoder_model
 
 
 def attribute_classfication_training(train_model: Model, data_config,  epochs, decoder_input_data):

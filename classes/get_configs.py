@@ -23,6 +23,7 @@ def get_decoder_config(target_type=1):
     elif target_type == 3:
         return {
             'data_folder': path.DATASET1_FULL_YOLO_NOISE_GUI,
+            'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_ATTR_GUI,
             'token_list': [
                 '{', '}', '[', ']',
                 'row', 'col',
@@ -37,6 +38,7 @@ def get_encoder_config(target_type=1):
         return {
             'direct_part': 5,
             'data_folder': path.DATASET1_FULL_YOLO_NOISE_TXT,
+            'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_POSITION_TXT,
             'class_mode': False,
             'token_list': [],
         }
@@ -44,6 +46,7 @@ def get_encoder_config(target_type=1):
         return {
             'direct_part': 5,
             'data_folder': path.DATASET1_ATTRIBUTE_YOLO_POSITION_TXT,
+            'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_ATTR_POSITION_TXT,
             'class_mode': False,
             'token_list': [Font_color.dark.value, Font_color.primary.value, Font_color.white.value,
                            Bg_color.primary.value, Bg_color.dark.value, Bg_color.success.value,
@@ -53,6 +56,7 @@ def get_encoder_config(target_type=1):
         return {
             'direct_part': 5,
             'data_folder': path.DATASET1_ATTRIBUTE_YOLO_POSITION_TXT,
+            'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_ATTR_POSITION_TXT,
             'class_mode': True,
             'token_list': [
                 [Font_color.dark.value, Font_color.primary.value,
