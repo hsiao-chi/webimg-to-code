@@ -44,9 +44,11 @@ from general.util import createFolder, read_file, write_file
 def decoder_tokens_list_to_dict(decoder_token_list: list) -> dict:
     return  {e: i for i, e in enumerate(decoder_token_list)}
 
-def to_Seq2Seq_input(encoder_file_folder, decoder_file_folder, encoder_config, decoder_token_list: list):
-    list1 = os.listdir(encoder_file_folder)
-    num_total_data = len(list1)
+def to_Seq2Seq_input(encoder_file_folder, decoder_file_folder, encoder_config, decoder_token_list: list, data_num=None):
+    num_total_data = data_num
+    if data_num == None:
+        list1 = os.listdir(encoder_file_folder)
+        num_total_data = len(list1)
     # num_total_data = 1
     decoder_target_tokens = decoder_tokens_list_to_dict(decoder_token_list)
     encoder_direct_part = encoder_config['direct_part']

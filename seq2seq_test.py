@@ -13,7 +13,7 @@ if __name__ == "__main__":
     INPUT_TYPE = 1
     TARGET_TYPE = 3
     encoder_bidirectional_lstm = True
-
+    training_data_num = 500
     TRAINING = False
     PREDIT = False
     EVALUATE = True
@@ -23,14 +23,14 @@ if __name__ == "__main__":
     final_model_path = path.CLASS_SEQ2SEQ_MODEL_PATH + str(SEQ2SEQ_EPOCHES)+'\\model'+TYPE.H5
     predit_model_path = final_model_path
     # evaluate_model_path = r'E:\projects\NTUST\webimg-to-code\assets\2020\seq2seq-pix2code\full-rowcolAttrElement\2500\bidirectional-resort-noise\model\300\model.h5'
-    evaluate_model_path = r'E:\projects\NTUST\webimg-to-code\assets\seq2seq-pix2code\full-rowcolAttrElement\noice-encoder_1\model\250\model.h5'
+    evaluate_model_path = r'E:\projects\NTUST\webimg-to-code\assets\2020\seq2seq-pix2code\full-rowcolAttrElement\2500\bidirectional-resort\model\300\model.h5'
 
     if TRAINING:
         createFolder(path.CLASS_SEQ2SEQ_MODEL_PATH + str(SEQ2SEQ_EPOCHES))
         createFolder(path.CLASS_SEQ2SEQ_WEIGHT + str(SEQ2SEQ_EPOCHES))
 
         encoder_input_data, decoder_input_data, decoder_target_tokens, max_decoder_len = to_Seq2Seq_input(
-            encoder_config['data_folder'], decoder_config['data_folder'], encoder_config, decoder_config['token_list'])
+            encoder_config['data_folder'], decoder_config['data_folder'], encoder_config, decoder_config['token_list'], data_num=training_data_num)
 
         _, _, num_input_token = encoder_input_data.shape
         _, _, num_target_token = decoder_input_data.shape

@@ -147,19 +147,21 @@ if __name__ == "__main__":
     =================================================================================
     '''
 
-    # yolo_position_with_noise_generator(
-    #     path.DATASET1_FULL_YOLO_POSITION_TXT,
-    #     path.DATASET1_ROWCOL_ATTRIBUTE_GUI,
-    #     path.DATASET1_FULL_YOLO_NOISE_TXT,
-    #     path.DATASET1_FULL_YOLO_NOISE_GUI,
-    #     resort=True)
+    yolo_position_with_noise_generator(
+        path.DATASET1_TESTING_SEQ2SEQ_POSITION_TXT,
+        path.DATASET1_TESTING_SEQ2SEQ_ATTR_GUI,
+        path.DATASET1_TESTING_SEQ2SEQ_POSITION_NOISE_TXT,
+        path.DATASET1_TESTING_SEQ2SEQ_ATTR_NOISE_GUI,
+        data_num=100,
+        save_origin_file=False,
+        resort=True)
     ''' 
     =================================================================================
     ---------------------- COPY FILES for TestingDataset ----------------------------
     =================================================================================
     '''
 
-    copy_files(path.DATASET1_FULL_YOLO_POSITION_TXT, 500, 599, TYPE.TXT,
-               path.DATASET1_TESTING_SEQ2SEQ_POSITION_TXT, 0, TYPE.TXT)
-    copy_files(path.DATASET1_ROWCOL_ATTRIBUTE_GUI, 500, 599, TYPE.GUI,
-               path.DATASET1_TESTING_SEQ2SEQ_ATTR_GUI, 0, TYPE.GUI)
+    # copy_files(path.DATASET1_FULL_YOLO_POSITION_TXT, 500, 599, TYPE.TXT,
+    #            path.DATASET1_TESTING_SEQ2SEQ_POSITION_TXT, 0, TYPE.TXT)
+    # copy_files(path.DATASET1_ROWCOL_ATTRIBUTE_GUI, 500, 599, TYPE.GUI,
+    #            path.DATASET1_TESTING_SEQ2SEQ_ATTR_GUI, 0, TYPE.GUI)

@@ -137,48 +137,61 @@ def to_yolo_training_file(img_folder, positions_folder, data_length, target_path
         for index in range(data_length):
             img = cv2.imread(img_folder+str(index)+TYPE.IMG)
             (img_high, img_width, _) = img.shape
-            boxs=[]
-            read_positions = read_file(positions_folder+str(index)+TYPE.TXT, 'splitlines')
+            boxs = []
+            read_positions = read_file(
+                positions_folder+str(index)+TYPE.TXT, 'splitlines')
             positions = [position.split() for position in read_positions]
             for position in positions:
-                min_x, min_y = float(position[1])*img_width, float(position[2])*img_high
-                max_x, max_y = min_x + (float(position[3])*img_width), min_y + (float(position[4])*img_high)
-                min_x, min_y, max_x, max_y = int(min_x), int(min_y), int(max_x), int(max_y)
-                box = ','.join([str(min_x), str(min_y), str(max_x), str(max_y), position[0]])
+                min_x, min_y = float(
+                    position[1])*img_width, float(position[2])*img_high
+                max_x, max_y = min_x + \
+                    (float(position[3])*img_width), min_y + \
+                    (float(position[4])*img_high)
+                min_x, min_y, max_x, max_y = int(min_x), int(
+                    min_y), int(max_x), int(max_y)
+                box = ','.join([str(min_x), str(min_y), str(
+                    max_x), str(max_y), position[0]])
                 boxs.append(box)
-            
-            line ="{} {}".format(img_folder+str(index)+TYPE.IMG, " ".join(boxs))   
+
+            line = "{} {}".format(img_folder+str(index) +
+                                  TYPE.IMG, " ".join(boxs))
             target.write(line+"\n")
 
 
 import random
 import numpy as np
 
-def yolo_position_with_noise_generator(yolo_position_folder, gui_folder, 
-new_positions_folder, new_gui_folder, 
-data_num=500,multiple=5, resort=False):
+
+def yolo_position_with_noise_generator(yolo_position_folder, gui_folder,
+                                       new_positions_folder, new_gui_folder,
+                                       data_num=500, multiple=5, resort=False, save_origin_file=True):
     # new_positions_folder = new_folder+"position_txt\\"
     # new_gui_folder = new_folder+"gui\\"
     createFolder(new_positions_folder)
     createFolder(new_gui_folder)
     for i in range(data_num):
         read_gui = read_file(gui_folder+str(i)+TYPE.GUI, 'noSplit')
-        write_file(read_gui, new_gui_folder+str(i)+TYPE.GUI, 0)
-        
-        read_positions = read_file(yolo_position_folder+str(i)+TYPE.TXT, 'splitlines')
+
+        read_positions = read_file(
+            yolo_position_folder+str(i)+TYPE.TXT, 'splitlines')
         positions = [position.split() for position in read_positions]
-        write_file(positions, new_positions_folder+str(i)+TYPE.TXT, 2)
+
+        if save_origin_file:
+            write_file(read_gui, new_gui_folder+str(i)+TYPE.GUI, 0)
+            write_file(positions, new_positions_folder+str(i)+TYPE.TXT, 2)
 
         positions = np.array(positions)
         positions = positions.astype(np.float)
 
-        for times in range(1, multiple):
+        for times in range(1 if save_origin_file else 0, multiple):
             new_gui_file_name = new_gui_folder+str(data_num*times+i)+TYPE.GUI
-            new_position_file_name = new_positions_folder+str(data_num*times+i)+TYPE.TXT
+            new_position_file_name = new_positions_folder + \
+                str(data_num*times+i)+TYPE.TXT
             new_positions = positions.copy()
-            if new_positions.shape[0] >0:
-                new_positions[:, 1:] = new_positions[:, 1:]+np.random.normal(0, 0.0025,(new_positions.shape[0],new_positions.shape[1]-1))
-                new_positions[:, 1:] = new_positions[:,1:].clip(0, 1)
+            if new_positions.shape[0] > 0:
+                new_positions[:, 1:] = new_positions[:, 1:]+np.random.normal(
+                    0, 0.0025, (new_positions.shape[0], new_positions.shape[1]-1))
+                new_positions[:, 1:] = new_positions[:, 1:].clip(0, 1)
                 new_positions = new_positions.tolist()
                 for position in new_positions:
                     position[0] = int(position[0])
@@ -188,8 +201,7 @@ data_num=500,multiple=5, resort=False):
 
             write_file(read_gui, new_gui_file_name, 0)
             write_file(new_positions, new_position_file_name, 2)
-        print(i) if i %50 ==0 else None
-
+        print(i) if i % 50 == 0 else None
 
 
 if __name__ == "__main__":
