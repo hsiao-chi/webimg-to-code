@@ -34,7 +34,13 @@ DATASET1_FULL_YOLO_POSITION_TXT = DATASET+'pix2code\\full-yolo-position-txt\\'
 DATASET1_ATTRIBUTE_YOLO_POSITION_TXT = DATASET+'pix2code\\attribute-yolo-position-txt\\'
 DATASET1_ORIGIN_PNG = DATASET+'pix2code\\origin-png\\'
 DATASET1_ORIGIN_GUI = DATASET+'pix2code\\origin-gui\\'
+DATASET1_ELEMENT_FOLDER = DATASET+'pix2code\\element\\'
+DATASET1_ELEMENT_PNG = DATASET1_ELEMENT_FOLDER+'element-png\\'
+DATASET1_ATTRCLASSFICATION_JSON = DATASET+'pix2code\\attribute-classification-json\\'
 PIX2CODE_ORIGIN_DATASET = 'E:\\projects\\webGener\\pix2code\\datasets\\pix2code_datasets\\web\\all_data\\'
+
+
+
 
 DATASET1_FULL_YOLO_NOISE = DATASET+'pix2code\\full-yolo-noise-resort-txt\\'
 DATASET1_FULL_YOLO_NOISE_TXT = DATASET1_FULL_YOLO_NOISE+"position_txt\\"

@@ -2,7 +2,7 @@ from general.node.nodeModel import Node, Attribute
 from general.node.nodeEnum import RootKey, NodeKey, LeafKey, Font_color, Bg_color
 import general.path as path
 import general.dataType as TYPE
-from general.util import write_file, read_file, copy_files
+from general.util import write_file, read_file, copy_files, createFolder, replace_file_value
 from datasetCode.dataset_2_generator.generateRule import getRule
 from datasetCode.dataset_2_generator.nodeTreeGenerateClass import NodeTreeGenerator
 from datasetCode.dataset_2_generator.compiler import Compiler
@@ -10,8 +10,10 @@ from datasetCode.data_transform.web_to_screenshot import webscreenshoot
 from datasetCode.data_transform.transform_to_row_col_position import convert_to_position_and_rowcol_img
 from datasetCode.data_transform.tag_for_yolo import manual_class_tag_from_file, ManualTagClass, to_yolo_training_file, yolo_position_with_noise_generator
 from datasetCode.assests.yolo_class_lists import pix2code_full_classes as buttonList
+from datasetCode.data_transform.create_attrcate_dataset import create_attribute_classfication_dataset
+from environment.environment import DATASET, DATASET_ANOTHER
 import cv2
-
+from classes.get_configs import get_encoder_config
 import tkinter as tk
 from tkinter import ttk
 from tkinter.messagebox import showinfo
@@ -147,14 +149,14 @@ if __name__ == "__main__":
     =================================================================================
     '''
 
-    yolo_position_with_noise_generator(
-        path.DATASET1_TESTING_SEQ2SEQ_POSITION_TXT,
-        path.DATASET1_TESTING_SEQ2SEQ_ATTR_GUI,
-        path.DATASET1_TESTING_SEQ2SEQ_POSITION_NOISE_TXT,
-        path.DATASET1_TESTING_SEQ2SEQ_ATTR_NOISE_GUI,
-        data_num=100,
-        save_origin_file=False,
-        resort=True)
+    # yolo_position_with_noise_generator(
+    #     path.DATASET1_TESTING_SEQ2SEQ_POSITION_TXT,
+    #     path.DATASET1_TESTING_SEQ2SEQ_ATTR_GUI,
+    #     path.DATASET1_TESTING_SEQ2SEQ_POSITION_NOISE_TXT,
+    #     path.DATASET1_TESTING_SEQ2SEQ_ATTR_NOISE_GUI,
+    #     data_num=100,
+    #     save_origin_file=False,
+    #     resort=True)
     ''' 
     =================================================================================
     ---------------------- COPY FILES for TestingDataset ----------------------------
@@ -165,3 +167,32 @@ if __name__ == "__main__":
     #            path.DATASET1_TESTING_SEQ2SEQ_POSITION_TXT, 0, TYPE.TXT)
     # copy_files(path.DATASET1_ROWCOL_ATTRIBUTE_GUI, 500, 599, TYPE.GUI,
     #            path.DATASET1_TESTING_SEQ2SEQ_ATTR_GUI, 0, TYPE.GUI)
+
+
+    ''' 
+    =================================================================================
+    ----------------- CREATE Attribute classification dataset -----------------------
+    =================================================================================
+    '''
+    # createFolder(path.DATASET1_ATTRCLASSFICATION_JSON)
+    # create_attribute_classfication_dataset(path.DATASET1_ATTRIBUTE_YOLO_POSITION_TXT, path.DATASET1_ORIGIN_PNG, path.DATASET1_ATTRCLASSFICATION_JSON+'3_file'+TYPE.JSON)
+    
+    # createFolder(path.DATASET1_ELEMENT_PNG)
+    # create_attribute_classfication_dataset(
+    #     path.DATASET1_ATTRIBUTE_YOLO_POSITION_TXT, path.DATASET1_ORIGIN_PNG, 
+    #     path.DATASET1_ELEMENT_PNG, path.DATASET1_ELEMENT_FOLDER+'attr-labels'+TYPE.TXT, 
+    #     path.DATASET1_ELEMENT_FOLDER+'record'+TYPE.TXT,
+    #     get_encoder_config(2)['token_list'], 
+    #     element_start_index=826, file_start_index=30, file_num=10)
+
+    ''' 
+    =================================================================================
+    ----------------- Replace Dataset environment in file ---------------------------
+    =================================================================================
+    '''
+
+    replace_file_value(
+        path.DATASET1_ELEMENT_FOLDER+'attr-labels'+TYPE.TXT, 
+        path.DATASET1_ELEMENT_FOLDER+'attr-labels-lab'+TYPE.TXT,
+        DATASET, DATASET_ANOTHER
+        )

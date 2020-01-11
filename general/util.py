@@ -102,4 +102,7 @@ def copy_files(origin_folder, origin_start, origin_end, origin_file_type,
     for i, file_index in enumerate(range(origin_start, origin_end+1)):
         shutil.copy(origin_folder+str(file_index)+origin_file_type, target_folder+str(target_start+i)+target_file_type)
 
-        
+def replace_file_value(origin_file_path, target_file_path, toBeReplaced, target):
+    file_content = read_file(origin_file_path, 'noSplit')
+    file_content = file_content.replace(toBeReplaced, target)
+    write_file(file_content, target_file_path, 0)
