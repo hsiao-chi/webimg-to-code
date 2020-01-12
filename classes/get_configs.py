@@ -22,6 +22,7 @@ def get_decoder_config(target_type=1):
                 'START', 'EOS']}
     elif target_type == 3:
         return {
+            # 'data_folder': path.DATASET1_ROWCOL_ATTRIBUTE_GUI,
             'data_folder': path.DATASET1_FULL_YOLO_NOISE_GUI,
             # 'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_ATTR_GUI,
             'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_ATTR_NOISE_GUI,
@@ -39,6 +40,7 @@ def get_encoder_config(target_type=1):
         return {
             'direct_part': 5,
             'data_folder': path.DATASET1_FULL_YOLO_NOISE_TXT,
+            # 'data_folder': path.DATASET1_FULL_YOLO_POSITION_TXT,
             'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_POSITION_NOISE_TXT,
             # 'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_POSITION_TXT,
             'class_mode': False,

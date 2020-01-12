@@ -12,8 +12,9 @@ import random
 if __name__ == "__main__":
     INPUT_TYPE = 1
     TARGET_TYPE = 3
-    encoder_bidirectional_lstm = True
-    training_data_num = 500
+    encoder_bidirectional_lstm = False
+    training_data_num = 2500
+    gaussian_noise=1
     TRAINING = False
     PREDIT = False
     EVALUATE = True
@@ -22,8 +23,8 @@ if __name__ == "__main__":
     decoder_config = get_decoder_config(TARGET_TYPE)
     final_model_path = path.CLASS_SEQ2SEQ_MODEL_PATH + str(SEQ2SEQ_EPOCHES)+'\\model'+TYPE.H5
     predit_model_path = final_model_path
-    # evaluate_model_path = r'E:\projects\NTUST\webimg-to-code\assets\2020\seq2seq-pix2code\full-rowcolAttrElement\2500\bidirectional-resort-noise\model\300\model.h5'
-    evaluate_model_path = r'E:\projects\NTUST\webimg-to-code\assets\2020\seq2seq-pix2code\full-rowcolAttrElement\2500\bidirectional-resort\model\300\model.h5'
+    evaluate_model_path = r'D:\Chi\webimg-to-code\assets\2020\seq2seq-pix2code\full-rowcolAttrElement\2500\bidirectional-resort\model\300\model.h5'
+    # evaluate_model_path =final_model_path
 
     if TRAINING:
         createFolder(path.CLASS_SEQ2SEQ_MODEL_PATH + str(SEQ2SEQ_EPOCHES))
@@ -36,7 +37,7 @@ if __name__ == "__main__":
         _, _, num_target_token = decoder_input_data.shape
 
         seq2seq_training_model = seq2seq_train_model(
-            num_input_token, num_target_token, gaussian_noise=1,
+            num_input_token, num_target_token, gaussian_noise=gaussian_noise,
             encoder_bidirectional_lstm=encoder_bidirectional_lstm)
         seq2seq_training_model = seq2seq_training(seq2seq_training_model, encoder_input_data, decoder_input_data, decoder_target_tokens,
                                                   analysis_saved_folder=path.CLASS_SEQ2SEQ_ANALYSIS_PATH,
@@ -61,6 +62,16 @@ if __name__ == "__main__":
             print('decoded_sentence length: ', ii, len(decoded_sentence))
 
     if EVALUATE:
+        print('evaluated Model path: \n{}'.format(evaluate_model_path))
+        print('training data path: \n encoder: {}\n decoder: {}'.format(encoder_config['data_folder'], decoder_config['data_folder']))
+        print('number of total used data: {}'.format(training_data_num))
+        encoder_input_data, decoder_input_data, decoder_target_tokens, max_decoder_len = to_Seq2Seq_input(
+            encoder_config['data_folder'], decoder_config['data_folder'], encoder_config, decoder_config['token_list'], data_num=training_data_num)
+
+        seq2seq_evaluate(load_model(evaluate_model_path), encoder_input_data,
+                         decoder_input_data, decoder_target_tokens)
+        
+        
         print('evaluated Model path: \n{}'.format(evaluate_model_path))
         print('testing data path: \n encoder: {}\n decoder: {}'.format(encoder_config['testing_data_folder'], decoder_config['testing_data_folder']))
         encoder_input_data, decoder_input_data, decoder_target_tokens, max_decoder_len = to_Seq2Seq_input(
