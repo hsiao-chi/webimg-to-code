@@ -9,7 +9,7 @@ class NodeKey(Enum):
     col = 'col'
     list = 'list'
     absolute = 'absolute'
-    button = 'button'
+    button = 'btn'
 
 
 class LeafKey(Enum):
@@ -17,7 +17,7 @@ class LeafKey(Enum):
     text = 'text'
     title = 'title'
     icon = 'icon'
-    button = 'button'
+    button = 'btn'
 
 
 

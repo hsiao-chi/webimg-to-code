@@ -12,7 +12,7 @@ from datasetCode.data_transform.tag_for_yolo import manual_class_tag_from_file
 
 import os
 if __name__ == "__main__":
-    rule = getRule()
+    rule = getRule(2)
     generator = NodeTreeGenerator(rule=2)
     for i in range(16,17):
         root = Node(RootKey.body.value, None, Attribute(rule["attributes"], rule[RootKey.body.value]["attributes"]))

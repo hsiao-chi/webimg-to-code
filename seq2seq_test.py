@@ -12,9 +12,10 @@ import random
 if __name__ == "__main__":
     INPUT_TYPE = 1
     TARGET_TYPE = 3
-    encoder_bidirectional_lstm = True
-    training_data_num = 500
-    TRAINING = False
+    encoder_bidirectional_lstm = False
+    training_data_num = 2500
+    gaussian_noise = 1 #None
+    TRAINING = True
     PREDIT = False
     EVALUATE = True
 
@@ -23,7 +24,7 @@ if __name__ == "__main__":
     final_model_path = path.CLASS_SEQ2SEQ_MODEL_PATH + str(SEQ2SEQ_EPOCHES)+'\\model'+TYPE.H5
     predit_model_path = final_model_path
     # evaluate_model_path = r'E:\projects\NTUST\webimg-to-code\assets\2020\seq2seq-pix2code\full-rowcolAttrElement\2500\bidirectional-resort-noise\model\300\model.h5'
-    evaluate_model_path = r'E:\projects\NTUST\webimg-to-code\assets\2020\seq2seq-pix2code\full-rowcolAttrElement\2500\bidirectional-resort\model\300\model.h5'
+    evaluate_model_path = final_model_path
 
     if TRAINING:
         createFolder(path.CLASS_SEQ2SEQ_MODEL_PATH + str(SEQ2SEQ_EPOCHES))
@@ -36,12 +37,11 @@ if __name__ == "__main__":
         _, _, num_target_token = decoder_input_data.shape
 
         seq2seq_training_model = seq2seq_train_model(
-            num_input_token, num_target_token, gaussian_noise=1,
+            num_input_token, num_target_token, gaussian_noise=gaussian_noise,
             encoder_bidirectional_lstm=encoder_bidirectional_lstm)
         seq2seq_training_model = seq2seq_training(seq2seq_training_model, encoder_input_data, decoder_input_data, decoder_target_tokens,
                                                   analysis_saved_folder=path.CLASS_SEQ2SEQ_ANALYSIS_PATH,
-                                                  checkpoint_folder=path.CLASS_SEQ2SEQ_WEIGHT +
-                                                  str(SEQ2SEQ_EPOCHES)+"\\",
+                                                  checkpoint_folder=path.CLASS_SEQ2SEQ_WEIGHT + str(SEQ2SEQ_EPOCHES)+"\\",
                                                   final_model_saved_path=final_model_path,
                                                   initial_epoch=0)
 
