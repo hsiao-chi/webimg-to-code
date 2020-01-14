@@ -6,6 +6,7 @@ from keras import backend as K, callbacks
 import general.path as path
 import general.dataType as TYPE
 from general.util import createFolder, read_file, write_file, showLoss, showAccuracy
+import numpy as np
 
 
 LSTM_ENCODER_DIM = 256
@@ -117,7 +118,7 @@ def attribute_classfication_training(train_model: Model, data_config,  epochs, d
     }
     '''
     # create generator
-    datagen = ImageDataGenerator(rescale=1./255)
+    datagen = ImageDataGenerator()
     # prepare an iterators for each dataset
     train_it = datagen.flow_from_directory(
         data_config['train']['folder'],
@@ -129,17 +130,13 @@ def attribute_classfication_training(train_model: Model, data_config,  epochs, d
         batch_size=data_config['bath_size'], class_mode=None,
         target_size=data_config['target_size']
     )
-    test_it = datagen.flow_from_directory(
-        data_config['test']['folder'],
-        batch_size=data_config['bath_size'], class_mode=None,
-        target_size=data_config['target_size']
-    )
+
 
     mc = callbacks.ModelCheckpoint(data_config['checkpoint_folder'] + str(epochs) + '\\' + 'attr-weights{epoch:05d}.h5',
                                    save_weights_only=True, period=MODE_SAVE_PERIOD)
     train_step_per_each = data_config['train']['total_size'] // data_config['bath_size']
     valid_step_per_each = data_config['train']['total_size'] // data_config['bath_size']
-    history = train_model.fit_generator(datagen.flow(),
+    history = train_model.fit_generator(train_it,
                                   steps_per_epoch=train_step_per_each,
                                   epochs=epochs,
                                   validation_data=val_it,
@@ -153,3 +150,23 @@ def attribute_classfication_training(train_model: Model, data_config,  epochs, d
     write_file(history.history, data_config['analysis_saved_folder']+'history'+str(epochs)+TYPE.TXT, 'JSON')
     train_model.save(data_config['final_model_saved_path'])
     return train_model
+
+
+
+
+
+
+def data_generator(annotation_lines, batch_size):
+    n= len(annotation_lines)
+    i=0
+    while True:
+        image_data = []
+        encoder_data = []
+        for b in range(batch_size):
+            if i == 0:
+                np.random.shuffle(annotation_lines)
+            
+                pass
+            break
+            pass
+        break
