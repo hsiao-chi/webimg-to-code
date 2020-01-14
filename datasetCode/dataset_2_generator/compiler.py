@@ -2,6 +2,7 @@ import json
 from general.node.nodeModel import Node, Attribute
 from general.node.nodeEnum import RootKey, NodeKey, LeafKey, Font_color, Bg_color, Tag, AttributeSet
 from datasetCode.dataset_2_generator.generateRule import getRule
+from datasetCode.dataset_2_generator.util import get_random_text
 
 
 
@@ -74,6 +75,15 @@ class Compiler:
                             temp[attrIdx] = token
                     except KeyError:
                         pass
+        
+        context_idx = self.activatedAttributes.index(AttributeSet.content)
+        if  context_idx >= 0 and self.rule[node]["attributes"][context_idx] and temp[context_idx] == None:
+            if node == LeafKey.button.value:
+                temp[context_idx] =  get_random_text(10, 1) 
+            elif node == LeafKey.title.value:
+                temp[context_idx] =  get_random_text(5, 0) 
+            else:
+                temp[context_idx] =  get_random_text(30, 5, False) 
         return temp
 
            

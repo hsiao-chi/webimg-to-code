@@ -1,0 +1,1 @@
+row row { row { bg-primary ] btn [ text-dark ] btn [ text-white bg-success ] } col { title [ text-dark ] text [ text-dark ] btn [ text-white bg-warning ] } } row { col { title [ text-dark ] text [ text-dark ] btn [ text-white bg-success ] } col { title [ text-dark ] text [ text-dark ] btn [ text-white bg-success ] } }

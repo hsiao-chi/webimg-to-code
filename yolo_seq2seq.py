@@ -18,7 +18,7 @@ def detect_img(yolo, img_name) -> list:
         print('Open Error! Try again!')
     else:
         r_image, r_targets = yolo.detect_image(image)
-        r_image.show()
+        # r_image.show()
     # yolo.close_session()
     return r_targets
 
@@ -29,8 +29,8 @@ if __name__ == "__main__":
 
     test_image_path = r"test-predit\1706\1706.png"
     test_target_folder = 'E:\\projects\\NTUST\\webimg-to-code\\test-predit\\1706\\'
-    test_target_path = test_target_folder + 'BN'
-    test_model_path = r'E:\projects\NTUST\webimg-to-code\assets\2020\seq2seq-pix2code\full-rowcolAttrElement\2500\bidirectional-resort-noise\model\300\model.h5'
+    test_target_path = test_target_folder + '500-BN'
+    test_model_path = r'E:\projects\NTUST\webimg-to-code\assets\2020\seq2seq-pix2code\full-rowcolAttrElement\500\bidirectional-resort-noise\model\300\model.h5'
     bidirectional_lstm = True
 
     encoder_config = get_encoder_config(INPUT_TYPE)
@@ -59,7 +59,7 @@ if __name__ == "__main__":
     compiler = Compiler(path.DATASET2_DSL_MAPPING_JSON_FILE, rule=2)
     tree = compiler.dsl_to_node_tree(test_target_path+TYPE.GUI)
     html = compiler.node_tree_to_html(test_target_path+TYPE.HTML, 'BN')
-    [web_img_path] = webscreenshoot([test_target_path+TYPE.HTML], test_target_folder)
+    # [web_img_path] = webscreenshoot([test_target_path+TYPE.HTML], test_target_folder, (2400,1380))
 
 
     

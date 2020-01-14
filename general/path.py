@@ -67,7 +67,7 @@ DATASET2_YOLO_POSITION_TXT = DATASET+'dataset2\\yolo_position_txt\\'
 
 # DATASET2_ORIGIN_PNG_PATH = DATASET+'dataset2\\origin_png'
 
-DATASET2_DSL_MAPPING_JSON_FILE = SELF+'datasetCode\\dataset_2_generator\\mapping\\web-dsl-mapping.json'
+DATASET2_DSL_MAPPING_JSON_FILE = SELF+'datasetCode\\dataset_2_generator\\mapping\\web-dsl-mapping-pix2code.json'
 
 
 DATASETCODE_ASSESTS = SELF+'datasetCode\\assests\\'

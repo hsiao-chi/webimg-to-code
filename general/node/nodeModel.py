@@ -25,6 +25,7 @@ class Attribute:
             pass
         else:
             for value, activated in zip(self.attributeValue, self.activatedAttributes):
+                print(value, activated)
                 if value:
                     placeholder, data = self._placeholder_mapping(
                         activated, value)
