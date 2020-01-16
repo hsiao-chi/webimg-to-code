@@ -62,7 +62,7 @@ def create_attribute_classfication_dataset(attr_positions_folder, image_folder,
             positions = [position.split() for position in read_positions]
             for position in positions:
                 sub_img = splitImage(img, position)
-                attributes = [label_list.index(attr) for attr in position[5:]]
+                attributes = position[5:]
                 element_file_name = element_folder+str(element_index)+TYPE.IMG
                 f.write('{} {}\n'.format(element_file_name, ' '.join( [ str(a) for a in attributes] )))
                 cv2.imwrite(element_file_name, sub_img)

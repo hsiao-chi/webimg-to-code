@@ -67,3 +67,21 @@ def get_encoder_config(target_type=1):
                  Bg_color.warning.value, Bg_color.danger.value]
             ],
         }
+
+
+def get_attribute_encoder_config(target_type=1):
+    if target_type == 1:
+        return {
+            'data_folder': path.DATASET1_ELEMENT_PNG,
+        }
+        
+
+def get_attribute_decoder_config(target_type=1):
+    if target_type == 1:
+        return {
+            'data_path': path.DATASET1_ELEMENT_FOLDER+'text-attr-labels.txt',
+            'token_list': [Font_color.dark.value, Font_color.primary.value, Font_color.white.value,
+                           Bg_color.primary.value, Bg_color.dark.value, Bg_color.success.value,
+                           Bg_color.warning.value, Bg_color.danger.value, 'START', 'EOS'],
+        }
+        

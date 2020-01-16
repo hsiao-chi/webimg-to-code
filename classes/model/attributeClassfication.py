@@ -7,6 +7,8 @@ import general.path as path
 import general.dataType as TYPE
 from general.util import createFolder, read_file, write_file, showLoss, showAccuracy
 import numpy as np
+from PIL import Image
+
 
 
 LSTM_ENCODER_DIM = 256
@@ -156,17 +158,3 @@ def attribute_classfication_training(train_model: Model, data_config,  epochs, d
 
 
 
-def data_generator(annotation_lines, batch_size):
-    n= len(annotation_lines)
-    i=0
-    while True:
-        image_data = []
-        encoder_data = []
-        for b in range(batch_size):
-            if i == 0:
-                np.random.shuffle(annotation_lines)
-            
-                pass
-            break
-            pass
-        break
