@@ -75,25 +75,28 @@ def to_Seq2Seq_input(encoder_file_folder, decoder_file_folder, encoder_config, d
     return encoder_input_data, decoder_input_data, decoder_target_tokens, max_decoder_len
 
 
-def get_attribute_data(annotation_line, input_shape, tokens_dict, max_attributes=4, proc_img=True ):
-    line = annotation_line.split()
-    image = Image.open(line[0])
+def preprocess_image(image_path, input_shape, proc_img=True) -> np.ndarray:
+    image = Image.open(image_path)
     iw, ih = image.size
-    h, w = input_shape
-    attrs = ['START']+line[1:]+['EOS']
+    h, w, c = input_shape
     scale = min(w/iw, h/ih)
     nw = int(iw*scale)
     nh = int(ih*scale)
     dx = (w-nw)//2
     dy = (h-nh)//2
     image_data = 0
-    print('scale: {}, iw: {}, ih: {}, nw: {}, nh: {}, dx: {}, dy: {}'.format(scale, iw, ih, nw, nh, dx, dy))
     if proc_img:
         image = image.resize((nw, nh), Image.BICUBIC)
         new_image = Image.new('RGB', (w, h), (128, 128, 128))
         new_image.paste(image, (dx, dy))
         image_data = np.array(new_image)/255.
+    return image_data
 
+def get_attribute_data(annotation_line, input_shape, tokens_dict, max_attributes=4, proc_img=True ):
+    line = annotation_line.split()
+    image_data = preprocess_image(line[0], input_shape)
+    
+    attrs = ['START']+line[1:]+['EOS']
     attributes_input_data = np.zeros((max_attributes, len(tokens_dict)))
     if len(attrs) > 0:
         if len(attrs) > max_attributes:
@@ -104,7 +107,7 @@ def get_attribute_data(annotation_line, input_shape, tokens_dict, max_attributes
     return image_data, attributes_input_data 
 
 
-def attributes_data_generator(annotation_lines, batch_size, input_shape, tokens_list):
+def attributes_data_generator(annotation_lines, batch_size, input_shape, tokens_list, max_attributes=4):
     tokens_dict = decoder_tokens_list_to_dict(tokens_list)
     n = len(annotation_lines)
     i = 0
@@ -114,16 +117,20 @@ def attributes_data_generator(annotation_lines, batch_size, input_shape, tokens_
         for b in range(batch_size):
             if i == 0:
                 np.random.shuffle(annotation_lines)
-                image, attributes = get_attribute_data(annotation_lines[i], input_shape, tokens_dict)
-                image_data.append(image)
-                decoder_data.append(attributes)
-                i = (i+1) % n
+            image, attributes = get_attribute_data(annotation_lines[i], input_shape, tokens_dict, max_attributes=max_attributes)
+            image_data.append(image)
+            decoder_data.append(attributes)
+            i = (i+1) % n
         
+        image_data = np.array(image_data)
+        decoder_data = np.array(decoder_data)
+        
+        # print('decoder_data_shape: {}'.format(decoder_data.shape))
         decoder_output_data = np.roll(decoder_data, -1, axis=1)
         decoder_output_data[:, -1] = 0
         decoder_output_data[:, -1, tokens_dict['EOS']] = 1
 
-        image_data = np.array(image_data)
-        decoder_data = np.array(decoder_data)
-
-        return image_data, decoder_data, decoder_output_data
+        # print('image_data_shape: {}'.format(image_data.shape))
+        # print('decoder_output_data_shape: {}'.format(decoder_output_data.shape))
+        # print('[image_data, decoder_data]_shape: {}'.format([image_data, decoder_data]))
+        yield [image_data, decoder_data], decoder_output_data

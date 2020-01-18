@@ -1,28 +1,61 @@
-# from classes.model.attributeClassfication import attribute_classification_train_model, attribute_classfication_training
+from classes.model.attributeClassfication import (
+    attribute_classification_train_model,
+    attribute_classfication_training,
+    attribute_classification_predit_model,
+    attribute_classification_predit,
+    attribute_classification_evaluate,
+    EPOCHES
+)
 from classes.data2Input import attributes_data_generator
-from general.util import read_file, write_file
+from general.util import read_file, write_file, createFolder
 from classes.get_configs import get_attribute_encoder_config, get_attribute_decoder_config
 import general.path as path
 import general.dataType as TYPE
+from keras.models import load_model
+import random
 
 if __name__ == "__main__":
+    TRAINING = False
+    PREDIT = False
+    EVALUATE = True
+    final_model_saved_path = path.CLASS_ATTR_MODEL_PATH + \
+        str(EPOCHES)+'\\attr_class_model'+TYPE.H5
+    predit_model_path = final_model_saved_path
+    evaluate_model_path = final_model_saved_path
 
     encoder_config = get_attribute_encoder_config(1)
     decoder_config = get_attribute_decoder_config(1)
     # token_list = get_attribute_decoder_config(2)['token_list']
     lines = read_file(decoder_config['data_path'], 'splitlines')
-    # new_lines=[]
-    # for line in lines:
-    #     line = line.split()
-    #     attrs =  [token_list[int(i)] for i in line[1:]]
-    #     new_lines.append([line[0]]+attrs)
-    # write_file(new_lines, path.DATASET1_ELEMENT_FOLDER+'text-attr-labels-lab.txt', 2)
 
-#    train_model = attribute_classification_train_model(10)
-    image_data, decoder_data, decoder_output_data = attributes_data_generator(lines, 2, (20,20), decoder_config['token_list'])
-    print('--{}---\n{}'.format('image_data', image_data))
-    print('--{}---\n{}'.format('decoder_data', decoder_data))
-    print('--{}---\n{}'.format('decoder_output_data', decoder_output_data))
+    if TRAINING:
 
+        createFolder(path.CLASS_ATTR_MODEL_PATH + str(EPOCHES))
+        createFolder(path.CLASS_ATTR_WEIGHT + str(EPOCHES))
+        train_model = attribute_classification_train_model(len(decoder_config['token_list']),
+                                                           input_shape=encoder_config['input_shape'])
+        attribute_classfication_training(train_model, encoder_config, decoder_config,
+                                         checkpoint_folder=path.CLASS_ATTR_WEIGHT + str(EPOCHES), analysis_saved_folder=path.CLASS_ATTR_ANALYSIS,
+                                         final_model_saved_path=final_model_saved_path, initial_epoch=0)
 
-    
+    if PREDIT:
+        createFolder(path.CLASS_ATTR_PREDIT_GUI_PATH + str(EPOCHES))
+        encoder_model, decoder_model = attribute_classification_predit_model(
+            load_model(predit_model_path))
+        max_data_length = len(lines)
+        for i in range(5):
+            idx = random.randint(0, max_data_length+1)
+            print('predit_GT: ', lines[idx])
+            line = lines[idx].split()
+            decoded_sentence = attribute_classification_predit(encoder_model, decoder_model, line[0], encoder_config['input_shape'], decoder_config['token_list'], 4,
+                                                               result_saved_path=path.CLASS_ATTR_PREDIT_GUI_PATH + str(EPOCHES)+'\\'+str(idx)+TYPE.GUI)
+        print('decoded_sentence length: ', idx, len(decoded_sentence))
+
+    if EVALUATE:
+        print('evaluated Model path: \n{}'.format(evaluate_model_path))
+        start = encoder_config['num_train']+encoder_config['num_valid']
+        end = start+encoder_config['num_test']
+        print('testing data: \n from: {}\n to: {}'.format(start, end))
+
+        attribute_classification_evaluate(load_model(evaluate_model_path), encoder_config,
+                                          decoder_config)

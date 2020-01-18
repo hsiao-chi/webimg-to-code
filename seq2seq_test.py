@@ -36,20 +36,19 @@ if __name__ == "__main__":
         _, _, num_input_token = encoder_input_data.shape
         _, _, num_target_token = decoder_input_data.shape
 
-        print(encoder_input_data.shape, '\n', decoder_input_data.shape)
         seq2seq_training_model = seq2seq_train_model(
             num_input_token, num_target_token, gaussian_noise=gaussian_noise,
             encoder_bidirectional_lstm=encoder_bidirectional_lstm)
-        # seq2seq_training_model = seq2seq_training(seq2seq_training_model, encoder_input_data, decoder_input_data, decoder_target_tokens,
-        #                                           analysis_saved_folder=path.CLASS_SEQ2SEQ_ANALYSIS_PATH,
-        #                                           checkpoint_folder=path.CLASS_SEQ2SEQ_WEIGHT + str(SEQ2SEQ_EPOCHES)+"\\",
-        #                                           final_model_saved_path=final_model_path,
-        #                                           initial_epoch=0)
+        seq2seq_training_model = seq2seq_training(seq2seq_training_model, encoder_input_data, decoder_input_data, decoder_target_tokens,
+                                                  analysis_saved_folder=path.CLASS_SEQ2SEQ_ANALYSIS_PATH,
+                                                  checkpoint_folder=path.CLASS_SEQ2SEQ_WEIGHT + str(SEQ2SEQ_EPOCHES)+"\\",
+                                                  final_model_saved_path=final_model_path,
+                                                  initial_epoch=0)
 
     if PREDIT:
         createFolder(path.CLASS_SEQ2SEQ_PREDIT_GUI_PATH + str(SEQ2SEQ_EPOCHES))
         encoder_model, decoder_model = seq2seq_predit_model(
-            load_model(final_model_path), bidirectional_lstm=encoder_bidirectional_lstm)
+            load_model(predit_model_path), bidirectional_lstm=encoder_bidirectional_lstm)
         list1 = os.listdir(encoder_config['data_folder'])
         num_total_data = len(list1)
         for i in range(5):

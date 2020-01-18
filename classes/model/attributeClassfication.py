@@ -6,15 +6,17 @@ from keras import backend as K, callbacks
 import general.path as path
 import general.dataType as TYPE
 from general.util import createFolder, read_file, write_file, showLoss, showAccuracy
+from classes.data2Input import attributes_data_generator, preprocess_image, decoder_tokens_list_to_dict
 import numpy as np
 from PIL import Image
-
 
 
 LSTM_ENCODER_DIM = 256
 LSTM_DECODER_DIM = 256
 
-MODE_SAVE_PERIOD = 50
+MODE_SAVE_PERIOD = 1
+EPOCHES = 2
+BATCH_SIZE = 2
 
 
 def cnn_vgg(input_shape, weight_path=None) -> Model:
@@ -44,7 +46,7 @@ def cnn_vgg(input_shape, weight_path=None) -> Model:
     return model
 
 
-def get_cnn_model(cnnType='VGG',input_shape=(112, 112, 3), pre_trained_weight=None)-> Model:
+def get_cnn_model(cnnType='VGG', input_shape=(112, 112, 3), pre_trained_weight=None)-> Model:
     if cnnType == 'VGG':
         return cnn_vgg(input_shape, pre_trained_weight)
 
@@ -58,13 +60,15 @@ def attribute_classification_train_model(num_target_token,  cnn_model='VGG', inp
     encoder = LSTM(LSTM_ENCODER_DIM, return_state=True, name='encoder_lstm')
     encoder_outputs, state_h, state_c = encoder(encoded_image)
     encoder_states = [state_h, state_c]
-    decoder_inputs = Input(shape=(None, num_target_token), name='decoder_input')
+    decoder_inputs = Input(
+        shape=(None, num_target_token), name='decoder_input')
     decoder_lstm = LSTM(
         LSTM_DECODER_DIM, return_sequences=True, return_state=True, name='decoder_lstm')
 
     decoder_outputs, _, _ = decoder_lstm(decoder_inputs,
                                          initial_state=encoder_states)
-    decoder_dense = Dense(num_target_token, activation='softmax', name='decoder_dense')
+    decoder_dense = Dense(
+        num_target_token, activation='softmax', name='decoder_dense')
     decoder_outputs = decoder_dense(decoder_outputs)
     train_model = Model(
         [image_input, decoder_inputs], decoder_outputs)
@@ -76,13 +80,16 @@ def attribute_classification_train_model(num_target_token,  cnn_model='VGG', inp
 
 def attribute_classification_predit_model(model: Model)-> Model:
     encoder_inputs = model.get_layer('image_input').input  # input_1
-    encoder_outputs, state_h_enc, state_c_enc = model.get_layer('encoder_lstm').output
+    encoder_outputs, state_h_enc, state_c_enc = model.get_layer(
+        'encoder_lstm').output
     encoder_states = [state_h_enc, state_c_enc]
     encoder_model = Model(encoder_inputs, encoder_states)
     encoder_model.summary()
     decoder_inputs = model.get_layer('decoder_input').input   # input_2
-    decoder_state_input_h = Input(shape=(LSTM_DECODER_DIM,), name='decoder_state_input_h')
-    decoder_state_input_c = Input(shape=(LSTM_DECODER_DIM,), name='decoder_state_input_c')
+    decoder_state_input_h = Input(
+        shape=(LSTM_DECODER_DIM,), name='decoder_state_input_h')
+    decoder_state_input_c = Input(
+        shape=(LSTM_DECODER_DIM,), name='decoder_state_input_c')
     decoder_states_inputs = [decoder_state_input_h, decoder_state_input_c]
 
     decoder_lstm = model.get_layer('decoder_lstm')
@@ -98,63 +105,81 @@ def attribute_classification_predit_model(model: Model)-> Model:
     return encoder_model, decoder_model
 
 
-
-def attribute_classfication_training(train_model: Model, data_config,  epochs, decoder_input_data):
-    '''
-    data_config = {
-        bath_size=16,
-        target_size=(112, 112)
-        decoder_target_tokens: [... ]
-        image: {
-            train: {
-                folder: 'data/train/',
-                total_size: 1000,
-                decoder_input_data: 
-            },
-            valid: { ... },
-            test: { ... },
-        },
-        checkpoint_folder: "", 
-        analysis_saved_folder: "",
-        final_model_saved_path: "",
-    }
-    '''
-    # create generator
-    datagen = ImageDataGenerator()
-    # prepare an iterators for each dataset
-    train_it = datagen.flow_from_directory(
-        data_config['train']['folder'],
-        batch_size=data_config['bath_size'], class_mode=None,
-        target_size=data_config['target_size']
-    )
-    val_it = datagen.flow_from_directory(
-        data_config['valid']['folder'],
-        batch_size=data_config['bath_size'], class_mode=None,
-        target_size=data_config['target_size']
-    )
-
-
-    mc = callbacks.ModelCheckpoint(data_config['checkpoint_folder'] + str(epochs) + '\\' + 'attr-weights{epoch:05d}.h5',
+def attribute_classfication_training(train_model: Model,  encoder_config, decoder_config,
+                                     checkpoint_folder, analysis_saved_folder, final_model_saved_path, initial_epoch=0):
+    mc = callbacks.ModelCheckpoint(checkpoint_folder + str(EPOCHES) + 'attr-classfy-weights{epoch:05d}.h5',
                                    save_weights_only=True, period=MODE_SAVE_PERIOD)
-    train_step_per_each = data_config['train']['total_size'] // data_config['bath_size']
-    valid_step_per_each = data_config['train']['total_size'] // data_config['bath_size']
-    history = train_model.fit_generator(train_it,
-                                  steps_per_epoch=train_step_per_each,
-                                  epochs=epochs,
-                                  validation_data=val_it,
-                                  validation_steps=valid_step_per_each,
-                                  callbacks=[mc]
-                                  )
+    lines = read_file(decoder_config['data_path'], 'splitlines')
+    num_train = encoder_config['num_train']
+    num_valid = encoder_config['num_valid']
+    token_list = decoder_config['token_list']
+    input_shape = encoder_config['input_shape']
+    # print('-----config----- \nnum_train: {}\nnum_valid: {}\ninput_shape: {}\nsteps_per_epoch: {}\n'.format(num_train, num_valid, input_shape, max(1, num_train//BATCH_SIZE)))
+    history = train_model.fit_generator(attributes_data_generator(lines[:num_train],BATCH_SIZE, input_shape, token_list),
+                                        steps_per_epoch=max(1, num_train//BATCH_SIZE),
+                                        validation_data=attributes_data_generator(lines[num_train:num_train + num_valid],BATCH_SIZE, input_shape, token_list),
+                                        validation_steps=max(1, num_valid//BATCH_SIZE),
+                                        epochs=EPOCHES,
+                                        initial_epoch=initial_epoch,
+                                        callbacks=[mc])
 
-    showLoss(history, data_config['analysis_saved_folder'], 'loss-' + str(epochs))
-    showAccuracy(history, data_config['analysis_saved_folder'],
-                 'accuracy-' + str(epochs))
-    write_file(history.history, data_config['analysis_saved_folder']+'history'+str(epochs)+TYPE.TXT, 'JSON')
-    train_model.save(data_config['final_model_saved_path'])
+    showLoss(history, analysis_saved_folder, 'loss' + str(EPOCHES))
+    showAccuracy(history, analysis_saved_folder,
+                 'accuracy' + str(EPOCHES))
+    write_file(history.history, analysis_saved_folder +
+               'history'+str(EPOCHES)+TYPE.TXT, 'JSON')
+    train_model.save(final_model_saved_path)
     return train_model
 
 
 
+def attribute_classification_predit(encoder_model: Model, decoder_model: Model, 
+input_image_path, input_shape, decoder_token_list, max_decoder_seq_length, result_saved_path):
+    
+    img_data = preprocess_image(input_image_path, input_shape)
+    w, h, c = img_data.shape
+    img_input = np.zeros((1, w, h, c), dtype='float32')
+    img_input[0] = img_data
+    states_value = encoder_model.predict(img_input)
+    tokens_dict = decoder_tokens_list_to_dict(decoder_token_list)
+    target_seq = np.zeros((1, 1, len(tokens_dict)))
+    target_seq[0, 0, tokens_dict['START']] = 1.
+
+    reverse_tokens_dict = dict(
+        (i, token) for token, i in tokens_dict.items())
+    stop_condition = False
+    decoded_sentence = []
+    while not stop_condition:
+        output_tokens, h, c = decoder_model.predict(
+            [target_seq] + states_value)
+        # Sample a token
+        sampled_token_index = np.argmax(output_tokens[0, -1, :])
+        sampled_token = reverse_tokens_dict[sampled_token_index]
+        if sampled_token != 'EOS':
+            decoded_sentence.append(sampled_token)
+
+        # Exit condition: either hit max length
+        # or find stop character.
+        if (sampled_token == 'EOS' or
+                len(decoded_sentence) > max_decoder_seq_length):
+            stop_condition = True
+
+        # Update the target sequence (of length 1).
+        target_seq = np.zeros((1, 1, len(tokens_dict)))
+        target_seq[0, 0, sampled_token_index] = 1.
+
+        # Update states
+        states_value = [h, c]
+    write_file(decoded_sentence, result_saved_path, dataDim=1)
+    return decoded_sentence
 
 
-
+def attribute_classification_evaluate(model: Model, encoder_config, decoder_config):
+    lines = read_file(decoder_config['data_path'], 'splitlines')
+    start = encoder_config['num_train']+encoder_config['num_valid']
+    end = start+encoder_config['num_test']
+    token_list = decoder_config['token_list']
+    input_shape = encoder_config['input_shape']
+    loss, acc = model.evaluate_generator(attributes_data_generator(lines[start:end],BATCH_SIZE, input_shape, token_list),
+    steps=max(1, encoder_config['num_test']//BATCH_SIZE))
+    print("\nLoss: %.2f, Accuracy: %.3f%%" % (loss, acc*100))
