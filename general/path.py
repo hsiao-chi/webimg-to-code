@@ -45,6 +45,7 @@ PIX2CODE_ORIGIN_DATASET = 'E:\\projects\\webGener\\pix2code\\datasets\\pix2code_
 
 DATASET1_FULL_YOLO_NOISE = DATASET+'pix2code\\full-yolo-noise-resort-txt\\'
 DATASET1_FULL_YOLO_NOISE_TXT = DATASET1_FULL_YOLO_NOISE+"position_txt\\"
+DATASET1_ATTR_YOLO_NOISE_TXT = DATASET1_FULL_YOLO_NOISE+"attr-position_txt\\"
 DATASET1_FULL_YOLO_NOISE_GUI = DATASET1_FULL_YOLO_NOISE+"gui\\"
 
 DATASET1_TESTING = DATASET + 'pix2code\\testing-dataset\\'

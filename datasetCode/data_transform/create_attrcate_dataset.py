@@ -52,8 +52,10 @@ def create_attribute_classfication_dataset_old(positions_folder, image_folder, t
 
 
 def create_attribute_classfication_dataset(attr_positions_folder, image_folder,
-                                           element_folder, target_path, record_path, label_list, element_start_index, file_start_index=0, file_num=1):
+                                           element_folder, target_path, record_path, label_list, element_start_index, file_start_index=0, file_num=1, balance=True):
     element_index = element_start_index
+    num_each_element = [0, 0, 0]
+    prop_each_element = [1., 1., 5.]
     with open(target_path, 'a+') as f:
         for file_idx in range(file_start_index, file_start_index+file_num):
             img = cv2.imread(image_folder+str(file_idx)+TYPE.IMG)
@@ -61,13 +63,23 @@ def create_attribute_classfication_dataset(attr_positions_folder, image_folder,
                 attr_positions_folder+str(file_idx)+TYPE.TXT, 'splitlines')
             positions = [position.split() for position in read_positions]
             for position in positions:
+                if balance:
+                    t = int(position[0])
+                    if sum(prop_each_element) > 0 and (num_each_element[t]/(element_index+1) > prop_each_element[t]/(sum(prop_each_element))):
+                        continue
+                    else:
+                        num_each_element[t] += 1
+
                 sub_img = splitImage(img, position)
                 attributes = position[5:]
                 element_file_name = element_folder+str(element_index)+TYPE.IMG
-                f.write('{} {}\n'.format(element_file_name, ' '.join( [ str(a) for a in attributes] )))
+                f.write('{} {}\n'.format(element_file_name,
+                                         ' '.join([str(a) for a in attributes])))
                 cv2.imwrite(element_file_name, sub_img)
-                element_index+=1
-            print(file_idx) if file_idx %10 == 0 else None
+                element_index += 1
+            print(file_idx) if file_idx % 10 == 0 else None
 
-    write_file('number of used file: {}\nnumber of total_elements: {}\n'.format(file_start_index + file_num, element_index), record_path, 0)   
+    record = 'number of used file: {}\nnumber of total_elements: {}\nnumber of type 0 [Title]: {}\nnumber of type 1 [Text]: {}\nnumber of type 2 [Btn]: {}\n prop: {}'.format(
+        file_start_index + file_num, element_index, num_each_element[0], num_each_element[1], num_each_element[2], prop_each_element)
+    write_file(record, record_path, 0)
     return element_index

@@ -84,26 +84,26 @@ if __name__ == "__main__":
     ------------- Full Yolo position -- to -- Attribute Yolo position ---------------
     =================================================================================
     '''
-
-    bg_color = [None, None, Bg_color.primary.value, Bg_color.dark.value,
-                Bg_color.success.value, Bg_color.warning.value, Bg_color.danger.value]
-    text_color = [Font_color.dark.value, Font_color.dark.value, Font_color.white.value,
-                  Font_color.primary.value, Font_color.white.value, Font_color.white.value, Font_color.white.value]
-    for i in range(0, 500):
-        new_labels = []
-        labels = read_file(
-            path.DATASET1_TESTING_SEQ2SEQ_POSITION_NOISE_TXT+str(i)+TYPE.TXT, 'splitlines')
-        for label in labels:
-            c = int(label.split()[0])
-            position = label.split()[1:]
-            new_label = []
-            new_label.append(str(min(c, 2)))
-            new_label += position
-            new_label.append(text_color[c])
-            if c >= 2:
-                new_label.append(bg_color[c])
-            new_labels.append(new_label)
-        write_file(new_labels, path.DATASET1_TESTING_SEQ2SEQ_ATTR_POSITION_NOISE_TXT+str(i)+TYPE.TXT, 2)
+    # createFolder(path.DATASET1_ATTR_YOLO_NOISE_TXT)
+    # bg_color = [None, None, Bg_color.primary.value, Bg_color.dark.value,
+    #             Bg_color.success.value, Bg_color.warning.value, Bg_color.danger.value]
+    # text_color = [Font_color.dark.value, Font_color.dark.value, Font_color.white.value,
+    #               Font_color.primary.value, Font_color.white.value, Font_color.white.value, Font_color.white.value]
+    # for i in range(500, 2500):
+    #     new_labels = []
+    #     labels = read_file(
+    #         path.DATASET1_FULL_YOLO_NOISE_TXT+str(i)+TYPE.TXT, 'splitlines')
+    #     for label in labels:
+    #         c = int(label.split()[0])
+    #         position = label.split()[1:]
+    #         new_label = []
+    #         new_label.append(str(min(c, 2)))
+    #         new_label += position
+    #         new_label.append(text_color[c])
+    #         if c >= 2:
+    #             new_label.append(bg_color[c])
+    #         new_labels.append(new_label)
+    #     write_file(new_labels, path.DATASET1_ATTR_YOLO_NOISE_TXT+str(i)+TYPE.TXT, 2)
 
     ''' 
     =================================================================================
@@ -177,13 +177,13 @@ if __name__ == "__main__":
     # createFolder(path.DATASET1_ATTRCLASSFICATION_JSON)
     # create_attribute_classfication_dataset(path.DATASET1_ATTRIBUTE_YOLO_POSITION_TXT, path.DATASET1_ORIGIN_PNG, path.DATASET1_ATTRCLASSFICATION_JSON+'3_file'+TYPE.JSON)
     
-    # createFolder(path.DATASET1_ELEMENT_PNG)
-    # create_attribute_classfication_dataset(
-    #     path.DATASET1_ATTRIBUTE_YOLO_POSITION_TXT, path.DATASET1_ORIGIN_PNG, 
-    #     path.DATASET1_ELEMENT_PNG, path.DATASET1_ELEMENT_FOLDER+'attr-labels'+TYPE.TXT, 
-    #     path.DATASET1_ELEMENT_FOLDER+'record'+TYPE.TXT,
-    #     get_encoder_config(2)['token_list'], 
-    #     element_start_index=826, file_start_index=30, file_num=10)
+    createFolder(path.DATASET1_ELEMENT_PNG)
+    create_attribute_classfication_dataset(
+        path.DATASET1_ATTRIBUTE_YOLO_POSITION_TXT, path.DATASET1_ORIGIN_PNG, 
+        path.DATASET1_ELEMENT_PNG, path.DATASET1_ELEMENT_FOLDER+'attr-labels-balance'+TYPE.TXT, 
+        path.DATASET1_ELEMENT_FOLDER+'record-balance'+TYPE.TXT,
+        get_encoder_config(2)['token_list'], 
+        element_start_index=0, file_start_index=0, file_num=100, balance=True)
 
     ''' 
     =================================================================================
