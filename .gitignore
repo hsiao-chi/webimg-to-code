@@ -26,6 +26,7 @@ wheels/
 MANIFEST
 dataset/
 environment/
+assets/2020/
 *.h5
 
 # PyInstaller
