@@ -6,7 +6,7 @@ from classes.model.attributeClassfication import (
     attribute_classification_evaluate,
     EPOCHES
 )
-from classes.data2Input import attributes_data_generator
+from classes.data2Input import attributes_data_generator, preprocess_image
 from general.util import read_file, write_file, createFolder
 from classes.get_configs import get_attribute_encoder_config, get_attribute_decoder_config
 import general.path as path
@@ -15,9 +15,10 @@ from keras.models import load_model
 import random
 
 if __name__ == "__main__":
-    TRAINING = True
-    PREDIT = True
-    EVALUATE = True
+    DEBUG_DATASET = False
+    TRAINING = False
+    PREDIT = False
+    EVALUATE = False
     final_model_saved_path = path.CLASS_ATTR_MODEL_PATH + \
         str(EPOCHES)+'\\attr_class_model'+TYPE.H5
     predit_model_path = final_model_saved_path
@@ -63,3 +64,13 @@ if __name__ == "__main__":
         print('testing data: \n from: {}\n to: {}'.format(test_start, test_end))
         attribute_classification_evaluate(load_model(evaluate_model_path), 
         test_start, test_end, input_shape, decoder_config)
+
+    
+    if DEBUG_DATASET:
+        for line in lines:
+            line = line.split()
+            try: 
+                preprocess_image(line[0], (112,112,3), True)
+            except ValueError:
+                print('ERROR File: {}'.format(line))
+                pass

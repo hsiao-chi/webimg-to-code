@@ -85,25 +85,25 @@ if __name__ == "__main__":
     =================================================================================
     '''
 
-    # bg_color = [None, None, Bg_color.primary.value, Bg_color.dark.value,
-    #             Bg_color.success.value, Bg_color.warning.value, Bg_color.danger.value]
-    # text_color = [Font_color.dark.value, Font_color.dark.value, Font_color.white.value,
-    #               Font_color.primary.value, Font_color.white.value, Font_color.white.value, Font_color.white.value]
-    # for i in range(500, 600):
-    #     new_labels = []
-    #     labels = read_file(
-    #         path.DATASET1_FULL_YOLO_POSITION_TXT+str(i)+TYPE.TXT, 'splitlines')
-    #     for label in labels:
-    #         c = int(label.split()[0])
-    #         position = label.split()[1:]
-    #         new_label = []
-    #         new_label.append(str(min(c, 2)))
-    #         new_label += position
-    #         new_label.append(text_color[c])
-    #         if c >= 2:
-    #             new_label.append(bg_color[c])
-    #         new_labels.append(new_label)
-    #     write_file(new_labels, path.DATASET1_ATTRIBUTE_YOLO_POSITION_TXT+str(i)+TYPE.TXT, 2)
+    bg_color = [None, None, Bg_color.primary.value, Bg_color.dark.value,
+                Bg_color.success.value, Bg_color.warning.value, Bg_color.danger.value]
+    text_color = [Font_color.dark.value, Font_color.dark.value, Font_color.white.value,
+                  Font_color.primary.value, Font_color.white.value, Font_color.white.value, Font_color.white.value]
+    for i in range(0, 500):
+        new_labels = []
+        labels = read_file(
+            path.DATASET1_TESTING_SEQ2SEQ_POSITION_NOISE_TXT+str(i)+TYPE.TXT, 'splitlines')
+        for label in labels:
+            c = int(label.split()[0])
+            position = label.split()[1:]
+            new_label = []
+            new_label.append(str(min(c, 2)))
+            new_label += position
+            new_label.append(text_color[c])
+            if c >= 2:
+                new_label.append(bg_color[c])
+            new_labels.append(new_label)
+        write_file(new_labels, path.DATASET1_TESTING_SEQ2SEQ_ATTR_POSITION_NOISE_TXT+str(i)+TYPE.TXT, 2)
 
     ''' 
     =================================================================================
@@ -150,10 +150,10 @@ if __name__ == "__main__":
     '''
 
     # yolo_position_with_noise_generator(
-    #     path.DATASET1_TESTING_SEQ2SEQ_POSITION_TXT,
-    #     path.DATASET1_TESTING_SEQ2SEQ_ATTR_GUI,
-    #     path.DATASET1_TESTING_SEQ2SEQ_POSITION_NOISE_TXT,
-    #     path.DATASET1_TESTING_SEQ2SEQ_ATTR_NOISE_GUI,
+    #     yolo_position_folder=path.DATASET1_TESTING_SEQ2SEQ_ATTR_POSITION_TXT,
+    #     # path.DATASET1_TESTING_SEQ2SEQ_ATTR_GUI,
+    #     new_positions_folder=path.DATASET1_TESTING_SEQ2SEQ_ATTR_POSITION_NOISE_TXT,
+    #     # path.DATASET1_TESTING_SEQ2SEQ_ATTR_NOISE_GUI,
     #     data_num=100,
     #     save_origin_file=False,
     #     resort=True)
@@ -163,8 +163,8 @@ if __name__ == "__main__":
     =================================================================================
     '''
 
-    # copy_files(path.DATASET1_FULL_YOLO_POSITION_TXT, 500, 599, TYPE.TXT,
-    #            path.DATASET1_TESTING_SEQ2SEQ_POSITION_TXT, 0, TYPE.TXT)
+    # copy_files(path.DATASET1_ATTRIBUTE_YOLO_POSITION_TXT, 500, 599, TYPE.TXT,
+    #            path.DATASET1_TESTING_SEQ2SEQ_ATTR_POSITION_TXT, 0, TYPE.TXT)
     # copy_files(path.DATASET1_ROWCOL_ATTRIBUTE_GUI, 500, 599, TYPE.GUI,
     #            path.DATASET1_TESTING_SEQ2SEQ_ATTR_GUI, 0, TYPE.GUI)
 
