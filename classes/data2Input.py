@@ -102,7 +102,6 @@ def get_attribute_data(annotation_line, input_shape, tokens_dict, max_attributes
         if len(attrs) > max_attributes:
             attrs = attrs[:max_attributes]
         for i, attr in enumerate(attrs):
-            print(i, attr)
             attributes_input_data[i, tokens_dict[attr]] = 1
     return image_data, attributes_input_data 
 

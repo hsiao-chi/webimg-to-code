@@ -15,8 +15,8 @@ from keras.models import load_model
 import random
 
 if __name__ == "__main__":
-    TRAINING = False
-    PREDIT = False
+    TRAINING = True
+    PREDIT = True
     EVALUATE = True
     final_model_saved_path = path.CLASS_ATTR_MODEL_PATH + \
         str(EPOCHES)+'\\attr_class_model'+TYPE.H5
@@ -25,7 +25,6 @@ if __name__ == "__main__":
 
     encoder_config = get_attribute_encoder_config(1)
     decoder_config = get_attribute_decoder_config(1)
-    # token_list = get_attribute_decoder_config(2)['token_list']
     lines = read_file(decoder_config['data_path'], 'splitlines')
 
     if TRAINING:
@@ -53,9 +52,14 @@ if __name__ == "__main__":
 
     if EVALUATE:
         print('evaluated Model path: \n{}'.format(evaluate_model_path))
-        start = encoder_config['num_train']+encoder_config['num_valid']
-        end = start+encoder_config['num_test']
-        print('testing data: \n from: {}\n to: {}'.format(start, end))
+        print('data_file: {}'.format(decoder_config['data_path']))
+        test_start = encoder_config['num_train']+encoder_config['num_valid']
+        test_end = test_start+encoder_config['num_test']
+        input_shape = encoder_config['input_shape']
 
-        attribute_classification_evaluate(load_model(evaluate_model_path), encoder_config,
-                                          decoder_config)
+        print('training data: \n from: {}\n to: {}'.format(0, test_start))
+        attribute_classification_evaluate(load_model(evaluate_model_path), 
+        0, test_start, input_shape, decoder_config)
+        print('testing data: \n from: {}\n to: {}'.format(test_start, test_end))
+        attribute_classification_evaluate(load_model(evaluate_model_path), 
+        test_start, test_end, input_shape, decoder_config)

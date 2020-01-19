@@ -14,9 +14,9 @@ from PIL import Image
 LSTM_ENCODER_DIM = 256
 LSTM_DECODER_DIM = 256
 
-MODE_SAVE_PERIOD = 1
-EPOCHES = 2
-BATCH_SIZE = 2
+MODE_SAVE_PERIOD = 100
+EPOCHES = 300
+BATCH_SIZE = 32
 
 
 def cnn_vgg(input_shape, weight_path=None) -> Model:
@@ -174,12 +174,9 @@ input_image_path, input_shape, decoder_token_list, max_decoder_seq_length, resul
     return decoded_sentence
 
 
-def attribute_classification_evaluate(model: Model, encoder_config, decoder_config):
+def attribute_classification_evaluate(model: Model, start_idx, end_idx, input_shape, decoder_config):
     lines = read_file(decoder_config['data_path'], 'splitlines')
-    start = encoder_config['num_train']+encoder_config['num_valid']
-    end = start+encoder_config['num_test']
     token_list = decoder_config['token_list']
-    input_shape = encoder_config['input_shape']
-    loss, acc = model.evaluate_generator(attributes_data_generator(lines[start:end],BATCH_SIZE, input_shape, token_list),
-    steps=max(1, encoder_config['num_test']//BATCH_SIZE))
-    print("\nLoss: %.2f, Accuracy: %.3f%%" % (loss, acc*100))
+    loss, acc = model.evaluate_generator(attributes_data_generator(lines[start_idx:end_idx],BATCH_SIZE, input_shape, token_list),
+    steps=max(1, (end_idx - start_idx)//BATCH_SIZE))
+    print("\nLoss: %.2f, Accuracy: %.3f%% \n " % (loss, acc*100))

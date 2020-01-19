@@ -74,9 +74,9 @@ def get_attribute_encoder_config(target_type=1):
         return {
             'data_folder': path.DATASET1_ELEMENT_PNG,
             'input_shape': (56, 56, 3),
-            'num_train': 5,
-            'num_valid': 5,
-            'num_test': 5,
+            'num_train': 720,
+            'num_valid': 180,
+            'num_test': 200,
         }
         
 
