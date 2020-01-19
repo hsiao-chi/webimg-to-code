@@ -16,9 +16,9 @@ import random
 
 if __name__ == "__main__":
     DEBUG_DATASET = False
-    TRAINING = False
-    PREDIT = False
-    EVALUATE = False
+    TRAINING = True
+    PREDIT = True
+    EVALUATE = True
     final_model_saved_path = path.CLASS_ATTR_MODEL_PATH + \
         str(EPOCHES)+'\\attr_class_model'+TYPE.H5
     predit_model_path = final_model_saved_path
@@ -47,9 +47,13 @@ if __name__ == "__main__":
             idx = random.randint(0, max_data_length+1)
             print('predit_GT: ', lines[idx])
             line = lines[idx].split()
-            decoded_sentence = attribute_classification_predit(encoder_model, decoder_model, line[0], encoder_config['input_shape'], decoder_config['token_list'], 4,
+            try:
+                decoded_sentence = attribute_classification_predit(encoder_model, decoder_model, line[0], encoder_config['input_shape'], decoder_config['token_list'], 4,
                                                                result_saved_path=path.CLASS_ATTR_PREDIT_GUI_PATH + str(EPOCHES)+'\\'+str(idx)+TYPE.GUI)
-        print('decoded_sentence length: ', idx, len(decoded_sentence))
+                print('decoded_sentence length: ', idx, len(decoded_sentence))
+            except ValueError:
+                print('Predit ERROR File: {}'.format(line[0]))
+                pass
 
     if EVALUATE:
         print('evaluated Model path: \n{}'.format(evaluate_model_path))

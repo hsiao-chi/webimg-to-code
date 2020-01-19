@@ -24,7 +24,6 @@ def get_decoder_config(target_type=1):
         return {
             # 'data_folder': path.DATASET1_ROWCOL_ATTRIBUTE_GUI,
             'data_folder': path.DATASET1_FULL_YOLO_NOISE_GUI,
-            # 'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_ATTR_GUI,
             'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_ATTR_NOISE_GUI,
             'token_list': [
                 '{', '}', '[', ']',
@@ -49,7 +48,8 @@ def get_encoder_config(target_type=1):
     elif target_type == 2:
         return {
             'direct_part': 5,
-            'data_folder': path.DATASET1_ATTRIBUTE_YOLO_POSITION_TXT,
+            # 'data_folder': path.DATASET1_ATTRIBUTE_YOLO_POSITION_TXT,
+            'data_folder': path.DATASET1_ATTR_YOLO_NOISE_TXT,
             'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_ATTR_POSITION_NOISE_TXT,
             'class_mode': False,
             'token_list': [Font_color.dark.value, Font_color.primary.value, Font_color.white.value,
@@ -76,8 +76,8 @@ def get_attribute_encoder_config(target_type=1):
         return {
             'data_folder': path.DATASET1_ELEMENT_PNG,
             'input_shape': (112, 112, 3),
-            'num_train': 720,
-            'num_valid': 180,
+            'num_train': 1840,
+            'num_valid': 460,
             'num_test': 200,
         }
         
@@ -85,7 +85,7 @@ def get_attribute_encoder_config(target_type=1):
 def get_attribute_decoder_config(target_type=1):
     if target_type == 1:
         return {
-            'data_path': path.DATASET1_ELEMENT_FOLDER+'text-attr-labels-lab.txt',
+            'data_path': path.DATASET1_ELEMENT_FOLDER+'attr-labels-lab-balance.txt',
             'token_list': [Font_color.dark.value, Font_color.primary.value, Font_color.white.value,
                            Bg_color.primary.value, Bg_color.dark.value, Bg_color.success.value,
                            Bg_color.warning.value, Bg_color.danger.value, 'START', 'EOS'],

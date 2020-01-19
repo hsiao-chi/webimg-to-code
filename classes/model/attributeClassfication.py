@@ -15,8 +15,8 @@ LSTM_ENCODER_DIM = 256
 LSTM_DECODER_DIM = 256
 
 MODE_SAVE_PERIOD = 100
-EPOCHES = 300
-BATCH_SIZE = 32
+EPOCHES = 100
+BATCH_SIZE = 10
 
 
 def cnn_vgg(input_shape, weight_path=None) -> Model:

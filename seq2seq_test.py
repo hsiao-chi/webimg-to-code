@@ -13,30 +13,18 @@ if __name__ == "__main__":
     INPUT_TYPE = 2
     TARGET_TYPE = 3
     encoder_bidirectional_lstm = False
-<<<<<<< HEAD
-    training_data_num = 500
+    training_data_num = 2500
     gaussian_noise = None #None
     TRAINING = True
     PREDIT = True
-=======
-    training_data_num = 2500
-    gaussian_noise=1
-    TRAINING = False
-    PREDIT = False
->>>>>>> lab/seq2seq-evaluation
     EVALUATE = True
 
     encoder_config = get_encoder_config(INPUT_TYPE)
     decoder_config = get_decoder_config(TARGET_TYPE)
     final_model_path = path.CLASS_SEQ2SEQ_MODEL_PATH + str(SEQ2SEQ_EPOCHES)+'\\model'+TYPE.H5
     predit_model_path = final_model_path
-<<<<<<< HEAD
     # evaluate_model_path = r'E:\projects\NTUST\webimg-to-code\assets\2020\seq2seq-pix2code\full-rowcolAttrElement\2500\bidirectional-resort-noise\model\300\model.h5'
     evaluate_model_path = final_model_path
-=======
-    evaluate_model_path = r'D:\Chi\webimg-to-code\assets\2020\seq2seq-pix2code\full-rowcolAttrElement\2500\bidirectional-resort\model\300\model.h5'
-    # evaluate_model_path =final_model_path
->>>>>>> lab/seq2seq-evaluation
 
     if TRAINING:
         createFolder(path.CLASS_SEQ2SEQ_MODEL_PATH + str(SEQ2SEQ_EPOCHES))
@@ -66,11 +54,15 @@ if __name__ == "__main__":
         for i in range(5):
             ii = random.randint(0, num_total_data+1)
             input_seq = encoder_input_data[ii: ii+1]
-            print(input_seq)
-            decoded_sentence = seq2seq_predit(encoder_model, decoder_model, input_seq,
+            # print(input_seq)
+            try:
+                decoded_sentence = seq2seq_predit(encoder_model, decoder_model, input_seq,
                                               decoder_target_tokens, max_decoder_len,
                                               result_saved_path=path.CLASS_SEQ2SEQ_PREDIT_GUI_PATH + str(SEQ2SEQ_EPOCHES)+'\\'+str(ii)+TYPE.GUI)
-            print('decoded_sentence length: ', ii, len(decoded_sentence))
+                print('decoded_sentence length: ', ii, len(decoded_sentence))
+            except ValueError:
+                print('Predit ERROR file: {}'.format(ii))
+                pass
 
     if EVALUATE:
         print('evaluated Model path: \n{}'.format(evaluate_model_path))

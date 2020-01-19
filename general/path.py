@@ -4,17 +4,13 @@ from environment.environment import SELF, DATASET
 # SELF = 'D:\\Chi\\webimg-to-code\\'
 CLASS_SEQ2SEQ_MODEL_GRAPH_FILE = SELF+'assets\\seq2seq-position\\seq2seq-model.png'
 
-<<<<<<< HEAD
-CLASS_SEQ2SEQ_TRAINING_TYPE = '2020\\seq2seq-pix2code\\attr-rowcolAttrElement\\500\\normal-resort\\'
-=======
-CLASS_SEQ2SEQ_TRAINING_TYPE = '2020\\seq2seq-pix2code\\full-rowcolAttrElement\\2500\\normal-resort-noise\\'
->>>>>>> lab/seq2seq-evaluation
+CLASS_SEQ2SEQ_TRAINING_TYPE = '2020\\seq2seq-pix2code\\attr-rowcolAttrElement\\2500\\normal-resort\\'
 CLASS_SEQ2SEQ_WEIGHT = SELF+'assets\\'+CLASS_SEQ2SEQ_TRAINING_TYPE+'weight\\'
 CLASS_SEQ2SEQ_MODEL_PATH = SELF+'assets\\'+CLASS_SEQ2SEQ_TRAINING_TYPE+'model\\'
 CLASS_SEQ2SEQ_ANALYSIS_PATH = SELF+'assets\\'+CLASS_SEQ2SEQ_TRAINING_TYPE
 CLASS_SEQ2SEQ_PREDIT_GUI_PATH = SELF+'assets\\'+CLASS_SEQ2SEQ_TRAINING_TYPE+'test-predit-gui\\'
 
-CLASS_ATTR_TRAINING_TYPE = '2020\\attr_class-pix2code\\1100\\VGG-normal\\'
+CLASS_ATTR_TRAINING_TYPE = '2020\\attr_class-pix2code\\2500\\VGG-normal\\'
 CLASS_ATTR_WEIGHT = SELF + 'assets\\'+CLASS_ATTR_TRAINING_TYPE+'weight\\'
 CLASS_ATTR_ANALYSIS =  SELF+'assets\\'+CLASS_ATTR_TRAINING_TYPE
 CLASS_ATTR_PREDIT_GUI_PATH = SELF+'assets\\'+CLASS_ATTR_TRAINING_TYPE+'test-predit-gui\\'
@@ -49,6 +45,7 @@ PIX2CODE_ORIGIN_DATASET = 'E:\\projects\\webGener\\pix2code\\datasets\\pix2code_
 
 DATASET1_FULL_YOLO_NOISE = DATASET+'pix2code\\full-yolo-noise-resort-txt\\'
 DATASET1_FULL_YOLO_NOISE_TXT = DATASET1_FULL_YOLO_NOISE+"position_txt\\"
+DATASET1_ATTR_YOLO_NOISE_TXT = DATASET1_FULL_YOLO_NOISE+"attr-position_txt\\"
 DATASET1_FULL_YOLO_NOISE_GUI = DATASET1_FULL_YOLO_NOISE+"gui\\"
 
 DATASET1_TESTING = DATASET + 'pix2code\\testing-dataset\\'
