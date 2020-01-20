@@ -15,9 +15,9 @@ import tensorflow as tf
 K.tensorflow_backend._get_available_gpus()
 
 def _main():
-    annotation_path = 'annotation/pix2code_full_yolo.txt'
-    log_dir = 'logs/000/'
-    classes_path = 'model_data/pix2code_full_classes.txt'
+    annotation_path = 'annotation/pix2code_attr_yolo.txt'
+    log_dir = 'logs/000/simple'
+    classes_path = 'model_data/pix2code_simple_classes.txt'
     anchors_path = 'model_data/yolo_anchors.txt'
     class_names = get_classes(classes_path)
     num_classes = len(class_names)

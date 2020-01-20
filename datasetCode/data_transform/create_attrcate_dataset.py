@@ -52,10 +52,10 @@ def create_attribute_classfication_dataset_old(positions_folder, image_folder, t
 
 
 def create_attribute_classfication_dataset(attr_positions_folder, image_folder,
-                                           element_folder, target_path, record_path, label_list, element_start_index, file_start_index=0, file_num=1, balance=True):
+                                           element_folder, target_path, record_path, label_list, element_start_index, file_start_index=0, file_num=1, balance=True, initial_each_element= [0, 0, 0], proportion=[1,1,1]):
     element_index = element_start_index
-    num_each_element = [0, 0, 0]
-    prop_each_element = [1., 1., 5.]
+    num_each_element = initial_each_element
+    prop_each_element = proportion
     with open(target_path, 'a+') as f:
         for file_idx in range(file_start_index, file_start_index+file_num):
             img = cv2.imread(image_folder+str(file_idx)+TYPE.IMG)
