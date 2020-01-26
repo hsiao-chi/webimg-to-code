@@ -1,5 +1,5 @@
 from keras.layers import Conv2D, MaxPooling2D, Flatten, Reshape
-from keras.layers import Input, LSTM, Embedding, Dense
+from keras.layers import Input, LSTM, Embedding, Dense, TimeDistributed, Dropout, RepeatVector
 from keras.models import Model, Sequential
 from keras.preprocessing.image import ImageDataGenerator
 from keras import backend as K, callbacks
@@ -11,15 +11,15 @@ import numpy as np
 from PIL import Image
 
 
-LSTM_ENCODER_DIM = 256
-LSTM_DECODER_DIM = 256
+LSTM_ENCODER_DIM = 512
+LSTM_DECODER_DIM = 512
 
 MODE_SAVE_PERIOD = 100
-EPOCHES = 300
+EPOCHES = 100
 BATCH_SIZE = 32
 
 
-def cnn_vgg(input_shape, weight_path=None) -> Model:
+def cnn_simple_vgg(input_shape, max_input_length=4,weight_path=None) -> Model:
     model = Sequential(name='vision_model')
     model.add(Conv2D(
         64, (3, 3), activation='relu', padding='same', input_shape=input_shape))
@@ -38,17 +38,91 @@ def cnn_vgg(input_shape, weight_path=None) -> Model:
         Conv2D(256, (3, 3), activation='relu'))  # 28*28*256
     model.add(MaxPooling2D((2, 2)))  # 14*14*256
     model.add(Flatten())
-    output_shape = model.output_shape
-    model.add(Reshape((int(output_shape[1]/256), 256), name='cnn_output'))
+
+    model.add(Dense(1024, activation='relu'))
+    model.add(Dropout(0.3))
+    model.add(Dense(LSTM_ENCODER_DIM, activation='relu'))
+    model.add(Dropout(0.3))
+    model.add(RepeatVector(max_input_length))
+
+    # output_shape = model.output_shape
+    # model.add(Reshape((int(output_shape[1]/256), 256), name='cnn_output'))
     model.summary()
     if weight_path:
         model.load_weights(weight_path)
     return model
 
+def cnn_VGG16(input_shape=(224,224,3), max_input_length=4,weight_path=None) -> Model:
+     
+    model = Sequential()
+    model.add(Conv2D(64,(3,3),strides=(1,1),input_shape=(224,224,3),padding='same',activation='relu',kernel_initializer='uniform'))
+    model.add(Conv2D(64,(3,3),strides=(1,1),padding='same',activation='relu',kernel_initializer='uniform'))
+    model.add(MaxPooling2D(pool_size=(2,2)))
+    model.add(Conv2D(128,(3,2),strides=(1,1),padding='same',activation='relu',kernel_initializer='uniform'))
+    model.add(Conv2D(128,(3,3),strides=(1,1),padding='same',activation='relu',kernel_initializer='uniform'))
+    model.add(MaxPooling2D(pool_size=(2,2)))
+    model.add(Conv2D(256,(3,3),strides=(1,1),padding='same',activation='relu',kernel_initializer='uniform'))
+    model.add(Conv2D(256,(3,3),strides=(1,1),padding='same',activation='relu',kernel_initializer='uniform'))
+    model.add(Conv2D(256,(3,3),strides=(1,1),padding='same',activation='relu',kernel_initializer='uniform'))
+    model.add(MaxPooling2D(pool_size=(2,2)))
+    model.add(Conv2D(512,(3,3),strides=(1,1),padding='same',activation='relu',kernel_initializer='uniform'))
+    model.add(Conv2D(512,(3,3),strides=(1,1),padding='same',activation='relu',kernel_initializer='uniform'))
+    model.add(Conv2D(512,(3,3),strides=(1,1),padding='same',activation='relu',kernel_initializer='uniform'))
+    model.add(MaxPooling2D(pool_size=(2,2)))
+    model.add(Conv2D(512,(3,3),strides=(1,1),padding='same',activation='relu',kernel_initializer='uniform'))
+    model.add(Conv2D(512,(3,3),strides=(1,1),padding='same',activation='relu',kernel_initializer='uniform'))
+    model.add(Conv2D(512,(3,3),strides=(1,1),padding='same',activation='relu',kernel_initializer='uniform'))
+    model.add(MaxPooling2D(pool_size=(2,2)))
+    model.add(Flatten())
+    model.add(Dense(4096,activation='relu'))
+    model.add(Dropout(0.5))
+    model.add(Dense(4096,activation='relu'))
+    model.add(Dropout(0.5))
+    model.add(Dense(1024,activation='relu'))
+    model.add(Dropout(0.5))
+    model.add(Dense(LSTM_ENCODER_DIM,activation='softmax'))
+    model.add(RepeatVector(max_input_length))
 
-def get_cnn_model(cnnType='VGG', input_shape=(112, 112, 3), pre_trained_weight=None)-> Model:
-    if cnnType == 'VGG':
-        return cnn_vgg(input_shape, pre_trained_weight)
+    model.summary()
+    return model 
+
+def cnn_alexnet(input_shape=(227,227,3), max_input_length=4,weight_path=None) -> Model:
+
+    seed = 7
+    np.random.seed(seed)
+    
+    model = Sequential()  #input_shape=(227,227,3)
+    model.add(Conv2D(96,(11,11),strides=(4,4),input_shape=input_shape,padding='valid',activation='relu',kernel_initializer='uniform'))
+    model.add(MaxPooling2D(pool_size=(3,3),strides=(2,2)))
+    model.add(Conv2D(256,(5,5),strides=(1,1),padding='same',activation='relu',kernel_initializer='uniform'))
+    model.add(MaxPooling2D(pool_size=(3,3),strides=(2,2)))
+    model.add(Conv2D(384,(3,3),strides=(1,1),padding='same',activation='relu',kernel_initializer='uniform'))
+    model.add(Conv2D(384,(3,3),strides=(1,1),padding='same',activation='relu',kernel_initializer='uniform'))
+    model.add(Conv2D(256,(3,3),strides=(1,1),padding='same',activation='relu',kernel_initializer='uniform'))
+    model.add(MaxPooling2D(pool_size=(3,3),strides=(2,2)))
+    model.add(Flatten())
+    model.add(Dense(4096,activation='relu'))
+    model.add(Dropout(0.5))
+    model.add(Dense(4096,activation='relu'))
+    model.add(Dropout(0.5))
+    model.add(Dense(LSTM_ENCODER_DIM,activation='softmax')) #1000
+    model.add(RepeatVector(max_input_length))
+
+    # model.compile(loss='categorical_crossentropy',optimizer='sgd',metrics=['accuracy'])
+    model.summary()
+    if weight_path:
+        model.load_weights(weight_path)
+
+    return model
+
+#  CNN MODELS:https://blog.csdn.net/wmy199216/article/details/71171401
+def get_cnn_model(cnnType='VGG16', input_shape=(112, 112, 3), pre_trained_weight=None)-> Model:
+    if cnnType == 'simple_VGG':
+        return cnn_simple_vgg(input_shape, pre_trained_weight)
+    if cnnType == 'Alexnet':
+        return cnn_alexnet(input_shape, pre_trained_weight)
+    if cnnType == 'VGG16':
+        return cnn_VGG16(input_shape, pre_trained_weight)
 
 
 def attribute_classification_train_model(num_target_token,  cnn_model='VGG', input_shape=(112, 112, 3),

@@ -16,9 +16,9 @@ import random
 
 if __name__ == "__main__":
     DEBUG_DATASET = False
-    TRAINING = False
+    TRAINING = True
     PREDIT = False
-    EVALUATE = False
+    EVALUATE = True
     final_model_saved_path = path.CLASS_ATTR_MODEL_PATH + \
         str(EPOCHES)+'\\attr_class_model'+TYPE.H5
     predit_model_path = final_model_saved_path
@@ -33,7 +33,7 @@ if __name__ == "__main__":
         createFolder(path.CLASS_ATTR_MODEL_PATH + str(EPOCHES))
         createFolder(path.CLASS_ATTR_WEIGHT + str(EPOCHES))
         train_model = attribute_classification_train_model(len(decoder_config['token_list']),
-                                                           input_shape=encoder_config['input_shape'])
+                                                           input_shape=encoder_config['input_shape'], optimizer='Adadelta', cnn_model='VGG16')
         attribute_classfication_training(train_model, encoder_config, decoder_config,
                                          checkpoint_folder=path.CLASS_ATTR_WEIGHT + str(EPOCHES), analysis_saved_folder=path.CLASS_ATTR_ANALYSIS,
                                          final_model_saved_path=final_model_saved_path, initial_epoch=0)
