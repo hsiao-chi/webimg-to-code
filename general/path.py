@@ -38,6 +38,7 @@ DATASET1_ORIGIN_GUI = DATASET+'pix2code\\origin-gui\\'
 DATASET1_ELEMENT_FOLDER = DATASET+'pix2code\\element\\'
 DATASET1_ELEMENT_PNG = DATASET1_ELEMENT_FOLDER+'element-png\\'
 DATASET1_ATTRCLASSFICATION_JSON = DATASET+'pix2code\\attribute-classification-json\\'
+DATASET1_YOLO_TRAIN_DATA = DATASET+'pix2code\\yolo_train\\'
 PIX2CODE_ORIGIN_DATASET = 'E:\\projects\\webGener\\pix2code\\datasets\\pix2code_datasets\\web\\all_data\\'
 
 
