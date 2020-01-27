@@ -10,16 +10,16 @@ from classes.data2Input import attributes_data_generator, preprocess_image, deco
 import numpy as np
 from PIL import Image
 
-
-LSTM_ENCODER_DIM = 512
-LSTM_DECODER_DIM = 512
+MAX_DECODER_INPUT_LENGTH = 4
+LSTM_ENCODER_DIM = 256
+LSTM_DECODER_DIM = 256
 
 MODE_SAVE_PERIOD = 100
-EPOCHES = 100
+EPOCHES = 300
 BATCH_SIZE = 32
 
 
-def cnn_simple_vgg(input_shape, max_input_length=4,weight_path=None) -> Model:
+def cnn_simple_vgg(input_shape,weight_path=None) -> Model:
     model = Sequential(name='vision_model')
     model.add(Conv2D(
         64, (3, 3), activation='relu', padding='same', input_shape=input_shape))
@@ -43,16 +43,17 @@ def cnn_simple_vgg(input_shape, max_input_length=4,weight_path=None) -> Model:
     model.add(Dropout(0.3))
     model.add(Dense(LSTM_ENCODER_DIM, activation='relu'))
     model.add(Dropout(0.3))
-    model.add(RepeatVector(max_input_length))
+    model.add(RepeatVector(MAX_DECODER_INPUT_LENGTH))
 
     # output_shape = model.output_shape
     # model.add(Reshape((int(output_shape[1]/256), 256), name='cnn_output'))
+    print('----------cnn_simple_vgg---------\n')
     model.summary()
     if weight_path:
         model.load_weights(weight_path)
     return model
 
-def cnn_VGG16(input_shape=(224,224,3), max_input_length=4,weight_path=None) -> Model:
+def cnn_VGG16(input_shape=(224,224,3),weight_path=None) -> Model:
      
     model = Sequential()
     model.add(Conv2D(64,(3,3),strides=(1,1),input_shape=(224,224,3),padding='same',activation='relu',kernel_initializer='uniform'))
@@ -80,13 +81,17 @@ def cnn_VGG16(input_shape=(224,224,3), max_input_length=4,weight_path=None) -> M
     model.add(Dropout(0.5))
     model.add(Dense(1024,activation='relu'))
     model.add(Dropout(0.5))
-    model.add(Dense(LSTM_ENCODER_DIM,activation='softmax'))
-    model.add(RepeatVector(max_input_length))
+    model.add(Dense(LSTM_ENCODER_DIM,activation='relu'))
+    model.add(RepeatVector(MAX_DECODER_INPUT_LENGTH))
+    print('----------cnn_VGG16---------\n')
 
     model.summary()
+
+    if weight_path:
+        model.load_weights(weight_path)
     return model 
 
-def cnn_alexnet(input_shape=(227,227,3), max_input_length=4,weight_path=None) -> Model:
+def cnn_alexnet(input_shape=(227,227,3),weight_path=None) -> Model:
 
     seed = 7
     np.random.seed(seed)
@@ -106,9 +111,10 @@ def cnn_alexnet(input_shape=(227,227,3), max_input_length=4,weight_path=None) ->
     model.add(Dense(4096,activation='relu'))
     model.add(Dropout(0.5))
     model.add(Dense(LSTM_ENCODER_DIM,activation='softmax')) #1000
-    model.add(RepeatVector(max_input_length))
+    model.add(RepeatVector(MAX_DECODER_INPUT_LENGTH))
 
     # model.compile(loss='categorical_crossentropy',optimizer='sgd',metrics=['accuracy'])
+    print('----------cnn_alexnet---------\n')
     model.summary()
     if weight_path:
         model.load_weights(weight_path)

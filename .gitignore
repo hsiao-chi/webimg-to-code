@@ -28,6 +28,7 @@ dataset/
 environment/
 assets/2020/
 *.h5
+test/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
