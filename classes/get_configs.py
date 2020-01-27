@@ -75,7 +75,7 @@ def get_attribute_encoder_config(target_type=1):
     if target_type == 1:
         return {
             'data_folder': path.DATASET1_ELEMENT_PNG,
-            'input_shape': (112, 112, 3),
+            'input_shape': (224, 224, 3),
             'num_train': 1840,
             'num_valid': 460,
             'num_test': 200,
