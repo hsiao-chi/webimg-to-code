@@ -11,7 +11,7 @@ def decoder_tokens_list_to_dict(decoder_token_list: list) -> dict:
     return {e: i for i, e in enumerate(decoder_token_list)}
 
 
-def to_Seq2Seq_input(encoder_file_folder, decoder_file_folder, encoder_config, decoder_token_list: list, data_num=None):
+def to_Seq2Seq_input(encoder_file_folder, decoder_file_folder, encoder_config, decoder_token_list: list, data_num=None, data_start_idx=0):
     num_total_data = data_num
     if data_num == None:
         list1 = os.listdir(encoder_file_folder)
@@ -33,7 +33,7 @@ def to_Seq2Seq_input(encoder_file_folder, decoder_file_folder, encoder_config, d
     temp_decoder_all_data = []
     max_encoder_len = 0
     max_decoder_len = 0
-    for i in range(num_total_data):
+    for i in range(data_start_idx, data_start_idx+num_total_data):
         input_data = read_file(encoder_file_folder +
                                str(i)+TYPE.TXT, 'splitlines')
         gui = read_file(decoder_file_folder+str(i)+TYPE.GUI, 'splitBySpec')

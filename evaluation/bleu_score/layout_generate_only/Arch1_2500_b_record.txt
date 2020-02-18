@@ -1,0 +1,57 @@
+{
+    "config": {
+        "input_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\full-yolo-noise-resort-txt\\position_txt\\",
+        "target_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\full-yolo-noise-resort-txt\\gui\\",
+        "model_path": "E:\\projects\\NTUST\\webimg-to-code\\assets\\2020\\seq2seq-pix2code\\full-rowcolAttrElement\\2500\\bidirectional-resort\\model\\300\\model.h5",
+        "num_of_data": 500,
+        "start_index": 0
+    },
+    "BLEU_SCORE": {
+        "individual_1_gram": 0.982197485083372,
+        "individual_2_gram": 0.9770680262412266,
+        "individual_3_gram": 0.970265919510435,
+        "individual_4_gram": 0.9599450194966295,
+        "cumulative_1_gram": 0.982197485083372,
+        "cumulative_2_gram": 0.9796212715581581,
+        "cumulative_3_gram": 0.9766071171010686,
+        "cumulative_4_gram": 0.9722499347813559
+    }
+}
+{
+    "config": {
+        "input_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\full-yolo-noise-resort-txt\\position_txt\\",
+        "target_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\full-yolo-noise-resort-txt\\gui\\",
+        "model_path": "E:\\projects\\NTUST\\webimg-to-code\\assets\\2020\\seq2seq-pix2code\\full-rowcolAttrElement\\2500\\bidirectional-resort\\model\\300\\model.h5",
+        "num_of_data": 100,
+        "start_index": 500
+    },
+    "BLEU_SCORE": {
+        "individual_1_gram": 0.8796613142378678,
+        "individual_2_gram": 0.8662590934463787,
+        "individual_3_gram": 0.8515979869138771,
+        "individual_4_gram": 0.8288221114747256,
+        "cumulative_1_gram": 0.8796613142378678,
+        "cumulative_2_gram": 0.8729186784833587,
+        "cumulative_3_gram": 0.8668089629871862,
+        "cumulative_4_gram": 0.856284354813145
+    }
+}
+{
+    "config": {
+        "input_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\full-yolo-noise-resort-txt\\position_txt\\",
+        "target_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\full-yolo-noise-resort-txt\\gui\\",
+        "model_path": "E:\\projects\\NTUST\\webimg-to-code\\assets\\2020\\seq2seq-pix2code\\full-rowcolAttrElement\\2500\\bidirectional-resort\\model\\300\\model.h5",
+        "num_of_data": 500,
+        "start_index": 600
+    },
+    "BLEU_SCORE": {
+        "individual_1_gram": 0.9707093733077788,
+        "individual_2_gram": 0.9631055064996326,
+        "individual_3_gram": 0.9509530991690499,
+        "individual_4_gram": 0.9302337980625627,
+        "cumulative_1_gram": 0.9707093733077788,
+        "cumulative_2_gram": 0.9668902844920535,
+        "cumulative_3_gram": 0.9617403481471088,
+        "cumulative_4_gram": 0.9534818350012215
+    }
+}

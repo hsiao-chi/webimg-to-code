@@ -246,6 +246,8 @@ def seq2seq_predit(encoder_model: Model, decoder_model: Model, input_seq, decode
 
         # Update states
         states_value = [h, c]
-
-    write_file(decoded_sentence, result_saved_path, dataDim=1)
+    if result_saved_path:
+        write_file(decoded_sentence, result_saved_path, dataDim=1)
     return decoded_sentence
+
+

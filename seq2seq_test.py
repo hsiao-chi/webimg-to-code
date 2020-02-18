@@ -15,9 +15,10 @@ if __name__ == "__main__":
     encoder_bidirectional_lstm = False
     training_data_num = 2500
     gaussian_noise = 1 #None
-    TRAINING = True
+    TRAINING = False
     PREDIT = False
     EVALUATE = False
+    BLEU_SCORE = True
 
     encoder_config = get_encoder_config(INPUT_TYPE)
     decoder_config = get_decoder_config(TARGET_TYPE)
@@ -68,3 +69,4 @@ if __name__ == "__main__":
 
         seq2seq_evaluate(load_model(evaluate_model_path), encoder_input_data,
                          decoder_input_data, decoder_target_tokens)
+

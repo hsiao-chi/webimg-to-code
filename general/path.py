@@ -75,3 +75,7 @@ DATASET2_DSL_MAPPING_JSON_FILE = SELF+'datasetCode\\dataset_2_generator\\mapping
 
 
 DATASETCODE_ASSESTS = SELF+'datasetCode\\assests\\'
+
+
+
+EVALUATION_BLEU_SCORE = SELF+'evaluation\\bleu_score\\'
