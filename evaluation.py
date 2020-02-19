@@ -12,30 +12,32 @@ import json
 
 if __name__ == "__main__":
     BLEU_SCORE = True
-    INPUT_TYPE = 1
+    INPUT_TYPE = 2
     TARGET_TYPE = 3
     encoder_bidirectional_lstm = False
+    testing = True
+    data_folder = 'testing_data_folder' if testing else 'data_folder'
     encoder_config = get_encoder_config(INPUT_TYPE)
     decoder_config = get_decoder_config(TARGET_TYPE)
-    predit_model_path = r'E:\projects\NTUST\webimg-to-code\assets\2020\seq2seq-pix2code\full-rowcolAttrElement\2500\normal-resort\model\300\model.h5'
+    predit_model_path = r'E:\projects\NTUST\webimg-to-code\assets\2020\seq2seq-pix2code\attr-rowcolAttrElement\2500\normal-resort\model\300\model.h5'
     record_file_name = path.EVALUATION_BLEU_SCORE + \
-        'layout_generate_only\\Arch1_2500_n_record.txt'
+        'layout_generate_only\\Arch2_2500_n_record.txt'
     history_file_name = path.EVALUATION_BLEU_SCORE + \
-        'layout_generate_only\\Arch1_2500_n_history.txt'
+        'layout_generate_only\\Arch2_2500_n_history.txt'
 
     if BLEU_SCORE:
         DATA_NUM = 500
-        START_IDX = 600
+        START_IDX = 0
         encoder_input_data, decoder_input_data, decoder_target_tokens, max_decoder_len = to_Seq2Seq_input(
-            encoder_config['data_folder'], decoder_config['data_folder'], encoder_config, decoder_config['token_list'], data_num=DATA_NUM, data_start_idx=START_IDX)
+            encoder_config[data_folder], decoder_config[data_folder], encoder_config, decoder_config['token_list'], data_num=DATA_NUM, data_start_idx=START_IDX)
         createFolder(path.EVALUATION_BLEU_SCORE + 'layout_generate_only\\')
         encoder_model, decoder_model = seq2seq_predit_model(
             load_model(predit_model_path), bidirectional_lstm=encoder_bidirectional_lstm)
 
         record_template = {
             'config': {
-                'input_path': encoder_config['data_folder'],
-                'target_path': decoder_config['data_folder'],
+                'input_path': encoder_config[data_folder],
+                'target_path': decoder_config[data_folder],
                 'model_path': predit_model_path,
                 'num_of_data': DATA_NUM,
                 'start_index': START_IDX,
@@ -63,7 +65,7 @@ if __name__ == "__main__":
                 scores = [None]*8
                 input_seq = encoder_input_data[idx: idx+1]
                 reference_gui = read_file(
-                    decoder_config['data_folder']+str(START_IDX+idx)+TYPE.GUI, 'splitBySpec')
+                    decoder_config[data_folder]+str(START_IDX+idx)+TYPE.GUI, 'splitBySpec')
 
                 decoded_sentence = seq2seq_predit(encoder_model, decoder_model, input_seq,
                                                   decoder_target_tokens, max_decoder_len,

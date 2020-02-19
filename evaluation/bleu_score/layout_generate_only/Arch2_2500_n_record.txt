@@ -1,0 +1,55 @@
+{
+    "config": {
+        "input_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\full-yolo-noise-resort-txt\\attr-position_txt\\",
+        "target_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\full-yolo-noise-resort-txt\\gui\\",
+        "model_path": "E:\\projects\\NTUST\\webimg-to-code\\assets\\2020\\seq2seq-pix2code\\attr-rowcolAttrElement\\2500\\normal-resort\\model\\300\\model.h5",
+        "num_of_data": 500,
+        "start_index": 0
+    },
+    "BLEU_SCORE": {
+        "individual_1_gram": 0.99060432212725,
+        "individual_2_gram": 0.9887150080503144,
+        "individual_3_gram": 0.9868384141590543,
+        "individual_4_gram": 0.9839148678048178,
+        "cumulative_1_gram": 0.99060432212725,
+        "cumulative_2_gram": 0.9896562179717306,
+        "cumulative_3_gram": 0.9887517163732925,
+        "cumulative_4_gram": 0.9874974485568838
+    }
+}{
+    "config": {
+        "input_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\full-yolo-noise-resort-txt\\attr-position_txt\\",
+        "target_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\full-yolo-noise-resort-txt\\gui\\",
+        "model_path": "E:\\projects\\NTUST\\webimg-to-code\\assets\\2020\\seq2seq-pix2code\\attr-rowcolAttrElement\\2500\\normal-resort\\model\\300\\model.h5",
+        "num_of_data": 500,
+        "start_index": 500
+    },
+    "BLEU_SCORE": {
+        "individual_1_gram": 0.9894713947341072,
+        "individual_2_gram": 0.9874818840186065,
+        "individual_3_gram": 0.9854763816143772,
+        "individual_4_gram": 0.9823102956048435,
+        "cumulative_1_gram": 0.9894713947341072,
+        "cumulative_2_gram": 0.9884730489686737,
+        "cumulative_3_gram": 0.9875172596732525,
+        "cumulative_4_gram": 0.9861622055154255
+    }
+}{
+    "config": {
+        "input_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\testing-dataset\\seq2seq\\noise\\attr-position-txt\\",
+        "target_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\testing-dataset\\seq2seq\\noise\\attr-gui\\",
+        "model_path": "E:\\projects\\NTUST\\webimg-to-code\\assets\\2020\\seq2seq-pix2code\\attr-rowcolAttrElement\\2500\\normal-resort\\model\\300\\model.h5",
+        "num_of_data": 500,
+        "start_index": 0
+    },
+    "BLEU_SCORE": {
+        "individual_1_gram": 0.9174438348475573,
+        "individual_2_gram": 0.9067073586709695,
+        "individual_3_gram": 0.8954822052375669,
+        "individual_4_gram": 0.880148311183852,
+        "cumulative_1_gram": 0.9174438348475573,
+        "cumulative_2_gram": 0.9120513210079056,
+        "cumulative_3_gram": 0.9070629708766538,
+        "cumulative_4_gram": 0.8997947745594008
+    }
+}

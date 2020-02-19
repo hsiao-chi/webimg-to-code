@@ -1,56 +1,55 @@
 {
     "config": {
-        "input_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\full-yolo-noise-resort-txt\\position_txt\\", 
-        "target_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\full-yolo-noise-resort-txt\\gui\\", 
-        "model_path": "E:\\projects\\NTUST\\webimg-to-code\\assets\\2020\\seq2seq-pix2code\\full-rowcolAttrElement\\2500\\normal-resort\\model\\300\\model.h5", 
-        "num_of_data": 500, 
-        "start_index": 0
-    }, 
-    "BLEU_SCORE": {
-        "individual_1_gram": 0.9901471855490072, 
-        "individual_2_gram": 0.9852296317056279, 
-        "individual_3_gram": 0.9774613778500415, 
-        "individual_4_gram": 0.964161722467098, 
-        "cumulative_1_gram": 0.9901471855490072, 
-        "cumulative_2_gram": 0.98767716970257, 
-        "cumulative_3_gram": 0.9843416916146399, 
-        "cumulative_4_gram": 0.9790757305571104}
-    }
-{
-    "config": {
-        "input_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\full-yolo-noise-resort-txt\\position_txt\\", 
-        "target_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\full-yolo-noise-resort-txt\\gui\\", 
-        "model_path": "E:\\projects\\NTUST\\webimg-to-code\\assets\\2020\\seq2seq-pix2code\\full-rowcolAttrElement\\2500\\normal-resort\\model\\300\\model.h5", 
-        "num_of_data": 100, 
+        "input_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\full-yolo-noise-resort-txt\\position_txt\\",
+        "target_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\full-yolo-noise-resort-txt\\gui\\",
+        "model_path": "E:\\projects\\NTUST\\webimg-to-code\\assets\\2020\\seq2seq-pix2code\\full-rowcolAttrElement\\2500\\normal-resort\\model\\300\\model.h5",
+        "num_of_data": 500,
         "start_index": 500
-    }, 
+    },
     "BLEU_SCORE": {
-        "individual_1_gram": 0.9494468186917188, 
-        "individual_2_gram": 0.9413388247839862, 
-        "individual_3_gram": 0.929470721522147, 
-        "individual_4_gram": 0.9093170311316108, 
-        "cumulative_1_gram": 0.9494468186917188, 
-        "cumulative_2_gram": 0.945375825835703, 
-        "cumulative_3_gram": 0.9404357392094815, 
-        "cumulative_4_gram": 0.9321583279480379
+        "individual_1_gram": 0.9898419387926031,
+        "individual_2_gram": 0.9847864416216737,
+        "individual_3_gram": 0.9767677132924019,
+        "individual_4_gram": 0.9631729685934909,
+        "cumulative_1_gram": 0.9898419387926031,
+        "cumulative_2_gram": 0.9873025209921951,
+        "cumulative_3_gram": 0.9838593994416835,
+        "cumulative_4_gram": 0.9784598009872945
+    }
+}{
+    "config": {
+        "input_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\testing-dataset\\seq2seq\\noise\\position-txt\\",
+        "target_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\testing-dataset\\seq2seq\\noise\\attr-gui\\",
+        "model_path": "E:\\projects\\NTUST\\webimg-to-code\\assets\\2020\\seq2seq-pix2code\\full-rowcolAttrElement\\2500\\normal-resort\\model\\300\\model.h5",
+        "num_of_data": 300,
+        "start_index": 0
+    },
+    "BLEU_SCORE": {
+        "individual_1_gram": 0.9500664365577488,
+        "individual_2_gram": 0.9378764738137676,
+        "individual_3_gram": 0.9183807583643969,
+        "individual_4_gram": 0.887014100566939,
+        "cumulative_1_gram": 0.9500664365577488,
+        "cumulative_2_gram": 0.9439421015572621,
+        "cumulative_3_gram": 0.9357008436731097,
+        "cumulative_4_gram": 0.9228921087872248
+    }
+}{
+    "config": {
+        "input_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\testing-dataset\\seq2seq\\noise\\position-txt\\",
+        "target_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\testing-dataset\\seq2seq\\noise\\attr-gui\\",
+        "model_path": "E:\\projects\\NTUST\\webimg-to-code\\assets\\2020\\seq2seq-pix2code\\full-rowcolAttrElement\\2500\\normal-resort\\model\\300\\model.h5",
+        "num_of_data": 500,
+        "start_index": 0
+    },
+    "BLEU_SCORE": {
+        "individual_1_gram": 0.9501738204353352,
+        "individual_2_gram": 0.9378908436572584,
+        "individual_3_gram": 0.918365053647552,
+        "individual_4_gram": 0.8868679740062413,
+        "cumulative_1_gram": 0.9501738204353352,
+        "cumulative_2_gram": 0.9440029231575854,
+        "cumulative_3_gram": 0.9357380868797625,
+        "cumulative_4_gram": 0.9228815715903113
     }
 }
-{
-    "config": {
-        "input_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\full-yolo-noise-resort-txt\\position_txt\\", 
-        "target_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\pix2code\\full-yolo-noise-resort-txt\\gui\\", 
-        "model_path": "E:\\projects\\NTUST\\webimg-to-code\\assets\\2020\\seq2seq-pix2code\\full-rowcolAttrElement\\2500\\normal-resort\\model\\300\\model.h5", 
-        "num_of_data": 500, 
-        "start_index": 600
-    }, 
-    "BLEU_SCORE": {
-        "individual_1_gram": 0.9896266876389078, 
-        "individual_2_gram": 0.9846006726204839, 
-        "individual_3_gram": 0.9766401350076956,
-        "individual_4_gram": 0.963128425856045, 
-        "cumulative_1_gram": 0.9896266876389078, 
-        "cumulative_2_gram": 0.9871021412876138, 
-        "cumulative_3_gram": 0.9836852716179544, 
-        "cumulative_4_gram": 0.9783171393356103
-    }
- }
