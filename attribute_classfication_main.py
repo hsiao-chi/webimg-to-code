@@ -16,12 +16,12 @@ import random
 
 if __name__ == "__main__":
     DEBUG_DATASET = False
-    TRAINING = True
-    PREDIT = False
-    EVALUATE = True
+    TRAINING = False
+    PREDIT = True
+    EVALUATE = False
     final_model_saved_path = path.CLASS_ATTR_MODEL_PATH + \
         str(EPOCHES)+'\\attr_class_model'+TYPE.H5
-    predit_model_path = final_model_saved_path
+    predit_model_path = r'E:\projects\NTUST\webimg-to-code\assets\2020\attr_class-pix2code\remote\attr_class_model(simple_112_256_2300).h5'
     evaluate_model_path = final_model_saved_path
 
     encoder_config = get_attribute_encoder_config(1)
@@ -39,7 +39,7 @@ if __name__ == "__main__":
                                          final_model_saved_path=final_model_saved_path, initial_epoch=0)
 
     if PREDIT:
-        createFolder(path.CLASS_ATTR_PREDIT_GUI_PATH + str(EPOCHES))
+        # createFolder(path.CLASS_ATTR_PREDIT_GUI_PATH + str(EPOCHES))
         encoder_model, decoder_model = attribute_classification_predit_model(
             load_model(predit_model_path))
         max_data_length = len(lines)
@@ -47,9 +47,10 @@ if __name__ == "__main__":
             idx = random.randint(0, max_data_length+1)
             print('predit_GT: ', lines[idx])
             line = lines[idx].split()
-            decoded_sentence = attribute_classification_predit(encoder_model, decoder_model, line[0], encoder_config['input_shape'], decoder_config['token_list'], 4,
-                                                               result_saved_path=path.CLASS_ATTR_PREDIT_GUI_PATH + str(EPOCHES)+'\\'+str(idx)+TYPE.GUI)
-        print('decoded_sentence length: ', idx, len(decoded_sentence))
+            # decoded_sentence = attribute_classification_predit(encoder_model, decoder_model, line[0], encoder_config['input_shape'], decoder_config['token_list'], 4,
+            #                                                    result_saved_path=path.CLASS_ATTR_PREDIT_GUI_PATH + str(EPOCHES)+'\\'+str(idx)+TYPE.GUI)
+            decoded_sentence = attribute_classification_predit(encoder_model, decoder_model, line[0], encoder_config['input_shape'], decoder_config['token_list'], 4)                                                   
+            print('decoded_sentence length: ', idx, decoded_sentence)
 
     if EVALUATE:
         print('evaluated Model path: \n{}'.format(evaluate_model_path))

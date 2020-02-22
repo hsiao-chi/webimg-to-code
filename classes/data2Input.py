@@ -10,6 +10,40 @@ from PIL import Image
 def decoder_tokens_list_to_dict(decoder_token_list: list) -> dict:
     return {e: i for i, e in enumerate(decoder_token_list)}
 
+def encoder_tokens_list_to_dict(encoder_token_list, class_mode=False):
+    encoder_tokens = None
+    if class_mode:
+        encoder_tokens = [{e: (i+1) for i, e in enumerate(c)}
+                          for c in encoder_token_list]
+    else:
+        encoder_tokens = {e: i for i, e in enumerate(
+            encoder_token_list)}
+
+    print('encoder_tokens', encoder_tokens)
+    return encoder_tokens
+
+def to_Seq2Seq_encoder_input(input_seqs: list, encoder_config) -> np.array:
+    encoder_tokens = encoder_tokens_list_to_dict(encoder_config['token_list'], encoder_config['class_mode'])
+    temp_data = []
+    for input_seq in input_seqs:
+        data = input_seq[:encoder_config['direct_part']]
+        attrs = [0]*len(encoder_tokens)
+        for attr in input_seq[encoder_config['direct_part']:]:
+            if encoder_config['class_mode']:
+                for idx, target_list in enumerate(encoder_tokens):
+                    try:
+                        attrs[idx] = target_list[attr]
+                    except KeyError:
+                        pass
+            else:
+                attrs[encoder_tokens[attr]] = 1
+        temp_data.append(data+attrs)
+
+    encoder_input_data = np.zeros((1, len(temp_data), len(encoder_tokens)+encoder_config['direct_part']), dtype='float32')
+    for i, data in enumerate(temp_data):
+        encoder_input_data[0, i] = data
+    return encoder_input_data
+
 
 def to_Seq2Seq_input(encoder_file_folder, decoder_file_folder, encoder_config, decoder_token_list: list, data_num=None, data_start_idx=0):
     num_total_data = data_num
@@ -75,8 +109,11 @@ def to_Seq2Seq_input(encoder_file_folder, decoder_file_folder, encoder_config, d
     return encoder_input_data, decoder_input_data, decoder_target_tokens, max_decoder_len
 
 
-def preprocess_image(image_path, input_shape, proc_img=True) -> np.ndarray:
-    image = Image.open(image_path)
+def preprocess_image(image_path, input_shape, proc_img=True, img_input_type='path') -> np.ndarray:
+    if img_input_type == 'path':
+        image = Image.open(image_path)
+    elif img_input_type == 'img':
+        image = image_path
     iw, ih = image.size
     h, w, c = input_shape
     scale = min(w/iw, h/ih)

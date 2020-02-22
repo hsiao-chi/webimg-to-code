@@ -11,8 +11,8 @@ import numpy as np
 from PIL import Image
 
 MAX_DECODER_INPUT_LENGTH = 4
-LSTM_ENCODER_DIM = 512
-LSTM_DECODER_DIM = 512
+LSTM_ENCODER_DIM = 256
+LSTM_DECODER_DIM = 256
 
 MODE_SAVE_PERIOD = 100
 EPOCHES = 100
@@ -211,9 +211,8 @@ def attribute_classfication_training(train_model: Model,  encoder_config, decode
 
 
 def attribute_classification_predit(encoder_model: Model, decoder_model: Model, 
-input_image_path, input_shape, decoder_token_list, max_decoder_seq_length, result_saved_path):
-    
-    img_data = preprocess_image(input_image_path, input_shape)
+input_image_path, input_shape, decoder_token_list, max_decoder_seq_length, result_saved_path=None, img_input_type='path'):
+    img_data = preprocess_image(input_image_path, input_shape, img_input_type=img_input_type)
     w, h, c = img_data.shape
     img_input = np.zeros((1, w, h, c), dtype='float32')
     img_input[0] = img_data
@@ -247,7 +246,8 @@ input_image_path, input_shape, decoder_token_list, max_decoder_seq_length, resul
 
         # Update states
         states_value = [h, c]
-    write_file(decoded_sentence, result_saved_path, dataDim=1)
+    if result_saved_path:
+        write_file(decoded_sentence, result_saved_path, dataDim=1)
     return decoded_sentence
 
 
