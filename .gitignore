@@ -27,6 +27,7 @@ MANIFEST
 dataset/
 environment/
 assets/2020/
+yolo_detected/
 *.h5
 
 # PyInstaller

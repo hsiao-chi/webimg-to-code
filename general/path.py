@@ -79,3 +79,8 @@ DATASETCODE_ASSESTS = SELF+'datasetCode\\assests\\'
 
 
 EVALUATION_BLEU_SCORE = SELF+'evaluation\\bleu_score\\'
+
+YOLO_DETECTED_FULL_POSITION_TXT = SELF + 'yolo_detected\\arch1_full_yolo_position\\'
+YOLO_DETECTED_FULL_POSITION_TEST_TXT = SELF + 'yolo_detected\\arch1_full_yolo_position_test\\'
+YOLO_DETECTED_ATTRIBUTE_POSITION_TXT = SELF + 'yolo_detected\\arch2_full_yolo_position\\'
+YOLO_DETECTED_ATTRIBUTE_POSITION_TEST_TXT = SELF + 'yolo_detected\\arch2_full_yolo_position_test\\'

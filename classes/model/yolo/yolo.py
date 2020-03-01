@@ -121,7 +121,7 @@ class YOLO(object):
                                            score_threshold=self.score, iou_threshold=self.iou)
         return boxes, scores, classes
 
-    def detect_image(self, image):
+    def detect_image(self, image, output_score=False):
         start = timer()
 
         if self.model_image_size != (None, None):
@@ -152,7 +152,7 @@ class YOLO(object):
         font = ImageFont.truetype(font=path.SELF + YOLOPATH + 'font\\FiraMono-Medium.otf',
                                   size=np.floor(3e-2 * image.size[1] + 0.5).astype('int32'))
         thickness = (image.size[0] + image.size[1]) // 300
-        targets = []  # [class, x, y ,width, high]
+        targets = []  # [class, <score>, x, y ,width, high]
         print('image size: ', image.size)
         for i, c in enumerate(out_classes):
             target = []
@@ -171,7 +171,8 @@ class YOLO(object):
             bottom = min(image.size[1], np.floor(bottom + 0.5).astype('int32'))
             right = min(image.size[0], np.floor(right + 0.5).astype('int32'))
             print(label, (left, top), (right, bottom))
-
+            if output_score:
+                target.append(score)
             target.append(left / image.size[0])
             target.append(top / image.size[1])
             target.append((right-left) / image.size[0])
