@@ -25,10 +25,12 @@ if __name__ == "__main__":
 
     input_image_folder = path.DATASET1_ORIGIN_PNG
     detected_save_folder = path.YOLO_DETECTED_ATTRIBUTE_POSITION_TEST_TXT
+    # detected_save_folder = path.YOLO_DETECTED_FULL_POSITION_TXT
     createFolder(detected_save_folder)
     yolo_class = YOLO(model_name=yolo_model_name, classes_name=yolo_classes_name)
-    for i in range(0, 100):
-        targets = detect_img(yolo_class, input_image_folder+str(500+i)+TYPE.IMG)
+    # yolo_class = YOLO()
+    for i in range(200, 500):
+        targets = detect_img(yolo_class, input_image_folder+str(i)+TYPE.IMG)
         print(i) if i% 10 == 0 else None
         write_file(targets, detected_save_folder+str(i)+TYPE.TXT, dataDim=2)
         
