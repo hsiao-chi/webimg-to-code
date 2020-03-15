@@ -50,15 +50,31 @@ class NodeTreeGenerator:
         if children_group_flag:
             children_num = len(pool)
         elif self.rule[parent_node.key]["children_quantity"]:
+
             if self.rule[parent_node.key]["children_quantity"]["operator"] == Operator.equal:
                 children_num = self.rule[parent_node.key]["children_quantity"]["value"]
             elif self.rule[parent_node.key]["children_quantity"]["operator"] == Operator.equal_more_then:
                 children_num = random.randrange(
                     self.rule[parent_node.key]["children_quantity"]["value"], self.max_each_layer_node_num)
+            elif self.rule[parent_node.key]["children_quantity"]["operator"] == Operator.between:
+                children_num = random.randrange(
+                    self.rule[parent_node.key]["children_quantity"]["value"][0], self.rule[parent_node.key]["children_quantity"]["value"][1])
+            
+            if parent_node.key == NodeKey.row.value and parent_depth == 1:
+                if self.rule[parent_node.key]["children_quantity"]["operator"] == Operator.equal_more_then:
+                    children_num = random.randrange(
+                    1, self.max_each_layer_node_num)
+                elif self.rule[parent_node.key]["children_quantity"]["operator"] == Operator.between:
+                    children_num = random.randrange(
+                        1, self.rule[parent_node.key]["children_quantity"]["value"][1])
+        
+
+
         else:
             children_num = random.randrange(1, self.max_each_layer_node_num)
         # print("children num: ", children_num)
-
+        # if parent_node.key == row:
+        #     print('GOGOGOGOGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGg', parent_depth)
         for index in range(children_num):
             if children_group_flag:
                 node = self.generateNode(

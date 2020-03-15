@@ -1,0 +1,69 @@
+row { 
+   col { 
+        title [ text-dark ] 
+        text [ text-dark ] 
+        btn [ text-white bg-success ] 
+    } 
+} 
+row { 
+    col { 
+        title [ text-dark ] 
+        text [ text-dark ] 
+        btn [ text-white bg-success ] 
+    } 
+    col { 
+        title [ text-dark ] 
+        text [ text-dark ] 
+        btn [ text-white bg-success ] 
+    } 
+    col { 
+        row { 
+            col { 
+                title [ text-dark ] 
+                text [ text-dark ] 
+                btn [ text-white bg-success ] 
+            } 
+            col { 
+                title [ text-dark ] 
+                text [ text-dark ] 
+                btn [ text-white bg-danger ] 
+            }
+            col { 
+                title [ text-dark ] 
+                text [ text-dark ] 
+                btn [ text-white bg-success ] 
+            } 
+        } 
+        row {
+            col { 
+                title [ text-dark ] 
+                text [ text-dark ] 
+                btn [ text-white bg-success ] 
+            } 
+            col { 
+                title [ text-dark ] 
+                text [ text-dark ] 
+                btn [ text-white bg-warning ] 
+            } 
+        } 
+        row {
+            col { 
+                title [ text-dark ] 
+                text [ text-dark ] 
+                btn [ text-white bg-success ] 
+            } 
+        }     
+    } 
+} 
+row { 
+    col { 
+        title [ text-dark ] 
+        text [ text-dark ] 
+        btn [ text-white bg-danger ] 
+    } 
+    col { 
+        title [ text-dark ] 
+        text [ text-dark ] 
+        btn [ text-white bg-danger ] 
+    } 
+}

@@ -25,7 +25,7 @@ class Webscreenshooter():
         print('web screenshot complete')
 
 
-def webscreenshoot(urls: list, output_dir, size=(1920, 3000)):
+def webscreenshoot(urls: list, output_dir, size=(2400, 3000)):
     output_file_list = []
     ws = Webscreenshooter(size)
     for url in urls:
