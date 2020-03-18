@@ -11,8 +11,24 @@ class Attribute:
     def assign_value(self, index, value):
         self.attributeValue[index] = value
 
-    def to_string(self):
-        return " ".join([Tag.attr_opening.value] + list(filter(lambda x: x !=None, self.attributeValue)) + [Tag.attr_closing.value])
+    # def to_string(self):
+    #     return " ".join([Tag.attr_opening.value] + list(filter(lambda x: x !=None, self.attributeValue)) + [Tag.attr_closing.value])
+
+    def to_string(self, with_context=True):
+        if with_context:
+            return " ".join([Tag.attr_opening.value] + list(filter(lambda x: x !=None, self.attributeValue)) + [Tag.attr_closing.value])
+        else:
+            attrValue=[None]
+            try:
+                context_idx = self.activatedAttributes.index(AttributeSet.content)
+                if self.enabledAttributes[context_idx]:
+                    attrValue = self.attributeValue[:context_idx]+self.attributeValue[context_idx+1:]
+                else:
+                    attrValue = self.attributeValue
+            except ValueError:
+                attrValue = self.attributeValue
+            finally:
+                return " ".join([Tag.attr_opening.value] + list(filter(lambda x: x !=None, attrValue)) + [Tag.attr_closing.value])
 
     def is_empty(self): 
         return False if True in self.enabledAttributes else True
@@ -57,27 +73,27 @@ class Node:
     def set_attributes(self, attributes):
         self.attributes = attributes
 
-    def show(self):
+    def show(self, with_context=True):
         if self.key in [key.value for key in list(LeafKey)]:
             print("{}{} {} ".format('\t'*self.depth,
-                                    self.key, self.attributes.to_string()))
+                                    self.key, self.attributes.to_string(with_context)))
         else:
             if self.attributes.is_empty():
                 print("{}{} {} ".format('\t'*self.depth,
                                         self.key, Tag.node_opening.value))
             else:
                 print("{}{} {} {} ".format('\t'*self.depth, self.key,
-                                           self.attributes.to_string(),  Tag.node_opening.value))
+                                           self.attributes.to_string(with_context),  Tag.node_opening.value))
             for child in self.children:
                 child.show()
             print("{}{} ".format('\t'*self.depth, Tag.node_closing.value))
 
-    def toDSL(self):
+    def toDSL(self, with_context=True):
         place = ""
         if self.key in [key.value for key in list(LeafKey)]:
             place = place + \
                 "{}{} {} \n".format('\t'*(self.depth-1),
-                                    self.key, self.attributes.to_string())
+                                    self.key, self.attributes.to_string(with_context))
         else:
             if (self.depth != 0):
                 if self.attributes.is_empty():
@@ -86,7 +102,7 @@ class Node:
                             '\t'*(self.depth-1), self.key, Tag.node_opening.value)
                 else:
                     place = place + "{}{} {} {} \n".format('\t'*(
-                        self.depth-1), self.key, self.attributes.to_string(),  Tag.node_opening.value)
+                        self.depth-1), self.key, self.attributes.to_string(with_context),  Tag.node_opening.value)
 
             for child in self.children:
                 place = place + child.toDSL()

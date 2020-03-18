@@ -192,7 +192,7 @@ rule_2 = {      # as same as pix2code
 rule_3 = {      
     "attributes": [AttributeSet.font_color, AttributeSet.bg_color, AttributeSet.content],
     # "use_children_group": Operator.random,
-    "max_each_layer_node_num": 4,
+    "max_each_layer_node_num": 3,
     "max_depth": 6,
     RootKey.body.value: {
         "attributes": [False, False, False],
@@ -201,7 +201,10 @@ rule_3 = {
         "children_brothers": Operator.none,
         "disabled_reciprocal_layer": [],
         "children_group": None,
-        "children_quantity": None
+        "children_quantity": {
+            "operator": Operator.equal_more_then,
+            "value": 2,
+        }
     },
     NodeKey.row.value: {
         "attributes": [False, False, False],

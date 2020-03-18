@@ -88,8 +88,8 @@ class Compiler:
 
            
 
-    def node_tree_to_dsl(self, output_file_path, row_col_only=False) -> str:
-        dsl = self.node_tree.to_row_col_DSL() if row_col_only else self.node_tree.toDSL()
+    def node_tree_to_dsl(self, output_file_path, row_col_only=False, with_context=True) -> str:
+        dsl = self.node_tree.to_row_col_DSL() if row_col_only else self.node_tree.toDSL(with_context)
         with open(output_file_path, 'w+') as dsl_file:
             dsl_file.write(dsl)
         return dsl

@@ -9,7 +9,7 @@ from general.util import createFolder, readFile, writeFile, write_file
 
 
 def convert2RowCol(img, filter_last: bool=False):
-    ret, thresh = cv2.threshold(img, 180, 255, cv2.THRESH_BINARY_INV)
+    ret, thresh = cv2.threshold(img, 200, 255, cv2.THRESH_BINARY_INV)
     kernel = np.ones((5, 20), np.uint8)
     convert = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, kernel)
     image, contours, hierarchy = cv2.findContours(
