@@ -15,6 +15,7 @@ class Attribute:
     #     return " ".join([Tag.attr_opening.value] + list(filter(lambda x: x !=None, self.attributeValue)) + [Tag.attr_closing.value])
 
     def to_string(self, with_context=True):
+        print('attr to_string with_context', with_context)
         if with_context:
             return " ".join([Tag.attr_opening.value] + list(filter(lambda x: x !=None, self.attributeValue)) + [Tag.attr_closing.value])
         else:
@@ -28,6 +29,8 @@ class Attribute:
             except ValueError:
                 attrValue = self.attributeValue
             finally:
+                print('with_context finally==== ', attrValue)
+
                 return " ".join([Tag.attr_opening.value] + list(filter(lambda x: x !=None, attrValue)) + [Tag.attr_closing.value])
 
     def is_empty(self): 
@@ -105,7 +108,7 @@ class Node:
                         self.depth-1), self.key, self.attributes.to_string(with_context),  Tag.node_opening.value)
 
             for child in self.children:
-                place = place + child.toDSL()
+                place = place + child.toDSL(with_context=with_context)
 
             if (self.depth != 0):
                 place = place + \
@@ -222,7 +225,7 @@ class Attribute_old:
         self.content = attrs[2]
 
     def render_attribute(self, template) -> str:
-        print(template.find(Placeholder.content.value))
+        # print(template.find(Placeholder.content.value))
         if self.isEmpty():
             pass
         else:

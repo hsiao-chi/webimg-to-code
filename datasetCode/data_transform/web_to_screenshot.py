@@ -4,8 +4,9 @@ from pyppeteer import launch
 
 
 class Webscreenshooter():
-    def __init__(self, size):
+    def __init__(self, size, deviceScaleFactor=1):
         self.size = size
+        self.deviceScaleFactor = deviceScaleFactor
     def gen_output_path(self, from_url, output_dir):
         base_name = from_url.replace('.html', '').split('\\')[-1]
         file_name = "{}.png".format(base_name)
@@ -13,11 +14,12 @@ class Webscreenshooter():
         return output_path, file_name
 
     async def screenshot(self, url, output_path):
+        print('self.deviceScaleFactor', self.deviceScaleFactor)
         browser = await launch(args=['--no-sandbox'])
         page = await browser.newPage()
-        await page.setViewport({'width': self.size[0], 'height': self.size[1]})
+        await page.setViewport({'width': self.size[0], 'height': self.size[1], 'deviceScaleFactor':self.deviceScaleFactor})
         await page.goto(url)
-        await page.screenshot({'path': output_path})
+        await page.screenshot({'path': output_path, 'type': 'jpeg'})
         await browser.close()
 
     def take_screenshot(self, url, output_path):
@@ -25,9 +27,9 @@ class Webscreenshooter():
         print('web screenshot complete')
 
 
-def webscreenshoot(urls: list, output_dir, size=(2400, 3000)):
+def webscreenshoot(urls: list, output_dir, size=(2400, 3000), deviceScaleFactor=1):
     output_file_list = []
-    ws = Webscreenshooter(size)
+    ws = Webscreenshooter(size, deviceScaleFactor)
     for url in urls:
         output_path, file_name = ws.gen_output_path(url, output_dir)
         ws.take_screenshot(url, output_path)

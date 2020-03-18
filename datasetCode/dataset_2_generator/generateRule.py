@@ -192,7 +192,7 @@ rule_2 = {      # as same as pix2code
 rule_3 = {      
     "attributes": [AttributeSet.font_color, AttributeSet.bg_color, AttributeSet.content],
     # "use_children_group": Operator.random,
-    "max_each_layer_node_num": 3,
+    "max_each_layer_node_num": 3, # (< not <=)
     "max_depth": 6,
     RootKey.body.value: {
         "attributes": [False, False, False],

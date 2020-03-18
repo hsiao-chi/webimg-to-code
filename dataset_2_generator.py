@@ -12,18 +12,20 @@ from datasetCode.data_transform.tag_for_yolo import manual_class_tag_from_file
 
 import os
 if __name__ == "__main__":
-    RANDOM_GENERATOR = True
+    RANDOM_GENERATOR = False
     SKELETON_TO_HTML_ONLY = False
+    WEB_SCREENSHOOT = True
     if RANDOM_GENERATOR:
         rule = getRule(3)
         generator = NodeTreeGenerator(rule=3)
-        for i in range(0,1):
+        for i in range(0,100):
+            print(i)
             root = Node(RootKey.body.value, None, Attribute(rule["attributes"], rule[RootKey.body.value]["attributes"]))
             tree = generator.generateNodeTree(root, 0)
             compiler = Compiler(path.DATASET2_DSL_MAPPING_JSON_FILE, rule=2, node_tree=tree)
             # compiler = Compiler(path.DATASET2_DSL_MAPPING_JSON_FILE, rule=2)
             compiler.node_tree_to_dsl(path.DATASET2_ORIGIN_GUI+str(i)+TYPE.GUI)
-            compiler.node_tree_to_dsl(path.DATASET2_ROWCOL_GUI+str(i)+TYPE.GUI, True)
+            # compiler.node_tree_to_dsl(path.DATASET2_ROWCOL_GUI+str(i)+TYPE.GUI, True)
             compiler.node_tree_to_dsl(path.DATASET2_ORIGIN_NO_CONTEXT_GUI+str(i)+TYPE.GUI, with_context=False)
             # tree = compiler.dsl_to_node_tree(path.DATASET2_ORIGIN_GUI+str(i)+TYPE.GUI)
             # print(tree.show())
@@ -45,4 +47,9 @@ if __name__ == "__main__":
         tree = compiler.dsl_to_node_tree(skeleton_file_path)
         html = compiler.node_tree_to_html(target_file_path, 'test')
 
-
+    if WEB_SCREENSHOOT:
+            # [web_img_path] = webscreenshoot([path.DATASET2_ORIGIN_HTML+str(1)+TYPE.HTML], r'E:\projects\NTUST\webimg-to-code\\', size=(1200,690), deviceScaleFactor=2)
+        for i in range(0,100):
+            [web_img_path] = webscreenshoot([path.DATASET2_ORIGIN_HTML+str(i)+TYPE.HTML], path.DATASET2_ORIGIN_LARGE_PNG, size=(1600,920), deviceScaleFactor=1.5)
+            convert_to_position_and_rowcol_img(web_img_path,
+                                        path.DATASET2_ROWCOL_YOLO_POSITION_TXT + str(i) + TYPE.TXT, path.DATASET2_ROWCOL_LARGE_IMG + str(i) + TYPE.IMG)
