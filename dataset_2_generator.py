@@ -12,13 +12,13 @@ from datasetCode.data_transform.tag_for_yolo import manual_class_tag_from_file
 
 import os
 if __name__ == "__main__":
-    RANDOM_GENERATOR = False
+    RANDOM_GENERATOR = True
     SKELETON_TO_HTML_ONLY = False
-    WEB_SCREENSHOOT = True
+    WEB_SCREENSHOOT = False
     if RANDOM_GENERATOR:
         rule = getRule(3)
         generator = NodeTreeGenerator(rule=3)
-        for i in range(0,100):
+        for i in range(100,200):
             print(i)
             root = Node(RootKey.body.value, None, Attribute(rule["attributes"], rule[RootKey.body.value]["attributes"]))
             tree = generator.generateNodeTree(root, 0)
@@ -30,9 +30,9 @@ if __name__ == "__main__":
             # tree = compiler.dsl_to_node_tree(path.DATASET2_ORIGIN_GUI+str(i)+TYPE.GUI)
             # print(tree.show())
             html = compiler.node_tree_to_html(path.DATASET2_ORIGIN_HTML+str(i)+TYPE.HTML, str(i))
-            [web_img_path] = webscreenshoot([path.DATASET2_ORIGIN_HTML+str(i)+TYPE.HTML], path.DATASET2_ORIGIN_PNG, size=(2400,1380))
+            [web_img_path] = webscreenshoot([path.DATASET2_ORIGIN_HTML+str(i)+TYPE.HTML], path.DATASET2_ORIGIN_LARGE_PNG, size=(1600,920), deviceScaleFactor=1.5)
             convert_to_position_and_rowcol_img(web_img_path,
-                                        path.DATASET2_ROWCOL_YOLO_POSITION_TXT + str(i) + TYPE.TXT, path.DATASET2_ROWCOL_IMG + str(i) + TYPE.IMG)
+                                        path.DATASET2_ROWCOL_YOLO_POSITION_TXT + str(i) + TYPE.TXT, path.DATASET2_ROWCOL_LARGE_IMG + str(i) + TYPE.IMG)
 
         # value = manual_class_tag_from_file(path.DATASET2_ORIGIN_PNG+ str(2) + TYPE.IMG, path.DATASET2_ROWCOL_YOLO_POSITION_TXT + str(2) + TYPE.TXT)  
         # print(value)

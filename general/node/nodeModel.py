@@ -15,7 +15,6 @@ class Attribute:
     #     return " ".join([Tag.attr_opening.value] + list(filter(lambda x: x !=None, self.attributeValue)) + [Tag.attr_closing.value])
 
     def to_string(self, with_context=True):
-        print('attr to_string with_context', with_context)
         if with_context:
             return " ".join([Tag.attr_opening.value] + list(filter(lambda x: x !=None, self.attributeValue)) + [Tag.attr_closing.value])
         else:
@@ -29,8 +28,6 @@ class Attribute:
             except ValueError:
                 attrValue = self.attributeValue
             finally:
-                print('with_context finally==== ', attrValue)
-
                 return " ".join([Tag.attr_opening.value] + list(filter(lambda x: x !=None, attrValue)) + [Tag.attr_closing.value])
 
     def is_empty(self): 

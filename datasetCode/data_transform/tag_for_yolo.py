@@ -52,7 +52,14 @@ class ManualTagClass(ttk.Frame):
 
     def create_btn(self, text, tag):
         def cmd(): return self.assign_tag(tag)
-        return tk.Button(self, command=cmd, text=text, width=20, pady=10, font=25)
+        try:
+            color=text.split('-')[1]
+            if color in ['red', 'blue', 'orange', 'dark', 'green']:
+                return tk.Button(self, command=cmd, text=text, width=20, pady=10, font=25, bg=color, fg="white")
+            else:
+                return tk.Button(self, command=cmd, text=text, width=20, pady=10, font=25)
+        except:
+            return tk.Button(self, command=cmd, text=text, width=20, pady=10, font=25)
 
     def changeImage(self):
         self.label.image = None

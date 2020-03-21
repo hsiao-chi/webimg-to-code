@@ -71,6 +71,7 @@ DATASET2_ROWCOL_IMG = DATASET+'dataset2\\row_col_png\\'
 DATASET2_ROWCOL_LARGE_IMG = DATASET+'dataset2\\row_col_large_png\\'
 DATASET2_ROWCOL_YOLO_POSITION_TXT = DATASET+'dataset2\\row_col_yolo_position_txt\\'
 DATASET2_YOLO_POSITION_TXT = DATASET+'dataset2\\yolo_position_txt\\'
+DATASET2_FULL_YOLO_POSITION_TXT = DATASET+'dataset2\\full_yolo_position_txt\\'
 
 # DATASET2_ORIGIN_PNG_PATH = DATASET+'dataset2\\origin_png'
 
