@@ -2,7 +2,7 @@ from general.node.nodeModel import Node, Attribute
 from general.node.nodeEnum import RootKey, NodeKey, LeafKey, Font_color, Bg_color
 import general.path as path
 import general.dataType as TYPE
-from general.util import write_file
+from general.util import write_file, createFolder
 from datasetCode.dataset_2_generator.generateRule import getRule
 from datasetCode.dataset_2_generator.nodeTreeGenerateClass import NodeTreeGenerator
 from datasetCode.dataset_2_generator.compiler import Compiler
@@ -12,27 +12,37 @@ from datasetCode.data_transform.tag_for_yolo import manual_class_tag_from_file
 
 import os
 if __name__ == "__main__":
+
+    createFolder(path.DATASET3_FULL_YOLO_POSITION_TXT)
+    createFolder(path.DATASET3_ORIGIN_GUI)
+    createFolder(path.DATASET3_ORIGIN_HTML)
+    createFolder(path.DATASET3_ORIGIN_NO_CONTEXT_GUI)
+    createFolder(path.DATASET3_ORIGIN_PNG)
+    createFolder(path.DATASET3_ROWCOL_IMG)
+    createFolder(path.DATASET3_ROWCOL_YOLO_POSITION_TXT)
+
     RANDOM_GENERATOR = True
     SKELETON_TO_HTML_ONLY = False
     WEB_SCREENSHOOT = False
+    RULE = 4
     if RANDOM_GENERATOR:
-        rule = getRule(3)
-        generator = NodeTreeGenerator(rule=3)
-        for i in range(100,200):
+        rule = getRule(RULE)
+        generator = NodeTreeGenerator(rule=RULE)
+        for i in range(0,100):
             print(i)
             root = Node(RootKey.body.value, None, Attribute(rule["attributes"], rule[RootKey.body.value]["attributes"]))
             tree = generator.generateNodeTree(root, 0)
-            compiler = Compiler(path.DATASET2_DSL_MAPPING_JSON_FILE, rule=2, node_tree=tree)
+            compiler = Compiler(path.DATASET3_DSL_MAPPING_JSON_FILE, rule=RULE, node_tree=tree)
             # compiler = Compiler(path.DATASET2_DSL_MAPPING_JSON_FILE, rule=2)
-            compiler.node_tree_to_dsl(path.DATASET2_ORIGIN_GUI+str(i)+TYPE.GUI)
+            compiler.node_tree_to_dsl(path.DATASET3_ORIGIN_GUI+str(i)+TYPE.GUI)
             # compiler.node_tree_to_dsl(path.DATASET2_ROWCOL_GUI+str(i)+TYPE.GUI, True)
-            compiler.node_tree_to_dsl(path.DATASET2_ORIGIN_NO_CONTEXT_GUI+str(i)+TYPE.GUI, with_context=False)
+            compiler.node_tree_to_dsl(path.DATASET3_ORIGIN_NO_CONTEXT_GUI+str(i)+TYPE.GUI, with_context=False)
             # tree = compiler.dsl_to_node_tree(path.DATASET2_ORIGIN_GUI+str(i)+TYPE.GUI)
             # print(tree.show())
-            html = compiler.node_tree_to_html(path.DATASET2_ORIGIN_HTML+str(i)+TYPE.HTML, str(i))
-            [web_img_path] = webscreenshoot([path.DATASET2_ORIGIN_HTML+str(i)+TYPE.HTML], path.DATASET2_ORIGIN_LARGE_PNG, size=(1600,920), deviceScaleFactor=1.5)
+            html = compiler.node_tree_to_html(path.DATASET3_ORIGIN_HTML+str(i)+TYPE.HTML, str(i))
+            [web_img_path] = webscreenshoot([path.DATASET3_ORIGIN_HTML+str(i)+TYPE.HTML], path.DATASET3_ORIGIN_PNG, size=(1600,920), deviceScaleFactor=1.5)
             convert_to_position_and_rowcol_img(web_img_path,
-                                        path.DATASET2_ROWCOL_YOLO_POSITION_TXT + str(i) + TYPE.TXT, path.DATASET2_ROWCOL_LARGE_IMG + str(i) + TYPE.IMG)
+                                        path.DATASET3_ROWCOL_YOLO_POSITION_TXT + str(i) + TYPE.TXT, path.DATASET3_ROWCOL_IMG + str(i) + TYPE.IMG)
 
         # value = manual_class_tag_from_file(path.DATASET2_ORIGIN_PNG+ str(2) + TYPE.IMG, path.DATASET2_ROWCOL_YOLO_POSITION_TXT + str(2) + TYPE.TXT)  
         # print(value)

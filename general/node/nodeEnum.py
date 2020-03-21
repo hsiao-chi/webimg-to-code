@@ -18,6 +18,7 @@ class LeafKey(Enum):
     title = 'title'
     icon = 'icon'
     button = 'btn'
+    text_input = 'text_input'
 
 
 

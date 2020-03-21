@@ -38,7 +38,11 @@ class NodeTreeGenerator:
                 children_group_flag = True
 
         if children_group_flag:
-            pool = self.rule[parent_node.key]["children_group"]["nodes"]
+            if len(self.rule[parent_node.key]["children_group"]["nodes"])> 1:
+                i = random.randrange(len(self.rule[parent_node.key]["children_group"]["nodes"]))
+            else:
+                i=0
+            pool = self.rule[parent_node.key]["children_group"]["nodes"][i]
         else:
             pool = self.rule[parent_node.key]["children"]
             for node in pool:

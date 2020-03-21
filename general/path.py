@@ -78,6 +78,30 @@ DATASET2_FULL_YOLO_POSITION_TXT = DATASET+'dataset2\\full_yolo_position_txt\\'
 DATASET2_DSL_MAPPING_JSON_FILE = SELF+'datasetCode\\dataset_2_generator\\mapping\\web-dsl-mapping-pix2code.json'
 
 
+
+
+DATASET3_ORIGIN_GUI = DATASET+'dataset3\\origin_gui\\'
+DATASET3_ORIGIN_HTML = DATASET+'dataset3\\origin_html\\'
+DATASET3_ORIGIN_PNG = DATASET+'dataset3\\origin_png\\'
+# DATASET3_ROWCOL_GUI = DATASET+'dataset3\\row_col_gui\\'
+DATASET3_ORIGIN_NO_CONTEXT_GUI = DATASET+'dataset3\\origin_no_context_gui\\'
+DATASET3_ROWCOL_IMG = DATASET+'dataset3\\row_col_png\\'
+DATASET3_ROWCOL_YOLO_POSITION_TXT = DATASET+'dataset3\\row_col_yolo_position_txt\\'
+DATASET3_FULL_YOLO_POSITION_TXT = DATASET+'dataset2\\full_yolo_position_txt\\'
+
+DATASET3_DSL_MAPPING_JSON_FILE = SELF+'datasetCode\\dataset_2_generator\\mapping\\web-dsl-mapping-dataset3.json'
+
+
+
+
+
+
+
+
+
+
+
+
 DATASETCODE_ASSESTS = SELF+'datasetCode\\assests\\'
 
 
