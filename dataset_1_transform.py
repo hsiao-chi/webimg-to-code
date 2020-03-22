@@ -38,7 +38,7 @@ if __name__ == "__main__":
     =================================================================================
     '''
 
-    for i in range(100,200):
+    for i in [111, 112, 118]:
         root = tk.Tk()
         app = ManualTagClass(root, buttonList, path.DATASET3_ORIGIN_PNG + str(i) + TYPE.IMG,
                              path.DATASET3_ROWCOL_YOLO_POSITION_TXT + str(i) + TYPE.TXT, path.DATASET3_FULL_YOLO_POSITION_TXT + str(i)+TYPE.TXT)
@@ -190,11 +190,11 @@ if __name__ == "__main__":
     =================================================================================
     '''
 
-    replace_file_value(
-        path.DATASET1_YOLO_TRAIN_DATA+'pix2code_attr_yolo_500'+TYPE.TXT, 
-        path.DATASET1_YOLO_TRAIN_DATA+'pix2code_attr_yolo_500_lab'+TYPE.TXT,
-        DATASET, DATASET_ANOTHER
-        )
+    # replace_file_value(
+    #     path.DATASET1_YOLO_TRAIN_DATA+'pix2code_attr_yolo_500'+TYPE.TXT, 
+    #     path.DATASET1_YOLO_TRAIN_DATA+'pix2code_attr_yolo_500_lab'+TYPE.TXT,
+    #     DATASET, DATASET_ANOTHER
+    #     )
 
 
     ''' 
@@ -216,3 +216,23 @@ if __name__ == "__main__":
     #         f.write('{}\n'.format(' '.join(new_line)))
         
 
+    ''' 
+    =================================================================================
+    ------------ Replace position of row-col to full-yolo ---------------------------
+    =================================================================================
+    '''
+
+
+    # for i in [102, 104, 105, 107, 108, 109, 111, 112, 113, 114, 117, 118, 120, 122, 125]:
+    #     full_position = read_file(path.DATASET3_FULL_YOLO_POSITION_TXT+str(i)+TYPE.TXT, 'splitlines' )
+    #     row_col_position = read_file(path.DATASET3_ROWCOL_YOLO_POSITION_TXT+str(i)+TYPE.TXT, 'splitlines' )
+    #     if len(full_position) == len(row_col_position):
+    #         new=[]
+    #         for j in range(len(full_position)):
+    #             full = full_position[j].split()
+    #             row_col = row_col_position[j].split()
+    #             new.append([full[0]]+row_col[1:])
+    #         write_file(new, path.DATASET3_FULL_YOLO_POSITION_TXT+str(i)+TYPE.TXT, dataDim=2)
+    #     else:
+    #         print('not equal: ', i)
+          

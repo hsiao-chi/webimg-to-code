@@ -13,14 +13,6 @@ from datasetCode.data_transform.tag_for_yolo import manual_class_tag_from_file
 import os
 if __name__ == "__main__":
 
-    createFolder(path.DATASET3_FULL_YOLO_POSITION_TXT)
-    createFolder(path.DATASET3_ORIGIN_GUI)
-    createFolder(path.DATASET3_ORIGIN_HTML)
-    createFolder(path.DATASET3_ORIGIN_NO_CONTEXT_GUI)
-    createFolder(path.DATASET3_ORIGIN_PNG)
-    createFolder(path.DATASET3_ROWCOL_IMG)
-    createFolder(path.DATASET3_ROWCOL_YOLO_POSITION_TXT)
-
     RANDOM_GENERATOR = False
     SKELETON_TO_HTML_ONLY = False
     WEB_SCREENSHOOT = True
@@ -59,7 +51,7 @@ if __name__ == "__main__":
 
     if WEB_SCREENSHOOT:
             # [web_img_path] = webscreenshoot([path.DATASET2_ORIGIN_HTML+str(1)+TYPE.HTML], r'E:\projects\NTUST\webimg-to-code\\', size=(1200,690), deviceScaleFactor=2)
-        for i in [51]:
+        for i in [0, 1, 4, 8, 10, 11, 12, 15, 22, 24, 27, 31, 35, 36, 37, 38, 39, 40, 42, 44, 46, 48, 51, 53, 55, 56, 57, 60, 61, 62, 63, 67, 69, 70, 71, 72, 73, 74, 76, 77, 79, 80, 81, 86, 87, 92, 95, 97, 98, 99, 100, 102, 104, 105, 107, 108, 109, 111, 112, 113, 114, 117, 118, 120, 122, 125, 126, 128, 130, 131, 136, 144, 149, 152, 154, 155, 157, 159, 160, 165, 166, 167, 168, 171, 174, 178, 184, 185, 187, 189, 190, 191, 196]:
             compiler = Compiler(path.DATASET3_DSL_MAPPING_JSON_FILE, rule=RULE)
             tree = compiler.dsl_to_node_tree(path.DATASET3_ORIGIN_GUI+str(i)+TYPE.GUI)
 
@@ -67,6 +59,6 @@ if __name__ == "__main__":
 
             [web_img_path] = webscreenshoot([path.DATASET3_ORIGIN_HTML+str(i)+TYPE.HTML], path.DATASET3_ORIGIN_PNG, size=(1600,920), deviceScaleFactor=1.5)
             convert_to_position_and_rowcol_img(web_img_path,
-                                        path.DATASET2_ROWCOL_YOLO_POSITION_TXT + str(i) + TYPE.TXT, path.DATASET3_ROWCOL_IMG + str(i) + TYPE.IMG)
+                                        path.DATASET3_ROWCOL_YOLO_POSITION_TXT + str(i) + TYPE.TXT, path.DATASET3_ROWCOL_IMG + str(i) + TYPE.IMG)
 
             # break
