@@ -28,7 +28,7 @@ if __name__ == "__main__":
     if RANDOM_GENERATOR:
         rule = getRule(RULE)
         generator = NodeTreeGenerator(rule=RULE)
-        for i in range(0,100):
+        for i in range(100,200):
             print(i)
             root = Node(RootKey.body.value, None, Attribute(rule["attributes"], rule[RootKey.body.value]["attributes"]))
             tree = generator.generateNodeTree(root, 0)

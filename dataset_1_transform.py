@@ -9,7 +9,7 @@ from datasetCode.dataset_2_generator.compiler import Compiler
 from datasetCode.data_transform.web_to_screenshot import webscreenshoot
 from datasetCode.data_transform.transform_to_row_col_position import convert_to_position_and_rowcol_img
 from datasetCode.data_transform.tag_for_yolo import manual_class_tag_from_file, ManualTagClass, to_yolo_training_file, yolo_position_with_noise_generator
-from datasetCode.assests.yolo_class_lists import data2_rule3_full_classes as buttonList
+from datasetCode.assests.yolo_class_lists import data3_rule4_full_classes as buttonList
 from datasetCode.data_transform.create_attrcate_dataset import create_attribute_classfication_dataset
 from environment.environment import DATASET, DATASET_ANOTHER
 import cv2
@@ -38,10 +38,10 @@ if __name__ == "__main__":
     =================================================================================
     '''
 
-    for i in range(15,200):
+    for i in range(100,200):
         root = tk.Tk()
-        app = ManualTagClass(root, buttonList, path.DATASET2_ORIGIN_LARGE_PNG + str(i) + TYPE.IMG,
-                             path.DATASET2_ROWCOL_YOLO_POSITION_TXT + str(i) + TYPE.TXT, path.DATASET2_FULL_YOLO_POSITION_TXT + str(i)+TYPE.TXT)
+        app = ManualTagClass(root, buttonList, path.DATASET3_ORIGIN_PNG + str(i) + TYPE.IMG,
+                             path.DATASET3_ROWCOL_YOLO_POSITION_TXT + str(i) + TYPE.TXT, path.DATASET3_FULL_YOLO_POSITION_TXT + str(i)+TYPE.TXT)
         root.mainloop()
 
         if app.is_close():
