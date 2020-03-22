@@ -56,7 +56,7 @@ class Attribute:
         elif activated == AttributeSet.bg_color:
             return Placeholder.bg_color.value, value
         elif activated == AttributeSet.content:
-            return Placeholder.content.value, value[1:-1]
+            return Placeholder.content.value, value
 
 class Node:
     def __init__(self, key, parent_node, attributes: Attribute, depth=0):

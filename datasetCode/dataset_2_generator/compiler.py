@@ -52,6 +52,10 @@ class Compiler:
             
     def _reconstruct_attr_block(self, node, attr) -> list:
         temp=[None]*len(self.activatedAttributes)
+        try:
+            context_idx = self.activatedAttributes.index(AttributeSet.content)
+        except :
+            context_idx = -1
         temp_text=""
         isText = False
         for token in attr:
@@ -61,10 +65,9 @@ class Compiler:
             elif isText and ('\"' in token):
                 isText = False
                 temp_text+= " "+token
-                temp[self.activatedAttributes.index(AttributeSet.content)] = temp_text[1:-1]
+                temp[context_idx] = temp_text[1:-1]
             elif isText:
                 temp_text+= " "+token
-            
             # elif token == "None":
             #     temp.append(None)
             else:
@@ -75,8 +78,10 @@ class Compiler:
                             temp[attrIdx] = token
                     except KeyError:
                         pass
-        
-        context_idx = self.activatedAttributes.index(AttributeSet.content)
+        if len(temp_text) > 0 and isText:
+            isText=False
+            temp[context_idx] = temp_text[1:-1]
+
         if  context_idx >= 0 and self.rule[node]["attributes"][context_idx] and temp[context_idx] == None:
             if node == LeafKey.button.value:
                 temp[context_idx] =  get_random_text(10, 1) 

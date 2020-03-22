@@ -21,9 +21,9 @@ if __name__ == "__main__":
     createFolder(path.DATASET3_ROWCOL_IMG)
     createFolder(path.DATASET3_ROWCOL_YOLO_POSITION_TXT)
 
-    RANDOM_GENERATOR = True
+    RANDOM_GENERATOR = False
     SKELETON_TO_HTML_ONLY = False
-    WEB_SCREENSHOOT = False
+    WEB_SCREENSHOOT = True
     RULE = 4
     if RANDOM_GENERATOR:
         rule = getRule(RULE)
@@ -59,7 +59,14 @@ if __name__ == "__main__":
 
     if WEB_SCREENSHOOT:
             # [web_img_path] = webscreenshoot([path.DATASET2_ORIGIN_HTML+str(1)+TYPE.HTML], r'E:\projects\NTUST\webimg-to-code\\', size=(1200,690), deviceScaleFactor=2)
-        for i in range(0,100):
-            [web_img_path] = webscreenshoot([path.DATASET2_ORIGIN_HTML+str(i)+TYPE.HTML], path.DATASET2_ORIGIN_LARGE_PNG, size=(1600,920), deviceScaleFactor=1.5)
+        for i in [40]:
+            compiler = Compiler(path.DATASET3_DSL_MAPPING_JSON_FILE, rule=RULE)
+            tree = compiler.dsl_to_node_tree(path.DATASET3_ORIGIN_GUI+str(i)+TYPE.GUI)
+
+            html = compiler.node_tree_to_html(path.DATASET3_ORIGIN_HTML+str(i)+TYPE.HTML, str(i))
+
+            [web_img_path] = webscreenshoot([path.DATASET3_ORIGIN_HTML+str(i)+TYPE.HTML], path.DATASET3_ORIGIN_PNG, size=(1600,920), deviceScaleFactor=1.5)
             convert_to_position_and_rowcol_img(web_img_path,
-                                        path.DATASET2_ROWCOL_YOLO_POSITION_TXT + str(i) + TYPE.TXT, path.DATASET2_ROWCOL_LARGE_IMG + str(i) + TYPE.IMG)
+                                        path.DATASET2_ROWCOL_YOLO_POSITION_TXT + str(i) + TYPE.TXT, path.DATASET3_ROWCOL_IMG + str(i) + TYPE.IMG)
+
+            # break
