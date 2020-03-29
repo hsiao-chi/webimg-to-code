@@ -2,7 +2,7 @@ from general.node.nodeModel import Node, Attribute
 from general.node.nodeEnum import RootKey, NodeKey, LeafKey, Font_color, Bg_color
 import general.path as path
 import general.dataType as TYPE
-from general.util import write_file, createFolder
+from general.util import write_file, createFolder, read_file
 from datasetCode.dataset_2_generator.generateRule import getRule
 from datasetCode.dataset_2_generator.nodeTreeGenerateClass import NodeTreeGenerator
 from datasetCode.dataset_2_generator.compiler import Compiler
@@ -15,12 +15,12 @@ if __name__ == "__main__":
 
     RANDOM_GENERATOR = False
     SKELETON_TO_HTML_ONLY = False
-    WEB_SCREENSHOOT = True
+    WEB_SCREENSHOOT = False
     RULE = 4
     if RANDOM_GENERATOR:
         rule = getRule(RULE)
         generator = NodeTreeGenerator(rule=RULE)
-        for i in range(100,200):
+        for i in range(300,400):
             print(i)
             root = Node(RootKey.body.value, None, Attribute(rule["attributes"], rule[RootKey.body.value]["attributes"]))
             tree = generator.generateNodeTree(root, 0)
@@ -51,7 +51,7 @@ if __name__ == "__main__":
 
     if WEB_SCREENSHOOT:
             # [web_img_path] = webscreenshoot([path.DATASET2_ORIGIN_HTML+str(1)+TYPE.HTML], r'E:\projects\NTUST\webimg-to-code\\', size=(1200,690), deviceScaleFactor=2)
-        for i in [0, 1, 4, 8, 10, 11, 12, 15, 22, 24, 27, 31, 35, 36, 37, 38, 39, 40, 42, 44, 46, 48, 51, 53, 55, 56, 57, 60, 61, 62, 63, 67, 69, 70, 71, 72, 73, 74, 76, 77, 79, 80, 81, 86, 87, 92, 95, 97, 98, 99, 100, 102, 104, 105, 107, 108, 109, 111, 112, 113, 114, 117, 118, 120, 122, 125, 126, 128, 130, 131, 136, 144, 149, 152, 154, 155, 157, 159, 160, 165, 166, 167, 168, 171, 174, 178, 184, 185, 187, 189, 190, 191, 196]:
+        for i in range(300,400):
             compiler = Compiler(path.DATASET3_DSL_MAPPING_JSON_FILE, rule=RULE)
             tree = compiler.dsl_to_node_tree(path.DATASET3_ORIGIN_GUI+str(i)+TYPE.GUI)
 
@@ -62,3 +62,17 @@ if __name__ == "__main__":
                                         path.DATASET3_ROWCOL_YOLO_POSITION_TXT + str(i) + TYPE.TXT, path.DATASET3_ROWCOL_IMG + str(i) + TYPE.IMG)
 
             # break
+
+    ''' 
+    =================================================================================
+    ------------ html: remove bg-dark of INPUT, save new file -----------------------
+    =================================================================================
+    '''
+    # createFolder(path.DATASET3_ORIGIN_LIGHT_HTML)
+    # createFolder(path.DATASET3_ORIGIN_LIGHT_PNG)
+    # for i in range(400):
+    #     origin = read_file(path.DATASET3_ORIGIN_HTML+str(i)+TYPE.HTML, 'noSplit')
+    #     origin=origin.replace('bg-secondary', '')
+    #     write_file(origin, path.DATASET3_ORIGIN_LIGHT_HTML+str(i)+TYPE.HTML, dataDim=0)
+    #     [web_img_path] = webscreenshoot([path.DATASET3_ORIGIN_LIGHT_HTML+str(i)+TYPE.HTML], path.DATASET3_ORIGIN_LIGHT_PNG, size=(1600,920), deviceScaleFactor=1.5)
+

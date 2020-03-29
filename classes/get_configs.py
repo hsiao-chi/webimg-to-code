@@ -32,6 +32,18 @@ def get_decoder_config(target_type=1):
                 'text-white', 'text-primary', 'text-dark',
                 'bg-primary', 'bg-dark', 'bg-success', 'bg-warning', 'bg-danger',
                 'START', 'EOS']}
+    elif target_type == 4:      # dataset3 
+        return {
+            'data_folder': path.DATASET3_TRAINSET_ORIGIN_NO_CONTEXT_GUI,
+            # 'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_ATTR_GUI,
+            'testing_data_folder': path.DATASET3_TESTSET_ORIGIN_NO_CONTEXT_GUI,
+            'token_list': [
+                '{', '}', '[', ']',
+                'row', 'col',
+                'title', 'text', 'btn', 'text_input',
+                'text-white', 'text-primary', 'text-dark', 'text-success', 'text-danger',
+                'bg-primary', 'bg-dark', 'bg-success', 'bg-warning', 'bg-danger',
+                'START', 'EOS']}
 
 
 def get_encoder_config(target_type=1):
@@ -67,6 +79,26 @@ def get_encoder_config(target_type=1):
                  Bg_color.warning.value, Bg_color.danger.value]
             ],
         }
+    elif target_type == 4:      # Dataset3 - arch1-seq2seq
+        return {
+            'direct_part': 5,
+            'data_folder': path.DATASET3_TRAINSET_NOISE_FULL_YOLO_POSITION_TXT,
+            'testing_data_folder': path.DATASET3_TESTSET_NOISE_FULL_YOLO_POSITION_TXT,
+            # 'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_POSITION_TXT,
+            'class_mode': False,
+            'token_list': [],
+        }
+    elif target_type == 5:      # Dataset3 - arch2-seq2seq
+        return {
+            'direct_part': 5,
+            'data_folder': path.DATASET3_TRAINSET_NOISE_ATTR_YOLO_POSITION_TXT,
+            'testing_data_folder': path.DATASET3_TESTSET_NOISE_ATTR_YOLO_POSITION_TXT,
+            'class_mode': False,
+            'token_list': [Font_color.dark.value, Font_color.primary.value, Font_color.white.value, Font_color.success.value, Font_color.danger.value, 
+                           Bg_color.primary.value, Bg_color.dark.value, Bg_color.success.value,
+                           Bg_color.warning.value, Bg_color.danger.value],
+        }
+    
 
 
 def get_attribute_encoder_config(target_type=1):

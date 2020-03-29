@@ -79,7 +79,7 @@ def create_attribute_classfication_dataset(attr_positions_folder, image_folder,
                 element_index += 1
             print(file_idx) if file_idx % 10 == 0 else None
 
-    record = 'number of used file: {}\nnumber of total_elements: {}\nnumber of type 0 [Title]: {}\nnumber of type 1 [Text]: {}\nnumber of type 2 [Btn]: {}\n prop: {}'.format(
-        file_start_index + file_num, element_index, num_each_element[0], num_each_element[1], num_each_element[2], prop_each_element)
+    record = 'number of used file: {}\nnumber of total_elements: {}\nnumber of type 0 [Title]: {}\nnumber of type 1 [Text]: {}\nnumber of type 2 [Btn]: {}\nnumber of type 3 [Text_input]: {}\nprop: {}'.format(
+        file_start_index + file_num, element_index, num_each_element[0], num_each_element[1], num_each_element[2],num_each_element[3], prop_each_element)
     write_file(record, record_path, 0)
     return element_index

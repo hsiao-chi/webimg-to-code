@@ -290,7 +290,7 @@ rule_4 = {
         "children_group": None,
         "children_quantity": {
             "operator": Operator.equal_more_then,
-            "value": 2,
+            "value": 1,
         }
     },
     NodeKey.row.value: {
@@ -302,7 +302,7 @@ rule_4 = {
         "children_group": None,
         "children_quantity": {
             "operator": Operator.equal_more_then,
-            "value": 2,
+            "value": 1,
         }
     },
     NodeKey.col.value: {
