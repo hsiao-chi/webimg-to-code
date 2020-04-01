@@ -38,14 +38,14 @@ if __name__ == "__main__":
     =================================================================================
     '''
 
-    # for i in range(369, 400):
-    #     root = tk.Tk()
-    #     app = ManualTagClass(root, buttonList, path.DATASET3_ORIGIN_PNG + str(i) + TYPE.IMG,
-    #                          path.DATASET3_ROWCOL_YOLO_POSITION_TXT + str(i) + TYPE.TXT, path.DATASET3_FULL_YOLO_POSITION_TXT + str(i)+TYPE.TXT)
-    #     root.mainloop()
+    for i in range(369, 400):
+        root = tk.Tk()
+        app = ManualTagClass(root, buttonList, path.DATASET3_ORIGIN_PNG + str(i) + TYPE.IMG,
+                             path.DATASET3_ROWCOL_YOLO_POSITION_TXT + str(i) + TYPE.TXT, path.DATASET3_FULL_YOLO_POSITION_TXT + str(i)+TYPE.TXT)
+        root.mainloop()
 
-    #     if app.is_close():
-    #         break
+        if app.is_close():
+            break
 
     ''' 
     =================================================================================
@@ -185,8 +185,8 @@ if __name__ == "__main__":
     #            path.DATASET3_TESTSET_ORIGIN_LIGHT_PNG, target_start, TYPE.IMG, clean_target_folder=clean)
     # copy_files(path.DATASET3_FULL_YOLO_POSITION_TXT, origin_start, origin_end, TYPE.TXT,
     #            path.DATASET3_TESTSET_FULL_YOLO_POSITION_TXT, target_start, TYPE.TXT, clean_target_folder=clean)
-    copy_files(path.DATASET3_TRAINSET_NOISE_ORIGIN_GUI, 0, 299, TYPE.GUI,
-               path.DATASET3_TRAINSET_NOISE_ORIGIN_GUI, 1200, TYPE.GUI, clean_target_folder=False)
+    # copy_files(path.DATASET3_TRAINSET_NOISE_ORIGIN_GUI, 0, 299, TYPE.GUI,
+    #            path.DATASET3_TRAINSET_NOISE_ORIGIN_GUI, 1200, TYPE.GUI, clean_target_folder=False)
 
 
     ''' 
