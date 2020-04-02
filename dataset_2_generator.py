@@ -13,14 +13,14 @@ from datasetCode.data_transform.tag_for_yolo import manual_class_tag_from_file
 import os
 if __name__ == "__main__":
 
-    RANDOM_GENERATOR = False
+    RANDOM_GENERATOR = True
     SKELETON_TO_HTML_ONLY = False
     WEB_SCREENSHOOT = False
     RULE = 4
     if RANDOM_GENERATOR:
         rule = getRule(RULE)
         generator = NodeTreeGenerator(rule=RULE)
-        for i in range(300,400):
+        for i in range(400,500):
             print(i)
             root = Node(RootKey.body.value, None, Attribute(rule["attributes"], rule[RootKey.body.value]["attributes"]))
             tree = generator.generateNodeTree(root, 0)
