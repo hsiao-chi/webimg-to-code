@@ -10,15 +10,15 @@ from keras.models import load_model
 import random
 
 if __name__ == "__main__":
-    INPUT_TYPE = 1
-    TARGET_TYPE = 3
-    encoder_bidirectional_lstm = False
-    training_data_num = 2500
-    gaussian_noise = 1 #None
-    TRAINING = False
+    INPUT_TYPE = 4
+    TARGET_TYPE = 4
+    encoder_bidirectional_lstm = True
+    training_data_num = 1500
+    gaussian_noise = None #None
+    TRAINING = True
     PREDIT = False
-    EVALUATE = False
-    BLEU_SCORE = True
+    EVALUATE = True
+    # BLEU_SCORE = True
 
     encoder_config = get_encoder_config(INPUT_TYPE)
     decoder_config = get_decoder_config(TARGET_TYPE)
@@ -26,6 +26,7 @@ if __name__ == "__main__":
     predit_model_path = final_model_path
     # evaluate_model_path = r'E:\projects\NTUST\webimg-to-code\assets\2020\seq2seq-pix2code\full-rowcolAttrElement\2500\bidirectional-resort-noise\model\300\model.h5'
     evaluate_model_path = final_model_path
+    pretrained_weight_path = r'D:\Chi\webimg-to-code\assets\2020\seq2seq-data3\full-notext\1500\bidirectional-resort\weight\300\300seq2seq-weights00300.h5' #None
 
     if TRAINING:
         createFolder(path.CLASS_SEQ2SEQ_MODEL_PATH + str(SEQ2SEQ_EPOCHES))
@@ -39,7 +40,7 @@ if __name__ == "__main__":
 
         seq2seq_training_model = seq2seq_train_model(
             num_input_token, num_target_token, gaussian_noise=gaussian_noise,
-            encoder_bidirectional_lstm=encoder_bidirectional_lstm)
+            encoder_bidirectional_lstm=encoder_bidirectional_lstm, weight_path=pretrained_weight_path)
         seq2seq_training_model = seq2seq_training(seq2seq_training_model, encoder_input_data, decoder_input_data, decoder_target_tokens,
                                                   analysis_saved_folder=path.CLASS_SEQ2SEQ_ANALYSIS_PATH,
                                                   checkpoint_folder=path.CLASS_SEQ2SEQ_WEIGHT + str(SEQ2SEQ_EPOCHES)+"\\",

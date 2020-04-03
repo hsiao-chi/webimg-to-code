@@ -34,9 +34,9 @@ def get_decoder_config(target_type=1):
                 'START', 'EOS']}
     elif target_type == 4:      # dataset3 
         return {
-            'data_folder': path.DATASET3_TRAINSET_ORIGIN_NO_CONTEXT_GUI,
+            'data_folder': path.DATASET3_TRAINSET_NOISE_ORIGIN_NO_CONTEXT_GUI,
             # 'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_ATTR_GUI,
-            'testing_data_folder': path.DATASET3_TESTSET_ORIGIN_NO_CONTEXT_GUI,
+            'testing_data_folder': path.DATASET3_TESTSET_NOISE_ORIGIN_NO_CONTEXT_GUI,
             'token_list': [
                 '{', '}', '[', ']',
                 'row', 'col',
