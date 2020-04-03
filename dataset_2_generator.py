@@ -13,14 +13,14 @@ from datasetCode.data_transform.tag_for_yolo import manual_class_tag_from_file
 import os
 if __name__ == "__main__":
 
-    RANDOM_GENERATOR = True
+    RANDOM_GENERATOR = False
     SKELETON_TO_HTML_ONLY = False
-    WEB_SCREENSHOOT = False
+    WEB_SCREENSHOOT = True
     RULE = 4
     if RANDOM_GENERATOR:
         rule = getRule(RULE)
         generator = NodeTreeGenerator(rule=RULE)
-        for i in range(400,500):
+        for i in range(500,600):
             print(i)
             root = Node(RootKey.body.value, None, Attribute(rule["attributes"], rule[RootKey.body.value]["attributes"]))
             tree = generator.generateNodeTree(root, 0)
@@ -51,7 +51,7 @@ if __name__ == "__main__":
 
     if WEB_SCREENSHOOT:
             # [web_img_path] = webscreenshoot([path.DATASET2_ORIGIN_HTML+str(1)+TYPE.HTML], r'E:\projects\NTUST\webimg-to-code\\', size=(1200,690), deviceScaleFactor=2)
-        for i in range(300,400):
+        for i in range(400,600):
             compiler = Compiler(path.DATASET3_DSL_MAPPING_JSON_FILE, rule=RULE)
             tree = compiler.dsl_to_node_tree(path.DATASET3_ORIGIN_GUI+str(i)+TYPE.GUI)
 
