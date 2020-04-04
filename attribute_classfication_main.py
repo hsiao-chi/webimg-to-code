@@ -19,6 +19,8 @@ if __name__ == "__main__":
     TRAINING = True
     PREDIT = False
     EVALUATE = True
+
+    keep_img_ratio=False
     cnn_model = 'simple_VGG'
 
     final_model_saved_path = path.CLASS_ATTR_MODEL_PATH + \
@@ -38,7 +40,8 @@ if __name__ == "__main__":
                                                            input_shape=encoder_config['input_shape'], optimizer='Adadelta', cnn_model=cnn_model)
         attribute_classfication_training(train_model, encoder_config, decoder_config,
                                          checkpoint_folder=path.CLASS_ATTR_WEIGHT + str(EPOCHES), analysis_saved_folder=path.CLASS_ATTR_ANALYSIS,
-                                         final_model_saved_path=final_model_saved_path, initial_epoch=0)
+                                         final_model_saved_path=final_model_saved_path, initial_epoch=0,
+                                         keep_ratio=keep_img_ratio)
 
     if PREDIT:
         # createFolder(path.CLASS_ATTR_PREDIT_GUI_PATH + str(EPOCHES))
