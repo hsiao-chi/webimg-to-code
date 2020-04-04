@@ -91,8 +91,8 @@ def get_encoder_config(target_type=1):
     elif target_type == 5:      # Dataset3 - arch2-seq2seq
         return {
             'direct_part': 5,
-            'data_folder': path.DATASET3_TRAINSET_NOISE_ATTR_YOLO_POSITION_TXT,
-            'testing_data_folder': path.DATASET3_TESTSET_NOISE_ATTR_YOLO_POSITION_TXT,
+            'data_folder': path.DATASET3_TRAINSET_NOISE_ATTR_YOLO_POSITION_TXT_PADDING_2,
+            'testing_data_folder': path.DATASET3_TESTSET_NOISE_ATTR_YOLO_POSITION_TXT_PADDING_2,
             'class_mode': False,
             'token_list': [Font_color.dark.value, Font_color.primary.value, Font_color.white.value, Font_color.success.value, Font_color.danger.value, 
                            Bg_color.primary.value, Bg_color.dark.value, Bg_color.success.value,
