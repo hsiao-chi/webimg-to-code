@@ -109,24 +109,28 @@ def to_Seq2Seq_input(encoder_file_folder, decoder_file_folder, encoder_config, d
     return encoder_input_data, decoder_input_data, decoder_target_tokens, max_decoder_len
 
 
-def preprocess_image(image_path, input_shape, proc_img=True, img_input_type='path') -> np.ndarray:
+def preprocess_image(image_path, input_shape, proc_img=True, img_input_type='path', keep_ratio=True) -> np.ndarray:
     if img_input_type == 'path':
         image = Image.open(image_path)
     elif img_input_type == 'img':
         image = image_path
     iw, ih = image.size
     h, w, c = input_shape
-    scale = min(w/iw, h/ih)
-    nw = int(iw*scale)
-    nh = int(ih*scale)
-    dx = (w-nw)//2
-    dy = (h-nh)//2
     image_data = 0
     if proc_img:
-        image = image.resize((nw, nh), Image.BICUBIC)
-        new_image = Image.new('RGB', (w, h), (128, 128, 128))
-        new_image.paste(image, (dx, dy))
-        image_data = np.array(new_image)/255.
+        if keep_ratio:
+            scale = min(w/iw, h/ih)
+            nw = int(iw*scale)
+            nh = int(ih*scale)
+            dx = (w-nw)//2
+            dy = (h-nh)//2
+            image = image.resize((nw, nh), Image.BICUBIC)
+            new_image = Image.new('RGB', (w, h), (128, 128, 128))
+            new_image.paste(image, (dx, dy))
+            image_data = np.array(new_image)/255.
+        else:
+            image = image.resize((w, h), Image.BICUBIC)
+            image_data = np.array(image)/255.
     return image_data
 
 def get_attribute_data(annotation_line, input_shape, tokens_dict, max_attributes=4, proc_img=True ):

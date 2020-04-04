@@ -86,36 +86,36 @@ if __name__ == "__main__":
     ------------- Full Yolo position -- to -- Attribute Yolo position ---------------
     =================================================================================
     '''
-    createFolder(path.DATASET3_TRAINSET_NOISE_ATTR_YOLO_POSITION_TXT_INPUT_PADDING)
-    bg_color = [None, None, Bg_color.primary.value, Bg_color.dark.value,
-                Bg_color.success.value, Bg_color.warning.value, Bg_color.danger.value, 
-                None, None,None, None,None, None, None]
-    text_color = [Font_color.dark.value, Font_color.dark.value, Font_color.white.value,
-                  Font_color.primary.value, Font_color.white.value, Font_color.white.value, Font_color.white.value,
-                  Font_color.primary.value, Font_color.success.value, Font_color.danger.value,
-                  Font_color.primary.value, Font_color.success.value, Font_color.danger.value, None]
-    classes = [[0, 7, 8, 9], [1, 10, 11, 12], [2, 3, 4, 5, 6], [13]]
-    for i in range(1500):
-        new_labels = []
-        labels = read_file(
-            path.DATASET3_TRAINSET_NOISE_FULL_YOLO_POSITION_TXT_INPUT_PADDING+str(i)+TYPE.TXT, 'splitlines')
-        for label in labels:
-            c = int(label.split()[0])
-            position = label.split()[1:]
-            new_label = []
-            # new_label.append(str(min(c, 2)))
-            for nc in range(len(classes)):
-                if c in classes[nc]:
-                    break 
-            new_label.append(str(nc))
-            new_label += position
-            # new_label.append(text_color[c])
-            # if c >= 2:
-            #     new_label.append(bg_color[c])
-            attrs = [a for a in [text_color[c], bg_color[c]] if a]
-            new_label += attrs
-            new_labels.append(new_label)
-        write_file(new_labels, path.DATASET3_TRAINSET_NOISE_ATTR_YOLO_POSITION_TXT_INPUT_PADDING+str(i)+TYPE.TXT, 2)
+    # createFolder(path.DATASET3_TRAINSET_NOISE_ATTR_YOLO_POSITION_TXT_INPUT_PADDING)
+    # bg_color = [None, None, Bg_color.primary.value, Bg_color.dark.value,
+    #             Bg_color.success.value, Bg_color.warning.value, Bg_color.danger.value, 
+    #             None, None,None, None,None, None, None]
+    # text_color = [Font_color.dark.value, Font_color.dark.value, Font_color.white.value,
+    #               Font_color.primary.value, Font_color.white.value, Font_color.white.value, Font_color.white.value,
+    #               Font_color.primary.value, Font_color.success.value, Font_color.danger.value,
+    #               Font_color.primary.value, Font_color.success.value, Font_color.danger.value, None]
+    # classes = [[0, 7, 8, 9], [1, 10, 11, 12], [2, 3, 4, 5, 6], [13]]
+    # for i in range(1500):
+    #     new_labels = []
+    #     labels = read_file(
+    #         path.DATASET3_TRAINSET_NOISE_FULL_YOLO_POSITION_TXT_INPUT_PADDING+str(i)+TYPE.TXT, 'splitlines')
+    #     for label in labels:
+    #         c = int(label.split()[0])
+    #         position = label.split()[1:]
+    #         new_label = []
+    #         # new_label.append(str(min(c, 2)))
+    #         for nc in range(len(classes)):
+    #             if c in classes[nc]:
+    #                 break 
+    #         new_label.append(str(nc))
+    #         new_label += position
+    #         # new_label.append(text_color[c])
+    #         # if c >= 2:
+    #         #     new_label.append(bg_color[c])
+    #         attrs = [a for a in [text_color[c], bg_color[c]] if a]
+    #         new_label += attrs
+    #         new_labels.append(new_label)
+    #     write_file(new_labels, path.DATASET3_TRAINSET_NOISE_ATTR_YOLO_POSITION_TXT_INPUT_PADDING+str(i)+TYPE.TXT, 2)
 
 
     ''' 
@@ -213,18 +213,18 @@ if __name__ == "__main__":
     '''
 
     # replace_file_value(
-    #     path.DATASET3_ELEMENT_FOLDER+'attr-labels-balance-padding'+TYPE.TXT, 
-    #     path.DATASET3_ELEMENT_FOLDER+'attr-labels-balance-padding_lab'+TYPE.TXT,
+    #     path.DATASET3_ELEMENT_FOLDER+'attr-labels-balance-padding20'+TYPE.TXT, 
+    #     path.DATASET3_ELEMENT_FOLDER+'attr-labels-balance-padding20_lab'+TYPE.TXT,
     #     DATASET, DATASET_ANOTHER
     #     )
     # replace_file_value(
-    #     path.DATASET3_TRAINSET_YOLO_TRAIN_TXT+'data3_attr_yolo_300_padding_2'+TYPE.TXT, 
-    #     path.DATASET3_TRAINSET_YOLO_TRAIN_TXT+'data3_attr_yolo_300_padding_2_lab'+TYPE.TXT,
+    #     path.DATASET3_TRAINSET_YOLO_TRAIN_TXT+'data3_full_yolo_300_input_padding'+TYPE.TXT, 
+    #     path.DATASET3_TRAINSET_YOLO_TRAIN_TXT+'data3_full_yolo_300_input_padding_lab'+TYPE.TXT,
     #     DATASET, DATASET_ANOTHER
     #     )
     # replace_file_value(
-    #     path.DATASET3_TRAINSET_YOLO_TRAIN_TXT+'data3_attr_yolo_300_padding'+TYPE.TXT, 
-    #     path.DATASET3_TRAINSET_YOLO_TRAIN_TXT+'data3_attr_yolo_300_padding_lab'+TYPE.TXT,
+    #     path.DATASET3_TRAINSET_YOLO_TRAIN_TXT+'data3_attr_yolo_300_input_padding'+TYPE.TXT, 
+    #     path.DATASET3_TRAINSET_YOLO_TRAIN_TXT+'data3_attr_yolo_300_input_padding_lab'+TYPE.TXT,
     #     DATASET, DATASET_ANOTHER
     #     )
 
