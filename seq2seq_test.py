@@ -10,7 +10,7 @@ from keras.models import load_model
 import random
 
 if __name__ == "__main__":
-    INPUT_TYPE = 4
+    INPUT_TYPE = 5
     TARGET_TYPE = 4
     encoder_bidirectional_lstm = True
     training_data_num = 1500
@@ -26,7 +26,7 @@ if __name__ == "__main__":
     predit_model_path = final_model_path
     # evaluate_model_path = r'E:\projects\NTUST\webimg-to-code\assets\2020\seq2seq-pix2code\full-rowcolAttrElement\2500\bidirectional-resort-noise\model\300\model.h5'
     evaluate_model_path = final_model_path
-    pretrained_weight_path = r'D:\Chi\webimg-to-code\assets\2020\seq2seq-data3\full-notext\1500\bidirectional-resort\weight\300\300seq2seq-weights00300.h5' #None
+    pretrained_weight_path = None
 
     if TRAINING:
         createFolder(path.CLASS_SEQ2SEQ_MODEL_PATH + str(SEQ2SEQ_EPOCHES))
