@@ -30,7 +30,9 @@ if __name__ == "__main__":
     =================================================================================
     '''
     # createFolder(path.DATASET3_TRAINSET_YOLO_TRAIN_TXT)
-    # to_yolo_training_file(path.DATASET3_TRAINSET_ORIGIN_LIGHT_PNG, path.DATASET3_TRAINSET_ATTR_YOLO_POSITION_TXT_PADDING_2, 300, path.DATASET3_TRAINSET_YOLO_TRAIN_TXT+"data3_attr_yolo_300_padding_2"+TYPE.TXT)
+    # to_yolo_training_file(path.DATASET3_TRAINSET_ORIGIN_LIGHT_PNG, 
+    # path.DATASET3_TRAINSET_FULL_YOLO_POSITION_TXT_INPUT_PADDING, 300, 
+    # path.DATASET3_TRAINSET_YOLO_TRAIN_TXT+"data3_full_yolo_300_input_padding"+TYPE.TXT)
 
     ''' 
     =================================================================================
@@ -84,36 +86,36 @@ if __name__ == "__main__":
     ------------- Full Yolo position -- to -- Attribute Yolo position ---------------
     =================================================================================
     '''
-    # createFolder(path.DATASET3_TRAINSET_ATTR_YOLO_POSITION_TXT_PADDING_2)
-    # bg_color = [None, None, Bg_color.primary.value, Bg_color.dark.value,
-    #             Bg_color.success.value, Bg_color.warning.value, Bg_color.danger.value, 
-    #             None, None,None, None,None, None, None]
-    # text_color = [Font_color.dark.value, Font_color.dark.value, Font_color.white.value,
-    #               Font_color.primary.value, Font_color.white.value, Font_color.white.value, Font_color.white.value,
-    #               Font_color.primary.value, Font_color.success.value, Font_color.danger.value,
-    #               Font_color.primary.value, Font_color.success.value, Font_color.danger.value, None]
-    # classes = [[0, 7, 8, 9], [1, 10, 11, 12], [2, 3, 4, 5, 6], [13]]
-    # for i in range(400):
-    #     new_labels = []
-    #     labels = read_file(
-    #         path.DATASET3_TRAINSET_FULL_YOLO_POSITION_TXT_PADDING_2+str(i)+TYPE.TXT, 'splitlines')
-    #     for label in labels:
-    #         c = int(label.split()[0])
-    #         position = label.split()[1:]
-    #         new_label = []
-    #         # new_label.append(str(min(c, 2)))
-    #         for nc in range(len(classes)):
-    #             if c in classes[nc]:
-    #                 break 
-    #         new_label.append(str(nc))
-    #         new_label += position
-    #         # new_label.append(text_color[c])
-    #         # if c >= 2:
-    #         #     new_label.append(bg_color[c])
-    #         attrs = [a for a in [text_color[c], bg_color[c]] if a]
-    #         new_label += attrs
-    #         new_labels.append(new_label)
-    #     write_file(new_labels, path.DATASET3_TRAINSET_ATTR_YOLO_POSITION_TXT_PADDING_2+str(i)+TYPE.TXT, 2)
+    createFolder(path.DATASET3_TRAINSET_NOISE_ATTR_YOLO_POSITION_TXT_INPUT_PADDING)
+    bg_color = [None, None, Bg_color.primary.value, Bg_color.dark.value,
+                Bg_color.success.value, Bg_color.warning.value, Bg_color.danger.value, 
+                None, None,None, None,None, None, None]
+    text_color = [Font_color.dark.value, Font_color.dark.value, Font_color.white.value,
+                  Font_color.primary.value, Font_color.white.value, Font_color.white.value, Font_color.white.value,
+                  Font_color.primary.value, Font_color.success.value, Font_color.danger.value,
+                  Font_color.primary.value, Font_color.success.value, Font_color.danger.value, None]
+    classes = [[0, 7, 8, 9], [1, 10, 11, 12], [2, 3, 4, 5, 6], [13]]
+    for i in range(1500):
+        new_labels = []
+        labels = read_file(
+            path.DATASET3_TRAINSET_NOISE_FULL_YOLO_POSITION_TXT_INPUT_PADDING+str(i)+TYPE.TXT, 'splitlines')
+        for label in labels:
+            c = int(label.split()[0])
+            position = label.split()[1:]
+            new_label = []
+            # new_label.append(str(min(c, 2)))
+            for nc in range(len(classes)):
+                if c in classes[nc]:
+                    break 
+            new_label.append(str(nc))
+            new_label += position
+            # new_label.append(text_color[c])
+            # if c >= 2:
+            #     new_label.append(bg_color[c])
+            attrs = [a for a in [text_color[c], bg_color[c]] if a]
+            new_label += attrs
+            new_labels.append(new_label)
+        write_file(new_labels, path.DATASET3_TRAINSET_NOISE_ATTR_YOLO_POSITION_TXT_INPUT_PADDING+str(i)+TYPE.TXT, 2)
 
 
     ''' 
@@ -161,9 +163,9 @@ if __name__ == "__main__":
     '''
 
     # yolo_position_with_noise_generator(
-    #     yolo_position_folder=path.DATASET3_TESTSET_FULL_YOLO_POSITION_TXT_PADDING,
+    #     yolo_position_folder=path.DATASET3_TESTSET_FULL_YOLO_POSITION_TXT_INPUT_PADDING,
     #     # gui_folder=path.DATASET3_TESTSET_ORIGIN_NO_CONTEXT_GUI,
-    #     new_positions_folder=path.DATASET3_TESTSET_NOISE_FULL_YOLO_POSITION_TXT_PADDING,
+    #     new_positions_folder=path.DATASET3_TESTSET_NOISE_FULL_YOLO_POSITION_TXT_INPUT_PADDING,
     #     # new_gui_folder=path.DATASET3_TESTSET_NOISE_ATTR_YOLO_POSITION_TXT,
     #     data_num=100,
     #     save_origin_file=True,
@@ -177,10 +179,10 @@ if __name__ == "__main__":
     # origin_end = 399
     # target_start = 50
     # clean = False
-    # copy_files(path.DATASET3_FULL_YOLO_POSITION_TXT_PADDING, origin_start, origin_end, TYPE.TXT,
-    #            path.DATASET3_TESTSET_FULL_YOLO_POSITION_TXT_PADDING, target_start, TYPE.TXT, clean_target_folder=clean)
-    # copy_files(path.DATASET3_ATTR_YOLO_POSITION_TXT_PADDING, origin_start, origin_end, TYPE.TXT,
-    #            path.DATASET3_TESTSET_ATTR_YOLO_POSITION_TXT_PADDING, target_start, TYPE.TXT, clean_target_folder=clean)
+    # copy_files(path.DATASET3_FULL_YOLO_POSITION_TXT_INPUT_PADDING, origin_start, origin_end, TYPE.TXT,
+    #            path.DATASET3_TESTSET_FULL_YOLO_POSITION_TXT_INPUT_PADDING, target_start, TYPE.TXT, clean_target_folder=clean)
+    # copy_files(path.DATASET3_ATTR_YOLO_POSITION_TXT_INPUT_PADDING, origin_start, origin_end, TYPE.TXT,
+    #            path.DATASET3_TESTSET_ATTR_YOLO_POSITION_TXT_INPUT_PADDING, target_start, TYPE.TXT, clean_target_folder=clean)
     # copy_files(path.DATASET3_ORIGIN_LIGHT_PNG, origin_start, origin_end, TYPE.IMG,
     #            path.DATASET3_TESTSET_ORIGIN_LIGHT_PNG, target_start, TYPE.IMG, clean_target_folder=clean)
     # copy_files(path.DATASET3_FULL_YOLO_POSITION_TXT, origin_start, origin_end, TYPE.TXT,
@@ -195,11 +197,11 @@ if __name__ == "__main__":
     =================================================================================
     '''
         
-    # createFolder(path.DATASET3_ELEMENT_PNG_PADDING)
+    # createFolder(path.DATASET3_ELEMENT_PNG_PADDING_20)
     # create_attribute_classfication_dataset(
-    #     path.DATASET3_ATTR_YOLO_POSITION_TXT_PADDING, path.DATASET3_ORIGIN_LIGHT_PNG, 
-    #     path.DATASET3_ELEMENT_PNG_PADDING, path.DATASET3_ELEMENT_FOLDER+'attr-labels-balance-padding'+TYPE.TXT, 
-    #     path.DATASET3_ELEMENT_FOLDER+'record-balance-padding'+TYPE.TXT,
+    #     path.DATASET3_ATTR_YOLO_POSITION_TXT_PADDING_20, path.DATASET3_ORIGIN_LIGHT_PNG, 
+    #     path.DATASET3_ELEMENT_PNG_PADDING_20, path.DATASET3_ELEMENT_FOLDER+'attr-labels-balance-padding20'+TYPE.TXT, 
+    #     path.DATASET3_ELEMENT_FOLDER+'record-balance-padding20'+TYPE.TXT,
     #     get_encoder_config(5)['token_list'], 
     #     element_start_index=0, file_start_index=0, file_num=400, balance=True, 
     #     initial_each_element=[0,0,0,0], proportion=[4.,4.,6., 1.])
@@ -274,17 +276,17 @@ if __name__ == "__main__":
     '''
     # x-=5/2400, y-=5/2400
     # widh+=10/2400, height+=10/2400
-    createFolder(path.DATASET3_FULL_YOLO_POSITION_TXT_PADDING_20)
-    for i in range(0,400):
-        lines=read_file(path.DATASET3_FULL_YOLO_POSITION_TXT_PADDING+str(i)+TYPE.TXT, 'splitlines')
-        new_lines=[]
-        for line in lines:
-            line = line.split()
-            # if line[0] == '13':
-            new_line = [line[0], str(float(line[1])-(5/2400)), str(float(line[2])-(5/1380)), str(float(line[3])+(10/2400)), str(float(line[4])+(10/1380))]+line[5:]
-            new_lines.append(new_line)
-            # else:
-            #     new_lines.append(line)
-        # print(new_lines)
-        write_file(new_lines, path.DATASET3_FULL_YOLO_POSITION_TXT_PADDING_20+str(i)+TYPE.TXT, dataDim=2)
+    # createFolder(path.DATASET3_ATTR_YOLO_POSITION_TXT_INPUT_PADDING)
+    # for i in range(0,400):
+    #     lines=read_file(path.DATASET3_ATTR_YOLO_POSITION_TXT+str(i)+TYPE.TXT, 'splitlines')
+    #     new_lines=[]
+    #     for line in lines:
+    #         line = line.split()
+    #         if line[0] == '3':
+    #             new_line = [line[0], str(float(line[1])-(5/2400)), str(float(line[2])-(5/1380)), str(float(line[3])+(10/2400)), str(float(line[4])+(10/1380))]+line[5:]
+    #         else:
+    #             new_line = line
+    #         new_lines.append(new_line)
+    #     # print(new_lines)
+    #     write_file(new_lines, path.DATASET3_ATTR_YOLO_POSITION_TXT_INPUT_PADDING+str(i)+TYPE.TXT, dataDim=2)
    
