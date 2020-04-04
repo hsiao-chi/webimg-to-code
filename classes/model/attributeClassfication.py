@@ -11,12 +11,12 @@ import numpy as np
 from PIL import Image
 
 MAX_DECODER_INPUT_LENGTH = 4
-LSTM_ENCODER_DIM = 256
-LSTM_DECODER_DIM = 256
+LSTM_ENCODER_DIM = 512
+LSTM_DECODER_DIM = 512
 
 MODE_SAVE_PERIOD = 100
 EPOCHES = 100
-BATCH_SIZE = 1
+BATCH_SIZE = 16
 
 
 def cnn_simple_vgg(input_shape,weight_path=None) -> Model:
