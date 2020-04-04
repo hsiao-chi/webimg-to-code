@@ -133,9 +133,9 @@ def preprocess_image(image_path, input_shape, proc_img=True, img_input_type='pat
             image_data = np.array(image)/255.
     return image_data
 
-def get_attribute_data(annotation_line, input_shape, tokens_dict, max_attributes=4, proc_img=True ):
+def get_attribute_data(annotation_line, input_shape, tokens_dict, max_attributes=4, proc_img=True, keep_ratio=True ):
     line = annotation_line.split()
-    image_data = preprocess_image(line[0], input_shape)
+    image_data = preprocess_image(line[0], input_shape, keep_ratio=keep_ratio)
     
     attrs = ['START']+line[1:]+['EOS']
     attributes_input_data = np.zeros((max_attributes, len(tokens_dict)))
@@ -147,7 +147,7 @@ def get_attribute_data(annotation_line, input_shape, tokens_dict, max_attributes
     return image_data, attributes_input_data 
 
 
-def attributes_data_generator(annotation_lines, batch_size, input_shape, tokens_list, max_attributes=4):
+def attributes_data_generator(annotation_lines, batch_size, input_shape, tokens_list, max_attributes=4, keep_ratio=True):
     tokens_dict = decoder_tokens_list_to_dict(tokens_list)
     n = len(annotation_lines)
     i = 0
@@ -157,7 +157,7 @@ def attributes_data_generator(annotation_lines, batch_size, input_shape, tokens_
         for b in range(batch_size):
             if i == 0:
                 np.random.shuffle(annotation_lines)
-            image, attributes = get_attribute_data(annotation_lines[i], input_shape, tokens_dict, max_attributes=max_attributes)
+            image, attributes = get_attribute_data(annotation_lines[i], input_shape, tokens_dict, max_attributes=max_attributes, keep_ratio=keep_ratio)
             image_data.append(image)
             decoder_data.append(attributes)
             i = (i+1) % n

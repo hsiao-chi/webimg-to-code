@@ -104,10 +104,10 @@ def get_encoder_config(target_type=1):
 def get_attribute_encoder_config(target_type=1):
     if target_type == 1:
         return {
-            'data_folder': path.DATASET1_ELEMENT_PNG,
+            'data_folder': path.DATASET3_ELEMENT_PNG,
             'input_shape': (112, 112, 3),
-            'num_train': 720,
-            'num_valid': 180,
+            'num_train': 1700,
+            'num_valid': 500,
             'num_test': 200,
         }
         
@@ -115,8 +115,8 @@ def get_attribute_encoder_config(target_type=1):
 def get_attribute_decoder_config(target_type=1):
     if target_type == 1:
         return {
-            'data_path': path.DATASET1_ELEMENT_FOLDER+'text-attr-labels.txt',
-            'token_list': [Font_color.dark.value, Font_color.primary.value, Font_color.white.value,
+            'data_path': path.DATASET3_ELEMENT_FOLDER+'attr-labels-balance.txt',
+            'token_list': [Font_color.dark.value, Font_color.primary.value, Font_color.white.value, Font_color.success.value, Font_color.danger.value, 
                            Bg_color.primary.value, Bg_color.dark.value, Bg_color.success.value,
                            Bg_color.warning.value, Bg_color.danger.value, 'START', 'EOS'],
         }

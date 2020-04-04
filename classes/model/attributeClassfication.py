@@ -183,7 +183,7 @@ def attribute_classification_predit_model(model: Model)-> Model:
 
 
 def attribute_classfication_training(train_model: Model,  encoder_config, decoder_config,
-                                     checkpoint_folder, analysis_saved_folder, final_model_saved_path, initial_epoch=0):
+                                     checkpoint_folder, analysis_saved_folder, final_model_saved_path, initial_epoch=0, keep_ratio=True):
     mc = callbacks.ModelCheckpoint(checkpoint_folder + str(EPOCHES) + 'attr-classfy-weights{epoch:05d}.h5',
                                    save_weights_only=True, period=MODE_SAVE_PERIOD)
     lines = read_file(decoder_config['data_path'], 'splitlines')
@@ -192,7 +192,7 @@ def attribute_classfication_training(train_model: Model,  encoder_config, decode
     token_list = decoder_config['token_list']
     input_shape = encoder_config['input_shape']
     # print('-----config----- \nnum_train: {}\nnum_valid: {}\ninput_shape: {}\nsteps_per_epoch: {}\n'.format(num_train, num_valid, input_shape, max(1, num_train//BATCH_SIZE)))
-    history = train_model.fit_generator(attributes_data_generator(lines[:num_train],BATCH_SIZE, input_shape, token_list),
+    history = train_model.fit_generator(attributes_data_generator(lines[:num_train],BATCH_SIZE, input_shape, token_list, keep_ratio=keep_ratio),
                                         steps_per_epoch=max(1, num_train//BATCH_SIZE),
                                         validation_data=attributes_data_generator(lines[num_train:num_train + num_valid],BATCH_SIZE, input_shape, token_list),
                                         validation_steps=max(1, num_valid//BATCH_SIZE),
