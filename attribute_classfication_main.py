@@ -25,7 +25,7 @@ if __name__ == "__main__":
 
     final_model_saved_path = path.CLASS_ATTR_MODEL_PATH + \
         str(EPOCHES)+'\\attr_class_model'+TYPE.H5
-    predit_model_path = final_model_saved_path
+    predit_model_path = r'E:\projects\NTUST\webimg-to-code\assets\attr_class-data3\test\simple-VGG\74-112-256\p0\model\100\attr_class_model.h5'
     evaluate_model_path = final_model_saved_path
 
     encoder_config = get_attribute_encoder_config(1)
@@ -33,11 +33,12 @@ if __name__ == "__main__":
     lines = read_file(decoder_config['data_path'], 'splitlines')
 
     if TRAINING:
-
+        weight_path=r'E:\projects\NTUST\webimg-to-code\assets\attr_class-pix2code\test\simple-VGG\74-112-256\p0\model\22\attr_class_model.h5'
         createFolder(path.CLASS_ATTR_MODEL_PATH + str(EPOCHES))
         createFolder(path.CLASS_ATTR_WEIGHT + str(EPOCHES))
         train_model = attribute_classification_train_model(len(decoder_config['token_list']),
-                                                           input_shape=encoder_config['input_shape'], optimizer='Adadelta', cnn_model=cnn_model)
+                                                           input_shape=encoder_config['input_shape'], optimizer='Adadelta'
+                                                           , cnn_model=cnn_model, weight_path=weight_path)
         attribute_classfication_training(train_model, encoder_config, decoder_config,
                                          checkpoint_folder=path.CLASS_ATTR_WEIGHT + str(EPOCHES), analysis_saved_folder=path.CLASS_ATTR_ANALYSIS,
                                          final_model_saved_path=final_model_saved_path, initial_epoch=0,

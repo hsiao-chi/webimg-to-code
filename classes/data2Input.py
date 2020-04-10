@@ -131,6 +131,8 @@ def preprocess_image(image_path, input_shape, proc_img=True, img_input_type='pat
         else:
             image = image.resize((w, h), Image.BICUBIC)
             image_data = np.array(image)/255.
+    else:
+        image_data = image
     return image_data
 
 def get_attribute_data(annotation_line, input_shape, tokens_dict, max_attributes=4, proc_img=True, keep_ratio=True ):
@@ -144,6 +146,7 @@ def get_attribute_data(annotation_line, input_shape, tokens_dict, max_attributes
             attrs = attrs[:max_attributes]
         for i, attr in enumerate(attrs):
             attributes_input_data[i, tokens_dict[attr]] = 1
+        attributes_input_data[i+1:, tokens_dict['EOS']] = 1
     return image_data, attributes_input_data 
 
 

@@ -186,6 +186,7 @@ def attribute_classfication_training(train_model: Model,  encoder_config, decode
                                      checkpoint_folder, analysis_saved_folder, final_model_saved_path, initial_epoch=0, keep_ratio=True):
     mc = callbacks.ModelCheckpoint(checkpoint_folder + str(EPOCHES) + 'attr-classfy-weights{epoch:05d}.h5',
                                    save_weights_only=True, period=MODE_SAVE_PERIOD)
+    early_stopping = callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=10, verbose=1)
     lines = read_file(decoder_config['data_path'], 'splitlines')
     num_train = encoder_config['num_train']
     num_valid = encoder_config['num_valid']
@@ -198,7 +199,7 @@ def attribute_classfication_training(train_model: Model,  encoder_config, decode
                                         validation_steps=max(1, num_valid//BATCH_SIZE),
                                         epochs=EPOCHES,
                                         initial_epoch=initial_epoch,
-                                        callbacks=[mc])
+                                        callbacks=[mc, early_stopping])
 
     showLoss(history, analysis_saved_folder, 'loss' + str(EPOCHES))
     showAccuracy(history, analysis_saved_folder,

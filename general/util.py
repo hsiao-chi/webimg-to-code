@@ -47,13 +47,13 @@ def read_file(file_path, spType='noSplit' or 'splitlines' or 'splitBySpec'):
     return data
 
 
-def write_file(data, file_path, dataDim=1):
+def write_file(data, file_path, dataDim=1, join_token=" "):
     directory = file_path.split('\\')
     with open(file_path, 'w+') as file:
         if dataDim == 0:
             file.write(data)
         elif dataDim == 1:
-            file.write(' '.join(data))
+            file.write(join_token.join(data))
         elif dataDim == 2:
             for dataLine in data:
                 file.write(' '.join(str(line) for line in dataLine) + '\n')
