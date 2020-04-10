@@ -20,7 +20,7 @@ if __name__ == "__main__":
     PREDIT = False
     EVALUATE = True
 
-    keep_img_ratio=False
+    keep_img_ratio=True
     cnn_model = 'simple_VGG'
 
     final_model_saved_path = path.CLASS_ATTR_MODEL_PATH + \

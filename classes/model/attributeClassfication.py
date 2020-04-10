@@ -11,8 +11,8 @@ import numpy as np
 from PIL import Image
 
 MAX_DECODER_INPUT_LENGTH = 4
-LSTM_ENCODER_DIM = 512
-LSTM_DECODER_DIM = 512
+LSTM_ENCODER_DIM = 256
+LSTM_DECODER_DIM = 256
 
 MODE_SAVE_PERIOD = 100
 EPOCHES = 100
@@ -55,7 +55,7 @@ def cnn_simple_vgg(input_shape,weight_path=None) -> Model:
 def cnn_VGG16(input_shape=(224,224,3),weight_path=None) -> Model:
      
     model = Sequential()
-    model.add(Conv2D(64,(3,3),strides=(1,1),input_shape=(224,224,3),padding='same',activation='relu',kernel_initializer='uniform'))
+    model.add(Conv2D(64,(3,3),strides=(1,1),input_shape=input_shape,padding='same',activation='relu',kernel_initializer='uniform'))
     model.add(Conv2D(64,(3,3),strides=(1,1),padding='same',activation='relu',kernel_initializer='uniform'))
     model.add(MaxPooling2D(pool_size=(2,2)))
     model.add(Conv2D(128,(3,2),strides=(1,1),padding='same',activation='relu',kernel_initializer='uniform'))
@@ -231,6 +231,7 @@ input_image_path, input_shape, decoder_token_list, max_decoder_seq_length, resul
         # Sample a token
         sampled_token_index = np.argmax(output_tokens[0, -1, :])
         sampled_token = reverse_tokens_dict[sampled_token_index]
+        print('sampled_token', sampled_token)
         if sampled_token != 'EOS':
             decoded_sentence.append(sampled_token)
 

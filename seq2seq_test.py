@@ -10,7 +10,7 @@ from keras.models import load_model
 import random
 
 if __name__ == "__main__":
-    INPUT_TYPE = 5
+    INPUT_TYPE = 4
     TARGET_TYPE = 4
     encoder_bidirectional_lstm = True
     training_data_num = 1500

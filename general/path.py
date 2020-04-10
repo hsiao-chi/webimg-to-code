@@ -4,13 +4,13 @@ from environment.environment import SELF, DATASET
 # SELF = 'D:\\Chi\\webimg-to-code\\'
 CLASS_SEQ2SEQ_MODEL_GRAPH_FILE = SELF+'assets\\seq2seq-position\\seq2seq-model.png'
 
-CLASS_SEQ2SEQ_TRAINING_TYPE = '2020\\seq2seq-data3\\attr-notext\\1500\\p20-bidirectional-resort\\'
+CLASS_SEQ2SEQ_TRAINING_TYPE = '2020\\seq2seq-data3\\full-notext\\1500\\p20-bidirectional-resort\\'
 CLASS_SEQ2SEQ_WEIGHT = SELF+'assets\\'+CLASS_SEQ2SEQ_TRAINING_TYPE+'weight\\'
 CLASS_SEQ2SEQ_MODEL_PATH = SELF+'assets\\'+CLASS_SEQ2SEQ_TRAINING_TYPE+'model\\'
 CLASS_SEQ2SEQ_ANALYSIS_PATH = SELF+'assets\\'+CLASS_SEQ2SEQ_TRAINING_TYPE
 CLASS_SEQ2SEQ_PREDIT_GUI_PATH = SELF+'assets\\'+CLASS_SEQ2SEQ_TRAINING_TYPE+'test-predit-gui\\'
 
-CLASS_ATTR_TRAINING_TYPE = '2020\\attr_class-data3\\simple-VGG\\224-512\\2500-p-0\\'
+CLASS_ATTR_TRAINING_TYPE = '2020\\attr_class-data3\\simple-VGG\\74224-256\\2500-p0-text1\\'
 CLASS_ATTR_WEIGHT = SELF + 'assets\\'+CLASS_ATTR_TRAINING_TYPE+'weight\\'
 CLASS_ATTR_ANALYSIS =  SELF+'assets\\'+CLASS_ATTR_TRAINING_TYPE
 CLASS_ATTR_PREDIT_GUI_PATH = SELF+'assets\\'+CLASS_ATTR_TRAINING_TYPE+'test-predit-gui\\'
