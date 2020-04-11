@@ -20,8 +20,8 @@ if __name__ == "__main__":
     INPUT_TYPE = 1
     TARGET_TYPE = 3
 
-    yolo_model_name = 'data3_full\\trained_weights_final(004-3).h5'
-    yolo_classes_name = 'dataset3_full_classes.txt'
+    yolo_model_name = 'data3_simple\\trained_weights_final(010).h5'
+    yolo_classes_name = 'dataset3_simple_classes.txt'
     yolo_anchors_name = 'dataset3_yolo_anchors.txt'
 
     input_image_folder = path.DATASET3_TRAINSET_ORIGIN_LIGHT_PNG

@@ -213,9 +213,9 @@ if __name__ == "__main__":
     '''
 
     # replace_file_value(
-    #     path.DATASET3_ELEMENT_FOLDER+'attr-labels-balance-padding20'+TYPE.TXT, 
-    #     path.DATASET3_ELEMENT_FOLDER+'attr-labels-balance-padding20_lab'+TYPE.TXT,
-    #     DATASET, DATASET_ANOTHER
+    #     path.DATASET3_ELEMENT_FOLDER+'attr-labels-button_lab'+TYPE.TXT, 
+    #     path.DATASET3_ELEMENT_FOLDER+'attr-labels-button'+TYPE.TXT,
+    #     DATASET_ANOTHER, DATASET
     #     )
     # replace_file_value(
     #     path.DATASET3_TRAINSET_YOLO_TRAIN_TXT+'data3_full_yolo_300_input_padding'+TYPE.TXT, 
@@ -290,3 +290,24 @@ if __name__ == "__main__":
     #     # print(new_lines)
     #     write_file(new_lines, path.DATASET3_ATTR_YOLO_POSITION_TXT_INPUT_PADDING+str(i)+TYPE.TXT, dataDim=2)
    
+
+    ''' 
+    =================================================================================
+    ------------ split attribute element list 'button', anouther --------------------
+    =================================================================================
+    '''
+
+    # origin_file = read_file(path.DATASET3_ELEMENT_FOLDER+'attr-labels-balance_lab.txt', 'splitlines')
+    # button_file = path.DATASET3_ELEMENT_FOLDER+'attr-labels-button_lab.txt'
+    # text_file = path.DATASET3_ELEMENT_FOLDER+'attr-labels-text_lab.txt'
+    # button_list=[]
+    # text_list=[]
+    # for line in origin_file:
+    #     num = len(line.split())
+    #     if num ==2:
+    #         text_list.append(line)
+    #     elif num == 3:
+    #         button_list.append(line)
+    
+    # write_file(button_list, button_file,join_token="\n")
+    # write_file(text_list, text_file, join_token="\n")

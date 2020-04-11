@@ -29,6 +29,7 @@ environment/
 assets/2020/
 yolo_detected/
 yolo/
+test/
 *.h5
 
 # PyInstaller
