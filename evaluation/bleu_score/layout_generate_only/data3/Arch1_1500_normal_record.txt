@@ -1,0 +1,76 @@
+{
+    "config": {
+        "input_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\dataset3\\train_set\\noise\\full_yolo_position_txt\\",
+        "target_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\dataset3\\train_set\\noise\\origin_no_context_gui\\",
+        "model_path": "E:\\projects\\NTUST\\webimg-to-code\\assets\\2020\\seq2seq-data3\\remote\\full\\1500\\normal\\model(p0-epoch300).h5",
+        "num_of_data": 300,
+        "start_index": 0
+    },
+    "BLEU_SCORE": {
+        "individual_1_gram": 0.9997701149425287,
+        "individual_2_gram": 0.9996428571428573,
+        "individual_3_gram": 0.9995061728395062,
+        "individual_4_gram": 0.9993589743589744,
+        "cumulative_1_gram": 0.9997701149425287,
+        "cumulative_2_gram": 0.9997058200359408,
+        "cumulative_3_gram": 0.9996411781122371,
+        "cumulative_4_gram": 0.9995654662207077
+    }
+}
+{
+    "config": {
+        "input_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\dataset3\\train_set\\noise\\full_yolo_position_txt\\",
+        "target_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\dataset3\\train_set\\noise\\origin_no_context_gui\\",
+        "model_path": "E:\\projects\\NTUST\\webimg-to-code\\assets\\2020\\seq2seq-data3\\remote\\full\\1500\\normal\\model(p0-epoch300).h5",
+        "num_of_data": 300,
+        "start_index": 300
+    },
+    "BLEU_SCORE": {
+        "individual_1_gram": 0.999655172413793,
+        "individual_2_gram": 0.999404761904762,
+        "individual_3_gram": 0.9991358024691359,
+        "individual_4_gram": 0.9988461538461538,
+        "cumulative_1_gram": 0.999655172413793,
+        "cumulative_2_gram": 0.9995287005457675,
+        "cumulative_3_gram": 0.9994006194388898,
+        "cumulative_4_gram": 0.9992527576990009
+    }
+}
+{
+    "config": {
+        "input_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\dataset3\\test_set\\noise\\full_yolo_position_txt\\",
+        "target_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\dataset3\\test_set\\noise\\origin_no_context_gui\\",
+        "model_path": "E:\\projects\\NTUST\\webimg-to-code\\assets\\2020\\seq2seq-data3\\remote\\full\\1500\\normal\\model(p0-epoch300).h5",
+        "num_of_data": 100,
+        "start_index": 0
+    },
+    "BLEU_SCORE": {
+        "individual_1_gram": 0.8363449539364542,
+        "individual_2_gram": 0.774195425593924,
+        "individual_3_gram": 0.6936907169041688,
+        "individual_4_gram": 0.599186712245692,
+        "cumulative_1_gram": 0.8363449539364542,
+        "cumulative_2_gram": 0.8043353225045314,
+        "cumulative_3_gram": 0.7662358387363589,
+        "cumulative_4_gram": 0.7183365798153379
+    }
+}
+{
+    "config": {
+        "input_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\dataset3\\test_set\\noise\\full_yolo_position_txt\\",
+        "target_path": "E:\\projects\\NTUST\\webimg-to-code\\dataset\\dataset3\\test_set\\noise\\origin_no_context_gui\\",
+        "model_path": "E:\\projects\\NTUST\\webimg-to-code\\assets\\2020\\seq2seq-data3\\remote\\full\\1500\\normal\\model(p0-epoch300).h5",
+        "num_of_data": 500,
+        "start_index": 0
+    },
+    "BLEU_SCORE": {
+        "individual_1_gram": 0.8375919740582008,
+        "individual_2_gram": 0.7743378732341957,
+        "individual_3_gram": 0.6936366649589786,
+        "individual_4_gram": 0.5998249430566792,
+        "cumulative_1_gram": 0.8375919740582008,
+        "cumulative_2_gram": 0.8050108947477087,
+        "cumulative_3_gram": 0.76662492427961,
+        "cumulative_4_gram": 0.7188160935115149
+    }
+}
