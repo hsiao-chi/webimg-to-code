@@ -1,0 +1,20 @@
+E:\projects\NTUST\webimg-to-code\dataset\dataset3\element\element_png\2021.png text-danger
+E:\projects\NTUST\webimg-to-code\dataset\dataset3\element\element_png\392.png text-primary bg-dark
+E:\projects\NTUST\webimg-to-code\dataset\dataset3\element\element_png\20.png text-success
+E:\projects\NTUST\webimg-to-code\dataset\dataset3\element\element_png\919.png text-primary bg-dark
+E:\projects\NTUST\webimg-to-code\dataset\dataset3\element\element_png\212.png text-danger
+E:\projects\NTUST\webimg-to-code\dataset\dataset3\element\element_png\2240.png text-success
+E:\projects\NTUST\webimg-to-code\dataset\dataset3\element\element_png\2341.png text-white bg-warning
+E:\projects\NTUST\webimg-to-code\dataset\dataset3\element\element_png\1244.png text-primary bg-dark
+E:\projects\NTUST\webimg-to-code\dataset\dataset3\element\element_png\1679.png text-danger
+E:\projects\NTUST\webimg-to-code\dataset\dataset3\element\element_png\1308.png text-danger
+E:\projects\NTUST\webimg-to-code\dataset\dataset3\element\element_png\913.png text-primary bg-dark
+E:\projects\NTUST\webimg-to-code\dataset\dataset3\element\element_png\1997.png text-white bg-success
+E:\projects\NTUST\webimg-to-code\dataset\dataset3\element\element_png\2373.png text-success
+E:\projects\NTUST\webimg-to-code\dataset\dataset3\element\element_png\1126.png
+E:\projects\NTUST\webimg-to-code\dataset\dataset3\element\element_png\2099.png text-primary
+E:\projects\NTUST\webimg-to-code\dataset\dataset3\element\element_png\290.png text-white bg-success
+E:\projects\NTUST\webimg-to-code\dataset\dataset3\element\element_png\928.png text-primary bg-dark
+E:\projects\NTUST\webimg-to-code\dataset\dataset3\element\element_png\539.png text-white bg-warning
+E:\projects\NTUST\webimg-to-code\dataset\dataset3\element\element_png\498.png text-white bg-primary
+E:\projects\NTUST\webimg-to-code\dataset\dataset3\element\element_png\571.png

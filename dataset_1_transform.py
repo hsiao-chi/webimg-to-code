@@ -30,9 +30,9 @@ if __name__ == "__main__":
     =================================================================================
     '''
     # createFolder(path.DATASET3_TRAINSET_YOLO_TRAIN_TXT)
-    # to_yolo_training_file(path.DATASET3_TRAINSET_ORIGIN_LIGHT_PNG, 
-    # path.DATASET3_TRAINSET_FULL_YOLO_POSITION_TXT_INPUT_PADDING, 300, 
-    # path.DATASET3_TRAINSET_YOLO_TRAIN_TXT+"data3_full_yolo_300_input_padding"+TYPE.TXT)
+    # to_yolo_training_file(path.DATASET1_ORIGIN_PNG, 
+    # path.DATASET1_ATTRIBUTE_YOLO_POSITION_TXT_PADDING_20, 500, 
+    # path.DATASET1_YOLO_TRAIN_DATA+"pix2code_attr_yolo_500_padding_2"+TYPE.TXT)
 
     ''' 
     =================================================================================
@@ -217,16 +217,16 @@ if __name__ == "__main__":
     #     path.DATASET3_ELEMENT_FOLDER+'attr-labels-button'+TYPE.TXT,
     #     DATASET_ANOTHER, DATASET
     #     )
-    # replace_file_value(
-    #     path.DATASET3_TRAINSET_YOLO_TRAIN_TXT+'data3_full_yolo_300_input_padding'+TYPE.TXT, 
-    #     path.DATASET3_TRAINSET_YOLO_TRAIN_TXT+'data3_full_yolo_300_input_padding_lab'+TYPE.TXT,
-    #     DATASET, DATASET_ANOTHER
-    #     )
-    # replace_file_value(
-    #     path.DATASET3_TRAINSET_YOLO_TRAIN_TXT+'data3_attr_yolo_300_input_padding'+TYPE.TXT, 
-    #     path.DATASET3_TRAINSET_YOLO_TRAIN_TXT+'data3_attr_yolo_300_input_padding_lab'+TYPE.TXT,
-    #     DATASET, DATASET_ANOTHER
-    #     )
+    replace_file_value(
+        path.DATASET1_YOLO_TRAIN_DATA+'pix2code_attr_yolo_500_padding'+TYPE.TXT, 
+        path.DATASET1_YOLO_TRAIN_DATA+'pix2code_attr_yolo_500_padding_lab'+TYPE.TXT,
+        DATASET, DATASET_ANOTHER
+        )
+    replace_file_value(
+        path.DATASET1_YOLO_TRAIN_DATA+'pix2code_attr_yolo_500_padding_2'+TYPE.TXT, 
+        path.DATASET1_YOLO_TRAIN_DATA+'pix2code_attr_yolo_500_padding_2_lab'+TYPE.TXT,
+        DATASET, DATASET_ANOTHER
+        )
 
 
     ''' 
@@ -276,19 +276,21 @@ if __name__ == "__main__":
     '''
     # x-=5/2400, y-=5/2400
     # widh+=10/2400, height+=10/2400
-    # createFolder(path.DATASET3_ATTR_YOLO_POSITION_TXT_INPUT_PADDING)
-    # for i in range(0,400):
-    #     lines=read_file(path.DATASET3_ATTR_YOLO_POSITION_TXT+str(i)+TYPE.TXT, 'splitlines')
+    # createFolder(path.DATASET1_TESTING_SEQ2SEQ_ATTR_POSITION_NOISE_TXT_PADDING_20)
+    # for i in range(500):
+    #     lines=read_file(path.DATASET1_TESTING_SEQ2SEQ_ATTR_POSITION_NOISE_TXT_PADDING+str(i)+TYPE.TXT, 'splitlines')
     #     new_lines=[]
     #     for line in lines:
     #         line = line.split()
-    #         if line[0] == '3':
-    #             new_line = [line[0], str(float(line[1])-(5/2400)), str(float(line[2])-(5/1380)), str(float(line[3])+(10/2400)), str(float(line[4])+(10/1380))]+line[5:]
-    #         else:
-    #             new_line = line
+    #         new_line = [line[0], str(float(line[1])-(5/2400)), str(float(line[2])-(5/1380)), str(float(line[3])+(10/2400)), str(float(line[4])+(10/1380))]+line[5:]
+
+    #         # if line[0] == '3':
+    #         #     new_line = [line[0], str(float(line[1])-(5/2400)), str(float(line[2])-(5/1380)), str(float(line[3])+(10/2400)), str(float(line[4])+(10/1380))]+line[5:]
+    #         # else:
+    #         #     new_line = line
     #         new_lines.append(new_line)
     #     # print(new_lines)
-    #     write_file(new_lines, path.DATASET3_ATTR_YOLO_POSITION_TXT_INPUT_PADDING+str(i)+TYPE.TXT, dataDim=2)
+    #     write_file(new_lines, path.DATASET1_TESTING_SEQ2SEQ_ATTR_POSITION_NOISE_TXT_PADDING_20+str(i)+TYPE.TXT, dataDim=2)
    
 
     ''' 

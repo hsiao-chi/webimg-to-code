@@ -13,12 +13,14 @@ import general.path as path
 import general.dataType as TYPE
 from keras.models import load_model
 import random
+from evaluationCode.heatmap import compare_attr_class, show_heatmap
 
 if __name__ == "__main__":
     DEBUG_DATASET = False
-    TRAINING = True
-    PREDIT = False
-    EVALUATE = True
+    TRAINING = False
+    PREDIT = True
+    EVALUATE = False
+    HEATMAP =True
 
     keep_img_ratio=True
     cnn_model = 'Alexnet'
@@ -50,7 +52,8 @@ if __name__ == "__main__":
         encoder_model, decoder_model = attribute_classification_predit_model(
             load_model(predit_model_path))
         max_data_length = len(lines)
-        for i in range(5):
+        predit_list = []
+        for i in range(20):
             idx = random.randint(0, max_data_length+1)
             print('predit_GT: ', lines[idx])
             line = lines[idx].split()
@@ -58,6 +61,14 @@ if __name__ == "__main__":
             #                                                    result_saved_path=path.CLASS_ATTR_PREDIT_GUI_PATH + str(EPOCHES)+'\\'+str(idx)+TYPE.GUI)
             decoded_sentence = attribute_classification_predit(encoder_model, decoder_model, line[0], encoder_config['input_shape'], decoder_config['token_list'], 4)                                                   
             print('decoded_sentence length: ', idx, decoded_sentence)
+            predit_list.append([line[0]]+decoded_sentence)
+        if HEATMAP:
+            predit_file_name = 'E:\\projects\\NTUST\\webimg-to-code\\test-predit\\attr-class-predit\\data3_simpleVGG_e100_74_112_256.txt'
+            write_file(predit_list, predit_file_name, dataDim=2)
+            target = compare_attr_class(decoder_config['data_path'],predit_file_name,  decoder_config['token_list'], decoder_config['token_list'])
+            show_heatmap(target, decoder_config['token_list'], decoder_config['token_list'], ratio=True)
+
+
 
     if EVALUATE:
         print('evaluated Model path: \n{}'.format(evaluate_model_path))
