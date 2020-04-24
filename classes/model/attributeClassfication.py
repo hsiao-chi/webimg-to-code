@@ -108,7 +108,9 @@ def cnn_alexnet(input_shape=(227,227,3),weight_path=None) -> Model:
     model.add(Dropout(0.5))
     model.add(Dense(4096,activation='relu'))
     model.add(Dropout(0.5))
-    model.add(Dense(LSTM_ENCODER_DIM,activation='softmax')) #1000
+    # model.add(Dense(1024,activation='relu'))
+    # model.add(Dropout(0.5))
+    model.add(Dense(LSTM_ENCODER_DIM,activation='relu')) #1000
     model.add(RepeatVector(MAX_DECODER_INPUT_LENGTH))
 
     # model.compile(loss='categorical_crossentropy',optimizer='sgd',metrics=['accuracy'])

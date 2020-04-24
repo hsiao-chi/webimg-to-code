@@ -21,7 +21,7 @@ if __name__ == "__main__":
     EVALUATE = True
 
     keep_img_ratio=True
-    cnn_model = 'simple_VGG'
+    cnn_model = 'Alexnet'
 
     final_model_saved_path = path.CLASS_ATTR_MODEL_PATH + \
         str(EPOCHES)+'\\attr_class_model'+TYPE.H5
@@ -33,7 +33,8 @@ if __name__ == "__main__":
     lines = read_file(decoder_config['data_path'], 'splitlines')
 
     if TRAINING:
-        weight_path=r'E:\projects\NTUST\webimg-to-code\assets\attr_class-pix2code\test\simple-VGG\74-112-256\p0\model\22\attr_class_model.h5'
+        # weight_path=r'E:\projects\NTUST\webimg-to-code\assets\attr_class-pix2code\test\simple-VGG\74-112-256\p0\model\22\attr_class_model.h5'
+        weight_path=None
         createFolder(path.CLASS_ATTR_MODEL_PATH + str(EPOCHES))
         createFolder(path.CLASS_ATTR_WEIGHT + str(EPOCHES))
         train_model = attribute_classification_train_model(len(decoder_config['token_list']),
