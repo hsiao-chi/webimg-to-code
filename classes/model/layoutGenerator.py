@@ -539,7 +539,7 @@ def seq2seq_evaluate(model: Model, encoder_input_data, decoder_input_data, decod
     print("\nLoss: %.4f, Accuracy: %.3f%%" % (loss, acc*100))
 
 def seq2seq_predit(encoder_model: Model, decoder_model: Model, input_seq, decoder_tokens, 
-max_decoder_seq_length, result_saved_path):
+max_decoder_seq_length, result_saved_path=None):
     # Encode the input as state vectors.
     states_value = encoder_model.predict(input_seq)
 
