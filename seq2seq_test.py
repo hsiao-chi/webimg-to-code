@@ -5,7 +5,7 @@ import os
 import os.path
 import general.dataType as TYPE
 import general.path as path
-from general.util import createFolder, showLoss, showAccuracy, read_file
+from general.util import createFolder, showLoss, showAccuracy, read_file, write_file
 from keras.models import load_model
 import random
 from evaluationCode.bleu import Bleu
@@ -17,10 +17,13 @@ if __name__ == "__main__":
     layer2_lstm = False
     training_data_num = 500
     evaluate_data_num = 500
-    predit_data_num = 10
-    predit_test_data = False
+    eva_record_file_path = path.EVALUATION_SEQ2SEQ_EVALUATION+'pix2code\\'
+    eva_record_file_name = 'Arch1_test.txt'
+    predit_data_nums = [500, 100] # train, test
+    # predit_test_data = False
+    
     bleu_record_file_path =  path.EVALUATION_BLEU_SCORE + 'layout_generate_only\\pix2code\\'
-    record_file_name = 'Arch1_test.txt'
+    bleu_record_file_name = 'Arch1_test.txt'
     
     gaussian_noise = None  # None
     early_stoping = True
@@ -59,56 +62,61 @@ if __name__ == "__main__":
                                                   enable_early_stopping=early_stoping)
 
     if EVALUATE:
-        print('evaluated Model path: \n{}'.format(evaluate_model_path))
-        print('training data path: \n encoder: {}\n decoder: {}'.format(
-            encoder_config['data_folder'], decoder_config['data_folder']))
+        evaluate_save_text=''
+        str_model_path = 'evaluated Model path: \n{}'.format(evaluate_model_path)
+        str_training = '\ntraining data path: \n encoder: {}\n decoder: {}'.format(encoder_config['data_folder'], decoder_config['data_folder'])
+        print(str_model_path)
+        print(str_training)
         encoder_input_data, decoder_input_data, decoder_target_tokens, max_decoder_len = to_Seq2Seq_input(
             encoder_config['data_folder'], decoder_config['data_folder'], encoder_config, decoder_config['token_list'], data_num=evaluate_data_num)
 
-        seq2seq_evaluate(load_model(evaluate_model_path), encoder_input_data,
+        str_training_result = seq2seq_evaluate(load_model(evaluate_model_path), encoder_input_data,
                          decoder_input_data, decoder_target_tokens)
-
-        print('testing data path: \n encoder: {}\n decoder: {}'.format(
-            encoder_config['testing_data_folder'], decoder_config['testing_data_folder']))
+        str_testing = '\n\ntesting data path: \n encoder: {}\n decoder: {}'.format(
+            encoder_config['testing_data_folder'], decoder_config['testing_data_folder'])
+        print(str_testing)
         encoder_input_data, decoder_input_data, decoder_target_tokens, max_decoder_len = to_Seq2Seq_input(
             encoder_config['testing_data_folder'], decoder_config['testing_data_folder'], encoder_config, decoder_config['token_list'])
 
-        seq2seq_evaluate(load_model(evaluate_model_path), encoder_input_data,
+        str_testing_result = seq2seq_evaluate(load_model(evaluate_model_path), encoder_input_data,
                          decoder_input_data, decoder_target_tokens)
+        evaluate_save_text = str_model_path+str_training+str_training_result+str_testing+str_testing_result
+        write_file(evaluate_save_text, )
+        
     
     if PREDIT:
-        data_folder = 'testing_data_folder' if predit_test_data else 'data_folder'
-        if BLEU_SCORE:
-            bleu = Bleu(predit_data_num, 0, encoder_config[data_folder], decoder_config[data_folder], predit_model_path)
         createFolder(path.CLASS_SEQ2SEQ_PREDIT_GUI_PATH + str(SEQ2SEQ_EPOCHES))
-        encoder_model, decoder_model = seq2seq_predit_model(
-            load_model(predit_model_path), model_type=seq_model_type, layer2_lstm=layer2_lstm)
-        # list1 = os.listdir(encoder_config[data_folder])
         decoder_target_tokens = decoder_tokens_list_to_dict(decoder_config['token_list'])
         max_decoder_len = 300
-        # num_total_data = len(list1)
-        for i in range(predit_data_num):
-            input_seqs = read_file(
-                encoder_config[data_folder]+str(i)+TYPE.TXT, 'splitlines')
-            input_seqs = [seq.split() for seq in input_seqs]
-            input_seq = to_Seq2Seq_encoder_input(input_seqs, encoder_config)
-            decoded_sentence = seq2seq_predit(encoder_model, decoder_model,
-                                              input_seq=input_seq, decoder_tokens=decoder_target_tokens,
-                                              max_decoder_seq_length=max_decoder_len,
-                                            #   result_saved_path=path.CLASS_SEQ2SEQ_PREDIT_GUI_PATH + str(SEQ2SEQ_EPOCHES)+'\\'+str(i)+TYPE.GUI
-                                              )
-            
-            print('decoded_sentence length: ', i, len(decoded_sentence))
+        encoder_model, decoder_model = seq2seq_predit_model(
+            load_model(predit_model_path), model_type=seq_model_type, layer2_lstm=layer2_lstm)
+        # data_folder = 'testing_data_folder' if predit_test_data else 'data_folder'
+        for data_folder, predit_data_num in zip(['data_folder', 'testing_data_folder'], predit_data_nums):
 
             if BLEU_SCORE:
-                reference_gui = read_file(
-                    decoder_config[data_folder]+str(i)+TYPE.GUI, 'splitBySpec')
-                bleu.evaluate(decoded_sentence, reference_gui)
-        
-        createFolder(bleu_record_file_path)
-        p = bleu_record_file_path+record_file_name
-        print(p)
-        bleu.save_evaluation( p )
+                bleu = Bleu(predit_data_num, 0, encoder_config[data_folder], decoder_config[data_folder], predit_model_path)
+            for i in range(predit_data_num):
+                input_seqs = read_file(
+                    encoder_config[data_folder]+str(i)+TYPE.TXT, 'splitlines')
+                input_seqs = [seq.split() for seq in input_seqs]
+                input_seq = to_Seq2Seq_encoder_input(input_seqs, encoder_config)
+                decoded_sentence = seq2seq_predit(encoder_model, decoder_model,
+                                                input_seq=input_seq, decoder_tokens=decoder_target_tokens,
+                                                max_decoder_seq_length=max_decoder_len,
+                                                #   result_saved_path=path.CLASS_SEQ2SEQ_PREDIT_GUI_PATH + str(SEQ2SEQ_EPOCHES)+'\\'+str(i)+TYPE.GUI
+                                                )
+                
+                print('decoded_sentence length: ', i, len(decoded_sentence)) if i%50==0 and BLEU_SCORE else None
+
+                if BLEU_SCORE:
+                    reference_gui = read_file(
+                        decoder_config[data_folder]+str(i)+TYPE.GUI, 'splitBySpec')
+                    bleu.evaluate(decoded_sentence, reference_gui)
+            if BLEU_SCORE:
+                createFolder(bleu_record_file_path)
+                p = bleu_record_file_path+bleu_record_file_name
+                print(p)
+                bleu.save_evaluation( p )
 
 
     
