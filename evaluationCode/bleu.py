@@ -45,10 +45,11 @@ class Bleu:
                 [reference_gui], decoded_sentence, weights=self.weights[i])
             self.record_template['BLEU_SCORE'][self.labels[i]] += scores
 
-    def save_evaluation(self, record_file_name):
-
+    def save_evaluation(self, record_file_name, change_data_num=None):
+        data_num = change_data_num if change_data_num else self.total_data_num
+        self.record_template['config']['num_of_data']=str(self.total_data_num)+'('+data_num+')'
         for label in self.labels:
-            self.record_template['BLEU_SCORE'][label] /= self.total_data_num
+            self.record_template['BLEU_SCORE'][label] /= data_num
         print(self.record_template)
         
         with open(record_file_name, 'a+') as file:
