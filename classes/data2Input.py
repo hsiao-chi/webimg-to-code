@@ -67,6 +67,7 @@ def to_Seq2Seq_input(encoder_file_folder, decoder_file_folder, encoder_config, d
     temp_decoder_all_data = []
     max_encoder_len = 0
     max_decoder_len = 0
+    print('data_start_idx, data_start_idx+num_total_data: ', data_start_idx, data_start_idx+num_total_data)
     for i in range(data_start_idx, data_start_idx+num_total_data):
         input_data = read_file(encoder_file_folder +
                                str(i)+TYPE.TXT, 'splitlines')
