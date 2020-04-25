@@ -11,20 +11,20 @@ import random
 from evaluationCode.bleu import Bleu
 
 if __name__ == "__main__":
-    INPUT_TYPE = 2
-    TARGET_TYPE = 3
-    seq_model_type = SeqModelType.normal.value
+    INPUT_TYPE = 5
+    TARGET_TYPE = 4
+    seq_model_type = SeqModelType.encoder_bidirectional.value
     layer2_lstm = True
-    training_data_num = 2500
-    evaluate_data_nums = [500, 100]
-    eva_record_file_path = path.EVALUATION_SEQ2SEQ_EVALUATION+'pix2code\\'
-    eva_record_file_name = 'Arch2_2500_normal_stack_noise_record.txt'
-    predit_data_nums = [500, 100] # train, test
-    predit_start_idx = [100, 100] # train, test
+    training_data_num = 300
+    evaluate_data_nums = [300, 100]
+    eva_record_file_path = path.EVALUATION_SEQ2SEQ_EVALUATION+'data3\\'
+    eva_record_file_name = 'Arch2_300_encoder_bidirectional_stack_noise_record.txt'
+    predit_data_nums = [300, 100] # train, test
+    predit_start_idx = [0, 0] # train, test
     # predit_test_data = False
     
-    bleu_record_file_path =  path.EVALUATION_BLEU_SCORE + 'layout_generate_only\\2020-04\\pix2code\\'
-    bleu_record_file_name = 'Arch2_2500_normal_stack_noise_record.txt'
+    bleu_record_file_path =  path.EVALUATION_BLEU_SCORE + 'layout_generate_only\\2020-04\\data3\\'
+    bleu_record_file_name = 'Arch2_300_encoder_bidirectional_stack_noise_record.txt'
     
     gaussian_noise = 1  # None
     early_stoping = False

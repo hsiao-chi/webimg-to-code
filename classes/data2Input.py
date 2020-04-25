@@ -46,6 +46,8 @@ def to_Seq2Seq_encoder_input(input_seqs: list, encoder_config) -> np.array:
 
 
 def to_Seq2Seq_input(encoder_file_folder, decoder_file_folder, encoder_config, decoder_token_list: list, data_num=None, data_start_idx=0):
+    print('to_Seq2Seq_input encoder_file_folder', encoder_file_folder)
+    print('to_Seq2Seq_input decoder_file_folder', decoder_file_folder)
     num_total_data = data_num
     if data_num == None:
         list1 = os.listdir(encoder_file_folder)
