@@ -51,7 +51,7 @@ if __name__ == "__main__":
 
     if WEB_SCREENSHOOT:
             # [web_img_path] = webscreenshoot([path.DATASET2_ORIGIN_HTML+str(1)+TYPE.HTML], r'E:\projects\NTUST\webimg-to-code\\', size=(1200,690), deviceScaleFactor=2)
-        for i in range(400,600):
+        for i in [503, 402, 453, 471,472,512,530,536,552, 589]:
             compiler = Compiler(path.DATASET3_DSL_MAPPING_JSON_FILE, rule=RULE)
             tree = compiler.dsl_to_node_tree(path.DATASET3_ORIGIN_GUI+str(i)+TYPE.GUI)
 

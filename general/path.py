@@ -187,6 +187,7 @@ DATASETCODE_ASSESTS = SELF+'datasetCode\\assests\\'
 
 EVALUATION_BLEU_SCORE = SELF+'evaluation\\bleu_score\\'
 EVALUATION_SEQ2SEQ_EVALUATION = SELF+'evaluation\\seq2seq_evaluation\\'
+EVALUATION_ATTR_CLASS_EVALUATION = SELF+'evaluation\\AC_evaluation\\'
 
 YOLO_DETECTED_FULL_POSITION_TXT = SELF + 'yolo_detected\\arch1_full_yolo_position\\'
 YOLO_DETECTED_FULL_POSITION_TEST_TXT = SELF + 'yolo_detected\\arch1_full_yolo_position_test\\'
@@ -194,3 +195,4 @@ YOLO_DETECTED_ATTRIBUTE_POSITION_TXT = SELF + 'yolo_detected\\arch2_full_yolo_po
 YOLO_DETECTED_ATTRIBUTE_POSITION_TEST_TXT = SELF + 'yolo_detected\\arch2_full_yolo_position_test\\'
 
 YOLO_DETECTED_DATA3_FULL_POSITION_TXT = SELF + 'yolo_detected\\data3\\arch1_train\\003-1\\'
+YOLO_DETECTED_DATA1_FULL_POSITION_TXT = SELF + 'yolo_detected\\pix2code\\'
