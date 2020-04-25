@@ -14,7 +14,7 @@ K.tensorflow_backend._get_available_gpus()
 LSTM_ENCODER_DIM = 256  # Latent dimensionality of the encoding space.
 LSTM_DECODER_DIM = 256
 BATCH_SIZE = 64  # Batch size for training.
-SEQ2SEQ_EPOCHES = 10  # Number of epochs to train for.
+SEQ2SEQ_EPOCHES = 300  # Number of epochs to train for.
 MODE_SAVE_PERIOD = 100
 NUM_SAMPLE = 10000  # Number of samples to train on.
 
@@ -428,7 +428,7 @@ def normal_training_model_old(num_input_token, num_target_token, gaussian_noise=
     encoder_inputs = Input(shape=(None, num_input_token), name="encoder_input")
     _input = encoder_inputs
     if gaussian_noise != None:
-        encoder_noice = GaussianNoise(1, name="gaussian_noise")(encoder_inputs)
+        encoder_noice = GaussianNoise(gaussian_noise, name="gaussian_noise")(encoder_inputs)
         _input = encoder_noice
 
     if layer2_lstm:
@@ -509,7 +509,7 @@ def seq2seq_training(train_model: Model, encoder_input_data, decoder_input_data,
     decoder_target_data = np.roll(decoder_input_data, -1, axis=1)
     decoder_target_data[:, -1] = 0
     decoder_target_data[:, -1, decoder_target_token['EOS']] = 1
-
+    createFolder(checkpoint_folder + str(SEQ2SEQ_EPOCHES))
     mc = callbacks.ModelCheckpoint(checkpoint_folder + str(SEQ2SEQ_EPOCHES) + '\\seq2seq-weights{epoch:05d}.h5',
                                    save_weights_only=True, period=MODE_SAVE_PERIOD)
     early_stopping = callbacks.EarlyStopping(

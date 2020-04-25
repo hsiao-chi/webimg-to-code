@@ -19,7 +19,7 @@ def encoder_tokens_list_to_dict(encoder_token_list, class_mode=False):
         encoder_tokens = {e: i for i, e in enumerate(
             encoder_token_list)}
 
-    print('encoder_tokens', encoder_tokens)
+    # print('encoder_tokens', encoder_tokens)
     return encoder_tokens
 
 def to_Seq2Seq_encoder_input(input_seqs: list, encoder_config) -> np.array:

@@ -16,20 +16,20 @@ if __name__ == "__main__":
     seq_model_type = SeqModelType.normal.value
     layer2_lstm = False
     training_data_num = 500
-    evaluate_data_num = 500
+    evaluate_data_nums = [500, 100]
     eva_record_file_path = path.EVALUATION_SEQ2SEQ_EVALUATION+'pix2code\\'
-    eva_record_file_name = 'Arch1_test.txt'
+    eva_record_file_name = 'Arch1_500_normal_noise_record.txt'
     predit_data_nums = [500, 100] # train, test
     # predit_test_data = False
     
-    bleu_record_file_path =  path.EVALUATION_BLEU_SCORE + 'layout_generate_only\\pix2code\\'
-    bleu_record_file_name = 'Arch1_test.txt'
+    bleu_record_file_path =  path.EVALUATION_BLEU_SCORE + 'layout_generate_only\\2020-04\\pix2code\\'
+    bleu_record_file_name = 'Arch1_500_normal_noise_record.txt'
     
-    gaussian_noise = None  # None
-    early_stoping = True
+    gaussian_noise = 1  # None
+    early_stoping = False
     TRAINING = False
     PREDIT = True
-    EVALUATE = False
+    EVALUATE = True
     BLEU_SCORE = True
 
     encoder_config = get_encoder_config(INPUT_TYPE)
@@ -68,7 +68,7 @@ if __name__ == "__main__":
         print(str_model_path)
         print(str_training)
         encoder_input_data, decoder_input_data, decoder_target_tokens, max_decoder_len = to_Seq2Seq_input(
-            encoder_config['data_folder'], decoder_config['data_folder'], encoder_config, decoder_config['token_list'], data_num=evaluate_data_num)
+            encoder_config['data_folder'], decoder_config['data_folder'], encoder_config, decoder_config['token_list'], data_num=evaluate_data_nums[0])
 
         str_training_result = seq2seq_evaluate(load_model(evaluate_model_path), encoder_input_data,
                          decoder_input_data, decoder_target_tokens)
@@ -76,12 +76,13 @@ if __name__ == "__main__":
             encoder_config['testing_data_folder'], decoder_config['testing_data_folder'])
         print(str_testing)
         encoder_input_data, decoder_input_data, decoder_target_tokens, max_decoder_len = to_Seq2Seq_input(
-            encoder_config['testing_data_folder'], decoder_config['testing_data_folder'], encoder_config, decoder_config['token_list'])
+            encoder_config['testing_data_folder'], decoder_config['testing_data_folder'], encoder_config, decoder_config['token_list'], data_num=evaluate_data_nums[1])
 
         str_testing_result = seq2seq_evaluate(load_model(evaluate_model_path), encoder_input_data,
                          decoder_input_data, decoder_target_tokens)
         evaluate_save_text = str_model_path+str_training+str_training_result+str_testing+str_testing_result
-        write_file(evaluate_save_text, )
+        createFolder(eva_record_file_path)
+        write_file(evaluate_save_text, eva_record_file_path+eva_record_file_name, dataDim=0)
         
     
     if PREDIT:
