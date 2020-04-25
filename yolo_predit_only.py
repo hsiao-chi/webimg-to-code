@@ -17,21 +17,19 @@ def detect_img(yolo, img_name) -> list:
     return r_targets
 
 if __name__ == "__main__":
-    INPUT_TYPE = 1
-    TARGET_TYPE = 3
-
-    yolo_model_name = 'data3_full\\trained_weights_final(003-1).h5'
-    yolo_classes_name = 'dataset3_full_classes.txt'
+  
+    yolo_model_name = 'pix2code_full\\trained_weights_final(011).h5'
+    yolo_classes_name = 'pix2code_full_classes.txt'
     yolo_anchors_name = 'yolo_anchors.txt'
 
-    input_image_folder = path.DATASET3_TRAINSET_ORIGIN_LIGHT_PNG
-    detected_save_folder = path.YOLO_DETECTED_DATA3_FULL_POSITION_TXT
+    input_image_folder = path.DATASET1_ORIGIN_PNG
+    detected_save_folder = path.YOLO_DETECTED_DATA1_FULL_POSITION_TXT+'Arch1_test\\011\\'
     # detected_save_folder = path.YOLO_DETECTED_FULL_POSITION_TXT
     createFolder(detected_save_folder)
     yolo_class = YOLO(model_name=yolo_model_name, classes_name=yolo_classes_name, anchors_name=yolo_anchors_name)
     # yolo_class = YOLO()
-    for i in range(300):
-        targets = detect_img(yolo_class, input_image_folder+str(i)+TYPE.IMG)
+    for i in range(100):
+        targets = detect_img(yolo_class, input_image_folder+str(500+i)+TYPE.IMG)
         print(i) if i% 10 == 0 else None
         write_file(targets, detected_save_folder+str(i)+TYPE.TXT, dataDim=2)
         

@@ -257,4 +257,6 @@ def attribute_classification_evaluate(model: Model, start_idx, end_idx, input_sh
     token_list = decoder_config['token_list']
     loss, acc = model.evaluate_generator(attributes_data_generator(lines[start_idx:end_idx],BATCH_SIZE, input_shape, token_list),
     steps=max(1, (end_idx - start_idx)//BATCH_SIZE))
-    print("\nLoss: %.2f, Accuracy: %.3f%% \n " % (loss, acc*100))
+    res = "\nLoss: %.4f, Accuracy: %.3f%% \n " % (loss, acc*100)
+    print(res)
+    return res

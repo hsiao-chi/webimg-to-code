@@ -217,16 +217,16 @@ if __name__ == "__main__":
     #     path.DATASET3_ELEMENT_FOLDER+'attr-labels-button'+TYPE.TXT,
     #     DATASET_ANOTHER, DATASET
     #     )
-    replace_file_value(
-        path.DATASET1_YOLO_TRAIN_DATA+'pix2code_attr_yolo_500_padding'+TYPE.TXT, 
-        path.DATASET1_YOLO_TRAIN_DATA+'pix2code_attr_yolo_500_padding_lab'+TYPE.TXT,
-        DATASET, DATASET_ANOTHER
-        )
-    replace_file_value(
-        path.DATASET1_YOLO_TRAIN_DATA+'pix2code_attr_yolo_500_padding_2'+TYPE.TXT, 
-        path.DATASET1_YOLO_TRAIN_DATA+'pix2code_attr_yolo_500_padding_2_lab'+TYPE.TXT,
-        DATASET, DATASET_ANOTHER
-        )
+    # replace_file_value(
+    #     path.DATASET1_YOLO_TRAIN_DATA+'pix2code_attr_yolo_500_padding'+TYPE.TXT, 
+    #     path.DATASET1_YOLO_TRAIN_DATA+'pix2code_attr_yolo_500_padding_lab'+TYPE.TXT,
+    #     DATASET, DATASET_ANOTHER
+    #     )
+    # replace_file_value(
+    #     path.DATASET1_YOLO_TRAIN_DATA+'pix2code_attr_yolo_500_padding_2'+TYPE.TXT, 
+    #     path.DATASET1_YOLO_TRAIN_DATA+'pix2code_attr_yolo_500_padding_2_lab'+TYPE.TXT,
+    #     DATASET, DATASET_ANOTHER
+    #     )
 
 
     ''' 

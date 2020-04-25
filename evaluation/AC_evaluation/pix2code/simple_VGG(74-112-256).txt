@@ -1,0 +1,15 @@
+evaluated Model path: 
+E:\projects\NTUST\webimg-to-code\assets\attr_class-pix2code\test\simple-VGG\74-112-256\p0\model\100\attr_class_model.h5
+data_file: E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\attr-labels-balance.txt
+
+training data: 
+ from: 0
+ to: 2200
+Loss: 0.0000, Accuracy: 100.000% 
+ 
+
+testing data: 
+ from: 2200
+ to: 2500
+Loss: 0.0000, Accuracy: 100.000% 
+ 

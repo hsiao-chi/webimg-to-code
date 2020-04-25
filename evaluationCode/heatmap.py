@@ -9,9 +9,10 @@ def show_heatmap(data, x_axis_labels, y_axis_labels, save_path=None, ratio=False
         data = data / sum_of_each_line[:, None]
     print(data)
     ax = sns.heatmap(data, xticklabels=x_axis_labels, yticklabels=y_axis_labels, cmap="YlGnBu")
-    plt.show()
+    # ax.show()
     if save_path:
-        plt.savefig(save_path+'-heatmap.png')
+        fig = ax.get_figure()
+        fig.savefig(save_path+'-heatmap.png')
 
 def compare_attr_class(gt_label_file, predit_label_file, y_axis_labels: list, x_axis_labels: list):
     # label 記得加"EOS"
