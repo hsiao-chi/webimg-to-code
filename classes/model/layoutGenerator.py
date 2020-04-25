@@ -536,7 +536,9 @@ def seq2seq_evaluate(model: Model, encoder_input_data, decoder_input_data, decod
     decoder_target_data[:, -1, decoder_target_token['EOS']] = 1
     loss, acc = model.evaluate(
         [encoder_input_data, decoder_input_data], decoder_target_data)
-    print("\nLoss: %.4f, Accuracy: %.3f%%" % (loss, acc*100))
+    return_str = "\nLoss: %.4f, Accuracy: %.3f%%" % (loss, acc*100)
+    print(return_str)
+    return return_str
 
 def seq2seq_predit(encoder_model: Model, decoder_model: Model, input_seq, decoder_tokens, 
 max_decoder_seq_length, result_saved_path=None):
