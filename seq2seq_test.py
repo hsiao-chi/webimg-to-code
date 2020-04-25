@@ -11,25 +11,26 @@ import random
 from evaluationCode.bleu import Bleu
 
 if __name__ == "__main__":
-    INPUT_TYPE = 1
+    INPUT_TYPE = 2
     TARGET_TYPE = 3
     seq_model_type = SeqModelType.normal.value
     layer2_lstm = True
-    training_data_num = 500
+    training_data_num = 2500
     evaluate_data_nums = [500, 100]
     eva_record_file_path = path.EVALUATION_SEQ2SEQ_EVALUATION+'pix2code\\'
-    eva_record_file_name = 'Arch1_500_normal_stack_noise_record.txt'
+    eva_record_file_name = 'Arch2_2500_normal_stack_noise_record.txt'
     predit_data_nums = [500, 100] # train, test
+    predit_start_idx = [100, 100] # train, test
     # predit_test_data = False
     
     bleu_record_file_path =  path.EVALUATION_BLEU_SCORE + 'layout_generate_only\\2020-04\\pix2code\\'
-    bleu_record_file_name = 'Arch1_500_normal_stack_noise_record.txt'
+    bleu_record_file_name = 'Arch2_2500_normal_stack_noise_record.txt'
     
     gaussian_noise = 1  # None
     early_stoping = False
-    TRAINING = False
+    TRAINING = True
+    EVALUATE = True
     PREDIT = True
-    EVALUATE = False
     BLEU_SCORE = True
 
     encoder_config = get_encoder_config(INPUT_TYPE)
@@ -92,12 +93,12 @@ if __name__ == "__main__":
         encoder_model, decoder_model = seq2seq_predit_model(
             load_model(predit_model_path), model_type=seq_model_type, layer2_lstm=layer2_lstm)
         # data_folder = 'testing_data_folder' if predit_test_data else 'data_folder'
-        for data_folder, predit_data_num in zip(['data_folder', 'testing_data_folder'], predit_data_nums):
+        for data_folder, predit_data_num, start_idx in zip(['data_folder', 'testing_data_folder'], predit_data_nums, predit_start_idx):
             valid_data_num = predit_data_num
 
             if BLEU_SCORE:
-                bleu = Bleu(predit_data_num, 0, encoder_config[data_folder], decoder_config[data_folder], predit_model_path)
-            for i in range(predit_data_num):
+                bleu = Bleu(predit_data_num, start_idx, encoder_config[data_folder], decoder_config[data_folder], predit_model_path)
+            for i in range(start_idx, start_idx+predit_data_num):
                 input_seqs = read_file(
                     encoder_config[data_folder]+str(i)+TYPE.TXT, 'splitlines')
                 if len(input_seqs)==0:
@@ -105,7 +106,6 @@ if __name__ == "__main__":
                     continue
                 input_seqs = [seq.split() for seq in input_seqs]
                 input_seq = to_Seq2Seq_encoder_input(input_seqs, encoder_config)
-                print(len(input_seq[0]), i)
                 decoded_sentence = seq2seq_predit(encoder_model, decoder_model,
                                                 input_seq=input_seq, decoder_tokens=decoder_target_tokens,
                                                 max_decoder_seq_length=max_decoder_len,
