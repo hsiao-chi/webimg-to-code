@@ -80,7 +80,7 @@ if __name__ == "__main__":
         str_testing_result = seq2seq_evaluate(load_model(evaluate_model_path), encoder_input_data,
                          decoder_input_data, decoder_target_tokens)
         evaluate_save_text = str_model_path+str_training+str_training_result+str_testing+str_testing_result
-        write_file(evaluate_save_text, )
+        write_file(evaluate_save_text, dataDim=0)
         
     
     if PREDIT:
@@ -91,12 +91,16 @@ if __name__ == "__main__":
             load_model(predit_model_path), model_type=seq_model_type, layer2_lstm=layer2_lstm)
         # data_folder = 'testing_data_folder' if predit_test_data else 'data_folder'
         for data_folder, predit_data_num in zip(['data_folder', 'testing_data_folder'], predit_data_nums):
+            valid_data_num = predit_data_num
 
             if BLEU_SCORE:
                 bleu = Bleu(predit_data_num, 0, encoder_config[data_folder], decoder_config[data_folder], predit_model_path)
             for i in range(predit_data_num):
                 input_seqs = read_file(
                     encoder_config[data_folder]+str(i)+TYPE.TXT, 'splitlines')
+                if len(input_seqs)==0:
+                    valid_data_num -= 1
+                    continue
                 input_seqs = [seq.split() for seq in input_seqs]
                 input_seq = to_Seq2Seq_encoder_input(input_seqs, encoder_config)
                 decoded_sentence = seq2seq_predit(encoder_model, decoder_model,
@@ -115,7 +119,7 @@ if __name__ == "__main__":
                 createFolder(bleu_record_file_path)
                 p = bleu_record_file_path+bleu_record_file_name
                 print(p)
-                bleu.save_evaluation( p )
+                bleu.save_evaluation(p, valid_data_num)
 
 
     
