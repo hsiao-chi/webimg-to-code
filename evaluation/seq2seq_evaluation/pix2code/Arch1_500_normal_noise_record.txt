@@ -1,11 +1,11 @@
-e v a l u a t e d   M o d e l   p a t h :   
- D : \ C h i \ w e b i m g - t o - c o d e \ a s s e t s \ 2 0 2 0 - 4 \ s e q 2 s e q - p i x 2 c o d e \ f u l l - r o w c o l A t t r E l e m e n t \ n o r m a l - r e s o r t \ 5 0 0 \ n o i s e \ m o d e l \ 3 0 0 \ m o d e l . h 5 
- t r a i n i n g   d a t a   p a t h :   
-   e n c o d e r :   D : \ C h i \ d a t a s e t \ p i x 2 c o d e \ f u l l - y o l o - p o s i t i o n - t x t \ 
-   d e c o d e r :   D : \ C h i \ d a t a s e t \ p i x 2 c o d e \ r o w - c o l - a t t r i b u t e - g u i \ 
- L o s s :   0 . 0 5 0 0 ,   A c c u r a c y :   9 7 . 3 2 4 % 
- 
- t e s t i n g   d a t a   p a t h :   
-   e n c o d e r :   D : \ C h i \ d a t a s e t \ p i x 2 c o d e \ t e s t i n g - d a t a s e t \ s e q 2 s e q \ p o s i t i o n - t x t \ 
-   d e c o d e r :   D : \ C h i \ d a t a s e t \ p i x 2 c o d e \ t e s t i n g - d a t a s e t \ s e q 2 s e q \ a t t r - g u i \ 
- L o s s :   0 . 0 5 4 1 ,   A c c u r a c y :   9 7 . 1 2 7 %
+evaluatedModelpath:
+D:\Chi\webimg-to-code\assets\2020-4\seq2seq-pix2code\full-rowcolAttrElement\normal-resort\500\noise\model\300\model.h5
+trainingdatapath:
+encoder:D:\Chi\dataset\pix2code\full-yolo-position-txt\
+decoder:D:\Chi\dataset\pix2code\row-col-attribute-gui\
+Loss:0.0500,Accuracy:97.324%
+
+testingdatapath:
+encoder:D:\Chi\dataset\pix2code\testing-dataset\seq2seq\position-txt\
+decoder:D:\Chi\dataset\pix2code\testing-dataset\seq2seq\attr-gui\
+Loss:0.0541,Accuracy:97.127%

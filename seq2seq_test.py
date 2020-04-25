@@ -14,22 +14,22 @@ if __name__ == "__main__":
     INPUT_TYPE = 1
     TARGET_TYPE = 3
     seq_model_type = SeqModelType.normal.value
-    layer2_lstm = False
+    layer2_lstm = True
     training_data_num = 500
     evaluate_data_nums = [500, 100]
     eva_record_file_path = path.EVALUATION_SEQ2SEQ_EVALUATION+'pix2code\\'
-    eva_record_file_name = 'Arch1_500_normal_noise_record.txt'
+    eva_record_file_name = 'Arch1_500_normal_stack_noise_record.txt'
     predit_data_nums = [500, 100] # train, test
     # predit_test_data = False
     
     bleu_record_file_path =  path.EVALUATION_BLEU_SCORE + 'layout_generate_only\\2020-04\\pix2code\\'
-    bleu_record_file_name = 'Arch1_500_normal_noise_record.txt'
+    bleu_record_file_name = 'Arch1_500_normal_stack_noise_record.txt'
     
     gaussian_noise = 1  # None
     early_stoping = False
     TRAINING = False
     PREDIT = True
-    EVALUATE = True
+    EVALUATE = False
     BLEU_SCORE = True
 
     encoder_config = get_encoder_config(INPUT_TYPE)
@@ -105,6 +105,7 @@ if __name__ == "__main__":
                     continue
                 input_seqs = [seq.split() for seq in input_seqs]
                 input_seq = to_Seq2Seq_encoder_input(input_seqs, encoder_config)
+                print(len(input_seq[0]), i)
                 decoded_sentence = seq2seq_predit(encoder_model, decoder_model,
                                                 input_seq=input_seq, decoder_tokens=decoder_target_tokens,
                                                 max_decoder_seq_length=max_decoder_len,
