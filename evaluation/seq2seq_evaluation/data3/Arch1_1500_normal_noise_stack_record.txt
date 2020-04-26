@@ -1,0 +1,11 @@
+evaluated Model path: 
+D:\Chi\webimg-to-code\assets\2020-4\seq2seq-data3\full-rowcolAttrElement\encoder_bidirectional-stack-resort\1500\noise\model\300\model.h5
+training data path: 
+ encoder: D:\Chi\dataset\dataset3\train_set\noise\full_yolo_position_txt\
+ decoder: D:\Chi\dataset\dataset3\train_set\noise\origin_no_context_gui\
+Loss: 0.0012, Accuracy: 99.972%
+
+testing data path: 
+ encoder: D:\Chi\dataset\dataset3\test_set\noise\full_yolo_position_txt\
+ decoder: D:\Chi\dataset\dataset3\test_set\noise\origin_no_context_gui\
+Loss: 0.3217, Accuracy: 95.753%
