@@ -21,7 +21,7 @@ if __name__ == "__main__":
     DEBUG_DATASET = False
     TRAINING = False
     PREDIT = True
-    EVALUATE = True
+    EVALUATE = False
     HEATMAP =True
 
     keep_img_ratio=True
@@ -90,7 +90,7 @@ if __name__ == "__main__":
         if HEATMAP:
             createFolder(predit_data_path)
             predit_file_name = predit_data_path+predit_data_name+TYPE.TXT
-            write_file(predit_list, predit_file_name, dataDim=2)
+            # write_file(predit_list, predit_file_name, dataDim=2)
             labels = decoder_config['token_list']
             labels.remove('START')
             labels.remove(Font_color.success.value)
