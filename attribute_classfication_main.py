@@ -19,19 +19,20 @@ from general.node.nodeEnum import Font_color, Bg_color
 
 if __name__ == "__main__":
     DEBUG_DATASET = False
-    TRAINING = False
+    TRAINING = True
     PREDIT = True
-    EVALUATE = False
+    EVALUATE = True
     HEATMAP =True
 
     keep_img_ratio=True
-    cnn_model = 'VGG16'
+    cnn_model = 'LeNet'
     dataset = 'pix2code'
     eva_record_path = path.EVALUATION_ATTR_CLASS_EVALUATION+dataset+"\\"
-    eva_record_name = 'VGG16(74-112-256-e100)-test.txt'
+    eva_record_name = 'LeNet(74-112-256-e100).txt'
     predit_data_path = path.SELF+'test-predit\\attr-class-predit\\'+dataset+"\\"
-    predit_data_name = 'VGG16(74-112-256-e100)-test'
-    predit_data_num = 5
+    predit_data_name = 'LeNet(74-112-256-e100)'
+    predit_data_start_idx = 2200
+    predit_data_num = 50
     final_model_saved_path = path.CLASS_ATTR_MODEL_PATH + str(EPOCHES)+'\\attr_class_model'+TYPE.H5
     # predit_model_path = r'E:\projects\NTUST\webimg-to-code\assets\attr_class-data3\test\simple-VGG\74-112-256\p0\model\100\attr_class_model.h5'
     predit_model_path = final_model_saved_path
@@ -80,7 +81,7 @@ if __name__ == "__main__":
             load_model(predit_model_path))
         max_data_length = len(lines)
         predit_list = []
-        for i in range(predit_data_num):
+        for i in range(predit_data_start_idx, predit_data_start_idx+predit_data_num):
             # idx = random.randint(0, max_data_length+1)
             # print('predit_GT: ', lines[idx])
             line = lines[i].split()
