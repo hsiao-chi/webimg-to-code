@@ -26,10 +26,17 @@ if __name__ == "__main__":
     cnn_model = 'simple_VGG'
     dataset = 'pix2code'
     eva_record_path = path.EVALUATION_ATTR_CLASS_EVALUATION+dataset+"\\"
+<<<<<<< HEAD
     eva_record_name = 'simple_VGG(74-112-256).txt'
     predit_data_path = path.SELF+'test-predit\\attr-class-predit\\'+dataset+"\\"
     predit_data_name = 'simple_VGG(74-112-256)'
     
+=======
+    eva_record_name = 'VGG16(74-112-256-e100)-test.txt'
+    predit_data_path = path.SELF+'test-predit\\attr-class-predit\\'+dataset+"\\"
+    predit_data_name = 'VGG16(74-112-256-e100)-test'
+    predit_data_num = 5
+>>>>>>> e3b4d34... fix heatmap
     final_model_saved_path = path.CLASS_ATTR_MODEL_PATH + str(EPOCHES)+'\\attr_class_model'+TYPE.H5
     # predit_model_path = r'E:\projects\NTUST\webimg-to-code\assets\attr_class-data3\test\simple-VGG\74-112-256\p0\model\100\attr_class_model.h5'
     predit_model_path = final_model_saved_path
@@ -78,6 +85,7 @@ if __name__ == "__main__":
             load_model(predit_model_path))
         max_data_length = len(lines)
         predit_list = []
+<<<<<<< HEAD
         for i in range(20):
             idx = random.randint(0, max_data_length+1)
             print('predit_GT: ', lines[idx])
@@ -86,14 +94,29 @@ if __name__ == "__main__":
             #                                                    result_saved_path=path.CLASS_ATTR_PREDIT_GUI_PATH + str(EPOCHES)+'\\'+str(idx)+TYPE.GUI)
             decoded_sentence = attribute_classification_predit(encoder_model, decoder_model, line[0], encoder_config['input_shape'], decoder_config['token_list'], 4)                                                   
             print('decoded_sentence length: ', idx, decoded_sentence)
+=======
+        for i in range(predit_data_num):
+            # idx = random.randint(0, max_data_length+1)
+            # print('predit_GT: ', lines[idx])
+            line = lines[i].split()
+            print('origin:', line)
+            decoded_sentence = attribute_classification_predit(encoder_model, decoder_model, line[0], encoder_config['input_shape'], decoder_config['token_list'], 4)                                                   
+            print('decoded_sentence: ', i, decoded_sentence) 
+>>>>>>> e3b4d34... fix heatmap
             predit_list.append([line[0]]+decoded_sentence)
         if HEATMAP:
             createFolder(predit_data_path)
             # predit_file_name = 'E:\\projects\\NTUST\\webimg-to-code\\test-predit\\attr-class-predit\\data3_simpleVGG_e100_74_112_256.txt'
             predit_file_name = predit_data_path+predit_data_name+TYPE.TXT
-            # write_file(predit_list, predit_file_name, dataDim=2)
+            write_file(predit_list, predit_file_name, dataDim=2)
             labels = decoder_config['token_list']
             labels.remove('START')
+<<<<<<< HEAD
+=======
+            labels.remove(Font_color.success.value)
+            labels.remove(Font_color.danger.value)
+            # labels.remove('EOS')
+>>>>>>> e3b4d34... fix heatmap
             target = compare_attr_class(decoder_config['data_path'],predit_file_name,  labels, labels)
             show_heatmap(target, labels, labels, ratio=True, 
             save_path=predit_data_path+predit_data_name)

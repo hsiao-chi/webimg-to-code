@@ -219,7 +219,6 @@ def attribute_classification_predit(encoder_model: Model, decoder_model: Model,
 input_image_path, input_shape, decoder_token_list, max_decoder_seq_length, result_saved_path=None, img_input_type='path', keep_ratio=True):
     img_data = preprocess_image(input_image_path, input_shape, img_input_type=img_input_type, keep_ratio=keep_ratio)
     w, h, c = img_data.shape
-    print('preprocess_image:',img_data.shape)
     img_input = np.zeros((1, w, h, c), dtype='float32')
     img_input[0] = img_data
     states_value = encoder_model.predict(img_input)
