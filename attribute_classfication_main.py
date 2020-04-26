@@ -28,10 +28,10 @@ if __name__ == "__main__":
     cnn_model = 'VGG16'
     dataset = 'pix2code'
     eva_record_path = path.EVALUATION_ATTR_CLASS_EVALUATION+dataset+"\\"
-    eva_record_name = 'VGG16(74-112-256-e100).txt'
+    eva_record_name = 'VGG16(74-112-256-e100)-test.txt'
     predit_data_path = path.SELF+'test-predit\\attr-class-predit\\'+dataset+"\\"
-    predit_data_name = 'VGG16(74-112-256-e100)'
-    predit_data_num = 200
+    predit_data_name = 'VGG16(74-112-256-e100)-test'
+    predit_data_num = 5
     final_model_saved_path = path.CLASS_ATTR_MODEL_PATH + str(EPOCHES)+'\\attr_class_model'+TYPE.H5
     # predit_model_path = r'E:\projects\NTUST\webimg-to-code\assets\attr_class-data3\test\simple-VGG\74-112-256\p0\model\100\attr_class_model.h5'
     predit_model_path = final_model_saved_path
@@ -84,18 +84,19 @@ if __name__ == "__main__":
             # idx = random.randint(0, max_data_length+1)
             # print('predit_GT: ', lines[idx])
             line = lines[i].split()
+            print('origin:', line)
             decoded_sentence = attribute_classification_predit(encoder_model, decoder_model, line[0], encoder_config['input_shape'], decoder_config['token_list'], 4)                                                   
-            print('decoded_sentence length: ', i, decoded_sentence) if i % 50 == 0 else None
+            print('decoded_sentence: ', i, decoded_sentence) 
             predit_list.append([line[0]]+decoded_sentence)
         if HEATMAP:
             createFolder(predit_data_path)
             predit_file_name = predit_data_path+predit_data_name+TYPE.TXT
-            # write_file(predit_list, predit_file_name, dataDim=2)
+            write_file(predit_list, predit_file_name, dataDim=2)
             labels = decoder_config['token_list']
             labels.remove('START')
             labels.remove(Font_color.success.value)
             labels.remove(Font_color.danger.value)
-            labels.remove('EOS')
+            # labels.remove('EOS')
             target = compare_attr_class(decoder_config['data_path'],predit_file_name,  labels, labels)
             show_heatmap(target, labels, labels, ratio=True, 
             save_path=eva_record_path+predit_data_name)

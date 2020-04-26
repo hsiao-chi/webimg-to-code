@@ -1,0 +1,5 @@
+D:\Chi\dataset\pix2code\element\element-png\0.png text-white bg-success
+D:\Chi\dataset\pix2code\element\element-png\1.png text-white bg-success
+D:\Chi\dataset\pix2code\element\element-png\2.png text-white bg-success
+D:\Chi\dataset\pix2code\element\element-png\3.png text-white bg-success
+D:\Chi\dataset\pix2code\element\element-png\4.png text-white bg-success
