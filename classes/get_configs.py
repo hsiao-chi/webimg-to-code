@@ -35,10 +35,10 @@ def get_decoder_config(target_type=1):
                 'START', 'EOS']}
     elif target_type == 4:      # dataset3 
         return {
-            'data_folder': path.DATASET3_TRAINSET_ORIGIN_NO_CONTEXT_GUI,
-            'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_ATTR_GUI,
-            # 'data_folder': path.DATASET3_TRAINSET_NOISE_ORIGIN_NO_CONTEXT_GUI,
-            # 'testing_data_folder': path.DATASET3_TESTSET_NOISE_ORIGIN_NO_CONTEXT_GUI,
+            # 'data_folder': path.DATASET3_TRAINSET_ORIGIN_NO_CONTEXT_GUI,
+            # 'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_ATTR_GUI,
+            'data_folder': path.DATASET3_TRAINSET_NOISE_ORIGIN_NO_CONTEXT_GUI,
+            'testing_data_folder': path.DATASET3_TESTSET_NOISE_ORIGIN_NO_CONTEXT_GUI,
             'token_list': [
                 '{', '}', '[', ']',
                 'row', 'col',
@@ -87,10 +87,10 @@ def get_encoder_config(target_type=1):
     elif target_type == 4:      # Dataset3 - arch1-seq2seq
         return {
             'direct_part': 5,
-            'data_folder': path.DATASET3_TRAINSET_FULL_YOLO_POSITION_TXT,
-            'testing_data_folder': path.DATASET3_TESTSET_FULL_YOLO_POSITION_TXT,
-            # 'data_folder': path.DATASET3_TRAINSET_NOISE_FULL_YOLO_POSITION_TXT,
-            # 'testing_data_folder': path.DATASET3_TESTSET_NOISE_FULL_YOLO_POSITION_TXT,
+            # 'data_folder': path.DATASET3_TRAINSET_FULL_YOLO_POSITION_TXT,
+            # 'testing_data_folder': path.DATASET3_TESTSET_FULL_YOLO_POSITION_TXT,
+            'data_folder': path.DATASET3_TRAINSET_NOISE_FULL_YOLO_POSITION_TXT,
+            'testing_data_folder': path.DATASET3_TESTSET_NOISE_FULL_YOLO_POSITION_TXT,
 
             'class_mode': False,
             'token_list': [],
@@ -114,7 +114,7 @@ def get_attribute_encoder_config(target_type=1):
     if target_type == 1:
         return {
             'data_folder': path.DATASET1_ELEMENT_PNG,
-            'input_shape': (74, 112, 3),
+            'input_shape': (74, 224, 3),
             'num_train': 1800,
             'num_valid': 400,
             'num_test': 300,
@@ -122,7 +122,7 @@ def get_attribute_encoder_config(target_type=1):
     elif target_type == 2:
         return {
             'data_folder': path.DATASET3_ELEMENT_PNG,
-            'input_shape': (74, 112, 3),
+            'input_shape': (74, 224, 3),
             'num_train': 1800,
             'num_valid': 400,
             'num_test': 300,
@@ -132,14 +132,14 @@ def get_attribute_encoder_config(target_type=1):
 def get_attribute_decoder_config(target_type=1):
     if target_type == 1:
         return {
-            'data_path': path.DATASET1_ELEMENT_FOLDER+'attr-labels-balance.txt',
+            'data_path': path.DATASET1_ELEMENT_FOLDER+'attr-labels-lab-balance.txt',
             'token_list': [Font_color.dark.value, Font_color.primary.value, Font_color.white.value, Font_color.success.value, Font_color.danger.value,
                            Bg_color.primary.value, Bg_color.dark.value, Bg_color.success.value,
                            Bg_color.warning.value, Bg_color.danger.value, 'START', 'EOS'],
         }
     if target_type == 2:
         return {
-            'data_path': path.DATASET3_ELEMENT_FOLDER+'attr-labels-balance.txt',
+            'data_path': path.DATASET3_ELEMENT_FOLDER+'attr-labels-balance_lab.txt',
             'token_list': [Font_color.dark.value, Font_color.primary.value, Font_color.white.value, Font_color.success.value, Font_color.danger.value, 
                            Bg_color.primary.value, Bg_color.dark.value, Bg_color.success.value,
                            Bg_color.warning.value, Bg_color.danger.value, 'START', 'EOS'],

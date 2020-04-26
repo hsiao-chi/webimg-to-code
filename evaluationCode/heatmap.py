@@ -9,7 +9,7 @@ def show_heatmap(data, x_axis_labels, y_axis_labels, save_path=None, ratio=False
         data = data / sum_of_each_line[:, None]
     print(data)
     ax = sns.heatmap(data, xticklabels=x_axis_labels, yticklabels=y_axis_labels, cmap="YlGnBu")
-    # ax.show()
+    plt.show()
     if save_path:
         fig = ax.get_figure()
         fig.savefig(save_path+'-heatmap.png')

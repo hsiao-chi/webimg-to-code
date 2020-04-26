@@ -234,7 +234,7 @@ input_image_path, input_shape, decoder_token_list, max_decoder_seq_length, resul
         # Sample a token
         sampled_token_index = np.argmax(output_tokens[0, -1, :])
         sampled_token = reverse_tokens_dict[sampled_token_index]
-        print('sampled_token', sampled_token)
+        # print('sampled_token', sampled_token)
         if sampled_token != 'EOS':
             decoded_sentence.append(sampled_token)
 
