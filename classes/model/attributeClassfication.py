@@ -89,20 +89,41 @@ def cnn_VGG16(input_shape=(224,224,3),weight_path=None) -> Model:
         model.load_weights(weight_path)
     return model 
 
+def cnn_LeNet(input_shape=(224,224,3),weight_path=None) ->Model:
+    model = Sequential(name='vision_model')  #input_shape=(227,227,3)
+    model.add(Conv2D(32,(5,5),strides=(1,1),input_shape=input_shape,padding='valid',activation='relu',kernel_initializer='uniform'))  
+    model.add(MaxPooling2D(pool_size=(2,2)))  
+    model.add(Conv2D(64,(5,5),strides=(1,1),padding='valid',activation='relu',kernel_initializer='uniform'))  
+    model.add(MaxPooling2D(pool_size=(2,2)))  
+    model.add(Flatten())  
+    model.add(Dense(100,activation='relu'))  
+    model.add(Dense(LSTM_ENCODER_DIM,activation='relu')) #1000
+    model.add(RepeatVector(MAX_DECODER_INPUT_LENGTH))
+    model.summary()
+    if weight_path:
+        model.load_weights(weight_path)
+
+    return model
+
 def cnn_alexnet(input_shape=(227,227,3),weight_path=None) -> Model:
 
     seed = 7
-    np.random.seed(seed)
-    
+    np.random.seed(seed) 
     model = Sequential(name='vision_model')  #input_shape=(227,227,3)
-    model.add(Conv2D(96,(11,11),strides=(4,4),input_shape=input_shape,padding='valid',activation='relu',kernel_initializer='uniform'))
+    model.add(Conv2D(96,(11,11),strides=(4,4),input_shape=input_shape,padding='valid',activation='relu'))
     model.add(MaxPooling2D(pool_size=(3,3),strides=(2,2)))
-    model.add(Conv2D(256,(5,5),strides=(1,1),padding='same',activation='relu',kernel_initializer='uniform'))
+    
+    #Second Convolution and Pooling layer
+    model.add(Conv2D(256,(5,5),strides=(1,1),padding='same',activation='relu'))
     model.add(MaxPooling2D(pool_size=(3,3),strides=(2,2)))
-    model.add(Conv2D(384,(3,3),strides=(1,1),padding='same',activation='relu',kernel_initializer='uniform'))
-    model.add(Conv2D(384,(3,3),strides=(1,1),padding='same',activation='relu',kernel_initializer='uniform'))
-    model.add(Conv2D(256,(3,3),strides=(1,1),padding='same',activation='relu',kernel_initializer='uniform'))
+    
+    #Three Convolution layer and Pooling Layer
+    model.add(Conv2D(384,(3,3),strides=(1,1),padding='same',activation='relu'))
+    model.add(Conv2D(384,(3,3),strides=(1,1),padding='same',activation='relu'))
+    model.add(Conv2D(256,(3,3),strides=(1,1),padding='same',activation='relu'))
     model.add(MaxPooling2D(pool_size=(3,3),strides=(2,2)))
+    
+    #Fully connection layer
     model.add(Flatten())
     model.add(Dense(4096,activation='relu'))
     model.add(Dropout(0.5))
@@ -111,7 +132,6 @@ def cnn_alexnet(input_shape=(227,227,3),weight_path=None) -> Model:
     model.add(Dense(LSTM_ENCODER_DIM,activation='softmax')) #1000
     model.add(RepeatVector(MAX_DECODER_INPUT_LENGTH))
 
-    # model.compile(loss='categorical_crossentropy',optimizer='sgd',metrics=['accuracy'])
     model.summary()
     if weight_path:
         model.load_weights(weight_path)
@@ -126,6 +146,8 @@ def get_cnn_model(cnnType='VGG16', input_shape=(112, 112, 3), pre_trained_weight
         return cnn_alexnet(input_shape, pre_trained_weight)
     if cnnType == 'VGG16':
         return cnn_VGG16(input_shape, pre_trained_weight)
+    if cnnType == 'LeNet':
+        return cnn_LeNet(input_shape, pre_trained_weight)
 
 
 def attribute_classification_train_model(num_target_token,  cnn_model='VGG', input_shape=(112, 112, 3),
