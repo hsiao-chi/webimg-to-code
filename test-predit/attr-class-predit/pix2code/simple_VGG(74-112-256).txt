@@ -1,20 +1,20 @@
-E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\1063.png text-white bg-success
-E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\463.png text-primary bg-dark
-E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\2523.png text-dark
-E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\388.png text-dark
-E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\1776.png text-white bg-danger
-E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\1044.png text-primary bg-dark
-E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\445.png text-white bg-success
-E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\42.png text-white bg-primary
-E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\1273.png text-dark
-E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\2504.png text-white bg-success
-E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\1446.png text-dark
-E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\1395.png text-dark
-E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\347.png text-primary bg-dark
-E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\2548.png text-primary bg-dark
-E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\437.png text-white bg-warning
-E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\1283.png text-white bg-success
-E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\1753.png text-white bg-danger
-E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\1555.png text-dark
-E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\527.png text-white bg-danger
+E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\327.png text-white bg-danger
+E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\1227.png text-white bg-danger
+E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\2552.png text-dark
 E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\2489.png text-white bg-warning
+E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\730.png text-primary bg-dark
+E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\314.png text-white bg-warning
+E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\1953.png text-white bg-success
+E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\1330.png text-primary bg-dark
+E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\1729.png text-white bg-success
+E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\1875.png text-white bg-warning
+E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\987.png text-dark
+E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\1424.png text-dark
+E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\384.png text-white bg-warning
+E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\155.png text-dark
+E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\1980.png text-dark
+E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\1290.png text-white bg-danger
+E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\458.png text-white bg-success
+E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\2183.png text-dark
+E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\370.png text-dark
+E:\projects\NTUST\webimg-to-code\dataset\pix2code\element\element-png\450.png text-primary bg-dark

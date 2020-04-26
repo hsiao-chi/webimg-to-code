@@ -54,8 +54,8 @@ def cnn_simple_vgg(input_shape,weight_path=None) -> Model:
 
 def cnn_VGG16(input_shape=(224,224,3),weight_path=None) -> Model:
      
-    model = Sequential()
-    model.add(Conv2D(64,(3,3),strides=(1,1),input_shape=(224,224,3),padding='same',activation='relu',kernel_initializer='uniform'))
+    model = Sequential(name='vision_model')
+    model.add(Conv2D(64,(3,3),strides=(1,1),input_shape=input_shape,padding='same',activation='relu',kernel_initializer='uniform'))
     model.add(Conv2D(64,(3,3),strides=(1,1),padding='same',activation='relu',kernel_initializer='uniform'))
     model.add(MaxPooling2D(pool_size=(2,2)))
     model.add(Conv2D(128,(3,2),strides=(1,1),padding='same',activation='relu',kernel_initializer='uniform'))
@@ -94,7 +94,7 @@ def cnn_alexnet(input_shape=(227,227,3),weight_path=None) -> Model:
     seed = 7
     np.random.seed(seed)
     
-    model = Sequential()  #input_shape=(227,227,3)
+    model = Sequential(name='vision_model')  #input_shape=(227,227,3)
     model.add(Conv2D(96,(11,11),strides=(4,4),input_shape=input_shape,padding='valid',activation='relu',kernel_initializer='uniform'))
     model.add(MaxPooling2D(pool_size=(3,3),strides=(2,2)))
     model.add(Conv2D(256,(5,5),strides=(1,1),padding='same',activation='relu',kernel_initializer='uniform'))
@@ -152,6 +152,9 @@ def attribute_classification_train_model(num_target_token,  cnn_model='VGG', inp
     train_model.compile(optimizer=optimizer, loss=loss,
                         metrics=['accuracy'])
     train_model.summary()
+    if weight_path:
+        train_model.load_weights(weight_path)
+
     return train_model
 
 
@@ -184,7 +187,8 @@ def attribute_classification_predit_model(model: Model)-> Model:
 
 def attribute_classfication_training(train_model: Model,  encoder_config, decoder_config,
                                      checkpoint_folder, analysis_saved_folder, final_model_saved_path, initial_epoch=0, keep_ratio=True):
-    mc = callbacks.ModelCheckpoint(checkpoint_folder + str(EPOCHES) + 'attr-classfy-weights{epoch:05d}.h5',
+    createFolder(checkpoint_folder + str(EPOCHES))
+    mc = callbacks.ModelCheckpoint(checkpoint_folder + str(EPOCHES) + '\\attr-classfy-weights{epoch:05d}.h5',
                                    save_weights_only=True, period=MODE_SAVE_PERIOD)
     early_stopping = callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=10, verbose=1)
     lines = read_file(decoder_config['data_path'], 'splitlines')
@@ -212,9 +216,10 @@ def attribute_classfication_training(train_model: Model,  encoder_config, decode
 
 
 def attribute_classification_predit(encoder_model: Model, decoder_model: Model, 
-input_image_path, input_shape, decoder_token_list, max_decoder_seq_length, result_saved_path=None, img_input_type='path'):
-    img_data = preprocess_image(input_image_path, input_shape, img_input_type=img_input_type)
+input_image_path, input_shape, decoder_token_list, max_decoder_seq_length, result_saved_path=None, img_input_type='path', keep_ratio=True):
+    img_data = preprocess_image(input_image_path, input_shape, img_input_type=img_input_type, keep_ratio=keep_ratio)
     w, h, c = img_data.shape
+    print('preprocess_image:',img_data.shape)
     img_input = np.zeros((1, w, h, c), dtype='float32')
     img_input[0] = img_data
     states_value = encoder_model.predict(img_input)
@@ -232,6 +237,7 @@ input_image_path, input_shape, decoder_token_list, max_decoder_seq_length, resul
         # Sample a token
         sampled_token_index = np.argmax(output_tokens[0, -1, :])
         sampled_token = reverse_tokens_dict[sampled_token_index]
+        print('sampled_token:', sampled_token_index, sampled_token)
         if sampled_token != 'EOS':
             decoded_sentence.append(sampled_token)
 
