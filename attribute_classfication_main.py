@@ -11,25 +11,26 @@ from general.util import read_file, write_file, createFolder
 from classes.get_configs import get_attribute_encoder_config, get_attribute_decoder_config
 import general.path as path
 import general.dataType as TYPE
+from general.node.nodeEnum import Font_color
 from keras.models import load_model
 import random
 from evaluationCode.heatmap import compare_attr_class, show_heatmap
 
 if __name__ == "__main__":
     DEBUG_DATASET = False
-    TRAINING = False
+    TRAINING = True
     PREDIT = True
-    EVALUATE = False
+    EVALUATE = True
     HEATMAP =True
 
     keep_img_ratio=True
     cnn_model = 'simple_VGG'
     dataset = 'pix2code'
     eva_record_path = path.EVALUATION_ATTR_CLASS_EVALUATION+dataset+"\\"
-    eva_record_name = 'VGG16(74-112-256-e100)-test.txt'
+    eva_record_name = 'simple_VGG(74-224-256-e100)-test1.txt'
     predit_data_path = path.SELF+'test-predit\\attr-class-predit\\'+dataset+"\\"
-    predit_data_name = 'VGG16(74-112-256-e100)-test'
-    predit_data_num = 5
+    predit_data_name = 'simple_VGG(74-224-256-e100)-test1'
+    predit_data_num = 50
     final_model_saved_path = path.CLASS_ATTR_MODEL_PATH + str(EPOCHES)+'\\attr_class_model'+TYPE.H5
     # predit_model_path = r'E:\projects\NTUST\webimg-to-code\assets\attr_class-data3\test\simple-VGG\74-112-256\p0\model\100\attr_class_model.h5'
     predit_model_path = final_model_saved_path

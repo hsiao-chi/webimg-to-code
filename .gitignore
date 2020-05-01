@@ -30,6 +30,7 @@ assets/2020/
 yolo_detected/
 yolo/
 test/
+test-predit/
 *.h5
 
 # PyInstaller
