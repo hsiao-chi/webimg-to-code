@@ -11,6 +11,7 @@ from general.util import read_file, write_file, createFolder
 from classes.get_configs import get_attribute_encoder_config, get_attribute_decoder_config
 import general.path as path
 import general.dataType as TYPE
+from general.node.nodeEnum import Font_color
 from keras.models import load_model
 import random
 from evaluationCode.heatmap import compare_attr_class, show_heatmap
@@ -19,9 +20,9 @@ from general.node.nodeEnum import Font_color, Bg_color
 
 if __name__ == "__main__":
     DEBUG_DATASET = False
-    TRAINING = False
+    TRAINING = True
     PREDIT = True
-    EVALUATE = False
+    EVALUATE = True
     HEATMAP =True
 
     keep_img_ratio=True
@@ -76,23 +77,23 @@ if __name__ == "__main__":
         write_file(res, eva_record_path+eva_record_name, dataDim=0)
     
     if PREDIT:
-        # createFolder(path.CLASS_ATTR_PREDIT_GUI_PATH + str(EPOCHES))
-        # encoder_model, decoder_model = attribute_classification_predit_model(
-        #     load_model(predit_model_path))
-        # max_data_length = len(lines)
-        # predit_list = []
-        # for i in range(predit_data_start_idx, predit_data_start_idx+predit_data_num):
-            # idx = random.randint(0, max_data_length+1)
-            # print('predit_GT: ', lines[idx])
-            # line = lines[i].split()
-            # print('origin:', line)
-            # decoded_sentence = attribute_classification_predit(encoder_model, decoder_model, line[0], encoder_config['input_shape'], decoder_config['token_list'], 4)                                                   
-            # print('decoded_sentence: ', i, decoded_sentence) 
-            # predit_list.append([line[0]]+decoded_sentence)
+        createFolder(path.CLASS_ATTR_PREDIT_GUI_PATH + str(EPOCHES))
+        encoder_model, decoder_model = attribute_classification_predit_model(
+            load_model(predit_model_path))
+        max_data_length = len(lines)
+        predit_list = []
+        for i in range(predit_data_start_idx, predit_data_start_idx+predit_data_num):
+            idx = random.randint(0, max_data_length+1)
+            print('predit_GT: ', lines[idx])
+            line = lines[i].split()
+            print('origin:', line)
+            decoded_sentence = attribute_classification_predit(encoder_model, decoder_model, line[0], encoder_config['input_shape'], decoder_config['token_list'], 4)                                                   
+            print('decoded_sentence: ', i, decoded_sentence) 
+            predit_list.append([line[0]]+decoded_sentence)
         if HEATMAP:
             createFolder(predit_data_path)
             predit_file_name = predit_data_path+predit_data_name+TYPE.TXT
-            # write_file(predit_list, predit_file_name, dataDim=2)
+            write_file(predit_list, predit_file_name, dataDim=2)
             labels = decoder_config['token_list']
             labels.remove('START')
             # labels.remove(Font_color.success.value)

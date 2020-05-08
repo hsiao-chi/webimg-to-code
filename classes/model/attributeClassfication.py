@@ -21,29 +21,24 @@ BATCH_SIZE = 16
 
 def cnn_simple_vgg(input_shape,weight_path=None) -> Model:
     model = Sequential(name='vision_model')
-    model.add(Conv2D(
-        64, (3, 3), activation='relu', padding='same', input_shape=input_shape))
-    model.add(
-        Conv2D(64, (3, 3), activation='relu'))  # 112*112*64
+    model.add(Conv2D(64, (3, 3), activation='relu', padding='same', input_shape=input_shape))
+    model.add(Conv2D(64, (3, 3), activation='relu', padding='same'))  # 112*112*64
     model.add(MaxPooling2D((2, 2)))
-    model.add(
-        Conv2D(128, (3, 3), activation='relu', padding='same',))
-    model.add(
-        Conv2D(128, (3, 3), activation='relu'))  # 56*56*128
+    model.add(Conv2D(128, (3, 3), activation='relu', padding='same'))
+    model.add(Conv2D(128, (3, 3), activation='relu', padding='same'))  # 56*56*128
     model.add(MaxPooling2D((2, 2)))
-    model.add(
-        Conv2D(256, (3, 3), activation='relu', padding='same',))
-    model.add(Conv2D(256, (3, 3), activation='relu'))
-    model.add(
-        Conv2D(256, (3, 3), activation='relu'))  # 28*28*256
+    model.add(Conv2D(256, (3, 3), activation='relu', padding='same',))
+    model.add(Conv2D(256, (3, 3), activation='relu', padding='same'))
+    model.add(Conv2D(256, (3, 3), activation='relu', padding='same'))  # 28*28*256
     model.add(MaxPooling2D((2, 2)))  # 14*14*256
     model.add(Flatten())
 
     model.add(Dense(1024, activation='relu'))
     model.add(Dropout(0.3))
-    model.add(Dense(LSTM_ENCODER_DIM, activation='relu'))
-    model.add(Dropout(0.3))
-    model.add(RepeatVector(MAX_DECODER_INPUT_LENGTH))
+    model.add(Reshape((1, 1024)))
+    # model.add(Dense(LSTM_ENCODER_DIM, activation='relu'))
+    # model.add(Dropout(0.3))
+    # model.add(RepeatVector(MAX_DECODER_INPUT_LENGTH))
 
     # output_shape = model.output_shape
     # model.add(Reshape((int(output_shape[1]/256), 256), name='cnn_output'))
@@ -80,8 +75,9 @@ def cnn_VGG16(input_shape=(224,224,3),weight_path=None) -> Model:
     model.add(Dropout(0.5))
     model.add(Dense(1024,activation='relu'))
     model.add(Dropout(0.5))
-    model.add(Dense(LSTM_ENCODER_DIM,activation='softmax'))
-    model.add(RepeatVector(MAX_DECODER_INPUT_LENGTH))
+    model.add(Reshape((1, 1024)))
+    # model.add(Dense(LSTM_ENCODER_DIM,activation='softmax'))
+    # model.add(RepeatVector(MAX_DECODER_INPUT_LENGTH))
 
     model.summary()
 
@@ -96,9 +92,10 @@ def cnn_LeNet(input_shape=(224,224,3),weight_path=None) ->Model:
     model.add(Conv2D(64,(5,5),strides=(1,1),padding='valid',activation='relu',kernel_initializer='uniform'))  
     model.add(MaxPooling2D(pool_size=(2,2)))  
     model.add(Flatten())  
-    model.add(Dense(100,activation='relu'))  
-    model.add(Dense(LSTM_ENCODER_DIM,activation='relu')) #1000
-    model.add(RepeatVector(MAX_DECODER_INPUT_LENGTH))
+    model.add(Dense(1000,activation='relu'))  
+    model.add(Reshape((1, 1000)))
+    # model.add(Dense(LSTM_ENCODER_DIM,activation='relu')) #1000
+    # model.add(RepeatVector(MAX_DECODER_INPUT_LENGTH))
     model.summary()
     if weight_path:
         model.load_weights(weight_path)
@@ -129,10 +126,9 @@ def cnn_alexnet(input_shape=(227,227,3),weight_path=None) -> Model:
     model.add(Dropout(0.5))
     model.add(Dense(4096,activation='relu'))
     model.add(Dropout(0.5))
-    model.add(Dense(1000,activation='relu'))
-    model.add(Dropout(0.5))
-    model.add(Dense(LSTM_ENCODER_DIM,activation='relu')) #1000
-    model.add(RepeatVector(MAX_DECODER_INPUT_LENGTH))
+    model.add(Reshape((1, 4096)))
+    # model.add(Dense(LSTM_ENCODER_DIM,activation='softmax')) #1000
+    # model.add(RepeatVector(MAX_DECODER_INPUT_LENGTH))
 
     model.summary()
     if weight_path:
