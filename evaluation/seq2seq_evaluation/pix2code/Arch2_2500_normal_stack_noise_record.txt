@@ -3,9 +3,9 @@ D:\Chi\webimg-to-code\assets\2020-4\seq2seq-pix2code\attr-rowcolAttrElement\norm
 training data path: 
  encoder: D:\Chi\dataset\pix2code\full-yolo-noise-resort-txt\attr-position_txt\
  decoder: D:\Chi\dataset\pix2code\full-yolo-noise-resort-txt\gui\
-Loss: 0.0099, Accuracy: 99.576%
+Loss: 0.0100, Accuracy: 99.545%
 
 testing data path: 
  encoder: D:\Chi\dataset\pix2code\testing-dataset\seq2seq\noise\attr-position-txt\
  decoder: D:\Chi\dataset\pix2code\testing-dataset\seq2seq\noise\attr-gui\
-Loss: 0.1284, Accuracy: 97.382%
+Loss: 0.1278, Accuracy: 97.336%

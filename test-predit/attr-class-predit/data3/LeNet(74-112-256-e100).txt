@@ -1,0 +1,50 @@
+D:\Chi\dataset\dataset3\element\element_png\2200.png text-white bg-warning
+D:\Chi\dataset\dataset3\element\element_png\2201.png text-success
+D:\Chi\dataset\dataset3\element\element_png\2202.png text-success
+D:\Chi\dataset\dataset3\element\element_png\2203.png text-white bg-warning
+D:\Chi\dataset\dataset3\element\element_png\2204.png text-primary
+D:\Chi\dataset\dataset3\element\element_png\2205.png
+D:\Chi\dataset\dataset3\element\element_png\2206.png text-dark
+D:\Chi\dataset\dataset3\element\element_png\2207.png text-primary bg-dark
+D:\Chi\dataset\dataset3\element\element_png\2208.png text-success
+D:\Chi\dataset\dataset3\element\element_png\2209.png text-primary
+D:\Chi\dataset\dataset3\element\element_png\2210.png text-white bg-danger
+D:\Chi\dataset\dataset3\element\element_png\2211.png text-white bg-danger
+D:\Chi\dataset\dataset3\element\element_png\2212.png text-primary
+D:\Chi\dataset\dataset3\element\element_png\2213.png text-primary
+D:\Chi\dataset\dataset3\element\element_png\2214.png text-white bg-warning
+D:\Chi\dataset\dataset3\element\element_png\2215.png text-primary bg-dark
+D:\Chi\dataset\dataset3\element\element_png\2216.png text-dark
+D:\Chi\dataset\dataset3\element\element_png\2217.png text-danger
+D:\Chi\dataset\dataset3\element\element_png\2218.png text-primary bg-dark
+D:\Chi\dataset\dataset3\element\element_png\2219.png text-danger
+D:\Chi\dataset\dataset3\element\element_png\2220.png text-dark
+D:\Chi\dataset\dataset3\element\element_png\2221.png
+D:\Chi\dataset\dataset3\element\element_png\2222.png text-white bg-warning
+D:\Chi\dataset\dataset3\element\element_png\2223.png text-primary
+D:\Chi\dataset\dataset3\element\element_png\2224.png text-danger
+D:\Chi\dataset\dataset3\element\element_png\2225.png text-white bg-danger
+D:\Chi\dataset\dataset3\element\element_png\2226.png text-white bg-success
+D:\Chi\dataset\dataset3\element\element_png\2227.png text-dark
+D:\Chi\dataset\dataset3\element\element_png\2228.png text-danger
+D:\Chi\dataset\dataset3\element\element_png\2229.png text-white bg-primary
+D:\Chi\dataset\dataset3\element\element_png\2230.png text-white bg-danger
+D:\Chi\dataset\dataset3\element\element_png\2231.png text-success
+D:\Chi\dataset\dataset3\element\element_png\2232.png text-dark
+D:\Chi\dataset\dataset3\element\element_png\2233.png text-white bg-danger
+D:\Chi\dataset\dataset3\element\element_png\2234.png text-danger
+D:\Chi\dataset\dataset3\element\element_png\2235.png
+D:\Chi\dataset\dataset3\element\element_png\2236.png text-primary
+D:\Chi\dataset\dataset3\element\element_png\2237.png text-primary bg-dark
+D:\Chi\dataset\dataset3\element\element_png\2238.png text-primary bg-dark
+D:\Chi\dataset\dataset3\element\element_png\2239.png text-dark
+D:\Chi\dataset\dataset3\element\element_png\2240.png text-success
+D:\Chi\dataset\dataset3\element\element_png\2241.png text-white bg-danger
+D:\Chi\dataset\dataset3\element\element_png\2242.png text-dark
+D:\Chi\dataset\dataset3\element\element_png\2243.png text-primary
+D:\Chi\dataset\dataset3\element\element_png\2244.png text-white bg-primary
+D:\Chi\dataset\dataset3\element\element_png\2245.png text-white bg-success
+D:\Chi\dataset\dataset3\element\element_png\2246.png text-primary
+D:\Chi\dataset\dataset3\element\element_png\2247.png text-success
+D:\Chi\dataset\dataset3\element\element_png\2248.png text-white bg-primary
+D:\Chi\dataset\dataset3\element\element_png\2249.png text-dark
