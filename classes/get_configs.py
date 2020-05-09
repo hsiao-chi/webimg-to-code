@@ -5,6 +5,7 @@ def get_decoder_config(target_type=1):
     if target_type == 1:
         return {
             'data_folder': path.DATASET1_ORIGIN_GUI,
+            'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_ORIGIN_GUI,
             'token_list': [
                 '{', '}',
                 'row', 'header', 'single', 'double', 'quadruple',

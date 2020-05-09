@@ -4,7 +4,7 @@ from environment.environment import SELF, DATASET
 # SELF = 'D:\\Chi\\webimg-to-code\\'
 CLASS_SEQ2SEQ_MODEL_GRAPH_FILE = SELF+'assets\\seq2seq-position\\seq2seq-model.png'
 
-CLASS_SEQ2SEQ_TRAINING_TYPE = '2020-4\\seq2seq-pix2code\\full-rowcolAttrElement\\normal-stack-resort\\500\\noise-try\\'
+CLASS_SEQ2SEQ_TRAINING_TYPE = '2020-5\\seq2seq-pix2code\\attr-rowcolAttrElement\\normal-stack-resort\\500\\noise\\'
 CLASS_SEQ2SEQ_WEIGHT = SELF+'assets\\'+CLASS_SEQ2SEQ_TRAINING_TYPE+'weight\\'
 CLASS_SEQ2SEQ_MODEL_PATH = SELF+'assets\\'+CLASS_SEQ2SEQ_TRAINING_TYPE+'model\\'
 CLASS_SEQ2SEQ_ANALYSIS_PATH = SELF+'assets\\'+CLASS_SEQ2SEQ_TRAINING_TYPE
@@ -59,6 +59,7 @@ DATASET1_FULL_YOLO_NOISE_GUI = DATASET1_FULL_YOLO_NOISE+"gui\\"
 
 DATASET1_TESTING = DATASET + 'pix2code\\testing-dataset\\'
 DATASET1_TESTING_SEQ2SEQ_ATTR_GUI = DATASET1_TESTING+'seq2seq\\attr-gui\\'
+DATASET1_TESTING_SEQ2SEQ_ORIGIN_GUI = DATASET1_TESTING+'seq2seq\\origin-gui\\'
 DATASET1_TESTING_SEQ2SEQ_POSITION_TXT = DATASET1_TESTING+'seq2seq\\position-txt\\'
 DATASET1_TESTING_SEQ2SEQ_POSITION_TXT_PADDING = DATASET1_TESTING+'seq2seq\\position-txt-padding\\'
 DATASET1_TESTING_SEQ2SEQ_POSITION_TXT_PADDING_20 = DATASET1_TESTING+'seq2seq\\position-txt-padding20\\'
