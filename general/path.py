@@ -4,13 +4,13 @@ from environment.environment import SELF, DATASET
 # SELF = 'D:\\Chi\\webimg-to-code\\'
 CLASS_SEQ2SEQ_MODEL_GRAPH_FILE = SELF+'assets\\seq2seq-position\\seq2seq-model.png'
 
-CLASS_SEQ2SEQ_TRAINING_TYPE = '2020-4\\seq2seq-pix2code\\attr-rowcolAttrElement\\normal-stack-resort\\2500\\noise\\'
+CLASS_SEQ2SEQ_TRAINING_TYPE = '2020-4\\seq2seq-pix2code\\full-rowcolAttrElement\\normal-stack-resort\\2500\\noise\\final\\'
 CLASS_SEQ2SEQ_WEIGHT = SELF+'assets\\'+CLASS_SEQ2SEQ_TRAINING_TYPE+'weight\\'
 CLASS_SEQ2SEQ_MODEL_PATH = SELF+'assets\\'+CLASS_SEQ2SEQ_TRAINING_TYPE+'model\\'
 CLASS_SEQ2SEQ_ANALYSIS_PATH = SELF+'assets\\'+CLASS_SEQ2SEQ_TRAINING_TYPE
 CLASS_SEQ2SEQ_PREDIT_GUI_PATH = SELF+'assets\\'+CLASS_SEQ2SEQ_TRAINING_TYPE+'test-predit-gui\\'
 
-CLASS_ATTR_TRAINING_TYPE = '2020\\attr_class-data3-fix\\LeNet\\74224-256\\2500-p0\\'
+CLASS_ATTR_TRAINING_TYPE = '2020-4\\attr_class-pix2code-fix\\simple_VGG\\74224-256\\2500-p0\\'
 CLASS_ATTR_WEIGHT = SELF + 'assets\\'+CLASS_ATTR_TRAINING_TYPE+'weight\\'
 CLASS_ATTR_ANALYSIS =  SELF+'assets\\'+CLASS_ATTR_TRAINING_TYPE
 CLASS_ATTR_PREDIT_GUI_PATH = SELF+'assets\\'+CLASS_ATTR_TRAINING_TYPE+'test-predit-gui\\'
@@ -187,7 +187,7 @@ DATASETCODE_ASSESTS = SELF+'datasetCode\\assests\\'
 
 EVALUATION_BLEU_SCORE = SELF+'evaluation\\bleu_score\\'
 EVALUATION_SEQ2SEQ_EVALUATION = SELF+'evaluation\\seq2seq_evaluation\\'
-EVALUATION_ATTR_CLASS_EVALUATION = SELF+'evaluation\\AC_evaluation\\'
+EVALUATION_ATTR_CLASS_EVALUATION = SELF+'evaluation\\AC_evaluation\\norepeat\\'
 
 YOLO_DETECTED_FULL_POSITION_TXT = SELF + 'yolo_detected\\arch1_full_yolo_position\\'
 YOLO_DETECTED_FULL_POSITION_TEST_TXT = SELF + 'yolo_detected\\arch1_full_yolo_position_test\\'

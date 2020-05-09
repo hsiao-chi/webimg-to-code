@@ -26,21 +26,21 @@ if __name__ == "__main__":
     HEATMAP =True
 
     keep_img_ratio=True
-    cnn_model = 'LeNet'
-    dataset = 'data3'
+    cnn_model = 'simple_VGG'
+    dataset = 'pix2code'
     eva_record_path = path.EVALUATION_ATTR_CLASS_EVALUATION+dataset+"\\"
-    eva_record_name = 'LeNet(74-112-256-e100).txt'
+    eva_record_name = 'simple_VGG(74-224-256-e100)-norepeat.txt'
     predit_data_path = path.SELF+'test-predit\\attr-class-predit\\'+dataset+"\\"
-    predit_data_name = 'LeNet(74-112-256-e100)'
+    predit_data_name = 'simple_VGG(74-224-256-e100)-norepeat'
     predit_data_start_idx = 2200
-    predit_data_num = 50
+    predit_data_num = 300
     final_model_saved_path = path.CLASS_ATTR_MODEL_PATH + str(EPOCHES)+'\\attr_class_model'+TYPE.H5
     # predit_model_path = r'E:\projects\NTUST\webimg-to-code\assets\attr_class-data3\test\simple-VGG\74-112-256\p0\model\100\attr_class_model.h5'
     predit_model_path = final_model_saved_path
     evaluate_model_path = final_model_saved_path
 
-    encoder_config = get_attribute_encoder_config(2)
-    decoder_config = get_attribute_decoder_config(2)
+    encoder_config = get_attribute_encoder_config(1)
+    decoder_config = get_attribute_decoder_config(1)
     lines = read_file(decoder_config['data_path'], 'splitlines')
 
     if TRAINING:
@@ -84,11 +84,11 @@ if __name__ == "__main__":
         predit_list = []
         for i in range(predit_data_start_idx, predit_data_start_idx+predit_data_num):
             idx = random.randint(0, max_data_length+1)
-            print('predit_GT: ', lines[idx])
+            # print('predit_GT: ', lines[idx])
             line = lines[i].split()
-            print('origin:', line)
+            # print('origin:', line)
             decoded_sentence = attribute_classification_predit(encoder_model, decoder_model, line[0], encoder_config['input_shape'], decoder_config['token_list'], 4)                                                   
-            print('decoded_sentence: ', i, decoded_sentence) 
+            # print('decoded_sentence: ', i, decoded_sentence) 
             predit_list.append([line[0]]+decoded_sentence)
         if HEATMAP:
             createFolder(predit_data_path)

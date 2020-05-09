@@ -20,7 +20,7 @@ def get_decoder_config(target_type=1):
                 'title', 'text',
                 'btn-active', 'btn-inactive', 'btn-green', 'btn-orange', 'btn-red',
                 'START', 'EOS']}
-    elif target_type == 3:
+    elif target_type == 3:  # dataset1
         return {
             # 'data_folder': path.DATASET1_ROWCOL_ATTRIBUTE_GUI,
             # 'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_ATTR_GUI,
@@ -49,7 +49,7 @@ def get_decoder_config(target_type=1):
 
 
 def get_encoder_config(target_type=1):
-    if target_type == 1:
+    if target_type == 1:# Dataset1 - arch1-seq2seq
         return {
             'direct_part': 5,
             # 'data_folder': path.DATASET1_FULL_YOLO_POSITION_TXT,
@@ -59,7 +59,7 @@ def get_encoder_config(target_type=1):
             'class_mode': False,
             'token_list': [],
         }
-    elif target_type == 2:
+    elif target_type == 2:# Dataset1 - arch2-seq2seq
         return {
             'direct_part': 5,
             # 'data_folder': path.DATASET1_ATTRIBUTE_YOLO_POSITION_TXT,
@@ -89,8 +89,10 @@ def get_encoder_config(target_type=1):
             'direct_part': 5,
             # 'data_folder': path.DATASET3_TRAINSET_FULL_YOLO_POSITION_TXT,
             # 'testing_data_folder': path.DATASET3_TESTSET_FULL_YOLO_POSITION_TXT,
-            'data_folder': path.DATASET3_TRAINSET_NOISE_FULL_YOLO_POSITION_TXT,
-            'testing_data_folder': path.DATASET3_TESTSET_NOISE_FULL_YOLO_POSITION_TXT,
+            'data_folder': path.DATASET3_TRAINSET_FULL_YOLO_POSITION_TXT_INPUT_PADDING,
+            'testing_data_folder': path.DATASET3_TESTSET_FULL_YOLO_POSITION_TXT_INPUT_PADDING,
+            # 'data_folder': path.DATASET3_TRAINSET_NOISE_FULL_YOLO_POSITION_TXT,
+            # 'testing_data_folder': path.DATASET3_TESTSET_NOISE_FULL_YOLO_POSITION_TXT,
 
             'class_mode': False,
             'token_list': [],
@@ -98,8 +100,10 @@ def get_encoder_config(target_type=1):
     elif target_type == 5:      # Dataset3 - arch2-seq2seq
         return {
             'direct_part': 5,
-            'data_folder': path.DATASET3_TRAINSET_ATTR_YOLO_POSITION_TXT,
-            'testing_data_folder': path.DATASET3_TESTSET_ATTR_YOLO_POSITION_TXT,
+            # 'data_folder': path.DATASET3_TRAINSET_ATTR_YOLO_POSITION_TXT,
+            # 'testing_data_folder': path.DATASET3_TESTSET_ATTR_YOLO_POSITION_TXT,
+            'data_folder': path.DATASET3_TRAINSET_ATTR_YOLO_POSITION_TXT_INPUT_PADDING,
+            'testing_data_folder': path.DATASET3_TESTSET_ATTR_YOLO_POSITION_TXT_INPUT_PADDING,
             # 'data_folder': path.DATASET3_TRAINSET_NOISE_ATTR_YOLO_POSITION_TXT,
             # 'testing_data_folder': path.DATASET3_TESTSET_NOISE_ATTR_YOLO_POSITION_TXT,
             'class_mode': False,
@@ -115,16 +119,16 @@ def get_attribute_encoder_config(target_type=1):
         return {
             'data_folder': path.DATASET1_ELEMENT_PNG,
             'input_shape': (74, 224, 3),
-            'num_train': 1800,
-            'num_valid': 400,
+            'num_train': 1980,
+            'num_valid': 220,
             'num_test': 300,
         }
     elif target_type == 2:
         return {
             'data_folder': path.DATASET3_ELEMENT_PNG,
             'input_shape': (74, 224, 3),
-            'num_train': 1800,
-            'num_valid': 400,
+            'num_train': 1980, #1(2200)-0.1
+            'num_valid': 220, # 0.1
             'num_test': 300,
         }
         
