@@ -15,7 +15,7 @@ if __name__ == "__main__":
 
     RANDOM_GENERATOR = False
     SKELETON_TO_HTML_ONLY = False
-    WEB_SCREENSHOOT = True
+    WEB_SCREENSHOOT = False
     RULE = 4
     if RANDOM_GENERATOR:
         rule = getRule(RULE)
@@ -70,7 +70,7 @@ if __name__ == "__main__":
     '''
     # createFolder(path.DATASET3_ORIGIN_LIGHT_HTML)
     # createFolder(path.DATASET3_ORIGIN_LIGHT_PNG)
-    # for i in range(400):
+    # for i in range(400, 600):
     #     origin = read_file(path.DATASET3_ORIGIN_HTML+str(i)+TYPE.HTML, 'noSplit')
     #     origin=origin.replace('bg-secondary', '')
     #     write_file(origin, path.DATASET3_ORIGIN_LIGHT_HTML+str(i)+TYPE.HTML, dataDim=0)
