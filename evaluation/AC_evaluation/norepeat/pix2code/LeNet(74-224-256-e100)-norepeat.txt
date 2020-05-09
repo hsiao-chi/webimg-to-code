@@ -1,0 +1,15 @@
+evaluated Model path: 
+D:\Chi\webimg-to-code\assets\2020-4\attr_class-pix2code-fix\LeNet\74224-256\2500-p0\model\100\attr_class_model.h5
+data_file: D:\Chi\dataset\pix2code\element\attr-labels-lab-balance.txt
+
+training data: 
+ from: 0
+ to: 2200
+Loss: 0.0000, Accuracy: 100.000% 
+ 
+
+testing data: 
+ from: 2200
+ to: 2500
+Loss: 0.0000, Accuracy: 100.000% 
+ 
