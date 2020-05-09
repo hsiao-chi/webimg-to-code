@@ -97,7 +97,7 @@ if __name__ == "__main__":
     ------------- Full Yolo position -- to -- Attribute Yolo position ---------------
     =================================================================================
     '''
-    # createFolder(path.DATASET3_TRAINSET_NOISE_ATTR_YOLO_POSITION_TXT_INPUT_PADDING)
+    # createFolder(path.DATASET3_TRAINSET_NOISE_ATTR_YOLO_POSITION_TXT)
     # bg_color = [None, None, Bg_color.primary.value, Bg_color.dark.value,
     #             Bg_color.success.value, Bg_color.warning.value, Bg_color.danger.value, 
     #             None, None,None, None,None, None, None]
@@ -106,10 +106,10 @@ if __name__ == "__main__":
     #               Font_color.primary.value, Font_color.success.value, Font_color.danger.value,
     #               Font_color.primary.value, Font_color.success.value, Font_color.danger.value, None]
     # classes = [[0, 7, 8, 9], [1, 10, 11, 12], [2, 3, 4, 5, 6], [13]]
-    # for i in range(400, 600):
+    # for i in range(2500):
     #     new_labels = []
     #     labels = read_file(
-    #         path.DATASET3_FULL_YOLO_POSITION_TXT_PADDING_20+str(i)+TYPE.TXT, 'splitlines')
+    #         path.DATASET3_TRAINSET_NOISE_FULL_YOLO_POSITION_TXT+str(i)+TYPE.TXT, 'splitlines')
     #     for label in labels:
     #         c = int(label.split()[0])
     #         position = label.split()[1:]
@@ -126,7 +126,7 @@ if __name__ == "__main__":
     #         attrs = [a for a in [text_color[c], bg_color[c]] if a]
     #         new_label += attrs
     #         new_labels.append(new_label)
-    #     write_file(new_labels, path.DATASET3_ATTR_YOLO_POSITION_TXT_PADDING_20+str(i)+TYPE.TXT, 2)
+    #     write_file(new_labels, path.DATASET3_TRAINSET_NOISE_ATTR_YOLO_POSITION_TXT+str(i)+TYPE.TXT, 2)
 
 
     ''' 
@@ -173,14 +173,14 @@ if __name__ == "__main__":
     =================================================================================
     '''
 
-    yolo_position_with_noise_generator(
-        yolo_position_folder=path.DATASET3_TRAINSET_FULL_YOLO_POSITION,
-        # gui_folder=path.DATASET3_TESTSET_ORIGIN_NO_CONTEXT_GUI,
-        new_positions_folder=path.DATASET3_TRAINSET_NOISE_FULL_YOLO_POSITION,
-        # new_gui_folder=path.DATASET3_TESTSET_NOISE_ATTR_YOLO_POSITION_TXT,
-        data_num=100,
-        save_origin_file=True,
-        resort=True)
+    # yolo_position_with_noise_generator(
+    #     yolo_position_folder=path.DATASET3_TRAINSET_ATTR_YOLO_POSITION_TXT,
+    #     # gui_folder=path.DATASET3_TRAINSET_ORIGIN_GUI,
+    #     new_positions_folder=path.DATASET3_TRAINSET_NOISE_ATTR_YOLO_POSITION_TXT,
+    #     # new_gui_folder=path.DATASET3_TRAINSET_NOISE_ORIGIN_GUI,
+    #     data_num=500,
+    #     save_origin_file=True,
+    #     resort=True)
     ''' 
     =================================================================================
     ---------------------- COPY FILES for TestingDataset ----------------------------

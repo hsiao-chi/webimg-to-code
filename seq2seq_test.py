@@ -9,33 +9,38 @@ from general.util import createFolder, showLoss, showAccuracy, read_file, write_
 from keras.models import load_model
 import random
 from evaluationCode.bleu import Bleu
+from evaluationCode.evaluation_error import Eva_error
 
 if __name__ == "__main__":
     INPUT_TYPE = 1
     TARGET_TYPE = 3
-    seq_model_type = SeqModelType.normal.value
+    seq_model_type = SeqModelType.encoder_bidirectional.value
     layer2_lstm = False
     training_data_num = 500
     evaluate_data_num = 500
     eva_record_file_path = path.EVALUATION_SEQ2SEQ_EVALUATION+'pix2code\\'
     eva_record_file_name = 'Arch1_test.txt'
-    predit_data_nums = [500, 100] # train, test
+    predit_data_nums = [10, 5] # train, test
     # predit_test_data = False
     
     bleu_record_file_path =  path.EVALUATION_BLEU_SCORE + 'layout_generate_only\\pix2code\\'
     bleu_record_file_name = 'Arch1_test.txt'
+
+    error_record_file_path =  path.EVALUATION_ERROR_SCORE + 'layout_generate_only\\pix2code\\'
+    error_record_file_name = 'Arch1_test_bn.txt'
     
     gaussian_noise = None  # None
     early_stoping = True
     TRAINING = False
     PREDIT = True
     EVALUATE = False
-    BLEU_SCORE = True
+    BLEU_SCORE = False
+    ERROR_SCORE = True
 
     encoder_config = get_encoder_config(INPUT_TYPE)
     decoder_config = get_decoder_config(TARGET_TYPE)
     final_model_path = path.CLASS_SEQ2SEQ_MODEL_PATH + str(SEQ2SEQ_EPOCHES)+'\\model'+TYPE.H5
-    predit_model_path = final_model_path
+    predit_model_path = r'E:\projects\NTUST\webimg-to-code\assets\2020\seq2seq-pix2code\full-rowcolAttrElement\2500\bidirectional-resort-noise\model\300\model.h5'
     # evaluate_model_path = r'E:\projects\NTUST\webimg-to-code\assets\2020\seq2seq-pix2code\full-rowcolAttrElement\2500\bidirectional-resort-noise\model\300\model.h5'
     evaluate_model_path = final_model_path
 
@@ -95,7 +100,10 @@ if __name__ == "__main__":
 
             if BLEU_SCORE:
                 bleu = Bleu(predit_data_num, 0, encoder_config[data_folder], decoder_config[data_folder], predit_model_path)
+            if ERROR_SCORE:
+                eva_error = Eva_error(0, encoder_config[data_folder], decoder_config[data_folder], predit_model_path)
             for i in range(predit_data_num):
+                reference_gui = None
                 input_seqs = read_file(
                     encoder_config[data_folder]+str(i)+TYPE.TXT, 'splitlines')
                 if len(input_seqs)==0:
@@ -115,11 +123,22 @@ if __name__ == "__main__":
                     reference_gui = read_file(
                         decoder_config[data_folder]+str(i)+TYPE.GUI, 'splitBySpec')
                     bleu.evaluate(decoded_sentence, reference_gui)
+                if ERROR_SCORE:
+                    reference_gui = reference_gui if reference_gui else read_file(
+                        decoder_config[data_folder]+str(i)+TYPE.GUI, 'splitBySpec')
+                    e, l = eva_error.cal_error(decoded_sentence, reference_gui)
+                    print(e, l)
             if BLEU_SCORE:
                 createFolder(bleu_record_file_path)
                 p = bleu_record_file_path+bleu_record_file_name
                 print(p)
                 bleu.save_evaluation(p, valid_data_num)
+            
+            if ERROR_SCORE:
+                createFolder(error_record_file_path)
+                p = error_record_file_path+error_record_file_name
+                print(p)
+                eva_error.get_final_error(p)
 
 
     
