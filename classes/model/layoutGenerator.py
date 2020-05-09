@@ -497,7 +497,7 @@ def seq2seq_train_model(num_input_token, num_target_token,
 
     # Run training
     model.compile(optimizer=optimizer, loss=loss,
-                  metrics=['accuracy'])
+                  metrics=['accuracy', loss])
     model.summary()
     if weight_path:
         model.load_weights(weight_path)
@@ -534,9 +534,9 @@ def seq2seq_evaluate(model: Model, encoder_input_data, decoder_input_data, decod
     decoder_target_data = np.roll(decoder_input_data, -1, axis=1)
     decoder_target_data[:, -1] = 0
     decoder_target_data[:, -1, decoder_target_token['EOS']] = 1
-    loss, acc = model.evaluate(
+    loss, acc, cate = model.evaluate(
         [encoder_input_data, decoder_input_data], decoder_target_data)
-    return_str = "\nLoss: %.4f, Accuracy: %.3f%%" % (loss, acc*100)
+    return_str = "\nLoss: %.4f, Accuracy: %.3f%%, Cate:%.3f%%" % (loss, acc*100, cate)
     print(return_str)
     return return_str
 
