@@ -1,0 +1,27 @@
+{
+    "config": {
+        "input_path": "D:\\Chi\\dataset\\dataset3\\train_set\\noise-500\\full_yolo_position_txt\\",
+        "target_path": "D:\\Chi\\dataset\\dataset3\\train_set\\noise-500\\origin_no_context_gui\\",
+        "model_path": "D:\\Chi\\webimg-to-code\\assets\\2020-4\\seq2seq-data3\\full-rowcolAttrElement\\normal-stack-resort\\2500\\noise\\model\\200\\model.h5",
+        "num_of_data": 500,
+        "start_index": 0
+    },
+    "error_history": [],
+    "final_error_score": {
+        "the_number_of_len_nonequal_data": 496,
+        "error_score": 0.995040287456446
+    }
+}{
+    "config": {
+        "input_path": "D:\\Chi\\dataset\\dataset3\\test_set\\noise\\full_yolo_position_txt\\",
+        "target_path": "D:\\Chi\\dataset\\dataset3\\test_set\\noise\\origin_no_context_gui\\",
+        "model_path": "D:\\Chi\\webimg-to-code\\assets\\2020-4\\seq2seq-data3\\full-rowcolAttrElement\\normal-stack-resort\\2500\\noise\\model\\200\\model.h5",
+        "num_of_data": 100,
+        "start_index": 0
+    },
+    "error_history": [],
+    "final_error_score": {
+        "the_number_of_len_nonequal_data": 99,
+        "error_score": 0.997875
+    }
+}
