@@ -12,28 +12,28 @@ from evaluationCode.bleu import Bleu
 from evaluationCode.evaluation_error import Eva_error
 
 if __name__ == "__main__":
-    INPUT_TYPE = 2
-    TARGET_TYPE = 1
-    seq_model_type = SeqModelType.normal.value
-    layer2_lstm = True
+    INPUT_TYPE = 1
+    TARGET_TYPE = 3
+    seq_model_type = SeqModelType.encoder_bidirectional.value
+    layer2_lstm = False
     training_data_num = 500
     evaluate_data_nums = [500, 100]
     eva_record_file_path = path.EVALUATION_SEQ2SEQ_EVALUATION+'pix2code\\'
-    eva_record_file_name = 'Arch2-0_500_stack_noise_record_e200.txt'
+    eva_record_file_name = 'Arch1(2020)_2500_bidirectional_record.txt'
     predit_data_nums = [500, 100] # train, test
     predit_start_idx = [0,0] # train, test
     # predit_test_data = False
     
     bleu_record_file_path =  path.EVALUATION_BLEU_SCORE + 'layout_generate_only\\2020-04\\pix2code\\'
-    bleu_record_file_name = 'Arch2-0_500_stack_noise_record_e200.txt'
+    bleu_record_file_name = 'Arch1(2020)_2500_bidirectional_record.txt'
 
     error_record_file_path =  path.EVALUATION_ERROR_SCORE + 'layout_generate_only\\pix2code\\'
-    error_record_file_name = 'Arch2-0_500_stack_noise_record_e200.txt'
+    error_record_file_name = 'Arch1(2020)_2500_bidirectional_record.txt'
     
     gaussian_noise = 1  # None
     early_stoping = False
-    TRAINING = True
-    EVALUATE = True
+    TRAINING = False
+    EVALUATE = False
     PREDIT = True
     BLEU_SCORE = True
     ERROR_SCORE = True
@@ -41,7 +41,7 @@ if __name__ == "__main__":
     encoder_config = get_encoder_config(INPUT_TYPE)
     decoder_config = get_decoder_config(TARGET_TYPE)
     final_model_path = path.CLASS_SEQ2SEQ_MODEL_PATH + str(SEQ2SEQ_EPOCHES)+'\\model'+TYPE.H5
-    predit_model_path = final_model_path
+    predit_model_path = 'assets\\2020\\seq2seq-pix2code\\full-rowcolAttrElement\\2500\\bidirectional-resort\\model\\300\\model.h5'
     # evaluate_model_path = r'E:\projects\NTUST\webimg-to-code\assets\2020\seq2seq-pix2code\full-rowcolAttrElement\2500\bidirectional-resort-noise\model\300\model.h5'
     evaluate_model_path = final_model_path
     pretrained_weight_path = None
