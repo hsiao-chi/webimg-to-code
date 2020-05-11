@@ -47,7 +47,8 @@ class YOLO(object):
                  anchors_name='yolo_anchors.txt',
                  classes_name='pix2code_full_classes.txt', **kwargs):
         self._defaults = {
-            "model_path": path.SELF + YOLOPATH +'weight\\'+ model_name,
+            # "model_path": path.SELF + YOLOPATH +'weight\\'+ model_name,
+            "model_path": model_name,
             "anchors_path": path.SELF + YOLOPATH +'model_data\\'+ anchors_name,
             "classes_path": path.SELF + YOLOPATH +'model_data\\'+ classes_name,
             "score": 0.3,
