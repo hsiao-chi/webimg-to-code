@@ -1,0 +1,37 @@
+{
+    "config": {
+        "input_path": "D:\\Chi\\dataset\\pix2code\\full-yolo-noise-resort-txt\\position_txt\\",
+        "target_path": "D:\\Chi\\dataset\\pix2code\\full-yolo-noise-resort-txt\\origin-gui\\",
+        "model_path": "D:\\Chi\\webimg-to-code\\assets\\2020-5\\seq2seq-pix2code\\full-rowcolAttrElement\\normal-stack-resort\\2500\\noise\\model\\200\\model.h5",
+        "num_of_data": "500(498)",
+        "start_index": 0
+    },
+    "BLEU_SCORE": {
+        "individual_1_gram": 0.7490980679359105,
+        "individual_2_gram": 0.6735260201872191,
+        "individual_3_gram": 0.5959169989622274,
+        "individual_4_gram": 0.5300943708434301,
+        "cumulative_1_gram": 0.7490980679359105,
+        "cumulative_2_gram": 0.7095681351531761,
+        "cumulative_3_gram": 0.6708312356734244,
+        "cumulative_4_gram": 0.6288170648681675
+    }
+}{
+    "config": {
+        "input_path": "D:\\Chi\\dataset\\pix2code\\testing-dataset\\seq2seq\\noise\\position-txt\\",
+        "target_path": "D:\\Chi\\dataset\\pix2code\\testing-dataset\\seq2seq\\origin-gui\\",
+        "model_path": "D:\\Chi\\webimg-to-code\\assets\\2020-5\\seq2seq-pix2code\\full-rowcolAttrElement\\normal-stack-resort\\2500\\noise\\model\\200\\model.h5",
+        "num_of_data": "100(100)",
+        "start_index": 0
+    },
+    "BLEU_SCORE": {
+        "individual_1_gram": 0.7755589958118145,
+        "individual_2_gram": 0.6939760622598987,
+        "individual_3_gram": 0.6168044265345403,
+        "individual_4_gram": 0.550389221544678,
+        "cumulative_1_gram": 0.7755589958118145,
+        "cumulative_2_gram": 0.7329421628934679,
+        "cumulative_3_gram": 0.6934326223374357,
+        "cumulative_4_gram": 0.650872176345375
+    }
+}

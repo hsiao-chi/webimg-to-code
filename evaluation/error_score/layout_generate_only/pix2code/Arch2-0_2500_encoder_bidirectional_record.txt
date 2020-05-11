@@ -1,0 +1,55 @@
+{
+    "config": {
+        "input_path": "D:\\Chi\\dataset\\pix2code\\full-yolo-noise-resort-txt\\attr-position_txt\\",
+        "target_path": "D:\\Chi\\dataset\\pix2code\\full-yolo-noise-resort-txt\\origin-gui\\",
+        "model_path": "D:\\Chi\\webimg-to-code\\assets\\2020-5\\seq2seq-pix2code\\attr-rowcolAttrElement\\encoder_bidirectional-resort\\2500\\noise\\model\\200\\model.h5",
+        "num_of_data": 498,
+        "start_index": 0
+    },
+    "error_history": [],
+    "final_error_score": {
+        "the_number_of_len_nonequal_data": 14,
+        "error_score": 0.08370537188107978
+    }
+}{
+    "config": {
+        "input_path": "D:\\Chi\\dataset\\pix2code\\testing-dataset\\seq2seq\\noise\\attr-position-txt\\",
+        "target_path": "D:\\Chi\\dataset\\pix2code\\testing-dataset\\seq2seq\\origin-gui\\",
+        "model_path": "D:\\Chi\\webimg-to-code\\assets\\2020-5\\seq2seq-pix2code\\attr-rowcolAttrElement\\encoder_bidirectional-resort\\2500\\noise\\model\\200\\model.h5",
+        "num_of_data": 100,
+        "start_index": 0
+    },
+    "error_history": [],
+    "final_error_score": {
+        "the_number_of_len_nonequal_data": 23,
+        "error_score": 0.30712329179499387
+    }
+}{"config": {"input_path": "D:\\Chi\\dataset\\pix2code\\full-yolo-noise-resort-txt\\attr-position_txt\\", "target_path": "D:\\Chi\\dataset\\pix2code\\full-yolo-noise-resort-txt\\origin-gui\\", "model_path": "D:\\Chi\\webimg-to-code\\assets\\2020-5\\seq2seq-pix2code\\attr-rowcolAttrElement\\encoder_bidirectional-resort\\2500\\noise\\model\\200\\model.h5", "num_of_data": 1, "start_index": 0}, "error_history": [], "final_error_score": {"the_number_of_len_nonequal_data": 0, "error_score": 0.0}}
+{"config": {"input_path": "D:\\Chi\\dataset\\pix2code\\testing-dataset\\seq2seq\\noise\\attr-position-txt\\", "target_path": "D:\\Chi\\dataset\\pix2code\\testing-dataset\\seq2seq\\origin-gui\\", "model_path": "D:\\Chi\\webimg-to-code\\assets\\2020-5\\seq2seq-pix2code\\attr-rowcolAttrElement\\encoder_bidirectional-resort\\2500\\noise\\model\\200\\model.h5", "num_of_data": 50, "start_index": 50}, "error_history": [], "final_error_score": {"the_number_of_len_nonequal_data": 10, "error_score": 0.28614616233037354}}
+{
+    "config": {
+        "input_path": "D:\\Chi\\dataset\\pix2code\\full-yolo-noise-resort-txt\\attr-position_txt\\",
+        "target_path": "D:\\Chi\\dataset\\pix2code\\full-yolo-noise-resort-txt\\origin-gui\\",
+        "model_path": "D:\\Chi\\webimg-to-code\\assets\\2020-5\\seq2seq-pix2code\\attr-rowcolAttrElement\\encoder_bidirectional-resort\\2500\\noise\\model\\200\\model.h5",
+        "num_of_data": 300,
+        "start_index": 200
+    },
+    "error_history": [],
+    "final_error_score": {
+        "the_number_of_len_nonequal_data": 8,
+        "error_score": 0.08468581137933488
+    }
+}{
+    "config": {
+        "input_path": "D:\\Chi\\dataset\\pix2code\\testing-dataset\\seq2seq\\noise\\attr-position-txt\\",
+        "target_path": "D:\\Chi\\dataset\\pix2code\\testing-dataset\\seq2seq\\origin-gui\\",
+        "model_path": "D:\\Chi\\webimg-to-code\\assets\\2020-5\\seq2seq-pix2code\\attr-rowcolAttrElement\\encoder_bidirectional-resort\\2500\\noise\\model\\200\\model.h5",
+        "num_of_data": 50,
+        "start_index": 50
+    },
+    "error_history": [],
+    "final_error_score": {
+        "the_number_of_len_nonequal_data": 10,
+        "error_score": 0.28614616233037354
+    }
+}
