@@ -27,7 +27,7 @@ if __name__ == "__main__":
     bleu_record_file_name = 'Arch1_test.txt'
 
     error_record_file_path =  path.EVALUATION_ERROR_SCORE + 'layout_generate_only\\pix2code\\'
-    error_record_file_name = 'Arch1_test_bn.txt'
+    error_record_file_name = 'Arch1_test_bn1.txt'
     
     gaussian_noise = None  # None
     early_stoping = True
@@ -126,8 +126,8 @@ if __name__ == "__main__":
                 if ERROR_SCORE:
                     reference_gui = reference_gui if reference_gui else read_file(
                         decoder_config[data_folder]+str(i)+TYPE.GUI, 'splitBySpec')
-                    e, l = eva_error.cal_error(decoded_sentence, reference_gui)
-                    print(e, l)
+                    e= eva_error.cal_error(decoded_sentence, reference_gui)
+                    print(e)
             if BLEU_SCORE:
                 createFolder(bleu_record_file_path)
                 p = bleu_record_file_path+bleu_record_file_name
