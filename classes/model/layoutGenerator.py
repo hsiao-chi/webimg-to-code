@@ -189,7 +189,7 @@ def encoder_bidirectional_predit_model(model: Model, encoder_inputs, decoder_inp
 def encoder_bidirectional_attention_predit_model(model: Model, encoder_inputs, decoder_inputs):
     dh_input = Input(shape=(LSTM_DECODER_DIM*2,), name='input_h')
     dc_input = Input(shape=(LSTM_DECODER_DIM*2,), name='input_c')
-    encoder_each_h_input = Input(shape=(LSTM_DECODER_DIM*2,), name='input_each_h')
+    encoder_each_h_input = Input(shape=(None, LSTM_DECODER_DIM*2), name='input_each_h')
     decoder_states_inputs = [dh_input, dc_input]
 
     e_outputs, efh, efc, ebh, ebc = model.get_layer('encoder_lstm').output
@@ -285,15 +285,16 @@ def seq2seq_predit_model(model: Model, model_type=SeqModelType.normal.value, lay
         else:
             encoder_states, decoder_states, decoder_outputs, decoder_states_inputs = normal_predit_model(model, encoder_inputs, decoder_inputs)
 
-    elif model_type ==SeqModelType.encoder_bidirectional_attention:
+    elif model_type ==SeqModelType.encoder_bidirectional_attention.value:
         if layer2_lstm:
             pass
         else:
-            encoder_states, decoder_states, decoder_outputs, decoder_states_inputs = normal_predit_model(model, encoder_inputs, decoder_inputs)
+            encoder_states, decoder_states, decoder_outputs, decoder_states_inputs = encoder_bidirectional_attention_predit_model(model, encoder_inputs, decoder_inputs)
 
     encoder_model = Model(encoder_inputs, encoder_states)
     encoder_model.summary()
 
+    print('decoder_outputs', decoder_outputs)
     decoder_dense = model.get_layer('decoder_dense')
     decoder_outputs = decoder_dense(decoder_outputs)
     decoder_model = Model(
@@ -559,6 +560,7 @@ def seq2seq_train_model(num_input_token, num_target_token,
 
     decoder_dense = Dense(num_target_token, activation='softmax', name="decoder_dense")
     decoder_outputs = decoder_dense(decoder_outputs)
+    print('decoder_outputs', decoder_outputs)
     model = Model([encoder_inputs, decoder_inputs], decoder_outputs)
 
     # Run training
@@ -623,6 +625,7 @@ max_decoder_seq_length, result_saved_path=None):
     stop_condition = False
     decoded_sentence = []
     len_states_value = len(states_value)
+    print('len_states_value', len_states_value)
     while not stop_condition:
         if len_states_value == 8:
             output_tokens, fh0, fc0, bh0, bc0, fh1, fc1, bh1, bc1 = decoder_model.predict(
@@ -661,7 +664,7 @@ max_decoder_seq_length, result_saved_path=None):
         elif len_states_value == 2:
             states_value = [h, c]
         elif len_states_value == 3:
-            states_value = [h, c]
+            states_value = [states_value[0], h, c]
             
     if result_saved_path:
         write_file(decoded_sentence, result_saved_path, dataDim=1)
