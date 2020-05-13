@@ -3,7 +3,7 @@ import general.path as path
 import general.dataType as TYPE
 from general.util import createFolder, readFile, writeFile, write_file, showLoss, showAccuracy
 from keras.models import Model, Sequential
-from keras.layers import Input, LSTM, Dense, GaussianNoise, Bidirectional, Concatenate
+from keras.layers import Input, LSTM, Dense, GaussianNoise, Bidirectional, concatenate, Concatenate, Activation, dot, TimeDistributed
 from keras import backend as K, callbacks
 from keras.utils import plot_model
 from enum import Enum
@@ -26,6 +26,7 @@ class SeqModelType(Enum):
     normal = 'normal'
     encoder_bidirectional = 'encoder_bidirectional'
     bidirectional = 'bidirectional'
+    encoder_bidirectional_attention = 'encoder_bidirectional_attention'
 
 
 def seq2seq_predit_model_old(model: Model)-> Model:
@@ -92,6 +93,14 @@ def bidirectional_predit_model_old(model: Model, layer2_lstm=False)->Model:
         [decoder_outputs] + decoder_states)
     decoder_model.summary()
     return encoder_model, decoder_model
+
+def attention_section(encoder_outputs, decoder_outputs):
+    attention = dot([decoder_outputs, encoder_outputs], axes=[2, 2], name= "dot1")
+    attention = Activation('softmax', name='attention')(attention)
+    print('attention', attention)
+    context = dot([attention, encoder_outputs], axes=[2,1], name= "context_output")
+    print('context', context)
+    return context
 
 def normal_predit_model(model: Model, encoder_inputs, decoder_inputs):
     dh_input = Input(shape=(LSTM_DECODER_DIM,), name='input_h')
@@ -177,6 +186,25 @@ def encoder_bidirectional_predit_model(model: Model, encoder_inputs, decoder_inp
     decoder_states = [dh, dc]
     return encoder_states, decoder_states, decoder_outputs, decoder_states_inputs
 
+def encoder_bidirectional_attention_predit_model(model: Model, encoder_inputs, decoder_inputs):
+    dh_input = Input(shape=(LSTM_DECODER_DIM*2,), name='input_h')
+    dc_input = Input(shape=(LSTM_DECODER_DIM*2,), name='input_c')
+    encoder_each_h_input = Input(shape=(LSTM_DECODER_DIM*2,), name='input_each_h')
+    decoder_states_inputs = [dh_input, dc_input]
+
+    e_outputs, efh, efc, ebh, ebc = model.get_layer('encoder_lstm').output
+    state_h = Concatenate()([efh,  ebh])
+    state_c = Concatenate()([efc, ebc])
+    decoder_lstm = model.get_layer('decoder_lstm')
+    decoder_outputs, dh, dc = decoder_lstm(decoder_inputs, initial_state=decoder_states_inputs)
+    context = attention_section(encoder_each_h_input, decoder_outputs)
+    decoder_combined_context = concatenate([context, decoder_outputs])
+    print('decoder_combined_context', decoder_combined_context)
+    output = TimeDistributed(Dense(64, activation="tanh"))(decoder_combined_context)
+    encoder_outputs = [e_outputs, state_h, state_c]
+    decoder_states = [dh, dc]
+    return encoder_outputs, decoder_states, output, [encoder_each_h_input]+decoder_states_inputs
+
 def encoder_bidirectional_stack_predit_model(model: Model, encoder_inputs, decoder_inputs):
     dh0_input = Input(shape=(LSTM_DECODER_DIM*2,), name='input_h0')
     dc0_input = Input(shape=(LSTM_DECODER_DIM*2,), name='input_c0')
@@ -254,6 +282,12 @@ def seq2seq_predit_model(model: Model, model_type=SeqModelType.normal.value, lay
     elif model_type==SeqModelType.normal.value:
         if layer2_lstm:
             encoder_states, decoder_states, decoder_outputs, decoder_states_inputs = normal_stack_predit_model(model, encoder_inputs, decoder_inputs)
+        else:
+            encoder_states, decoder_states, decoder_outputs, decoder_states_inputs = normal_predit_model(model, encoder_inputs, decoder_inputs)
+
+    elif model_type ==SeqModelType.encoder_bidirectional_attention:
+        if layer2_lstm:
+            pass
         else:
             encoder_states, decoder_states, decoder_outputs, decoder_states_inputs = normal_predit_model(model, encoder_inputs, decoder_inputs)
 
@@ -356,6 +390,8 @@ def bidirectional_seq2seq_training_model_old(num_input_token, num_target_token, 
 
     return model
 
+
+
 def normal_training_model(encoder_inputs, decoder_inputs):
 
     encoder = LSTM(LSTM_ENCODER_DIM, return_state=True, name="encoder_lstm")
@@ -398,8 +434,31 @@ def bidirectional_stack_training_model(encoder_inputs, decoder_inputs):
 
     return decoder_outputs
 
+def encoder_bidirectional_attention_training_model(encoder_inputs, decoder_inputs):
+    encoder = Bidirectional(LSTM(LSTM_ENCODER_DIM, return_sequences=True, return_state=True), name="encoder_lstm")
+    encoder_outputs, efh, efc, ebh, ebc = encoder(encoder_inputs)
+    print('decoder_outputs', encoder_outputs)
+
+    state_h = Concatenate()([efh,  ebh])
+    state_c = Concatenate()([efc, ebc])
+    encoder_states = [state_h, state_c]
+    decoder_lstm = LSTM(LSTM_DECODER_DIM*2, return_sequences=True, return_state=True, name="decoder_lstm")
+    decoder_outputs, _, _, = decoder_lstm(decoder_inputs, initial_state=encoder_states)
+    print('decoder_outputs', decoder_outputs)
+    # attention = dot([decoder_outputs, encoder_outputs], axes=[2, 2])
+    # attention = Activation('softmax', name='attention')(attention)
+    # print('attention', attention)
+    # context = dot([attention, encoder_outputs], axes=[2,1])
+    # print('context', context)
+    context = attention_section(encoder_outputs, decoder_outputs)
+    decoder_combined_context = concatenate([context, decoder_outputs])
+    print('decoder_combined_context', decoder_combined_context)
+    output = TimeDistributed(Dense(64, activation="tanh"))(decoder_combined_context)
+    print('output', output)
+    return output
+
 def encoder_bidirectional_training_model(encoder_inputs, decoder_inputs):
-    encoder = Bidirectional(LSTM(LSTM_ENCODER_DIM, return_state=True), name="encoder_lstm")
+    encoder = Bidirectional(LSTM(LSTM_ENCODER_DIM, return_sequences=True, return_state=True), name="encoder_lstm")
     encoder_outputs, efh, efc, ebh, ebc = encoder(encoder_inputs)
     state_h = Concatenate()([efh,  ebh])
     state_c = Concatenate()([efc, ebc])
@@ -490,6 +549,13 @@ def seq2seq_train_model(num_input_token, num_target_token,
             decoder_outputs = normal_stack_training_model(_encoder_input, decoder_inputs)
         else:
             decoder_outputs = normal_training_model(_encoder_input, decoder_inputs)
+    elif model_type == SeqModelType.encoder_bidirectional_attention.value:
+        if layer2_lstm:
+            # decoder_outputs = encoder_bidirectional_stack_training_model(_encoder_input, decoder_inputs)
+            pass
+        else:
+            decoder_outputs = encoder_bidirectional_attention_training_model(_encoder_input, decoder_inputs)
+    
 
     decoder_dense = Dense(num_target_token, activation='softmax', name="decoder_dense")
     decoder_outputs = decoder_dense(decoder_outputs)
@@ -567,6 +633,9 @@ max_decoder_seq_length, result_saved_path=None):
         elif len_states_value == 2:
             output_tokens, h, c = decoder_model.predict(
                 [target_seq] + states_value)
+        elif len_states_value == 3:
+            output_tokens, h, c = decoder_model.predict(
+                [target_seq] + states_value)
 
         # Sample a token
         sampled_token_index = np.argmax(output_tokens[0, -1, :])
@@ -591,6 +660,9 @@ max_decoder_seq_length, result_saved_path=None):
             states_value = [fh, fc, bh, bc]
         elif len_states_value == 2:
             states_value = [h, c]
+        elif len_states_value == 3:
+            states_value = [h, c]
+            
     if result_saved_path:
         write_file(decoded_sentence, result_saved_path, dataDim=1)
     return decoded_sentence

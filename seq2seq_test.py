@@ -14,7 +14,7 @@ from evaluationCode.evaluation_error import Eva_error
 if __name__ == "__main__":
     INPUT_TYPE = 1
     TARGET_TYPE = 3
-    seq_model_type = SeqModelType.encoder_bidirectional.value
+    seq_model_type = SeqModelType.encoder_bidirectional_attention.value
     layer2_lstm = False
     training_data_num = 500
     evaluate_data_num = 500
@@ -33,8 +33,8 @@ if __name__ == "__main__":
     early_stoping = True
     TRAINING = False
     PREDIT = True
-    EVALUATE = False
-    BLEU_SCORE = False
+    EVALUATE = True
+    BLEU_SCORE = True
     ERROR_SCORE = True
 
     encoder_config = get_encoder_config(INPUT_TYPE)
@@ -85,7 +85,7 @@ if __name__ == "__main__":
         str_testing_result = seq2seq_evaluate(load_model(evaluate_model_path), encoder_input_data,
                          decoder_input_data, decoder_target_tokens)
         evaluate_save_text = str_model_path+str_training+str_training_result+str_testing+str_testing_result
-        write_file(evaluate_save_text, dataDim=0)
+        write_file(evaluate_save_text, eva_record_file_path+eva_record_file_name, dataDim=0)
         
     
     if PREDIT:
