@@ -68,6 +68,7 @@ if __name__ == "__main__":
                                                   enable_early_stopping=early_stoping)
 
     if EVALUATE:
+        createFolder(eva_record_file_path)
         evaluate_save_text=''
         str_model_path = 'evaluated Model path: \n{}'.format(evaluate_model_path)
         str_training = '\ntraining data path: \n encoder: {}\n decoder: {}'.format(encoder_config['data_folder'], decoder_config['data_folder'])
@@ -120,7 +121,8 @@ if __name__ == "__main__":
                                                 result_saved_path=path.CLASS_SEQ2SEQ_PREDIT_GUI_PATH + str(SEQ2SEQ_EPOCHES)+'\\'+str(i)+TYPE.GUI
                                                 )
                 
-                print('decoded_sentence length: ', i, len(decoded_sentence)) if i%50==0 and BLEU_SCORE else None
+                # print('decoded_sentence length: ', i, len(decoded_sentence)) if i%50==0 and BLEU_SCORE else None
+                print('decoded_sentence length: ', i, decoded_sentence) 
 
                 if BLEU_SCORE:
                     reference_gui = read_file(
