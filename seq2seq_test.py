@@ -14,7 +14,7 @@ from evaluationCode.evaluation_error import Eva_error
 if __name__ == "__main__":
     INPUT_TYPE = 1
     TARGET_TYPE = 3
-    seq_model_type = SeqModelType.encoder_bidirectional.value
+    seq_model_type = SeqModelType.encoder_bidirectional_attention.value
     layer2_lstm = False
     training_data_num = 500
     evaluate_data_num = 500
@@ -34,13 +34,13 @@ if __name__ == "__main__":
     TRAINING = False
     PREDIT = True
     EVALUATE = False
-    BLEU_SCORE = False
+    BLEU_SCORE = True
     ERROR_SCORE = True
 
     encoder_config = get_encoder_config(INPUT_TYPE)
     decoder_config = get_decoder_config(TARGET_TYPE)
     final_model_path = path.CLASS_SEQ2SEQ_MODEL_PATH + str(SEQ2SEQ_EPOCHES)+'\\model'+TYPE.H5
-    predit_model_path = r'E:\projects\NTUST\webimg-to-code\assets\2020\seq2seq-pix2code\full-rowcolAttrElement\2500\bidirectional-resort-noise\model\300\model.h5'
+    predit_model_path = final_model_path
     # evaluate_model_path = r'E:\projects\NTUST\webimg-to-code\assets\2020\seq2seq-pix2code\full-rowcolAttrElement\2500\bidirectional-resort-noise\model\300\model.h5'
     evaluate_model_path = final_model_path
 
@@ -66,6 +66,7 @@ if __name__ == "__main__":
                                                   enable_early_stopping=early_stoping)
 
     if EVALUATE:
+        createFolder(eva_record_file_path)
         evaluate_save_text=''
         str_model_path = 'evaluated Model path: \n{}'.format(evaluate_model_path)
         str_training = '\ntraining data path: \n encoder: {}\n decoder: {}'.format(encoder_config['data_folder'], decoder_config['data_folder'])
@@ -85,7 +86,7 @@ if __name__ == "__main__":
         str_testing_result = seq2seq_evaluate(load_model(evaluate_model_path), encoder_input_data,
                          decoder_input_data, decoder_target_tokens)
         evaluate_save_text = str_model_path+str_training+str_training_result+str_testing+str_testing_result
-        write_file(evaluate_save_text, dataDim=0)
+        write_file(evaluate_save_text, eva_record_file_path+eva_record_file_name, dataDim=0)
         
     
     if PREDIT:
@@ -117,7 +118,8 @@ if __name__ == "__main__":
                                                 #   result_saved_path=path.CLASS_SEQ2SEQ_PREDIT_GUI_PATH + str(SEQ2SEQ_EPOCHES)+'\\'+str(i)+TYPE.GUI
                                                 )
                 
-                print('decoded_sentence length: ', i, len(decoded_sentence)) if i%50==0 and BLEU_SCORE else None
+                # print('decoded_sentence length: ', i, len(decoded_sentence)) if i%50==0 and BLEU_SCORE else None
+                print('decoded_sentence length: ', i, decoded_sentence) 
 
                 if BLEU_SCORE:
                     reference_gui = read_file(
