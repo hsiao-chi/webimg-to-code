@@ -31,7 +31,7 @@ if __name__ == "__main__":
     
     gaussian_noise = None  # None
     early_stoping = True
-    TRAINING = False
+    TRAINING = True
     PREDIT = True
     EVALUATE = False
     BLEU_SCORE = True
