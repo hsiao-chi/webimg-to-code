@@ -1,0 +1,11 @@
+evaluated Model path: 
+D:\Chi\webimg-to-code\assets\2020-4\seq2seq-pix2code\full-rowcolAttrElement\ebiLSTM-attention-64-resort\500\noise\model\200\model.h5
+training data path: 
+ encoder: D:\Chi\dataset\pix2code\full-yolo-position-txt\
+ decoder: D:\Chi\dataset\pix2code\row-col-attribute-gui\
+Loss: 0.0430, Accuracy: 97.748%, Cate:0.043%
+
+testing data path: 
+ encoder: D:\Chi\dataset\pix2code\testing-dataset\seq2seq\position-txt\
+ decoder: D:\Chi\dataset\pix2code\testing-dataset\seq2seq\attr-gui\
+Loss: 0.0459, Accuracy: 97.568%, Cate:0.046%

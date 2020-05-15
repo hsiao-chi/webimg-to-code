@@ -5,14 +5,15 @@ from general.util import createFolder, readFile, writeFile, write_file, showLoss
 from keras.models import Model, Sequential
 from keras.layers import Input, LSTM, Dense, GaussianNoise, Bidirectional, concatenate, Concatenate, Activation, dot, TimeDistributed
 from keras import backend as K, callbacks
+from keras import activations
 from keras.utils import plot_model
 from enum import Enum
 import numpy as np
 import tensorflow as tf
 K.tensorflow_backend._get_available_gpus()
 
-LSTM_ENCODER_DIM = 256  # Latent dimensionality of the encoding space.
-LSTM_DECODER_DIM = 256
+LSTM_ENCODER_DIM = 64  # Latent dimensionality of the encoding space.
+LSTM_DECODER_DIM = 64
 BATCH_SIZE = 64  # Batch size for training.
 SEQ2SEQ_EPOCHES = 200  # Number of epochs to train for.
 MODE_SAVE_PERIOD = 100
@@ -94,9 +95,12 @@ def bidirectional_predit_model_old(model: Model, layer2_lstm=False)->Model:
     decoder_model.summary()
     return encoder_model, decoder_model
 
+def softMax1(x):
+    return activations.softmax(x, axis=-1)
+
 def attention_section(encoder_outputs, decoder_outputs):
     attention = dot([decoder_outputs, encoder_outputs], axes=[2, 2], name= "dot1")
-    attention = Activation('softmax', name='attention')(attention)
+    attention = Activation(softMax1, name='attention')(attention)
     print('attention', attention)
     context = dot([attention, encoder_outputs], axes=[2,1], name= "context_output")
     print('context', context)
@@ -200,7 +204,7 @@ def encoder_bidirectional_attention_predit_model(model: Model, encoder_inputs, d
     context = attention_section(encoder_each_h_input, decoder_outputs)
     decoder_combined_context = concatenate([context, decoder_outputs])
     print('decoder_combined_context', decoder_combined_context)
-    output = TimeDistributed(Dense(64, activation="tanh"))(decoder_combined_context)
+    output = TimeDistributed(Dense(LSTM_DECODER_DIM, activation="tanh"))(decoder_combined_context)
     encoder_outputs = [e_outputs, state_h, state_c]
     decoder_states = [dh, dc]
     return encoder_outputs, decoder_states, output, [encoder_each_h_input]+decoder_states_inputs
@@ -454,7 +458,7 @@ def encoder_bidirectional_attention_training_model(encoder_inputs, decoder_input
     context = attention_section(encoder_outputs, decoder_outputs)
     decoder_combined_context = concatenate([context, decoder_outputs])
     print('decoder_combined_context', decoder_combined_context)
-    output = TimeDistributed(Dense(64, activation="tanh"))(decoder_combined_context)
+    output = TimeDistributed(Dense(LSTM_DECODER_DIM, activation="tanh"))(decoder_combined_context)
     print('output', output)
     return output
 
@@ -558,7 +562,7 @@ def seq2seq_train_model(num_input_token, num_target_token,
             decoder_outputs = encoder_bidirectional_attention_training_model(_encoder_input, decoder_inputs)
     
 
-    decoder_dense = Dense(num_target_token, activation='softmax', name="decoder_dense")
+    decoder_dense = TimeDistributed(Dense(num_target_token, activation='softmax'),  name="decoder_dense")
     decoder_outputs = decoder_dense(decoder_outputs)
     print('decoder_outputs', decoder_outputs)
     model = Model([encoder_inputs, decoder_inputs], decoder_outputs)
@@ -625,7 +629,7 @@ max_decoder_seq_length, result_saved_path=None):
     stop_condition = False
     decoded_sentence = []
     len_states_value = len(states_value)
-    print('len_states_value', len_states_value)
+    # print('len_states_value', len_states_value)
     while not stop_condition:
         if len_states_value == 8:
             output_tokens, fh0, fc0, bh0, bc0, fh1, fc1, bh1, bc1 = decoder_model.predict(
@@ -639,10 +643,10 @@ max_decoder_seq_length, result_saved_path=None):
         elif len_states_value == 3:
             output_tokens, h, c = decoder_model.predict(
                 [target_seq] + states_value)
-
         # Sample a token
         sampled_token_index = np.argmax(output_tokens[0, -1, :])
         sampled_token = reverse_decoder_tokens[sampled_token_index]
+        # print('output_tokens', output_tokens)
         if sampled_token != 'EOS':
             decoded_sentence.append(sampled_token)
 
