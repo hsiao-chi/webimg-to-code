@@ -137,7 +137,7 @@ def generate(model: Model, encoder_input_list, encoder_config, max_output_len, g
     for i in range(max_output_len):
         output = model.predict([encoder_input, decoder_input]).argmax(axis=2)
         decoder_input[:,i] = output[:,i]
-        if output[:,i] == eos:
+        if output[:,i] == eos: 
             break
     decoder_output=[]
     print('decoder_input', decoder_input)
