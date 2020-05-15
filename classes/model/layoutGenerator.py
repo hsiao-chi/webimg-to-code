@@ -531,8 +531,8 @@ def seq2seq_train_model(num_input_token, num_target_token,
                         optimizer='rmsprop', loss='categorical_crossentropy',
                         weight_path=None, gaussian_noise=1, model_type=SeqModelType.normal.value, layer2_lstm=False):
 
-    encoder_inputs = Input(shape=(None, num_input_token), name="encoder_input")
-    decoder_inputs = Input(shape=(None, num_target_token), name="decoder_input")
+    encoder_inputs = Input(shape=(10, num_input_token), name="encoder_input")
+    decoder_inputs = Input(shape=(20, num_target_token), name="decoder_input")
     _encoder_input = encoder_inputs
     if gaussian_noise != None:
         encoder_noice = GaussianNoise(1, name="gaussian_noise")(encoder_inputs)
@@ -647,6 +647,56 @@ max_decoder_seq_length, result_saved_path=None):
         sampled_token_index = np.argmax(output_tokens[0, -1, :])
         sampled_token = reverse_decoder_tokens[sampled_token_index]
         # print('output_tokens', output_tokens)
+        if sampled_token != 'EOS':
+            decoded_sentence.append(sampled_token)
+
+        # Exit condition: either hit max length
+        # or find stop character.
+        if (sampled_token == 'EOS' or
+                len(decoded_sentence) > max_decoder_seq_length):
+            stop_condition = True
+
+        # Update the target sequence (of length 1).
+        target_seq = np.zeros((1, 1, len(decoder_tokens)))
+        target_seq[0, 0, sampled_token_index] = 1.
+
+        # Update states
+        if len_states_value == 8:
+            states_value = [fh0, fc0, bh0, bc0, fh1, fc1, bh1, bc1]
+        elif len_states_value == 4:
+            states_value = [fh, fc, bh, bc]
+        elif len_states_value == 2:
+            states_value = [h, c]
+        elif len_states_value == 3:
+            states_value = [states_value[0], h, c]
+            
+    if result_saved_path:
+        write_file(decoded_sentence, result_saved_path, dataDim=1)
+    return decoded_sentence
+
+
+def atention_seq2seq_predit(model: Model,input_seq, decoder_tokens, 
+max_decoder_seq_length, result_saved_path=None):
+
+    # Generate empty target sequence of length 1.
+    decoder_input  = np.zeros((1, 300, len(decoder_tokens)))
+    # Populate the first character of target sequence with the start character.
+    decoder_input [:, :, decoder_tokens['START']] = 1.
+
+    reverse_decoder_tokens = dict(
+        (i, token) for token, i in decoder_tokens.items())
+    # Sampling loop for a batch of sequences
+    # (to simplify, here we assume a batch of size 1).
+    stop_condition = False
+    decoded_sentence = []
+    len_states_value = len(states_value)
+    while not stop_condition:
+        output, h,c = model.predict([target_seq, ])
+      
+
+        # Sample a token
+        sampled_token_index = np.argmax(output_tokens[0, -1, :])
+        sampled_token = reverse_decoder_tokens[sampled_token_index]
         if sampled_token != 'EOS':
             decoded_sentence.append(sampled_token)
 

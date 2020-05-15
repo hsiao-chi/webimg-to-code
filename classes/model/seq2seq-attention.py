@@ -68,4 +68,10 @@ def attention_biLSTM_train_model(Tx, Ty, n_a, n_s, num_input_token, num_target_t
     encoder_inputs = Input(shape=(None, num_input_token), name="encoder_input")
     decoder_inputs = Input(shape=(None, num_target_token), name="decoder_input")
 
-    pass
+
+def biLSTM_attention_predit(model, seq):
+    while not stop_condition:
+    for i in range(1, OUTPUT_LENGTH):
+        output = model.predict([encoder_input, decoder_input]).argmax(axis=2)
+        decoder_input[:,i] = output[:,i]
+    return decoder_input[:,1:]
