@@ -32,11 +32,11 @@ def gui_to_decoder_input(data_folder, data_num, start_index):
 
 if __name__ == "__main__":
     INPUT_TYPE = 1
-    TARGET_TYPE = 3
+    TARGET_TYPE = 1
     # seq_model_type = SeqModelType.encoder_bidirectional_attention.value
     num_encoder_input_vec=5 #5 or 15
     max_encoder_len=50
-    max_decoder_len=250
+    max_decoder_len=100
     layer2_lstm = False
     training_data_num = 500
     training_start_idx = 0
@@ -54,7 +54,7 @@ if __name__ == "__main__":
     
     gaussian_noise = None  # None
     early_stoping = False
-    TRAINING = False
+    TRAINING = True
     PREDIT = True
     EVALUATE = False
     BLEU_SCORE = False

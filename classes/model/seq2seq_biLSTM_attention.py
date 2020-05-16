@@ -9,7 +9,7 @@ import general.dataType as TYPE
 ENCODER_LSTM_VEC = 64
 DECODER_LSTM_VEC = 64
 WORD_EMBD_VEC = 64
-SEQ2SEQ_EPOCHES = 10
+SEQ2SEQ_EPOCHES = 300
 MODE_SAVE_PERIOD = 100
 BATCH_SIZE=64
 
@@ -111,7 +111,7 @@ encoder_config, decoder_config, checkpoint_folder, analysis_saved_folder, final_
 
     # print('training_decoder_input: ', training_decoder_input.shape, '\n', training_decoder_input)
     # print('training_decoder_output: ', training_decoder_output.shape, '\n', training_decoder_output)
-
+    createFolder(checkpoint_folder + str(SEQ2SEQ_EPOCHES))
     mc = callbacks.ModelCheckpoint(checkpoint_folder + str(SEQ2SEQ_EPOCHES) + '\\seq2seq-weights{epoch:05d}.h5',
                                    save_weights_only=True, period=MODE_SAVE_PERIOD)
     history = model.fit([training_encoder_input, training_decoder_input], training_decoder_output,
@@ -134,7 +134,8 @@ def generate(model: Model, encoder_input_list, encoder_config, max_output_len, g
     decoder_input = np.zeros(shape=(len(encoder_input), max_output_len))
     decoder_input[:,0] = gui_token_dict.index('START')
     eos = gui_token_dict.index('EOS')
-    for i in range(max_output_len):
+    # decoder_input[:,1:] = eos
+    for i in range(1,max_output_len):
         output = model.predict([encoder_input, decoder_input]).argmax(axis=2)
         decoder_input[:,i] = output[:,i]
         if output[:,i] == eos: 
