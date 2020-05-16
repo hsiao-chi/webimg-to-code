@@ -2,7 +2,7 @@ from keras.models import Model, Sequential
 from keras.layers import Input, LSTM, Dense, GaussianNoise, Bidirectional, concatenate, Concatenate, Activation, dot, TimeDistributed, Embedding
 from keras import backend as K, callbacks
 import numpy as np
-from classes.data2Input import to_Seq2Seq_encoder_input, encoder_tokens_list_to_dict
+from classes.data2Input import to_Seq2Seq_encoder_input, encoder_tokens_list_to_dict, decoder_tokens_list_to_dict
 from general.util import createFolder, write_file, showLoss, showAccuracy
 import general.dataType as TYPE
 
@@ -45,12 +45,14 @@ def lstm_attention_model(num_encoder_input_vec: int, max_decoder_output_length=3
 
 
 def mapping_gui_skeleton_token_index(seqs, token_list: list, max_len):
+    token_dict = decoder_tokens_list_to_dict(token_list, 1)
+    print('token_dict', token_dict)
     temp=[]
     _max_len = max_len
-    eos = token_list.index('EOS')
+    # eos = token_list.index('EOS')
     for seq in seqs:
-        t = [token_list.index(t) for t in seq]
-        t = [token_list.index('START')]+t+[eos]
+        t = [token_dict[t] for t in seq]
+        t = [token_dict['START']]+t+[token_dict['EOS']]
         _max_len = max(_max_len, len(t))
         temp.append(t)
     target = np.zeros((len(temp), _max_len))
@@ -59,7 +61,7 @@ def mapping_gui_skeleton_token_index(seqs, token_list: list, max_len):
             try:
                 target[idx, j] = temp[idx][j]
             except IndexError:
-                target[idx, j] = eos
+                target[idx, j] = token_dict['EOS']
     return target
 
 def to_batch_encoder_input(input_seqs_list: list, encoder_config, max_len=50) -> np.array:
@@ -107,10 +109,11 @@ encoder_config, decoder_config, checkpoint_folder, analysis_saved_folder, final_
     training_decoder_input = mapping_gui_skeleton_token_index(decoder_input_list, decoder_config['token_list'], decoder_max_len)
     _training_decoder_output = np.roll(training_decoder_input, -1, axis=1)
     _training_decoder_output[:, -1] = _training_decoder_output[:, -2]
-    training_decoder_output=np.eye(len(decoder_config['token_list']))[_training_decoder_output.astype('int')]
+    training_decoder_output=np.eye(len(decoder_config['token_list'])+1)[_training_decoder_output.astype('int')]
 
-    # print('training_decoder_input: ', training_decoder_input.shape, '\n', training_decoder_input)
-    # print('training_decoder_output: ', training_decoder_output.shape, '\n', training_decoder_output)
+    print('training_decoder_input: ', training_decoder_input.shape, '\n', training_decoder_input)
+    print('_training_decoder_output: ', _training_decoder_output.shape, '\n', _training_decoder_output)
+    print('training_decoder_output: ', training_decoder_output.shape, '\n', training_decoder_output)
 
     mc = callbacks.ModelCheckpoint(checkpoint_folder + str(SEQ2SEQ_EPOCHES) + '\\seq2seq-weights{epoch:05d}.h5',
                                    save_weights_only=True, period=MODE_SAVE_PERIOD)
@@ -129,20 +132,22 @@ encoder_config, decoder_config, checkpoint_folder, analysis_saved_folder, final_
     return model
 
 
-def generate(model: Model, encoder_input_list, encoder_config, max_output_len, gui_token_dict: list):
-    encoder_input = to_Seq2Seq_encoder_input(encoder_input_list, encoder_config)
+def generate(model: Model, encoder_input_list, encoder_config, max_output_len, gui_token_dict: list, encoder_max_len=50, decoder_max_len=250):
+    decoder_token_dict = decoder_tokens_list_to_dict(gui_token_dict, 1)
+    encoder_input = to_batch_encoder_input(encoder_input_list, encoder_config, max_len=encoder_max_len)
     decoder_input = np.zeros(shape=(len(encoder_input), max_output_len))
-    decoder_input[:,0] = gui_token_dict.index('START')
-    eos = gui_token_dict.index('EOS')
-    for i in range(max_output_len):
+    decoder_input[:,0] = decoder_token_dict['START']
+    # eos = gui_token_dict.index('EOS')
+    # decoder_input[:,1:] = eos
+    for i in range(1,max_output_len):
         output = model.predict([encoder_input, decoder_input]).argmax(axis=2)
         decoder_input[:,i] = output[:,i]
-        if output[:,i] == eos: 
+        if output[:,i] == decoder_token_dict['EOS']: 
             break
     decoder_output=[]
     print('decoder_input', decoder_input)
     for i in range(max_output_len):
-        if decoder_input[0][i] != eos:
+        if decoder_input[0][i] != decoder_token_dict['EOS']:
             decoder_output.append(gui_token_dict[decoder_input[0][i].astype('int')])
         else:
             break

@@ -51,7 +51,7 @@ if __name__ == "__main__":
     =================================================================================
     '''
 
-    for i in range(700, 800):
+    for i in range(701, 800):
         root = tk.Tk()
         app = ManualTagClass(root, buttonList, path.DATASET1_ORIGIN_PNG + str(i) + TYPE.IMG,
                              path.DATASET1_ROWCOL_YOLO_POSITION_TXT + str(i) + TYPE.TXT, path.DATASET1_FULL_YOLO_POSITION_TXT + str(i)+TYPE.TXT)
