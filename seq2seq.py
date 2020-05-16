@@ -38,7 +38,7 @@ if __name__ == "__main__":
     max_encoder_len=50
     max_decoder_len=100
     layer2_lstm = False
-    training_data_num = 500
+    training_data_num = 2
     training_start_idx = 0
     evaluate_data_num = 500
     eva_record_file_path = path.EVALUATION_SEQ2SEQ_EVALUATION+'pix2code\\'
@@ -78,7 +78,7 @@ if __name__ == "__main__":
 
         seq2seq_training_model = lstm_attention_model(num_encoder_input_vec=num_encoder_input_vec, 
                 max_decoder_output_length=max_decoder_len, 
-                output_dict_size=len(decoder_config['token_list']))
+                output_dict_size=len(decoder_config['token_list'])+1)
         seq2seq_training_model = lstm_attention_training(seq2seq_training_model, 
                 encoder_input_list=encoder_train_input,
                 decoder_input_list=decoder_train_input,

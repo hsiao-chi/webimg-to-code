@@ -7,8 +7,8 @@ from general.util import createFolder, read_file, write_file
 from PIL import Image
 
 
-def decoder_tokens_list_to_dict(decoder_token_list: list) -> dict:
-    return {e: i for i, e in enumerate(decoder_token_list)}
+def decoder_tokens_list_to_dict(decoder_token_list: list, start_idx=0) -> dict:
+    return {e: start_idx+i for i, e in enumerate(decoder_token_list)}
 
 def encoder_tokens_list_to_dict(encoder_token_list, class_mode=False):
     encoder_tokens = None
