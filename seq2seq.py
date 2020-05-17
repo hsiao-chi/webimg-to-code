@@ -135,10 +135,12 @@ if __name__ == "__main__":
                 
                 input_seqs = [seq.split() for seq in input_seqs]
                 decoded_sentence = generate(model, 
-                encoder_input_list=input_seqs,
-                encoder_config=encoder_config,
-                max_output_len=max_decoder_len,
-                gui_token_dict=decoder_config['token_list'])
+                        encoder_input_list=input_seqs,
+                        encoder_config=encoder_config,
+                        gui_token_dict=decoder_config['token_list'],
+                        decoder_max_len =max_decoder_len,
+                        encoder_max_len= max_encoder_len,
+                        )
                 
                 # print('decoded_sentence length: ', i, len(decoded_sentence)) if i%50==0 and BLEU_SCORE else None
                 print('decoded_sentence length: ', i, decoded_sentence) 

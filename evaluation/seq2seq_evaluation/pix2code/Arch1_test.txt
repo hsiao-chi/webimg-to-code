@@ -1,0 +1,11 @@
+evaluated Model path: 
+E:\projects\NTUST\webimg-to-code\assets\2020\seq2seq-trycode-pix2code\full-rowcolAttrElement\500\attention\model\10\model.h5
+training data path: 
+ encoder: E:\projects\NTUST\webimg-to-code\dataset\pix2code\full-yolo-position-txt\
+ decoder: E:\projects\NTUST\webimg-to-code\dataset\pix2code\row-col-attribute-gui\
+Loss: 1.9861, Accuracy: 43.626%
+
+testing data path: 
+ encoder: E:\projects\NTUST\webimg-to-code\dataset\pix2code\testing-dataset\seq2seq\position-txt\
+ decoder: E:\projects\NTUST\webimg-to-code\dataset\pix2code\testing-dataset\seq2seq\attr-gui\
+Loss: 1.5589, Accuracy: 55.877%

@@ -14,7 +14,7 @@ from evaluationCode.evaluation_error import Eva_error
 if __name__ == "__main__":
     INPUT_TYPE = 1
     TARGET_TYPE = 3
-    seq_model_type = SeqModelType.encoder_bidirectional_attention.value
+    seq_model_type = SeqModelType.normal_attention.value
     layer2_lstm = False
     training_data_num = 500
     evaluate_data_nums = [500, 100]
@@ -114,7 +114,7 @@ if __name__ == "__main__":
                     valid_data_num -= 1
                     continue
                 input_seqs = [seq.split() for seq in input_seqs]
-                # print('input_seqs', input_seqs)
+                print('encoder input seq len', len(input_seqs))
                 input_seq = to_Seq2Seq_encoder_input(input_seqs, encoder_config)
                 # print(input_seq)
                 decoded_sentence = seq2seq_predit(encoder_model, decoder_model,
