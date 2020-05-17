@@ -38,7 +38,7 @@ if __name__ == "__main__":
     max_encoder_len=50
     max_decoder_len=100
     layer2_lstm = False
-    training_data_num = 2
+    training_data_num = 500
     training_start_idx = 0
     evaluate_data_num = 500
     eva_record_file_path = path.EVALUATION_SEQ2SEQ_EVALUATION+'pix2code\\'
@@ -54,7 +54,7 @@ if __name__ == "__main__":
     
     gaussian_noise = None  # None
     early_stoping = False
-    TRAINING = True
+    TRAINING = False
     PREDIT = True
     EVALUATE = False
     BLEU_SCORE = False

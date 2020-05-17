@@ -134,9 +134,12 @@ encoder_config, decoder_config, checkpoint_folder, analysis_saved_folder, final_
 
 def generate(model: Model, encoder_input_list, encoder_config, max_output_len, gui_token_dict: list, encoder_max_len=50, decoder_max_len=250):
     decoder_token_dict = decoder_tokens_list_to_dict(gui_token_dict, 1)
-    encoder_input = to_batch_encoder_input(encoder_input_list, encoder_config, max_len=encoder_max_len)
+    print('decoder_token_dict', decoder_token_dict)
+    encoder_input = to_batch_encoder_input([encoder_input_list], encoder_config, max_len=encoder_max_len)
+    print('encoder_input', encoder_input)
     decoder_input = np.zeros(shape=(len(encoder_input), max_output_len))
     decoder_input[:,0] = decoder_token_dict['START']
+    print('decoder_input', decoder_input.shape, decoder_input)
     # eos = gui_token_dict.index('EOS')
     # decoder_input[:,1:] = eos
     for i in range(1,max_output_len):
@@ -148,7 +151,7 @@ def generate(model: Model, encoder_input_list, encoder_config, max_output_len, g
     print('decoder_input', decoder_input)
     for i in range(max_output_len):
         if decoder_input[0][i] != decoder_token_dict['EOS']:
-            decoder_output.append(gui_token_dict[decoder_input[0][i].astype('int')])
+            decoder_output.append(gui_token_dict[decoder_input[0][i].astype('int')-1])
         else:
             break
     return decoder_output
