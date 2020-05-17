@@ -14,13 +14,13 @@ from evaluationCode.evaluation_error import Eva_error
 if __name__ == "__main__":
     INPUT_TYPE = 1
     TARGET_TYPE = 3
-    seq_model_type = SeqModelType.encoder_bidirectional_attention.value
+    seq_model_type = SeqModelType.normal_attention.value
     layer2_lstm = False
-    training_data_num = 500
-    evaluate_data_num = 500
+    training_data_num = 5
+    evaluate_data_num = 5
     eva_record_file_path = path.EVALUATION_SEQ2SEQ_EVALUATION+'pix2code\\'
     eva_record_file_name = 'Arch1_test.txt'
-    predit_data_nums = [10, 5] # train, test
+    predit_data_nums = [1, 0] # train, test
     # predit_test_data = False
     
     bleu_record_file_path =  path.EVALUATION_BLEU_SCORE + 'layout_generate_only\\pix2code\\'
@@ -33,9 +33,9 @@ if __name__ == "__main__":
     early_stoping = True
     TRAINING = True
     PREDIT = True
-    EVALUATE = False
-    BLEU_SCORE = True
-    ERROR_SCORE = True
+    EVALUATE = True
+    BLEU_SCORE = False
+    ERROR_SCORE = False
 
     encoder_config = get_encoder_config(INPUT_TYPE)
     decoder_config = get_decoder_config(TARGET_TYPE)
@@ -111,6 +111,7 @@ if __name__ == "__main__":
                     valid_data_num -= 1
                     continue
                 input_seqs = [seq.split() for seq in input_seqs]
+                print('encoder input seq len', len(input_seqs))
                 input_seq = to_Seq2Seq_encoder_input(input_seqs, encoder_config)
                 decoded_sentence = seq2seq_predit(encoder_model, decoder_model,
                                                 input_seq=input_seq, decoder_tokens=decoder_target_tokens,
