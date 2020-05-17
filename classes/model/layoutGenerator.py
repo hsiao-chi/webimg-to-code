@@ -24,6 +24,7 @@ NUM_SAMPLE = 10000  # Number of samples to train on.
 
 class SeqModelType(Enum):
     normal = 'normal'
+    normal_attention = 'normal_attention'
     encoder_bidirectional = 'encoder_bidirectional'
     bidirectional = 'bidirectional'
     encoder_bidirectional_attention = 'encoder_bidirectional_attention'
@@ -113,6 +114,25 @@ def normal_predit_model(model: Model, encoder_inputs, decoder_inputs):
     decoder_states = [dh, dc]
     return encoder_states, decoder_states, decoder_outputs, decoder_states_inputs
 
+def normal_attention_predit_model(model: Model, encoder_inputs, decoder_inputs):
+    dh_input = Input(shape=(LSTM_DECODER_DIM,), name='input_h')
+    dc_input = Input(shape=(LSTM_DECODER_DIM,), name='input_c')
+    encoder_each_h_input = Input(shape=(None, LSTM_DECODER_DIM), name='input_each_h')
+
+    decoder_states_inputs = [dh_input, dc_input]
+    encoder_outputs, eh, ec = model.get_layer('encoder_lstm').output
+    decoder_lstm = model.get_layer('decoder_lstm')
+    decoder_outputs, dh, dc = decoder_lstm(decoder_inputs, initial_state=decoder_states_inputs)
+    context = attention_section(encoder_each_h_input, decoder_outputs)
+    decoder_combined_context = concatenate([context, decoder_outputs])
+    print('decoder_combined_context', decoder_combined_context)
+    dense1 = model.get_layer('dense1')
+    output = dense1(decoder_combined_context)
+    
+    encoder_states = [encoder_outputs, eh, ec]
+    decoder_states = [dh, dc]
+    return encoder_states, decoder_states, output, [encoder_each_h_input]+decoder_states_inputs
+
 def normal_stack_predit_model(model: Model, encoder_inputs, decoder_inputs):
     dh0_input = Input(shape=(LSTM_DECODER_DIM,), name='input_h0')
     dc0_input = Input(shape=(LSTM_DECODER_DIM,), name='input_c0')
@@ -200,7 +220,8 @@ def encoder_bidirectional_attention_predit_model(model: Model, encoder_inputs, d
     context = attention_section(encoder_each_h_input, decoder_outputs)
     decoder_combined_context = concatenate([context, decoder_outputs])
     print('decoder_combined_context', decoder_combined_context)
-    output = TimeDistributed(Dense(64, activation="tanh"))(decoder_combined_context)
+    dense1 = model.get_layer('dense1')
+    output = dense1(decoder_combined_context)
     encoder_outputs = [e_outputs, state_h, state_c]
     decoder_states = [dh, dc]
     return encoder_outputs, decoder_states, output, [encoder_each_h_input]+decoder_states_inputs
@@ -290,7 +311,11 @@ def seq2seq_predit_model(model: Model, model_type=SeqModelType.normal.value, lay
             pass
         else:
             encoder_states, decoder_states, decoder_outputs, decoder_states_inputs = encoder_bidirectional_attention_predit_model(model, encoder_inputs, decoder_inputs)
-
+    elif model_type ==SeqModelType.normal_attention.value:
+        if layer2_lstm:
+            pass
+        else:
+            encoder_states, decoder_states, decoder_outputs, decoder_states_inputs = normal_attention_predit_model(model, encoder_inputs, decoder_inputs)
     encoder_model = Model(encoder_inputs, encoder_states)
     encoder_model.summary()
 
@@ -403,6 +428,20 @@ def normal_training_model(encoder_inputs, decoder_inputs):
 
     return decoder_outputs
 
+def normal_attention_training_model(encoder_inputs, decoder_inputs):
+
+    encoder = LSTM(LSTM_ENCODER_DIM, return_sequences=True, return_state=True, name="encoder_lstm")
+    encoder_outputs, state_h, state_c = encoder(encoder_inputs)
+    encoder_states = [state_h, state_c]
+    decoder_lstm = LSTM(LSTM_DECODER_DIM, return_sequences=True, return_state=True, name="decoder_lstm")
+    decoder_outputs, _, _ = decoder_lstm(decoder_inputs, initial_state=encoder_states)
+    context = attention_section(encoder_outputs, decoder_outputs)
+    decoder_combined_context = concatenate([context, decoder_outputs])
+    print('decoder_combined_context', decoder_combined_context)
+    output = TimeDistributed(Dense(64, activation="tanh"), name="dense1")(decoder_combined_context)
+    print('output', output)
+    return output
+
 def normal_stack_training_model(encoder_inputs, decoder_inputs):
     encoder_outputs, eh0, ec0 = LSTM(LSTM_ENCODER_DIM, return_sequences=True, return_state=True, name="encoder_lstm_0")(encoder_inputs)
     _, eh1, ec1 = LSTM(LSTM_ENCODER_DIM, return_state=True, name="encoder_lstm")(encoder_outputs)
@@ -454,7 +493,7 @@ def encoder_bidirectional_attention_training_model(encoder_inputs, decoder_input
     context = attention_section(encoder_outputs, decoder_outputs)
     decoder_combined_context = concatenate([context, decoder_outputs])
     print('decoder_combined_context', decoder_combined_context)
-    output = TimeDistributed(Dense(64, activation="tanh"))(decoder_combined_context)
+    output = TimeDistributed(Dense(64, activation="tanh"), name='dense1')(decoder_combined_context)
     print('output', output)
     return output
 
@@ -527,8 +566,8 @@ def seq2seq_train_model(num_input_token, num_target_token,
                         optimizer='rmsprop', loss='categorical_crossentropy',
                         weight_path=None, gaussian_noise=1, model_type=SeqModelType.normal.value, layer2_lstm=False):
 
-    encoder_inputs = Input(shape=(10, num_input_token), name="encoder_input")
-    decoder_inputs = Input(shape=(20, num_target_token), name="decoder_input")
+    encoder_inputs = Input(shape=(None, num_input_token), name="encoder_input")
+    decoder_inputs = Input(shape=(None, num_target_token), name="decoder_input")
     _encoder_input = encoder_inputs
     if gaussian_noise != None:
         encoder_noice = GaussianNoise(1, name="gaussian_noise")(encoder_inputs)
@@ -556,7 +595,12 @@ def seq2seq_train_model(num_input_token, num_target_token,
             pass
         else:
             decoder_outputs = encoder_bidirectional_attention_training_model(_encoder_input, decoder_inputs)
-    
+    elif model_type == SeqModelType.normal_attention.value:
+        if layer2_lstm:
+            # decoder_outputs = encoder_bidirectional_stack_training_model(_encoder_input, decoder_inputs)
+            pass
+        else:
+            decoder_outputs = normal_attention_training_model(_encoder_input, decoder_inputs)
 
     decoder_dense = Dense(num_target_token, activation='softmax', name="decoder_dense")
     decoder_outputs = decoder_dense(decoder_outputs)
@@ -625,8 +669,11 @@ max_decoder_seq_length, result_saved_path=None):
     stop_condition = False
     decoded_sentence = []
     len_states_value = len(states_value)
-    print('len_states_value', len_states_value)
+    # print('len_states_value', len_states_value, states_value[0].shape)
     while not stop_condition:
+        # print('states_value.shape', states_value.shape)    
+
+        # print('target_seq', target_seq)
         if len_states_value == 8:
             output_tokens, fh0, fc0, bh0, bc0, fh1, fc1, bh1, bc1 = decoder_model.predict(
                 [target_seq] + states_value)
@@ -639,6 +686,8 @@ max_decoder_seq_length, result_saved_path=None):
         elif len_states_value == 3:
             output_tokens, h, c = decoder_model.predict(
                 [target_seq] + states_value)
+        # print('output_tokens', output_tokens)
+        
 
         # Sample a token
         sampled_token_index = np.argmax(output_tokens[0, -1, :])
@@ -664,58 +713,8 @@ max_decoder_seq_length, result_saved_path=None):
         elif len_states_value == 2:
             states_value = [h, c]
         elif len_states_value == 3:
-            states_value = [states_value[0], h, c]
-            
+            states_value = [states_value[0],h, c]
     if result_saved_path:
         write_file(decoded_sentence, result_saved_path, dataDim=1)
     return decoded_sentence
 
-
-def atention_seq2seq_predit(model: Model,input_seq, decoder_tokens, 
-max_decoder_seq_length, result_saved_path=None):
-
-    # Generate empty target sequence of length 1.
-    decoder_input  = np.zeros((1, 300, len(decoder_tokens)))
-    # Populate the first character of target sequence with the start character.
-    decoder_input [:, :, decoder_tokens['START']] = 1.
-
-    reverse_decoder_tokens = dict(
-        (i, token) for token, i in decoder_tokens.items())
-    # Sampling loop for a batch of sequences
-    # (to simplify, here we assume a batch of size 1).
-    stop_condition = False
-    decoded_sentence = []
-    len_states_value = len(states_value)
-    while not stop_condition:
-        output, h,c = model.predict([target_seq, ])
-      
-
-        # Sample a token
-        sampled_token_index = np.argmax(output_tokens[0, -1, :])
-        sampled_token = reverse_decoder_tokens[sampled_token_index]
-        if sampled_token != 'EOS':
-            decoded_sentence.append(sampled_token)
-
-        # Exit condition: either hit max length
-        # or find stop character.
-        if (sampled_token == 'EOS' or
-                len(decoded_sentence) > max_decoder_seq_length):
-            stop_condition = True
-
-        # Update the target sequence (of length 1).
-        target_seq = np.zeros((1, 1, len(decoder_tokens)))
-        target_seq[0, 0, sampled_token_index] = 1.
-
-        # Update states
-        if len_states_value == 8:
-            states_value = [fh0, fc0, bh0, bc0, fh1, fc1, bh1, bc1]
-        elif len_states_value == 4:
-            states_value = [fh, fc, bh, bc]
-        elif len_states_value == 2:
-            states_value = [h, c]
-        elif len_states_value == 3:
-            states_value = [states_value[0], h, c]
-            
-    if result_saved_path:
-        write_file(decoded_sentence, result_saved_path, dataDim=1)
-    return decoded_sentence

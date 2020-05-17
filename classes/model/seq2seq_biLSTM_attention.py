@@ -13,16 +13,20 @@ SEQ2SEQ_EPOCHES = 10
 MODE_SAVE_PERIOD = 100
 BATCH_SIZE=64
 
-def lstm_attention_model(num_encoder_input_vec: int, max_decoder_output_length=300, output_dict_size=19)->Model:
+def lstm_attention_model(num_encoder_input_vec: int, max_decoder_output_length=300, output_dict_size=20)->Model:
     encoder_input = Input(shape=(None, num_encoder_input_vec), name="encoder_input")
-    decoder_input = Input(shape=(max_decoder_output_length,), name="decoder_input")
+    if max_decoder_output_length and max_decoder_output_length>0:
+        decoder_input = Input(shape=(max_decoder_output_length,), name="decoder_input")
+        decoder_input = Embedding(output_dict_size, DECODER_LSTM_VEC, input_length=max_decoder_output_length, mask_zero=True, name="decoder_embedding")(decoder_input)
+    else:
+        decoder_input = Input(shape=(None, output_dict_size), name="decoder_input")
+
     encoder = GaussianNoise(1, name="gaussian_noise")(encoder_input)
     encoder = LSTM(ENCODER_LSTM_VEC, return_sequences=True, name="encoder_lstm")(encoder_input)
     encoder_last = encoder[:,-1,:]
     print('encoder', encoder)
     print('encoder_last', encoder_last)
-    decoder = Embedding(output_dict_size, DECODER_LSTM_VEC, input_length=max_decoder_output_length, mask_zero=True, name="decoder_embedding")(decoder_input)
-    decoder = LSTM(DECODER_LSTM_VEC, return_sequences=True, name="decoder_lstm")(decoder, initial_state=[encoder_last, encoder_last])
+    decoder = LSTM(DECODER_LSTM_VEC, return_sequences=True, name="decoder_lstm")(decoder_input, initial_state=[encoder_last, encoder_last])
 
     attention = dot([decoder, encoder], axes=[2, 2], name="dot1")
     attention = Activation('softmax', name='attention')(attention)
@@ -64,7 +68,8 @@ def mapping_gui_skeleton_token_index(seqs, token_list: list, max_len):
                 target[idx, j] = token_dict['EOS']
     return target
 
-def to_batch_encoder_input(input_seqs_list: list, encoder_config, max_len=50) -> np.array:
+
+def to_batch_encoder_input(input_seqs_list: list, encoder_config, max_len=60) -> np.array:
     encoder_tokens = encoder_tokens_list_to_dict(encoder_config['token_list'], encoder_config['class_mode'])
     _max_len=max_len
     full_data=[]
@@ -94,7 +99,8 @@ def to_batch_encoder_input(input_seqs_list: list, encoder_config, max_len=50) ->
 
 
 def lstm_attention_training(model: Model, encoder_input_list: list, decoder_input_list: list, 
-encoder_config, decoder_config, checkpoint_folder, analysis_saved_folder, final_model_saved_path, encoder_max_len=50, decoder_max_len=250):
+encoder_config, decoder_config, checkpoint_folder, analysis_saved_folder, final_model_saved_path, 
+encoder_max_len=50, decoder_max_len=250):
     '''
     @ param encoder_input_list: list, 3dim,(batch_size, input_length, 5~7), attribute還是attribute 座標還是座標
 
@@ -106,11 +112,17 @@ encoder_config, decoder_config, checkpoint_folder, analysis_saved_folder, final_
     training_encoder_input=to_batch_encoder_input(encoder_input_list, encoder_config, encoder_max_len)
     # print('training_encoder_input: ', training_encoder_input.shape, '\n', training_encoder_input)
 
-    training_decoder_input = mapping_gui_skeleton_token_index(decoder_input_list, decoder_config['token_list'], decoder_max_len)
-    _training_decoder_output = np.roll(training_decoder_input, -1, axis=1)
+    _training_decoder_input = mapping_gui_skeleton_token_index(decoder_input_list, decoder_config['token_list'], decoder_max_len)
+    _training_decoder_output = np.roll(_training_decoder_input, -1, axis=1)
     _training_decoder_output[:, -1] = _training_decoder_output[:, -2]
+    if decoder_max_len and decoder_max_len>0:
+         training_decoder_input = _training_decoder_input
+    else:
+        training_decoder_input=np.eye(len(decoder_config['token_list'])+1)[_training_decoder_input.astype('int')]
     training_decoder_output=np.eye(len(decoder_config['token_list'])+1)[_training_decoder_output.astype('int')]
 
+
+    print('_training_decoder_input: ', _training_decoder_input.shape, '\n', _training_decoder_input)
     print('training_decoder_input: ', training_decoder_input.shape, '\n', training_decoder_input)
     print('_training_decoder_output: ', _training_decoder_output.shape, '\n', _training_decoder_output)
     print('training_decoder_output: ', training_decoder_output.shape, '\n', training_decoder_output)
@@ -132,21 +144,21 @@ encoder_config, decoder_config, checkpoint_folder, analysis_saved_folder, final_
     return model
 
 
-def generate(model: Model, encoder_input_list, encoder_config, max_output_len, gui_token_dict: list, encoder_max_len=50, decoder_max_len=250):
+def generate(model: Model, encoder_input_list, encoder_config, gui_token_dict: list, encoder_max_len=60, decoder_max_len=250):
     decoder_token_dict = decoder_tokens_list_to_dict(gui_token_dict, 1)
     encoder_input = to_batch_encoder_input(encoder_input_list, encoder_config, max_len=encoder_max_len)
-    decoder_input = np.zeros(shape=(len(encoder_input), max_output_len))
+    decoder_input = np.zeros(shape=(len(encoder_input), decoder_max_len))
     decoder_input[:,0] = decoder_token_dict['START']
     # eos = gui_token_dict.index('EOS')
     # decoder_input[:,1:] = eos
-    for i in range(1,max_output_len):
+    for i in range(1,decoder_max_len):
         output = model.predict([encoder_input, decoder_input]).argmax(axis=2)
         decoder_input[:,i] = output[:,i]
         if output[:,i] == decoder_token_dict['EOS']: 
             break
     decoder_output=[]
     print('decoder_input', decoder_input)
-    for i in range(max_output_len):
+    for i in range(decoder_max_len):
         if decoder_input[0][i] != decoder_token_dict['EOS']:
             decoder_output.append(gui_token_dict[decoder_input[0][i].astype('int')])
         else:
@@ -154,3 +166,6 @@ def generate(model: Model, encoder_input_list, encoder_config, max_output_len, g
     return decoder_output
 
 # def evaluation()
+
+# def lstm_attention_encoder(model:Model):
+    
