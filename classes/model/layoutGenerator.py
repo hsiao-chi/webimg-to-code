@@ -12,8 +12,8 @@ import numpy as np
 import tensorflow as tf
 K.tensorflow_backend._get_available_gpus()
 
-LSTM_ENCODER_DIM = 128  # Latent dimensionality of the encoding space.
-LSTM_DECODER_DIM = 128
+LSTM_ENCODER_DIM = 256  # Latent dimensionality of the encoding space.
+LSTM_DECODER_DIM = 256
 BATCH_SIZE = 64  # Batch size for training.
 SEQ2SEQ_EPOCHES = 200  # Number of epochs to train for.
 MODE_SAVE_PERIOD = 100
@@ -606,7 +606,8 @@ def seq2seq_train_model(num_input_token, num_target_token,
         else:
             decoder_outputs = normal_attention_training_model(_encoder_input, decoder_inputs)
 
-    decoder_dense = TimeDistributed(Dense(num_target_token, activation='softmax'),  name="decoder_dense")
+    # decoder_dense = TimeDistributed(Dense(num_target_token, activation='softmax'),  name="decoder_dense")
+    decoder_dense = Dense(num_target_token, activation='softmax', name="decoder_dense")
     decoder_outputs = decoder_dense(decoder_outputs)
     # print('decoder_outputs', decoder_outputs)
     model = Model([encoder_inputs, decoder_inputs], decoder_outputs)

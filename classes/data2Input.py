@@ -26,6 +26,7 @@ def to_Seq2Seq_encoder_input(input_seqs: list, encoder_config) -> np.array:
     encoder_tokens = encoder_tokens_list_to_dict(encoder_config['token_list'], encoder_config['class_mode'])
     temp_data = []
     for input_seq in input_seqs:
+        # print(input_seq)
         data = input_seq[:encoder_config['direct_part']]
         attrs = [0]*len(encoder_tokens)
         for attr in input_seq[encoder_config['direct_part']:]:
