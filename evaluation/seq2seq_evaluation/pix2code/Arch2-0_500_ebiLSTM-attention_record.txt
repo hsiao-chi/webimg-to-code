@@ -1,0 +1,11 @@
+evaluated Model path: 
+D:\Chi\webimg-to-code\assets\2020-7\seq2seq-pix2code\attr-origin\ebiLSTM-attention-resort\500\noise\model\200\model.h5
+training data path: 
+ encoder: D:\Chi\dataset\pix2code\attribute-yolo-position-txt\
+ decoder: D:\Chi\dataset\pix2code\origin-gui\
+Loss: 0.0955, Accuracy: 94.951%, Cate:0.096%
+
+testing data path: 
+ encoder: D:\Chi\dataset\pix2code\testing-dataset\seq2seq\attr-position-txt\
+ decoder: D:\Chi\dataset\pix2code\testing-dataset\seq2seq\origin-gui\
+Loss: 0.1036, Accuracy: 94.443%, Cate:0.104%

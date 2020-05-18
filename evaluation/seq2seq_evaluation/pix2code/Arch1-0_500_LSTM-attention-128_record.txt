@@ -1,0 +1,11 @@
+evaluated Model path: 
+D:\Chi\webimg-to-code\assets\2020-7\seq2seq-pix2code\full-origin\LSTM-attention-128-resort\500\noise\model\200\model.h5
+training data path: 
+ encoder: D:\Chi\dataset\pix2code\full-yolo-position-txt\
+ decoder: D:\Chi\dataset\pix2code\origin-gui\
+Loss: 0.0879, Accuracy: 95.737%, Cate:0.088%
+
+testing data path: 
+ encoder: D:\Chi\dataset\pix2code\testing-dataset\seq2seq\position-txt\
+ decoder: D:\Chi\dataset\pix2code\testing-dataset\seq2seq\origin-gui\
+Loss: 0.0966, Accuracy: 95.034%, Cate:0.097%

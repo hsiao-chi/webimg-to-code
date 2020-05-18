@@ -1,0 +1,39 @@
+{"config": {"input_path": "D:\\Chi\\dataset\\pix2code\\attribute-yolo-position-txt\\", "target_path": "D:\\Chi\\dataset\\pix2code\\origin-gui\\", "model_path": "D:\\Chi\\webimg-to-code\\assets\\2020-7\\seq2seq-pix2code\\attr-origin\\ebiLSTM-attention-resort\\500\\noise\\model\\200\\model.h5", "num_of_data": "5(5)", "start_index": 0}, "BLEU_SCORE": {"individual_1_gram": 0.7285689161326963, "individual_2_gram": 0.6409554453018085, "individual_3_gram": 0.5653075846119563, "individual_4_gram": 0.48880470234550044, "cumulative_1_gram": 0.7285689161326963, "cumulative_2_gram": 0.682628577556393, "cumulative_3_gram": 0.6426247836860379, "cumulative_4_gram": 0.5968544253936232}}
+{"config": {"input_path": "D:\\Chi\\dataset\\pix2code\\testing-dataset\\seq2seq\\attr-position-txt\\", "target_path": "D:\\Chi\\dataset\\pix2code\\testing-dataset\\seq2seq\\origin-gui\\", "model_path": "D:\\Chi\\webimg-to-code\\assets\\2020-7\\seq2seq-pix2code\\attr-origin\\ebiLSTM-attention-resort\\500\\noise\\model\\200\\model.h5", "num_of_data": "5(5)", "start_index": 0}, "BLEU_SCORE": {"individual_1_gram": 0.9313366474700931, "individual_2_gram": 0.8058872138113079, "individual_3_gram": 0.7090892383557923, "individual_4_gram": 0.6053185669296176, "cumulative_1_gram": 0.9313366474700931, "cumulative_2_gram": 0.8654235247939581, "cumulative_3_gram": 0.8114640584116838, "cumulative_4_gram": 0.7485453588611477}}
+{
+    "config": {
+        "input_path": "D:\\Chi\\dataset\\pix2code\\attribute-yolo-position-txt\\",
+        "target_path": "D:\\Chi\\dataset\\pix2code\\origin-gui\\",
+        "model_path": "D:\\Chi\\webimg-to-code\\assets\\2020-7\\seq2seq-pix2code\\attr-origin\\ebiLSTM-attention-resort\\500\\noise\\model\\200\\model.h5",
+        "num_of_data": "500(498)",
+        "start_index": 0
+    },
+    "BLEU_SCORE": {
+        "individual_1_gram": 0.6763702357502593,
+        "individual_2_gram": 0.6009979881951567,
+        "individual_3_gram": 0.5269407325472912,
+        "individual_4_gram": 0.45823388313409746,
+        "cumulative_1_gram": 0.6763702357502593,
+        "cumulative_2_gram": 0.6370669834100204,
+        "cumulative_3_gram": 0.5997697412910803,
+        "cumulative_4_gram": 0.5560597054315072
+    }
+}{
+    "config": {
+        "input_path": "D:\\Chi\\dataset\\pix2code\\testing-dataset\\seq2seq\\attr-position-txt\\",
+        "target_path": "D:\\Chi\\dataset\\pix2code\\testing-dataset\\seq2seq\\origin-gui\\",
+        "model_path": "D:\\Chi\\webimg-to-code\\assets\\2020-7\\seq2seq-pix2code\\attr-origin\\ebiLSTM-attention-resort\\500\\noise\\model\\200\\model.h5",
+        "num_of_data": "100(100)",
+        "start_index": 0
+    },
+    "BLEU_SCORE": {
+        "individual_1_gram": 0.6837961185941019,
+        "individual_2_gram": 0.6105209403335207,
+        "individual_3_gram": 0.5383609857334775,
+        "individual_4_gram": 0.47041961665657994,
+        "cumulative_1_gram": 0.6837961185941019,
+        "cumulative_2_gram": 0.6457055821617753,
+        "cumulative_3_gram": 0.6097954799843996,
+        "cumulative_4_gram": 0.5677222640000553
+    }
+}
