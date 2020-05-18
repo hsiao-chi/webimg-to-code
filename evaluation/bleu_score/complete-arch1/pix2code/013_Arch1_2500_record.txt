@@ -1,0 +1,55 @@
+{
+    "config": {
+        "input_path": "D:\\Chi\\webimg-to-code\\yolo_detected\\pix2code\\arch1_train\\013\\",
+        "target_path": "D:\\Chi\\dataset\\pix2code\\row-col-attribute-gui\\",
+        "model_path": "D:\\Chi\\webimg-to-code\\assets\\2020-4\\seq2seq-pix2code\\full-rowcolAttrElement\\encoder_bidirectional-resort\\2500\\noise\\model\\300\\model.h5",
+        "num_of_data": "5(5)",
+        "start_index": 0
+    },
+    "BLEU_SCORE": {
+        "individual_1_gram": 0.9099330337465265,
+        "individual_2_gram": 0.8921186485208995,
+        "individual_3_gram": 0.879684997300501,
+        "individual_4_gram": 0.8642231969485026,
+        "cumulative_1_gram": 0.9099330337465265,
+        "cumulative_2_gram": 0.9009319484591325,
+        "cumulative_3_gram": 0.8944902673066076,
+        "cumulative_4_gram": 0.8862468420137286
+    }
+}{
+    "config": {
+        "input_path": "D:\\Chi\\webimg-to-code\\yolo_detected\\pix2code\\arch1_train\\013\\",
+        "target_path": "D:\\Chi\\dataset\\pix2code\\row-col-attribute-gui\\",
+        "model_path": "D:\\Chi\\webimg-to-code\\assets\\2020-4\\seq2seq-pix2code\\full-rowcolAttrElement\\encoder_bidirectional-resort\\2500\\noise\\model\\300\\model.h5",
+        "num_of_data": "500(498)",
+        "start_index": 0
+    },
+    "BLEU_SCORE": {
+        "individual_1_gram": 0.8985499262930124,
+        "individual_2_gram": 0.875748186374062,
+        "individual_3_gram": 0.849787307260353,
+        "individual_4_gram": 0.8154693695546131,
+        "cumulative_1_gram": 0.8985499262930124,
+        "cumulative_2_gram": 0.8869594342615585,
+        "cumulative_3_gram": 0.8750972945454017,
+        "cumulative_4_gram": 0.8588514051525901
+    }
+}{
+    "config": {
+        "input_path": "D:\\Chi\\webimg-to-code\\yolo_detected\\pix2code\\arch1_test\\013\\",
+        "target_path": "D:\\Chi\\dataset\\pix2code\\testing-dataset\\seq2seq\\attr-gui\\",
+        "model_path": "D:\\Chi\\webimg-to-code\\assets\\2020-4\\seq2seq-pix2code\\full-rowcolAttrElement\\encoder_bidirectional-resort\\2500\\noise\\model\\300\\model.h5",
+        "num_of_data": "100(100)",
+        "start_index": 0
+    },
+    "BLEU_SCORE": {
+        "individual_1_gram": 0.8799380696807958,
+        "individual_2_gram": 0.8577796665152215,
+        "individual_3_gram": 0.8331842687603398,
+        "individual_4_gram": 0.7986773892792098,
+        "cumulative_1_gram": 0.8799380696807958,
+        "cumulative_2_gram": 0.8686793661528212,
+        "cumulative_3_gram": 0.8574786782536248,
+        "cumulative_4_gram": 0.8414283805656013
+    }
+}
