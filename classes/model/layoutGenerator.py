@@ -12,8 +12,8 @@ import numpy as np
 import tensorflow as tf
 K.tensorflow_backend._get_available_gpus()
 
-LSTM_ENCODER_DIM = 64  # Latent dimensionality of the encoding space.
-LSTM_DECODER_DIM = 64
+LSTM_ENCODER_DIM = 128  # Latent dimensionality of the encoding space.
+LSTM_DECODER_DIM = 128
 BATCH_SIZE = 64  # Batch size for training.
 SEQ2SEQ_EPOCHES = 200  # Number of epochs to train for.
 MODE_SAVE_PERIOD = 100
@@ -96,12 +96,12 @@ def bidirectional_predit_model_old(model: Model, layer2_lstm=False)->Model:
     decoder_model.summary()
     return encoder_model, decoder_model
 
-def softMax1(x):
-    return activations.softmax(x, axis=-1)
+# def softMax1(x):
+#     return activations.softmax(x, axis=-1)
 
 def attention_section(encoder_outputs, decoder_outputs):
     attention = dot([decoder_outputs, encoder_outputs], axes=[2, 2], name= "dot1")
-    attention = Activation(softMax1, name='attention')(attention)
+    attention = Activation('softmax', name='attention')(attention)
     print('attention', attention)
     context = dot([attention, encoder_outputs], axes=[2,1], name= "context_output")
     print('context', context)
@@ -442,7 +442,7 @@ def normal_attention_training_model(encoder_inputs, decoder_inputs):
     context = attention_section(encoder_outputs, decoder_outputs)
     decoder_combined_context = concatenate([context, decoder_outputs])
     print('decoder_combined_context', decoder_combined_context)
-    output = TimeDistributed(Dense(64, activation="tanh"), name="dense1")(decoder_combined_context)
+    output = TimeDistributed(Dense(LSTM_DECODER_DIM, activation="tanh"), name="dense1")(decoder_combined_context)
     print('output', output)
     return output
 
@@ -608,7 +608,7 @@ def seq2seq_train_model(num_input_token, num_target_token,
 
     decoder_dense = TimeDistributed(Dense(num_target_token, activation='softmax'),  name="decoder_dense")
     decoder_outputs = decoder_dense(decoder_outputs)
-    print('decoder_outputs', decoder_outputs)
+    # print('decoder_outputs', decoder_outputs)
     model = Model([encoder_inputs, decoder_inputs], decoder_outputs)
 
     # Run training

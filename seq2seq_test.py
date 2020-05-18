@@ -13,30 +13,30 @@ from evaluationCode.evaluation_error import Eva_error
 
 if __name__ == "__main__":
     INPUT_TYPE = 1
-    TARGET_TYPE = 3
-    seq_model_type = SeqModelType.normal_attention.value
+    TARGET_TYPE = 1
+    seq_model_type = SeqModelType.encoder_bidirectional_attention.value
     layer2_lstm = False
-    training_data_num = 500
+    training_data_num = 2500
     evaluate_data_nums = [500, 100]
     eva_record_file_path = path.EVALUATION_SEQ2SEQ_EVALUATION+'pix2code\\'
-    eva_record_file_name = 'Arch1_500_ebiLSTM-attention_record.txt'
-    predit_data_nums = [1, 1] # train, test
+    eva_record_file_name = 'Arch1-0_2500_ebiLSTM-attention-128_record.txt'
+    predit_data_nums = [500, 100] # train, test
     predit_start_idx = [0,0] # train, test
     # predit_test_data = False
     
     bleu_record_file_path =  path.EVALUATION_BLEU_SCORE + 'layout_generate_only\\2020-04\\pix2code\\'
-    bleu_record_file_name = 'Arch1_500_ebiLSTM-attention_record.txt'
+    bleu_record_file_name = 'Arch1-0_2500_ebiLSTM-attention-128_record.txt'
 
     error_record_file_path =  path.EVALUATION_ERROR_SCORE + 'layout_generate_only\\pix2code\\'
-    error_record_file_name = 'Arch1_500_ebiLSTM-attention_record.txt'
+    error_record_file_name = 'Arch1-0_2500_ebiLSTM-attention-128_record.txt'
     
     gaussian_noise = 1  # None
     early_stoping = False
     TRAINING = True
     EVALUATE = True
     PREDIT = True
-    BLEU_SCORE = False
-    ERROR_SCORE = False
+    BLEU_SCORE = True
+    ERROR_SCORE = True
 
     encoder_config = get_encoder_config(INPUT_TYPE)
     decoder_config = get_decoder_config(TARGET_TYPE)
@@ -114,7 +114,7 @@ if __name__ == "__main__":
                     valid_data_num -= 1
                     continue
                 input_seqs = [seq.split() for seq in input_seqs]
-                print('encoder input seq len', len(input_seqs))
+                # print('encoder input seq len', len(input_seqs))
                 input_seq = to_Seq2Seq_encoder_input(input_seqs, encoder_config)
                 # print(input_seq)
                 decoded_sentence = seq2seq_predit(encoder_model, decoder_model,
@@ -123,8 +123,8 @@ if __name__ == "__main__":
                                                 # result_saved_path=path.CLASS_SEQ2SEQ_PREDIT_GUI_PATH + str(SEQ2SEQ_EPOCHES)+'\\'+str(i)+TYPE.GUI
                                                 )
                 
-                # print('decoded_sentence length: ', i, decoded_sentence) if i%50==0 and BLEU_SCORE else None
-                print('decoded_sentence length: ', i, decoded_sentence) 
+                print('decoded_sentence length: ', i, decoded_sentence) if i%50==0 and BLEU_SCORE else None
+                # print('decoded_sentence length: ', i, ' '.join(decoded_sentence)) 
 
                 if BLEU_SCORE:
                     reference_gui = read_file(
