@@ -1,2 +1,27 @@
-{"config": {"input_path": "D:\\Chi\\dataset\\pix2code-1750\\train_set\\full-yolo-position-txt\\", "target_path": "D:\\Chi\\dataset\\pix2code-1750\\train_set\\origin-gui\\", "model_path": "D:\\Chi\\webimg-to-code\\assets\\2020-8\\seq2seq-pix2code\\full-origin\\normal_attention-resort\\1500\\noise\\model\\200\\model.h5", "num_of_data": 1492, "start_index": 0}, "error_history": [], "final_error_score": {"the_number_of_len_nonequal_data": 1259, "error_score": 0.8615607828688109}}
-{"config": {"input_path": "D:\\Chi\\dataset\\pix2code-1750\\test_set\\full-yolo-position-txt\\", "target_path": "D:\\Chi\\dataset\\pix2code-1750\\test_set\\origin-gui\\", "model_path": "D:\\Chi\\webimg-to-code\\assets\\2020-8\\seq2seq-pix2code\\full-origin\\normal_attention-resort\\1500\\noise\\model\\200\\model.h5", "num_of_data": 249, "start_index": 0}, "error_history": [], "final_error_score": {"the_number_of_len_nonequal_data": 206, "error_score": 0.8492208161494142}}
+{
+    "config": {
+        "input_path": "D:\\Chi\\dataset\\pix2code-1750\\train_set\\full-yolo-position-txt\\",
+        "target_path": "D:\\Chi\\dataset\\pix2code-1750\\train_set\\origin-gui\\",
+        "model_path": "D:\\Chi\\webimg-to-code\\assets\\2020-8\\seq2seq-pix2code\\full-origin\\normal_attention-resort\\1500\\noise\\model\\200\\model.h5",
+        "num_of_data": 1492,
+        "start_index": 0
+    },
+    "error_history": [],
+    "final_error_score": {
+        "the_number_of_len_nonequal_data": 1259,
+        "error_score": 0.8615607828688109
+    }
+}{
+    "config": {
+        "input_path": "D:\\Chi\\dataset\\pix2code-1750\\test_set\\full-yolo-position-txt\\",
+        "target_path": "D:\\Chi\\dataset\\pix2code-1750\\test_set\\origin-gui\\",
+        "model_path": "D:\\Chi\\webimg-to-code\\assets\\2020-8\\seq2seq-pix2code\\full-origin\\normal_attention-resort\\1500\\noise\\model\\200\\model.h5",
+        "num_of_data": 249,
+        "start_index": 0
+    },
+    "error_history": [],
+    "final_error_score": {
+        "the_number_of_len_nonequal_data": 206,
+        "error_score": 0.8492208161494142
+    }
+}
