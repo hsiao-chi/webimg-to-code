@@ -243,11 +243,11 @@ if __name__ == "__main__":
     =================================================================================
     '''
 
-    # replace_file_value(
-    #     path.DATASET3_ELEMENT_FOLDER+'attr-labels-button_lab'+TYPE.TXT, 
-    #     path.DATASET3_ELEMENT_FOLDER+'attr-labels-button'+TYPE.TXT,
-    #     DATASET_ANOTHER, DATASET
-    #     )
+    replace_file_value(
+        path.DATASET1_1750_TRAINSET_YOLO_TRAIN+'data1_attr_yolo_1500'+TYPE.TXT, 
+        path.DATASET1_1750_TRAINSET_YOLO_TRAIN+'data1_attr_yolo_1500_lab'+TYPE.TXT,
+        DATASET_ANOTHER, DATASET
+        )
 
     # for name in ['attr_yolo_500_input_padding', 'attr_yolo_500_padding', 'attr_yolo_500_padding_2', 'full_yolo_500', 'full_yolo_500_input_padding', 'full_yolo_500_padding', 'full_yolo_500_padding_2']:
     #     replace_file_value(

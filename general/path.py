@@ -5,7 +5,7 @@ TESTSET = 'test_set\\'
 # SELF = 'D:\\Chi\\webimg-to-code\\'
 CLASS_SEQ2SEQ_MODEL_GRAPH_FILE = SELF+'assets\\seq2seq-position\\seq2seq-model.png'
 # full-rowcolAttrElement
-CLASS_SEQ2SEQ_TRAINING_TYPE = '2020-7\\seq2seq-pix2code\\full-origin\\ebiLSTM-attention-128-resort\\2500\\noise\\'
+CLASS_SEQ2SEQ_TRAINING_TYPE = '2020-8\\seq2seq-pix2code\\attr-ourgui\\normal_attention-resort\\1500\\noise\\'
 CLASS_SEQ2SEQ_WEIGHT = SELF+'assets\\'+CLASS_SEQ2SEQ_TRAINING_TYPE+'weight\\'
 CLASS_SEQ2SEQ_MODEL_PATH = SELF+'assets\\'+CLASS_SEQ2SEQ_TRAINING_TYPE+'model\\'
 CLASS_SEQ2SEQ_ANALYSIS_PATH = SELF+'assets\\'+CLASS_SEQ2SEQ_TRAINING_TYPE
@@ -228,4 +228,4 @@ YOLO_DETECTED_ATTRIBUTE_POSITION_TXT = SELF + 'yolo_detected\\arch2_full_yolo_po
 YOLO_DETECTED_ATTRIBUTE_POSITION_TEST_TXT = SELF + 'yolo_detected\\arch2_full_yolo_position_test\\'
 
 YOLO_DETECTED_DATA3_FULL_POSITION_TXT = SELF + 'yolo_detected\\data3\\'
-YOLO_DETECTED_DATA1_FULL_POSITION_TXT = SELF + 'yolo_detected\\pix2code\\'
+YOLO_DETECTED_DATA1_FULL_POSITION_TXT = SELF + 'yolo_detected\\pix2code-1750\\'

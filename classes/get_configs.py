@@ -4,10 +4,14 @@ from general.node.nodeEnum import Font_color, Bg_color
 def get_decoder_config(target_type=1):
     if target_type == 1:
         return {
-            'data_folder': path.DATASET1_ORIGIN_GUI,
-            'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_ORIGIN_GUI,
+            # 'data_folder': path.DATASET1_ORIGIN_GUI,
+            # 'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_ORIGIN_GUI,
             # 'data_folder': path.DATASET1_FULL_YOLO_NOISE_ORIGIN_GUI,
             # 'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_ORIGIN_GUI,
+            'data_folder': path.DATASET1_1750_TRAINSET_ORIGIN_GUI,
+            'testing_data_folder': path.DATASET1_1750_TESTSET_ORIGIN_GUI,
+            # 'data_folder': path.DATASET1_1750_TRAINSET_NOISE_ORIGIN_GUI,
+            # 'testing_data_folder': path.DATASET1_1750_TESTSET_ORIGIN_GUI,
             'token_list': [
                 '{', '}',
                 'row', 'header', 'single', 'double', 'quadruple',
@@ -25,10 +29,14 @@ def get_decoder_config(target_type=1):
                 'START', 'EOS']}
     elif target_type == 3:  # dataset1
         return {
-            'data_folder': path.DATASET1_ROWCOL_ATTRIBUTE_GUI,
-            'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_ATTR_GUI,
+            # 'data_folder': path.DATASET1_ROWCOL_ATTRIBUTE_GUI,
+            # 'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_ATTR_GUI,
             # 'data_folder': path.DATASET1_FULL_YOLO_NOISE_GUI,
             # 'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_ATTR_NOISE_GUI,
+            'data_folder': path.DATASET1_1750_TRAINSET_OUR_GUI,
+            'testing_data_folder': path.DATASET1_1750_TESTSET_OUR_GUI,
+            # 'data_folder': path.DATASET1_1750_TRAINSET_NOISE_OUR_GUI,
+            # 'testing_data_folder': path.DATASET1_1750_TESTSET_OUR_GUI,
             'token_list': [
                 '{', '}', '[', ']',
                 'row', 'col',
@@ -55,20 +63,28 @@ def get_encoder_config(target_type=1):
     if target_type == 1:# Dataset1 - arch1-seq2seq
         return {
             'direct_part': 5,
-            'data_folder': path.DATASET1_FULL_YOLO_POSITION_TXT,
-            'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_POSITION_TXT,
+            # 'data_folder': path.DATASET1_FULL_YOLO_POSITION_TXT,
+            # 'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_POSITION_TXT,
             # 'data_folder': path.DATASET1_FULL_YOLO_NOISE_TXT,
             # 'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_POSITION_NOISE_TXT,
+            'data_folder': path.DATASET1_1750_TRAINSET_FULL_YOLO_POSITION_TXT,
+            'testing_data_folder': path.DATASET1_1750_TESTSET_FULL_YOLO_POSITION_TXT,
+            # 'data_folder': path.DATASET1_1750_TRAINSET_NOISE_FULL_YOLO_POSITION_TXT,
+            # 'testing_data_folder': path.DATASET1_1750_TESTSET_FULL_YOLO_POSITION_TXT,
             'class_mode': False,
             'token_list': [],
         }
     elif target_type == 2:# Dataset1 - arch2-seq2seq
         return {
             'direct_part': 5,
-            'data_folder': path.DATASET1_ATTRIBUTE_YOLO_POSITION_TXT,
-            'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_ATTR_POSITION_TXT,
+            # 'data_folder': path.DATASET1_ATTRIBUTE_YOLO_POSITION_TXT,
+            # 'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_ATTR_POSITION_TXT,
             # 'data_folder': path.DATASET1_ATTR_YOLO_NOISE_TXT,
             # 'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_ATTR_POSITION_NOISE_TXT,
+            'data_folder': path.DATASET1_1750_TRAINSET_ATTR_YOLO_POSITION_TXT,
+            'testing_data_folder': path.DATASET1_1750_TESTSET_ATTR_YOLO_POSITION_TXT,
+            # 'data_folder': path.DATASET1_1750_TRAINSET_NOISE_ATTR_YOLO_POSITION_TXT,
+            # 'testing_data_folder': path.DATASET1_1750_TESTSET_ATTR_YOLO_POSITION_TXT,
             'class_mode': False,
             'token_list': [Font_color.dark.value, Font_color.primary.value, Font_color.white.value,
                            Bg_color.primary.value, Bg_color.dark.value, Bg_color.success.value,
@@ -77,8 +93,14 @@ def get_encoder_config(target_type=1):
     elif target_type == 3:
         return {
             'direct_part': 5,
-            'data_folder': path.DATASET1_ATTRIBUTE_YOLO_POSITION_TXT,
-            'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_ATTR_POSITION_TXT,
+            # 'data_folder': path.DATASET1_ATTRIBUTE_YOLO_POSITION_TXT,
+            # 'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_ATTR_POSITION_TXT,
+            # 'data_folder': path.DATASET1_ATTR_YOLO_NOISE_TXT,
+            # 'testing_data_folder': path.DATASET1_TESTING_SEQ2SEQ_ATTR_POSITION_NOISE_TXT,
+            'data_folder': path.DATASET1_1750_TRAINSET_ATTR_YOLO_POSITION_TXT,
+            'testing_data_folder': path.DATASET1_1750_TESTSET_ATTR_YOLO_POSITION_TXT,
+            # 'data_folder': path.DATASET1_1750_TRAINSET_NOISE_ATTR_YOLO_POSITION_TXT,
+            # 'testing_data_folder': path.DATASET1_1750_TESTSET_ATTR_YOLO_POSITION_TXT,
             'class_mode': True,
             'token_list': [
                 [Font_color.dark.value, Font_color.primary.value,

@@ -23,16 +23,16 @@ if __name__ == "__main__":
     encoder_config = get_encoder_config(INPUT_TYPE)
     decoder_config = get_decoder_config(TARGET_TYPE)
     predit_data_num = 1
-    start_idx = 1
-    test_data = False
-    input_data_folder = ENV.SELF+ 'yolo_detected\\pix2code\\arch1_train\\013\\'
+    start_idx = 2
+    test_data = True
+    input_data_folder = ENV.SELF+ 'yolo_detected\\pix2code-1750\\arch1_test\\013\\'
     target_data_folder = decoder_config['testing_data_folder'] if test_data else decoder_config['data_folder']
-    predit_model_path = ENV.SELF+ r'assets\2020-5\seq2seq-pix2code\full-rowcolAttrElement\encoder_bidirectional-resort\500\noise\model\200\model.h5'
+    predit_model_path = ENV.SELF+ r'assets\2020-8\seq2seq-pix2code\full-origin\encoder_bidirectional-resort\1500\noise\model\200\model.h5'
     predit_result_save_path = None
-    bleu_file_path = path.EVALUATION_BLEU_SCORE + 'complete-arch1\\pix2code\\'
-    bleu_file_name = '013_Arch1_2500_record.txt'
-    error_file_path = path.EVALUATION_ERROR_SCORE + 'complete-arch1\\pix2code\\'
-    error_file_name = '013_Arch1_2500_record.txt'
+    bleu_file_path = path.EVALUATION_BLEU_SCORE + 'complete-arch1\\pix2code-1750\\'
+    bleu_file_name = '013_Arch1_ebiLSTM_1500_record.txt'
+    error_file_path = path.EVALUATION_ERROR_SCORE + 'complete-arch1\\pix2code-1750\\'
+    error_file_name = '013_Arch1_ebiLSTM_1500_record.txt'
 
     
     encoder_model, decoder_model = seq2seq_predit_model(

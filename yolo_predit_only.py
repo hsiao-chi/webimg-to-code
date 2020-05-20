@@ -18,17 +18,17 @@ def detect_img(yolo, img_name) -> list:
 
 if __name__ == "__main__":
   
-    yolo_model_name = r'D:\Chi\webimg-keras-yolo3\logs\pix2code\full\013\trained_weights_final.h5'
+    yolo_model_name = r'D:\Chi\webimg-keras-yolo3\logs\pix2code-1750\full\013\trained_weights_final.h5'
     yolo_classes_name = 'pix2code_full_classes.txt'
     yolo_anchors_name = 'yolo_anchors.txt'
 
-    input_image_folder = path.DATASET3_TRAINSET_ORIGIN_LIGHT_PNG
-    detected_save_folder = path.YOLO_DETECTED_DATA3_FULL_POSITION_TXT+'Arch1_train\\013\\'
+    input_image_folder = path.DATASET1_1750_TESTSET_ORIGIN_PNG
+    detected_save_folder = path.YOLO_DETECTED_DATA1_FULL_POSITION_TXT+'Arch1_test\\013\\'
     # detected_save_folder = path.YOLO_DETECTED_FULL_POSITION_TXT
     createFolder(detected_save_folder)
     yolo_class = YOLO(model_name=yolo_model_name, classes_name=yolo_classes_name, anchors_name=yolo_anchors_name)
     # yolo_class = YOLO()
-    for i in range(1):
+    for i in range(250):
         targets = detect_img(yolo_class, input_image_folder+str(i)+TYPE.IMG)
         # print(targets)
         print(i) if i% 10 == 0 else None
