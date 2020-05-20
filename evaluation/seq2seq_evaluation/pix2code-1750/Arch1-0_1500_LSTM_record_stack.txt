@@ -1,0 +1,11 @@
+evaluated Model path: 
+D:\Chi\webimg-to-code\assets\2020-8\seq2seq-pix2code\full-origin\normal_stack-resort\1500\noise\model\200\model.h5
+training data path: 
+ encoder: D:\Chi\dataset\pix2code-1750\train_set\full-yolo-position-txt\
+ decoder: D:\Chi\dataset\pix2code-1750\train_set\origin-gui\
+Loss: 0.0590, Accuracy: 97.744%, Cate:0.059%
+
+testing data path: 
+ encoder: D:\Chi\dataset\pix2code-1750\test_set\full-yolo-position-txt\
+ decoder: D:\Chi\dataset\pix2code-1750\test_set\origin-gui\
+Loss: 0.1501, Accuracy: 94.869%, Cate:0.150%

@@ -1,0 +1,11 @@
+evaluated Model path: 
+D:\Chi\webimg-to-code\assets\2020-8\seq2seq-pix2code\attr-origin\encoder_bidirectional_attention-resort\1500\noise\model\200\model.h5
+training data path: 
+ encoder: D:\Chi\dataset\pix2code-1750\train_set\attr-yolo-position-txt\
+ decoder: D:\Chi\dataset\pix2code-1750\train_set\origin-gui\
+Loss: 0.0392, Accuracy: 98.855%, Cate:0.039%
+
+testing data path: 
+ encoder: D:\Chi\dataset\pix2code-1750\test_set\attr-yolo-position-txt\
+ decoder: D:\Chi\dataset\pix2code-1750\test_set\origin-gui\
+Loss: 0.0700, Accuracy: 97.278%, Cate:0.070%
