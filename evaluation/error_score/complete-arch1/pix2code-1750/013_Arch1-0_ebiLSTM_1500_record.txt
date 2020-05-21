@@ -8,8 +8,8 @@
     },
     "error_history": [],
     "final_error_score": {
-        "the_number_of_len_nonequal_data": 1306,
-        "error_score": 0.9354257817912983
+        "the_number_of_len_nonequal_data": 88,
+        "error_score": 0.14325916064625246
     }
 }{
     "config": {
@@ -21,7 +21,7 @@
     },
     "error_history": [],
     "final_error_score": {
-        "the_number_of_len_nonequal_data": 215,
-        "error_score": 0.9183249901163494
+        "the_number_of_len_nonequal_data": 17,
+        "error_score": 0.1624165512641551
     }
 }
