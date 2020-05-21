@@ -55,19 +55,11 @@ if __name__ == "__main__":
     =================================================================================
     '''
 
-<<<<<<< HEAD
-    for i in range(1742, 1750):
-        root = tk.Tk()
-        app = ManualTagClass(root, buttonList, path.DATASET1_ORIGIN_PNG + str(i) + TYPE.IMG,
-                             path.DATASET1_ROWCOL_YOLO_POSITION_TXT + str(i) + TYPE.TXT, path.DATASET1_FULL_YOLO_POSITION_TXT + str(i)+TYPE.TXT)
-        root.mainloop()
-=======
     # for i in range(700, 800):
     #     root = tk.Tk()
     #     app = ManualTagClass(root, buttonList, path.DATASET1_ORIGIN_PNG + str(i) + TYPE.IMG,
     #                          path.DATASET1_ROWCOL_YOLO_POSITION_TXT + str(i) + TYPE.TXT, path.DATASET1_FULL_YOLO_POSITION_TXT + str(i)+TYPE.TXT)
     #     root.mainloop()
->>>>>>> master
 
     #     if app.is_close():
     #         break
