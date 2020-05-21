@@ -1,2 +1,27 @@
-{"config": {"input_path": "D:\\Chi\\webimg-to-code\\yolo_detected\\pix2code-1750\\arch1_train\\013\\", "target_path": "D:\\Chi\\dataset\\pix2code-1750\\train_set\\row-col-attribute-gui\\", "model_path": "D:\\Chi\\webimg-to-code\\assets\\2020-8\\seq2seq-pix2code\\full-ourgui\\encoder_bidirectional_stack-resort\\1500\\noise\\model\\200\\model.h5", "num_of_data": 1492, "start_index": 0}, "error_history": [], "final_error_score": {"the_number_of_len_nonequal_data": 413, "error_score": 0.33485845402646497}}
-{"config": {"input_path": "D:\\Chi\\webimg-to-code\\yolo_detected\\pix2code-1750\\arch1_test\\013\\", "target_path": "D:\\Chi\\dataset\\pix2code-1750\\test_set\\row-col-attribute-gui\\", "model_path": "D:\\Chi\\webimg-to-code\\assets\\2020-8\\seq2seq-pix2code\\full-ourgui\\encoder_bidirectional_stack-resort\\1500\\noise\\model\\200\\model.h5", "num_of_data": 249, "start_index": 0}, "error_history": [], "final_error_score": {"the_number_of_len_nonequal_data": 64, "error_score": 0.3135025352198166}}
+{
+    "config": {
+        "input_path": "D:\\Chi\\webimg-to-code\\yolo_detected\\pix2code-1750\\arch1_train\\013\\",
+        "target_path": "D:\\Chi\\dataset\\pix2code-1750\\train_set\\row-col-attribute-gui\\",
+        "model_path": "D:\\Chi\\webimg-to-code\\assets\\2020-8\\seq2seq-pix2code\\full-ourgui\\encoder_bidirectional_stack-resort\\1500\\noise\\model\\200\\model.h5",
+        "num_of_data": 1492,
+        "start_index": 0
+    },
+    "error_history": [],
+    "final_error_score": {
+        "the_number_of_len_nonequal_data": 413,
+        "error_score": 0.33485845402646497
+    }
+}{
+    "config": {
+        "input_path": "D:\\Chi\\webimg-to-code\\yolo_detected\\pix2code-1750\\arch1_test\\013\\",
+        "target_path": "D:\\Chi\\dataset\\pix2code-1750\\test_set\\row-col-attribute-gui\\",
+        "model_path": "D:\\Chi\\webimg-to-code\\assets\\2020-8\\seq2seq-pix2code\\full-ourgui\\encoder_bidirectional_stack-resort\\1500\\noise\\model\\200\\model.h5",
+        "num_of_data": 249,
+        "start_index": 0
+    },
+    "error_history": [],
+    "final_error_score": {
+        "the_number_of_len_nonequal_data": 64,
+        "error_score": 0.3135025352198166
+    }
+}
