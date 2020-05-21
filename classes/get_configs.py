@@ -161,7 +161,7 @@ def get_attribute_encoder_config(target_type=1):
 def get_attribute_decoder_config(target_type=1):
     if target_type == 1:
         return {
-            'data_path': path.DATASET1_ELEMENT_FOLDER+'attr-labels-lab-balance.txt',
+            'data_path': path.DATASET1_1750_ELEMENT_FOLDER+'attr-noise-labels-balance-lab.txt',
             'token_list': [Font_color.dark.value, Font_color.primary.value, Font_color.white.value, Font_color.success.value, Font_color.danger.value,
                            Bg_color.primary.value, Bg_color.dark.value, Bg_color.success.value,
                            Bg_color.warning.value, Bg_color.danger.value, 'START', 'EOS'],

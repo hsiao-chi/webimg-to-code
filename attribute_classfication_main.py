@@ -29,9 +29,9 @@ if __name__ == "__main__":
     cnn_model = 'simple_VGG'
     dataset = 'pix2code'
     eva_record_path = path.EVALUATION_ATTR_CLASS_EVALUATION+dataset+"\\"
-    eva_record_name = 'simple_VGG(74-224-256-e100)-norepeat.txt'
+    eva_record_name = 'simple_VGG(74-224-256-e100)-noise-e100-norepeat.txt'
     predit_data_path = path.SELF+'test-predit\\attr-class-predit\\'+dataset+"\\"
-    predit_data_name = 'simple_VGG(74-224-256-e100)-norepeat'
+    predit_data_name = 'simple_VGG(74-224-256-e100)-noise-e100-norepeat'
     predit_data_start_idx = 2200
     predit_data_num = 300
     final_model_saved_path = path.CLASS_ATTR_MODEL_PATH + str(EPOCHES)+'\\attr_class_model'+TYPE.H5
@@ -83,8 +83,6 @@ if __name__ == "__main__":
         max_data_length = len(lines)
         predit_list = []
         for i in range(predit_data_start_idx, predit_data_start_idx+predit_data_num):
-            idx = random.randint(0, max_data_length+1)
-            # print('predit_GT: ', lines[idx])
             line = lines[i].split()
             # print('origin:', line)
             decoded_sentence = attribute_classification_predit(encoder_model, decoder_model, line[0], encoder_config['input_shape'], decoder_config['token_list'], 4)                                                   

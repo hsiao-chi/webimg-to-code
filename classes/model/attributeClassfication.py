@@ -223,7 +223,9 @@ def attribute_classfication_training(train_model: Model,  encoder_config, decode
                                         validation_steps=max(1, num_valid//BATCH_SIZE),
                                         epochs=EPOCHES,
                                         initial_epoch=initial_epoch,
-                                        callbacks=[mc, early_stopping])
+                                        # callbacks=[mc, early_stopping],
+                                        callbacks=[mc],
+                                        )
 
     showLoss(history, analysis_saved_folder, 'loss' + str(EPOCHES))
     showAccuracy(history, analysis_saved_folder,
@@ -243,6 +245,7 @@ input_image_path, input_shape, decoder_token_list, max_decoder_seq_length, resul
     img_input[0] = img_data
     states_value = encoder_model.predict(img_input)
     tokens_dict = decoder_tokens_list_to_dict(decoder_token_list)
+    # print('attr tokens_dict', tokens_dict)
     target_seq = np.zeros((1, 1, len(tokens_dict)))
     target_seq[0, 0, tokens_dict['START']] = 1.
 
@@ -254,9 +257,10 @@ input_image_path, input_shape, decoder_token_list, max_decoder_seq_length, resul
         output_tokens, h, c = decoder_model.predict(
             [target_seq] + states_value)
         # Sample a token
+        # print('output_tokens', output_tokens)
         sampled_token_index = np.argmax(output_tokens[0, -1, :])
         sampled_token = reverse_tokens_dict[sampled_token_index]
-        print('sampled_token:', sampled_token_index, sampled_token)
+        # print('sampled_token:', sampled_token_index, sampled_token)
         if sampled_token != 'EOS':
             decoded_sentence.append(sampled_token)
 
