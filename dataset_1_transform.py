@@ -29,7 +29,7 @@ if __name__ == "__main__":
     --------------- full yolo position to yolo training datafile --------------------
     =================================================================================
     '''
-    # createFolder(path.DATASET3_TRAINSET_YOLO_TRAIN_TXT)
+    # createFolder(path.DATASET1_1750_TRAINSET_YOLO_TRAIN)
     # to_yolo_training_file(path.DATASET3_TRAINSET_ORIGIN_LIGHT_PNG, 
     # path.DATASET3_TRAINSET_ATTR_YOLO_POSITION_TXT, 500,
     # path.DATASET3_TRAINSET_YOLO_TRAIN_TXT+"500\\data3_attr_yolo_500"+TYPE.TXT)
@@ -41,9 +41,13 @@ if __name__ == "__main__":
     # path.DATASET3_TRAINSET_ATTR_YOLO_POSITION_TXT_PADDING_2, 500,
     # path.DATASET3_TRAINSET_YOLO_TRAIN_TXT+"500\\data3_attr_yolo_500_padding_2"+TYPE.TXT)
 
-    # to_yolo_training_file(path.DATASET3_TRAINSET_ORIGIN_LIGHT_PNG, 
-    # path.DATASET3_TRAINSET_ATTR_YOLO_POSITION_TXT_INPUT_PADDING, 500,
-    # path.DATASET3_TRAINSET_YOLO_TRAIN_TXT+"500\\data3_attr_yolo_500_input_padding"+TYPE.TXT)
+    # to_yolo_training_file(path.DATASET1_1750_TRAINSET_ORIGIN_PNG, 
+    # path.DATASET1_1750_TRAINSET_ATTR_YOLO_POSITION_TXT, 1500,
+    # path.DATASET1_1750_TRAINSET_YOLO_TRAIN+"data1_attr_yolo_1500"+TYPE.TXT)
+    
+    # to_yolo_training_file(path.DATASET1_1750_TRAINSET_ORIGIN_PNG, 
+    # path.DATASET1_1750_TRAINSET_FULL_YOLO_POSITION_TXT, 1500,
+    # path.DATASET1_1750_TRAINSET_YOLO_TRAIN+"data1_full_yolo_1500"+TYPE.TXT)
 
     ''' 
     =================================================================================
@@ -51,14 +55,14 @@ if __name__ == "__main__":
     =================================================================================
     '''
 
-    for i in range(1420, 1500):
-        root = tk.Tk()
-        app = ManualTagClass(root, buttonList, path.DATASET1_ORIGIN_PNG + str(i) + TYPE.IMG,
-                             path.DATASET1_ROWCOL_YOLO_POSITION_TXT + str(i) + TYPE.TXT, path.DATASET1_FULL_YOLO_POSITION_TXT + str(i)+TYPE.TXT)
-        root.mainloop()
+    # for i in range(700, 800):
+    #     root = tk.Tk()
+    #     app = ManualTagClass(root, buttonList, path.DATASET1_ORIGIN_PNG + str(i) + TYPE.IMG,
+    #                          path.DATASET1_ROWCOL_YOLO_POSITION_TXT + str(i) + TYPE.TXT, path.DATASET1_FULL_YOLO_POSITION_TXT + str(i)+TYPE.TXT)
+    #     root.mainloop()
 
-        if app.is_close():
-            break
+    #     if app.is_close():
+    #         break
 
     ''' 
     =================================================================================
@@ -97,7 +101,7 @@ if __name__ == "__main__":
     ------------- Full Yolo position -- to -- Attribute Yolo position ---------------
     =================================================================================
     '''
-    # createFolder(path.DATASET3_TRAINSET_NOISE_ATTR_YOLO_POSITION_TXT)
+    # createFolder(path.DATASET1_1750_TRAINSET_NOISE_ATTR_YOLO_POSITION_TXT)
     # bg_color = [None, None, Bg_color.primary.value, Bg_color.dark.value,
     #             Bg_color.success.value, Bg_color.warning.value, Bg_color.danger.value, 
     #             None, None,None, None,None, None, None]
@@ -106,10 +110,10 @@ if __name__ == "__main__":
     #               Font_color.primary.value, Font_color.success.value, Font_color.danger.value,
     #               Font_color.primary.value, Font_color.success.value, Font_color.danger.value, None]
     # classes = [[0, 7, 8, 9], [1, 10, 11, 12], [2, 3, 4, 5, 6], [13]]
-    # for i in range(2500):
+    # for i in range(4500):
     #     new_labels = []
     #     labels = read_file(
-    #         path.DATASET3_TRAINSET_NOISE_FULL_YOLO_POSITION_TXT+str(i)+TYPE.TXT, 'splitlines')
+    #         path.DATASET1_1750_TRAINSET_NOISE_FULL_YOLO_POSITION_TXT+str(i)+TYPE.TXT, 'splitlines')
     #     for label in labels:
     #         c = int(label.split()[0])
     #         position = label.split()[1:]
@@ -126,7 +130,7 @@ if __name__ == "__main__":
     #         attrs = [a for a in [text_color[c], bg_color[c]] if a]
     #         new_label += attrs
     #         new_labels.append(new_label)
-    #     write_file(new_labels, path.DATASET3_TRAINSET_NOISE_ATTR_YOLO_POSITION_TXT+str(i)+TYPE.TXT, 2)
+    #     write_file(new_labels, path.DATASET1_1750_TRAINSET_NOISE_ATTR_YOLO_POSITION_TXT+str(i)+TYPE.TXT, 2)
 
 
     ''' 
@@ -174,30 +178,31 @@ if __name__ == "__main__":
     '''
 
     # yolo_position_with_noise_generator(
-    #     yolo_position_folder=path.DATASET3_TRAINSET_ATTR_YOLO_POSITION_TXT,
-    #     # gui_folder=path.DATASET3_TRAINSET_ORIGIN_GUI,
-    #     new_positions_folder=path.DATASET3_TRAINSET_NOISE_ATTR_YOLO_POSITION_TXT,
-    #     # new_gui_folder=path.DATASET3_TRAINSET_NOISE_ORIGIN_GUI,
-    #     data_num=500,
+    #     yolo_position_folder=path.DATASET1_1750_TRAINSET_FULL_YOLO_POSITION_TXT,
+    #     gui_folder=path.DATASET1_1750_TRAINSET_ORIGIN_GUI,
+    #     new_positions_folder=path.DATASET1_1750_TRAINSET_NOISE_FULL_YOLO_POSITION_TXT,
+    #     new_gui_folder=path.DATASET1_1750_TRAINSET_NOISE_ORIGIN_GUI,
+    #     data_num=1500,
     #     save_origin_file=True,
-    #     resort=True)
+    #     resort=True,
+    #     multiple=3)
     ''' 
     =================================================================================
     ---------------------- COPY FILES for TestingDataset ----------------------------
     =================================================================================
     '''
-    # origin_start = 400
-    # origin_end = 599
-    # target_start = 300
+    # origin_start = 0
+    # origin_end = 1499
+    # target_start = 0
     # clean = False
-    # copy_files(path.DATASET3_FULL_YOLO_POSITION_TXT, origin_start, origin_end, TYPE.TXT,
-    #            path.DATASET3_TRAINSET_FULL_YOLO_POSITION_TXT, target_start, TYPE.TXT, clean_target_folder=clean)
-    # copy_files(path.DATASET3_FULL_YOLO_POSITION_TXT_PADDING, origin_start, origin_end, TYPE.TXT,
-    #            path.DATASET3_TRAINSET_FULL_YOLO_POSITION_TXT_PADDING, target_start, TYPE.TXT, clean_target_folder=clean)
-    # copy_files(path.DATASET3_FULL_YOLO_POSITION_TXT_PADDING_20, origin_start, origin_end, TYPE.TXT,
-    #            path.DATASET3_TRAINSET_FULL_YOLO_POSITION_TXT_PADDING_2, target_start, TYPE.TXT, clean_target_folder=clean)
-    # copy_files(path.DATASET3_FULL_YOLO_POSITION_TXT_INPUT_PADDING, origin_start, origin_end, TYPE.TXT,
-    #            path.DATASET3_TRAINSET_FULL_YOLO_POSITION_TXT_INPUT_PADDING, target_start, TYPE.TXT, clean_target_folder=clean)
+    # copy_files(path.DATASET1_1750_FULL_YOLO_POSITION_TXT, origin_start, origin_end, TYPE.TXT,
+    #            path.DATASET1_1750_TESTSET_FULL_YOLO_POSITION_TXT, target_start, TYPE.TXT, clean_target_folder=clean)
+    # copy_files(path.DATASET1_1750_ATTR_YOLO_POSITION_TXT, origin_start, origin_end, TYPE.TXT,
+    #            path.DATASET1_1750_TESTSET_ATTR_YOLO_POSITION_TXT, target_start, TYPE.TXT, clean_target_folder=clean)
+    # copy_files(path.DATASET1_1750_ORIGIN_GUI, origin_start, origin_end, TYPE.GUI,
+    #            path.DATASET1_1750_TESTSET_ORIGIN_GUI, target_start, TYPE.GUI, clean_target_folder=clean)
+    # copy_files(path.DATASET1_1750_OUR_GUI, origin_start, origin_end, TYPE.GUI,
+    #            path.DATASET1_1750_TESTSET_OUR_GUI, target_start, TYPE.GUI, clean_target_folder=clean)
     
     # copy_files(path.DATASET3_ATTR_YOLO_POSITION_TXT, origin_start, origin_end, TYPE.TXT,
     #            path.DATASET3_TRAINSET_ATTR_YOLO_POSITION_TXT, target_start, TYPE.TXT, clean_target_folder=clean)
@@ -208,13 +213,13 @@ if __name__ == "__main__":
     # copy_files(path.DATASET3_ATTR_YOLO_POSITION_TXT_INPUT_PADDING, origin_start, origin_end, TYPE.TXT,
     #            path.DATASET3_TRAINSET_ATTR_YOLO_POSITION_TXT_INPUT_PADDING, target_start, TYPE.TXT, clean_target_folder=clean)
 
-    # copy_files(path.DATASET3_ORIGIN_LIGHT_PNG, origin_start, origin_end, TYPE.IMG,
-    #            path.DATASET3_TRAINSET_ORIGIN_LIGHT_PNG, target_start, TYPE.IMG, clean_target_folder=clean)
+    # copy_files(path.DATASET1_1750_ORIGIN_PNG, origin_start, origin_end, TYPE.IMG,
+    #            path.DATASET1_1750_TRAINSET_ORIGIN_PNG, target_start, TYPE.IMG, clean_target_folder=clean)
 
     # copy_files(path.DATASET3_ORIGIN_GUI, origin_start, origin_end, TYPE.GUI,
     #            path.DATASET3_TRAINSET_ORIGIN_GUI, target_start, TYPE.GUI, clean_target_folder=clean)
-    # copy_files(path.DATASET1_FULL_YOLO_NOISE_ORIGIN_GUI, 0, 499, TYPE.GUI,
-    #            path.DATASET1_FULL_YOLO_NOISE_ORIGIN_GUI, 2000, TYPE.GUI, clean_target_folder=False)
+    # copy_files(path.DATASET1_1750_TRAINSET_OUR_GUI, 0, 1499, TYPE.GUI,
+    #            path.DATASET1_1750_TRAINSET_NOISE_OUR_GUI, 3000, TYPE.GUI, clean_target_folder=False)
 
 
     ''' 

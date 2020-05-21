@@ -29,72 +29,6 @@ class SeqModelType(Enum):
     bidirectional = 'bidirectional'
     encoder_bidirectional_attention = 'encoder_bidirectional_attention'
 
-
-def seq2seq_predit_model_old(model: Model)-> Model:
-    encoder_inputs = model.input[0]  # input_1
-    encoder_outputs, state_h_enc, state_c_enc = model.layers[3].output
-    encoder_states = [state_h_enc, state_c_enc]
-    encoder_model = Model(encoder_inputs, encoder_states)
-    encoder_model.summary()
-
-    decoder_inputs = model.input[1]   # input_2
-    decoder_state_input_h = Input(shape=(LSTM_DECODER_DIM,), name='input_3')
-    decoder_state_input_c = Input(shape=(LSTM_DECODER_DIM,), name='input_4')
-    decoder_states_inputs = [decoder_state_input_h, decoder_state_input_c]
-
-    decoder_lstm = model.layers[4]
-    decoder_outputs, state_h, state_c = decoder_lstm(
-        decoder_inputs, initial_state=decoder_states_inputs)
-    decoder_states = [state_h, state_c]
-    decoder_dense = model.layers[5]
-    decoder_outputs = decoder_dense(decoder_outputs)
-    decoder_model = Model(
-        [decoder_inputs] + decoder_states_inputs,
-        [decoder_outputs] + decoder_states)
-    decoder_model.summary()
-    return encoder_model, decoder_model
-
-def bidirectional_predit_model_old(model: Model, layer2_lstm=False)->Model:
-    encoder_inputs = model.get_layer('encoder_input').input  # input_1
-    decoder_inputs = model.get_layer('decoder_input').input   # input_2
-    decoder_state_input_h = Input(shape=(LSTM_DECODER_DIM,), name='input_fh')
-    decoder_state_input_c = Input(shape=(LSTM_DECODER_DIM,), name='input_fc')
-    decoder_bstate_input_h = Input(shape=(LSTM_DECODER_DIM,), name='input_bh')
-    decoder_bstate_input_c = Input(shape=(LSTM_DECODER_DIM,), name='input_bc')
-    decoder_states_inputs = [
-        decoder_state_input_h, decoder_state_input_c, decoder_bstate_input_h, decoder_bstate_input_c]
-
-    if layer2_lstm:
-        encoder_outputs = model.get_layer(
-            'encoder_lstm_0').output
-        encoder_lstm = model.get_layer('encoder_lstm')
-        encoder_outputs, e_fh, e_fc, e_bh, e_bc = encoder_lstm(encoder_outputs)
-
-        decoder_lstm_0 = model.get_layer('decoder_lstm_0')
-        decoder_outputs = decoder_lstm(
-            decoder_inputs, initial_state=decoder_states_inputs)
-        decoder_lstm = model.get_layer('decoder_lstm')
-        decoder_outputs, d_fh, d_fc, d_bh, d_bc = decoder_lstm(
-            decoder_outputs, initial_state=decoder_states_inputs)
-    else:
-        encoder_outputs, e_fh, e_fc, e_bh, e_bc = model.get_layer(
-            'encoder_lstm').output
-        decoder_lstm = model.get_layer('decoder_lstm')
-        decoder_outputs, d_fh, d_fc, d_bh, d_bc = decoder_lstm(
-            decoder_inputs, initial_state=decoder_states_inputs)
-
-    encoder_states = [e_fh, e_fc, e_bh, e_bc]
-    encoder_model = Model(encoder_inputs, encoder_states)
-    encoder_model.summary()
-    decoder_states = [d_fh, d_fc, d_bh, d_bc]
-    decoder_dense = model.get_layer('decoder_dense')
-    decoder_outputs = decoder_dense(decoder_outputs)
-    decoder_model = Model(
-        [decoder_inputs] + decoder_states_inputs,
-        [decoder_outputs] + decoder_states)
-    decoder_model.summary()
-    return encoder_model, decoder_model
-
 def attention_section(encoder_outputs, decoder_outputs):
     attention = dot([decoder_outputs, encoder_outputs], axes=[2, 2], name= "dot1")
     attention = Activation('softmax', name='attention')(attention)
@@ -226,6 +160,35 @@ def encoder_bidirectional_attention_predit_model(model: Model, encoder_inputs, d
     decoder_states = [dh, dc]
     return encoder_outputs, decoder_states, output, [encoder_each_h_input]+decoder_states_inputs
 
+def encoder_bidirectional_stack_attention_predit_model(model: Model, encoder_inputs, decoder_inputs):
+    dh0_input = Input(shape=(LSTM_DECODER_DIM*2,), name='input_h0')
+    dc0_input = Input(shape=(LSTM_DECODER_DIM*2,), name='input_c0')
+    decoder_states0 = [dh0_input, dc0_input]
+    dh1_input = Input(shape=(LSTM_DECODER_DIM*2,), name='input_h1')
+    dc1_input = Input(shape=(LSTM_DECODER_DIM*2,), name='input_c1')
+    decoder_states1 = [dh1_input, dc1_input]
+    decoder_states_inputs = [dh0_input, dc0_input, dh1_input, dc1_input]
+    encoder_each_h_input = Input(shape=(None, LSTM_DECODER_DIM*2), name='input_each_h')
+
+    encoder_outputs, efh0, efc0, ebh0, ebc0 = model.get_layer('encoder_lstm_0').output
+    state_eh0 = Concatenate()([efh0, ebh0])
+    state_ec0 = Concatenate()([efc0, ebc0])
+    encoder_lstm1 = model.get_layer('encoder_lstm')
+    e_outputs, efh1, efc1, ebh1, ebc1 = encoder_lstm1(encoder_outputs)
+    state_eh1 = Concatenate()([efh1, ebh1])
+    state_ec1 = Concatenate()([efc1, ebc1])
+    decoder_lstm0 = model.get_layer('decoder_lstm_0')
+    decoder_outputs, dh0, dc0 = decoder_lstm0(decoder_inputs, initial_state=decoder_states0)
+    decoder_lstm1 = model.get_layer('decoder_lstm')
+    decoder_outputs, dh1, dc1 = decoder_lstm1(decoder_outputs, initial_state=decoder_states1)
+    context = attention_section(encoder_each_h_input, decoder_outputs)
+    decoder_combined_context = concatenate([context, decoder_outputs])
+    dense1 = model.get_layer('dense1')
+    output = dense1(decoder_combined_context)
+    encoder_states = [e_outputs, state_eh0, state_ec0, state_eh1, state_ec1]
+    decoder_states = [dh0, dc0, dh1, dc1]
+    return encoder_states, decoder_states, output, [encoder_each_h_input]+decoder_states_inputs
+
 def encoder_bidirectional_stack_predit_model(model: Model, encoder_inputs, decoder_inputs):
     dh0_input = Input(shape=(LSTM_DECODER_DIM*2,), name='input_h0')
     dc0_input = Input(shape=(LSTM_DECODER_DIM*2,), name='input_c0')
@@ -251,42 +214,6 @@ def encoder_bidirectional_stack_predit_model(model: Model, encoder_inputs, decod
     decoder_states = [dh0, dc0, dh1, dc1]
     return encoder_states, decoder_states, decoder_outputs, decoder_states_inputs
 
-def normal_predit_model_old(model: Model, layer2_lstm=False) -> Model:
-    encoder_inputs = model.get_layer('encoder_input').input  # input_1
-    decoder_inputs = model.get_layer('decoder_input').input   # input_2
-    decoder_state_input_h = Input(shape=(LSTM_DECODER_DIM,), name='input_h')
-    decoder_state_input_c = Input(shape=(LSTM_DECODER_DIM,), name='input_c')
-    decoder_states_inputs = [decoder_state_input_h, decoder_state_input_c]
-    if layer2_lstm:
-        encoder_outputs = model.get_layer(
-            'encoder_lstm_0').output
-        encoder_lstm = model.get_layer('encoder_lstm')
-        encoder_outputs, e_h, e_c = encoder_lstm(encoder_outputs)
-
-        decoder_lstm_0 = model.get_layer('decoder_lstm_0')
-        decoder_outputs = decoder_lstm(
-            decoder_inputs, initial_state=decoder_states_inputs)
-        decoder_lstm = model.get_layer('decoder_lstm')
-        decoder_outputs, d_h, d_c = decoder_lstm(
-            decoder_outputs, initial_state=decoder_states_inputs)
-    else:
-        encoder_outputs, e_h, e_c = model.get_layer('encoder_lstm').output
-        decoder_lstm = model.get_layer('decoder_lstm')
-        decoder_outputs, d_h, d_c = decoder_lstm(
-            decoder_inputs, initial_state=decoder_states_inputs)
-
-    encoder_states = [e_h, e_c]
-    encoder_model = Model(encoder_inputs, encoder_states)
-    encoder_model.summary()
-    decoder_states = [d_h, d_c]
-    decoder_dense = model.get_layer('decoder_dense')
-    decoder_outputs = decoder_dense(decoder_outputs)
-    decoder_model = Model(
-        [decoder_inputs] + decoder_states_inputs,
-        [decoder_outputs] + decoder_states)
-    decoder_model.summary()
-    return encoder_model, decoder_model
-
 def seq2seq_predit_model(model: Model, model_type=SeqModelType.normal.value, layer2_lstm=False)-> Model:
     encoder_inputs = model.get_layer('encoder_input').input  # input_1
     decoder_inputs = model.get_layer('decoder_input').input   # input_2
@@ -308,7 +235,7 @@ def seq2seq_predit_model(model: Model, model_type=SeqModelType.normal.value, lay
 
     elif model_type ==SeqModelType.encoder_bidirectional_attention.value:
         if layer2_lstm:
-            pass
+            encoder_states, decoder_states, decoder_outputs, decoder_states_inputs = encoder_bidirectional_stack_attention_predit_model(model, encoder_inputs, decoder_inputs)
         else:
             encoder_states, decoder_states, decoder_outputs, decoder_states_inputs = encoder_bidirectional_attention_predit_model(model, encoder_inputs, decoder_inputs)
     elif model_type ==SeqModelType.normal_attention.value:
@@ -327,95 +254,6 @@ def seq2seq_predit_model(model: Model, model_type=SeqModelType.normal.value, lay
         [decoder_outputs] + decoder_states)
     decoder_model.summary()
     return encoder_model, decoder_model
-
-def bidirectional_seq2seq_training_model_old(num_input_token, num_target_token, gaussian_noise=1, layer2_lstm=False) -> Model:
-    encoder_inputs = Input(shape=(None, num_input_token), name="encoder_input")
-    _input = encoder_inputs
-    if gaussian_noise != None:
-        encoder_noice = GaussianNoise(1, name="gaussian_noise")(encoder_inputs)
-        _input = encoder_noice
-
-    decoder_inputs = Input(shape=(None, num_target_token), name="decoder_input")
-
-    if layer2_lstm:
-        encoder = Bidirectional(
-            LSTM(LSTM_ENCODER_DIM, return_sequences=True, return_state=True), name="encoder_lstm_0")(_input)
-        encoder_layer2 = Bidirectional(
-            LSTM(LSTM_ENCODER_DIM, return_state=True), name="encoder_lstm")
-        encoder_outputs, forward_h, forward_c, backward_h, backward_c = encoder_layer2(
-            encoder)
-        encoder_states = [forward_h, forward_c, backward_h, backward_c]
-        decoder_lstm = Bidirectional(
-            LSTM(LSTM_DECODER_DIM, return_sequences=True, return_state=True), name="decoder_lstm_0"
-        )(decoder_inputs, initial_state=encoder_states)
-        decoder_lstm_layer2 = Bidirectional(LSTM(
-            LSTM_DECODER_DIM, return_sequences=True, return_state=True), name="decoder_lstm")
-        decoder_outputs, _, _, _, _, = decoder_lstm_layer2(
-            decoder_lstm, initial_state=encoder_states)
-
-    else:
-        encoder = Bidirectional(
-            LSTM(LSTM_ENCODER_DIM, return_state=True), name="encoder_lstm")
-        encoder_outputs, forward_h, forward_c, backward_h, backward_c = encoder(
-            _input)
-        encoder_states = [forward_h, forward_c, backward_h, backward_c]
-        decoder_lstm = Bidirectional(LSTM(
-            LSTM_DECODER_DIM, return_sequences=True, return_state=True), name="decoder_lstm")
-        decoder_outputs, _, _, _, _, = decoder_lstm(decoder_inputs,
-                                                     initial_state=encoder_states)
-    
-    decoder_dense = Dense(
-        num_target_token, activation='softmax', name="decoder_dense")
-    decoder_outputs = decoder_dense(decoder_outputs)
-    model = Model([encoder_inputs, decoder_inputs], decoder_outputs)
-
-
-    # if layer2_lstm:
-    #     encoder = Bidirectional(
-    #         LSTM(LSTM_ENCODER_DIM, return_sequences=True), name="encoder_lstm_0")(_input)
-    #     encoder_layer2 = Bidirectional(
-    #         LSTM(LSTM_ENCODER_DIM, return_state=True), name="encoder_lstm")
-    #     encoder_outputs, forward_h, forward_c, backward_h, backward_c = encoder_layer2(
-    #         encoder)
-    #     print('encoder_layer2 output shape: ', encoder_layer2.output_shape)
-    # else:
-    #     encoder = Bidirectional(
-    #         LSTM(LSTM_ENCODER_DIM, return_state=True), name="encoder_lstm")
-    #     encoder_outputs, forward_h, forward_c, backward_h, backward_c = encoder(
-    #         _input)
-    #     print('encoder output shape: ', encoder.output_shape)
-
-    # # state_h = Concatenate()([forward_h, backward_h])
-    # # state_c = Concatenate()([forward_c, backward_c])
-    # # encoder_states = [state_h, state_c]
-    # encoder_states = [forward_h, forward_c, backward_h, backward_c]
-
-    # decoder_inputs = Input(
-    #     shape=(None, num_target_token), name="decoder_input")
-    # if layer2_lstm:
-    #     decoder_lstm = Bidirectional(LSTM(
-    #         LSTM_DECODER_DIM, return_sequences=True), name="decoder_lstm_0")(decoder_inputs, initial_state=encoder_states)
-    #     decoder_lstm_layer2 = Bidirectional(LSTM(
-    #         LSTM_DECODER_DIM, return_sequences=True, return_state=True), name="decoder_lstm")
-    #     decoder_outputs, _, _, _, _, = decoder_lstm_layer2(
-    #         decoder_lstm, initial_state=encoder_states)
-    #     print('decoder_lstm_layer2 output shape: ',
-    #           decoder_lstm_layer2.output_shape)
-
-    # else:
-    #     decoder_lstm = Bidirectional(LSTM(
-    #         LSTM_DECODER_DIM, return_sequences=True, return_state=True), name="decoder_lstm")
-    #     decoder_outputs,  _, _, _, _, = decoder_lstm(decoder_inputs,
-    #                                                  initial_state=encoder_states)
-    #     print('decoder_lstm output shape: ', decoder_lstm.output_shape)
-
-    # decoder_dense = Dense(
-    #     num_target_token, activation='softmax', name="decoder_dense")
-    # decoder_outputs = decoder_dense(decoder_outputs)
-    # model = Model([encoder_inputs, decoder_inputs], decoder_outputs)
-
-    return model
-
 
 
 def normal_training_model(encoder_inputs, decoder_inputs):
@@ -485,15 +323,10 @@ def encoder_bidirectional_attention_training_model(encoder_inputs, decoder_input
     decoder_lstm = LSTM(LSTM_DECODER_DIM*2, return_sequences=True, return_state=True, name="decoder_lstm")
     decoder_outputs, _, _, = decoder_lstm(decoder_inputs, initial_state=encoder_states)
     print('decoder_outputs', decoder_outputs)
-    # attention = dot([decoder_outputs, encoder_outputs], axes=[2, 2])
-    # attention = Activation('softmax', name='attention')(attention)
-    # print('attention', attention)
-    # context = dot([attention, encoder_outputs], axes=[2,1])
-    # print('context', context)
     context = attention_section(encoder_outputs, decoder_outputs)
     decoder_combined_context = concatenate([context, decoder_outputs])
     print('decoder_combined_context', decoder_combined_context)
-    output = TimeDistributed(Dense(64, activation="tanh"), name='dense1')(decoder_combined_context)
+    output = TimeDistributed(Dense(LSTM_DECODER_DIM, activation="tanh"), name='dense1')(decoder_combined_context)
     print('output', output)
     return output
 
@@ -506,6 +339,25 @@ def encoder_bidirectional_training_model(encoder_inputs, decoder_inputs):
     decoder_lstm = LSTM(LSTM_DECODER_DIM*2, return_sequences=True, return_state=True, name="decoder_lstm")
     decoder_outputs, _, _, = decoder_lstm(decoder_inputs, initial_state=encoder_states)
     return decoder_outputs
+
+def encoder_bidirectional_stack_attention_training_model(encoder_inputs, decoder_inputs):
+    encoder_lstm0 = Bidirectional(LSTM(LSTM_ENCODER_DIM, return_sequences=True, return_state=True), name="encoder_lstm_0")
+    encoder_outputs, efh0, efc0, ebh0, ebc0 = encoder_lstm0(encoder_inputs)
+    encoder_lstm1 = Bidirectional(LSTM(LSTM_ENCODER_DIM, return_sequences=True, return_state=True), name="encoder_lstm")
+    encoder_outputs, efh1, efc1, ebh1, ebc1 = encoder_lstm1(encoder_outputs)
+    layer0_state_h = Concatenate()([efh0,  ebh0])
+    layer0_state_c = Concatenate()([efc0,  ebc0])
+    layer1_state_h = Concatenate()([efh1,  ebh1])
+    layer1_state_c = Concatenate()([efc1,  ebc1])
+    decoder_lstm0 = LSTM(LSTM_DECODER_DIM*2, return_sequences=True, return_state=True, name="decoder_lstm_0")
+    decoder_outputs, _, _ = decoder_lstm0(decoder_inputs, initial_state=[layer0_state_h, layer0_state_c])
+    decoder_lstm2 = LSTM(LSTM_DECODER_DIM*2, return_sequences=True, return_state=True, name="decoder_lstm")
+    decoder_outputs, _, _ = decoder_lstm2(decoder_outputs, initial_state=[layer1_state_h, layer1_state_c])
+    context = attention_section(encoder_outputs, decoder_outputs)
+    decoder_combined_context = concatenate([context, decoder_outputs])
+    output = TimeDistributed(Dense(LSTM_DECODER_DIM, activation="tanh"), name='dense1')(decoder_combined_context)
+
+    return output
 
 def encoder_bidirectional_stack_training_model(encoder_inputs, decoder_inputs):
     encoder_lstm0 = Bidirectional(LSTM(LSTM_ENCODER_DIM, return_sequences=True, return_state=True), name="encoder_lstm_0")
@@ -523,43 +375,6 @@ def encoder_bidirectional_stack_training_model(encoder_inputs, decoder_inputs):
 
     return decoder_outputs
 
-def normal_training_model_old(num_input_token, num_target_token, gaussian_noise=1, layer2_lstm=False) -> Model:
-    encoder_inputs = Input(shape=(None, num_input_token), name="encoder_input")
-    _input = encoder_inputs
-    if gaussian_noise != None:
-        encoder_noice = GaussianNoise(1, name="gaussian_noise")(encoder_inputs)
-        _input = encoder_noice
-
-    if layer2_lstm:
-        encoder = LSTM(LSTM_ENCODER_DIM, return_sequences=True,
-                       name="encoder_lstm_0")(_input)
-        encoder_outputs, state_h, state_c = LSTM(
-            LSTM_ENCODER_DIM, return_state=True, name="encoder_lstm")(encoder)
-    else:
-        encoder = LSTM(LSTM_ENCODER_DIM, return_state=True,
-                       name="encoder_lstm")
-        encoder_outputs, state_h, state_c = encoder(_input)
-
-    # encoder_outputs, state_h, state_c = encoder(_input)
-    encoder_states = [state_h, state_c]
-    decoder_inputs = Input(
-        shape=(None, num_target_token), name="decoder_input")
-
-    if layer2_lstm:
-        decoder_lstm = LSTM(
-            LSTM_DECODER_DIM, return_sequences=True, name="decoder_lstm_0")(decoder_inputs, initial_state=encoder_states)
-        decoder_outputs, _, _ = LSTM(
-            LSTM_DECODER_DIM, return_sequences=True, return_state=True, name="decoder_lstm")(decoder_lstm)
-    else:
-        decoder_lstm = LSTM(
-            LSTM_DECODER_DIM, return_sequences=True, return_state=True, name="decoder_lstm")
-        decoder_outputs, _, _ = decoder_lstm(decoder_inputs,
-                                             initial_state=encoder_states)
-    decoder_dense = Dense(
-        num_target_token, activation='softmax', name="decoder_dense")
-    decoder_outputs = decoder_dense(decoder_outputs)
-    model = Model([encoder_inputs, decoder_inputs], decoder_outputs)
-    return model
 
 # model_type='normal' | 'encoder_bidirectional' | 'bidirectional
 def seq2seq_train_model(num_input_token, num_target_token,
@@ -591,7 +406,7 @@ def seq2seq_train_model(num_input_token, num_target_token,
             decoder_outputs = normal_training_model(_encoder_input, decoder_inputs)
     elif model_type == SeqModelType.encoder_bidirectional_attention.value:
         if layer2_lstm:
-            # decoder_outputs = encoder_bidirectional_stack_training_model(_encoder_input, decoder_inputs)
+            decoder_outputs = encoder_bidirectional_stack_attention_training_model(_encoder_input, decoder_inputs)
             pass
         else:
             decoder_outputs = encoder_bidirectional_attention_training_model(_encoder_input, decoder_inputs)
@@ -677,7 +492,7 @@ max_decoder_seq_length, result_saved_path=None):
         if len_states_value == 8:
             output_tokens, fh0, fc0, bh0, bc0, fh1, fc1, bh1, bc1 = decoder_model.predict(
                 [target_seq] + states_value)
-        elif len_states_value == 4:
+        elif len_states_value == 4 or len_states_value ==5:
             output_tokens, fh, fc, bh, bc = decoder_model.predict(
                 [target_seq] + states_value)
         elif len_states_value == 2:
@@ -710,6 +525,8 @@ max_decoder_seq_length, result_saved_path=None):
             states_value = [fh0, fc0, bh0, bc0, fh1, fc1, bh1, bc1]
         elif len_states_value == 4:
             states_value = [fh, fc, bh, bc]
+        elif len_states_value == 5:
+            states_value = [states_value[0], fh, fc, bh, bc]
         elif len_states_value == 2:
             states_value = [h, c]
         elif len_states_value == 3:

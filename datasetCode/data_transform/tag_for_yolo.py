@@ -211,7 +211,7 @@ def yolo_position_with_noise_generator(yolo_position_folder, gui_folder=None,
             if gui_folder:
                 write_file(read_gui, new_gui_file_name, 0)
             write_file(new_positions, new_position_file_name, 2)
-        print(i) if i % 50 == 0 else None
+        print(i) if i % 500 == 0 else None
 
 
 if __name__ == "__main__":
