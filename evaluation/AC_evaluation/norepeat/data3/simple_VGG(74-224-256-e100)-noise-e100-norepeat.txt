@@ -1,0 +1,15 @@
+evaluated Model path: 
+D:\Chi\webimg-to-code\assets\2020-8\attr_class-data3-fix\simple_VGG\74224-256\3100-noise\model\100\attr_class_model.h5
+data_file: D:\Chi\dataset\dataset3\element\attr-noise-labels-balance-lab.txt
+
+training data: 
+ from: 0
+ to: 2800
+Loss: 0.0044, Accuracy: 99.911% 
+ 
+
+testing data: 
+ from: 2800
+ to: 3100
+Loss: 0.0068, Accuracy: 99.826% 
+ 

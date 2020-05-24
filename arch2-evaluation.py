@@ -41,31 +41,31 @@ def attr_classification(encoder_model, decoder_model, img_path, subImg_shape, at
 if __name__ == "__main__":
     BLEU_SCORE = True
     ERROR_SCORE = True
-    INPUT_TYPE = 2
-    TARGET_TYPE = 1
+    INPUT_TYPE = 5
+    TARGET_TYPE = 4
     seq_en_config = get_encoder_config(INPUT_TYPE)
     seq_de_config = get_decoder_config(TARGET_TYPE)
-    attr_en_config = get_attribute_encoder_config(1)
-    attr_de_config = get_attribute_decoder_config(1)
+    attr_en_config = get_attribute_encoder_config(2)
+    attr_de_config = get_attribute_decoder_config(2)
 
     seq_model_type = SeqModelType.encoder_bidirectional_attention.value
-    layer2_lstm = False
-    predit_data_num = 250
+    layer2_lstm = True
+    predit_data_num = 100
     start_idx = 0
     test_data = True
     # after YOLO
-    origin_img_data_folder = path.DATASET1_1750_TRAINSET_ORIGIN_PNG
-    input_data_folder = ENV.SELF + 'yolo_detected\\pix2code-1750\\Arch2_train\\013\\'
+    origin_img_data_folder = path.DATASET3_TRAINSET_ORIGIN_LIGHT_PNG
+    input_data_folder = ENV.SELF + 'yolo_detected\\data3\\Arch2_test\\013\\'
     target_data_folder = seq_de_config['testing_data_folder'] if test_data else seq_de_config['data_folder']
 
-    seq_model_path = ENV.SELF +r'assets\2020-8\seq2seq-pix2code\attr-origin\encoder_bidirectional_attention-resort\1500\noise\model\200\model.h5'
-    attr_class_model_path = ENV.SELF + r'assets\2020-8\attr_class-pix2code-fix\simple_VGG\74224-256\2500-noise\model\100\attr_class_model.h5'
+    seq_model_path = ENV.SELF +r'assets\2020-8\seq2seq-data3\attr-ourgui\encoder_bidirectional_stack_attention-resort\2500\noise\model\300\model.h5'
+    attr_class_model_path = ENV.SELF + r'assets\2020-8\attr_class-data3-fix\simple_VGG\74224-256\3100-noise\model\100\attr_class_model.h5'
 
     predit_result_save_path = None
-    bleu_file_path = path.EVALUATION_BLEU_SCORE + 'complete-arch2\\pix2code-1750\\simpleVGG(noise)\\'
-    bleu_file_name = '013_Arch2-0_1500_ebiLSTM_attention_record.txt'
-    error_file_path = path.EVALUATION_ERROR_SCORE + 'complete-arch2\\pix2code-1750\\simpleVGG(noise)\\'
-    error_file_name = '013_Arch2-0_1500_ebiLSTM_attention_record.txt'
+    bleu_file_path = path.EVALUATION_BLEU_SCORE + 'complete-arch2\\data3\\simpleVGG(noise)\\'
+    bleu_file_name = '013_Arch2_2500_ebiLSTM_stack_attention_record.txt'
+    error_file_path = path.EVALUATION_ERROR_SCORE + 'complete-arch2\\data3\\simpleVGG(noise)\\'
+    error_file_name = '013_Arch2_2500_ebiLSTM_stack_attention_record.txt'
 
     encoder_model, decoder_model = seq2seq_predit_model(
         load_model(seq_model_path), model_type=seq_model_type, layer2_lstm=layer2_lstm)

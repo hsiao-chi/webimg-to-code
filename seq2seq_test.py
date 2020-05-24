@@ -12,23 +12,23 @@ from evaluationCode.bleu import Bleu
 from evaluationCode.evaluation_error import Eva_error
 
 if __name__ == "__main__":
-    INPUT_TYPE = 2
-    TARGET_TYPE = 3
+    INPUT_TYPE = 4
+    TARGET_TYPE = 4
     seq_model_type = SeqModelType.encoder_bidirectional_attention.value
-    layer2_lstm = True
-    training_data_num = 1500
-    evaluate_data_nums = [1500, 250]
-    eva_record_file_path = path.EVALUATION_SEQ2SEQ_EVALUATION+'pix2code-1750\\'
-    eva_record_file_name = 'Arch2_1500_ebiLSTM_stack_attention_record.txt'
-    predit_data_nums = [1500, 250] # train, test
+    layer2_lstm = False
+    training_data_num = 2500
+    evaluate_data_nums = [500, 100]
+    eva_record_file_path = path.EVALUATION_SEQ2SEQ_EVALUATION+'data3\\'
+    eva_record_file_name = 'Arch1_2500_ebiLSTM_attention_record.txt'
+    predit_data_nums = [500, 100] # train, test
     predit_start_idx = [0,0] # train, test
     # predit_test_data = False
     
-    bleu_record_file_path =  path.EVALUATION_BLEU_SCORE + 'layout_generate_only\\2020-04\\pix2code-1750\\'
-    bleu_record_file_name = 'Arch2_1500_ebiLSTM_stack_attention_record.txt'
+    bleu_record_file_path =  path.EVALUATION_BLEU_SCORE + 'layout_generate_only\\2020-04\\data3\\'
+    bleu_record_file_name = 'Arch1_2500_ebiLSTM_attention_record.txt'
 
-    error_record_file_path =  path.EVALUATION_ERROR_SCORE + 'layout_generate_only\\pix2code-1750\\'
-    error_record_file_name = 'Arch2_1500_ebiLSTM_stack_attention_record.txt'
+    error_record_file_path =  path.EVALUATION_ERROR_SCORE + 'layout_generate_only\\data3\\'
+    error_record_file_name = 'Arch1_2500_ebiLSTM_attention_record.txt'
     
     gaussian_noise = 1  # None
     early_stoping = False

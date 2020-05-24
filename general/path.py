@@ -5,13 +5,13 @@ TESTSET = 'test_set\\'
 # SELF = 'D:\\Chi\\webimg-to-code\\'
 CLASS_SEQ2SEQ_MODEL_GRAPH_FILE = SELF+'assets\\seq2seq-position\\seq2seq-model.png'
 # full-rowcolAttrElement
-CLASS_SEQ2SEQ_TRAINING_TYPE = '2020-8\\seq2seq-pix2code\\attr-ourgui\\encoder_bidirectional_stack_attention-resort\\1500\\noise\\'
+CLASS_SEQ2SEQ_TRAINING_TYPE = '2020-8\\seq2seq-data3\\full-ourgui\\encoder_bidirectional_attention-resort\\2500\\noise\\'
 CLASS_SEQ2SEQ_WEIGHT = SELF+'assets\\'+CLASS_SEQ2SEQ_TRAINING_TYPE+'weight\\'
 CLASS_SEQ2SEQ_MODEL_PATH = SELF+'assets\\'+CLASS_SEQ2SEQ_TRAINING_TYPE+'model\\'
 CLASS_SEQ2SEQ_ANALYSIS_PATH = SELF+'assets\\'+CLASS_SEQ2SEQ_TRAINING_TYPE
 CLASS_SEQ2SEQ_PREDIT_GUI_PATH = SELF+'assets\\'+CLASS_SEQ2SEQ_TRAINING_TYPE+'test-predit-gui\\'
 
-CLASS_ATTR_TRAINING_TYPE = '2020-8\\attr_class-pix2code-fix\\simple_VGG\\74224-256\\2500-noise\\'
+CLASS_ATTR_TRAINING_TYPE = '2020-8\\attr_class-data3-fix\\simple_VGG\\74224-256\\3100-noise\\'
 CLASS_ATTR_WEIGHT = SELF + 'assets\\'+CLASS_ATTR_TRAINING_TYPE+'weight\\'
 CLASS_ATTR_ANALYSIS =  SELF+'assets\\'+CLASS_ATTR_TRAINING_TYPE
 CLASS_ATTR_PREDIT_GUI_PATH = SELF+'assets\\'+CLASS_ATTR_TRAINING_TYPE+'test-predit-gui\\'
@@ -152,6 +152,7 @@ DATASET3_ELEMENT_FOLDER = DATASET+DATASET3+'element\\'
 DATASET3_ELEMENT_PNG = DATASET3_ELEMENT_FOLDER+'element_png\\'
 DATASET3_ELEMENT_PNG_PADDING = DATASET3_ELEMENT_FOLDER+'element_png_padding\\'
 DATASET3_ELEMENT_PNG_PADDING_20 = DATASET3_ELEMENT_FOLDER+'element_png_padding20\\'
+DATASET3_ELEMENT_PNG_NOISE = DATASET3_ELEMENT_FOLDER+'element_png_noise_input_padding\\'
 
 
 DATASET3_TRAINSET_ORIGIN_GUI = DATASET+DATASET3+TRAINSET+'origin_gui\\'

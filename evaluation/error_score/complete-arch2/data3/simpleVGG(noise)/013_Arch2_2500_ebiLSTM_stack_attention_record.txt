@@ -1,0 +1,27 @@
+{
+    "config": {
+        "input_path": "D:\\Chi\\webimg-to-code\\yolo_detected\\data3\\Arch2_train\\013\\",
+        "target_path": "D:\\Chi\\dataset\\dataset3\\train_set\\noise-500\\origin_no_context_gui\\",
+        "model_path": "D:\\Chi\\webimg-to-code\\assets\\2020-8\\seq2seq-data3\\attr-ourgui\\encoder_bidirectional_stack_attention-resort\\2500\\noise\\model\\300\\model.h5",
+        "num_of_data": 500,
+        "start_index": 0
+    },
+    "error_history": [],
+    "final_error_score": {
+        "the_number_of_len_nonequal_data": 404,
+        "error_score": 0.8204672790350561
+    }
+}{
+    "config": {
+        "input_path": "D:\\Chi\\webimg-to-code\\yolo_detected\\data3\\Arch2_test\\013\\",
+        "target_path": "D:\\Chi\\dataset\\dataset3\\test_set\\origin_no_context_gui\\",
+        "model_path": "D:\\Chi\\webimg-to-code\\assets\\2020-8\\seq2seq-data3\\attr-ourgui\\encoder_bidirectional_stack_attention-resort\\2500\\noise\\model\\300\\model.h5",
+        "num_of_data": 100,
+        "start_index": 0
+    },
+    "error_history": [],
+    "final_error_score": {
+        "the_number_of_len_nonequal_data": 98,
+        "error_score": 0.9832251082251082
+    }
+}

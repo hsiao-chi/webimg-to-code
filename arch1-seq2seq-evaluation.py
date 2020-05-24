@@ -16,23 +16,23 @@ import environment.environment as ENV
 if __name__ == "__main__":
     BLEU_SCORE = True
     ERROR_SCORE = True
-    INPUT_TYPE = 1
-    TARGET_TYPE = 1
-    seq_model_type = SeqModelType.encoder_bidirectional_attention.value
+    INPUT_TYPE = 4
+    TARGET_TYPE = 4
+    seq_model_type = SeqModelType.encoder_bidirectional.value
     layer2_lstm = True
     encoder_config = get_encoder_config(INPUT_TYPE)
     decoder_config = get_decoder_config(TARGET_TYPE)
-    predit_data_num = 250
+    predit_data_num = 100
     start_idx = 0
     test_data = True
-    input_data_folder = ENV.SELF+ 'yolo_detected\\pix2code-1750\\arch1_test\\013\\'
+    input_data_folder = ENV.SELF+ 'yolo_detected\\data3\\arch1_test\\013\\'
     target_data_folder = decoder_config['testing_data_folder'] if test_data else decoder_config['data_folder']
-    predit_model_path = ENV.SELF+ r'assets\2020-8\seq2seq-pix2code\full-origin\encoder_bidirectional_stack_attention-resort\1500\noise\model\200\model.h5'
+    predit_model_path = ENV.SELF+ r'assets\2020-4\seq2seq-data3\full-rowcolAttrElement\encoder_bidirectional-stack-resort\2500\noise\model\200\model.h5'
     predit_result_save_path = None
-    bleu_file_path = path.EVALUATION_BLEU_SCORE + 'complete-arch1\\pix2code-1750\\'
-    bleu_file_name = '013_Arch1-0_ebiLSTM_stack_attention_1500_record.txt'
-    error_file_path = path.EVALUATION_ERROR_SCORE + 'complete-arch1\\pix2code-1750\\'
-    error_file_name = '013_Arch1-0_ebiLSTM_stack_attention_1500_record.txt'
+    bleu_file_path = path.EVALUATION_BLEU_SCORE + 'complete-arch1\\data3\\'
+    bleu_file_name = '013_Arch1_2500_ebiLSTM_stack_record.txt'
+    error_file_path = path.EVALUATION_ERROR_SCORE + 'complete-arch1\\data3\\'
+    error_file_name = '013_Arch1_2500_ebiLSTM_stack_record.txt'
 
     
     encoder_model, decoder_model = seq2seq_predit_model(

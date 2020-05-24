@@ -3,7 +3,7 @@ import general.path as path
 import general.dataType as TYPE
 from general.util import createFolder, readFile, writeFile, write_file, showLoss, showAccuracy
 from keras.models import Model, Sequential
-from keras.layers import Input, LSTM, Dense, GaussianNoise, Bidirectional, concatenate, Concatenate, Activation, dot, TimeDistributed
+from keras.layers import Input, LSTM, Dense, GaussianNoise, Bidirectional, concatenate, Concatenate, Activation, dot, TimeDistributed, Embedding
 from keras import backend as K, callbacks
 from keras import activations
 from keras.utils import plot_model
@@ -15,7 +15,7 @@ K.tensorflow_backend._get_available_gpus()
 LSTM_ENCODER_DIM = 256  # Latent dimensionality of the encoding space.
 LSTM_DECODER_DIM = 256
 BATCH_SIZE = 64  # Batch size for training.
-SEQ2SEQ_EPOCHES = 200  # Number of epochs to train for.
+SEQ2SEQ_EPOCHES = 300  # Number of epochs to train for.
 MODE_SAVE_PERIOD = 100
 NUM_SAMPLE = 10000  # Number of samples to train on.
 
@@ -314,6 +314,7 @@ def bidirectional_stack_training_model(encoder_inputs, decoder_inputs):
     return decoder_outputs
 
 def encoder_bidirectional_attention_training_model(encoder_inputs, decoder_inputs):
+    # decoder_input = Embedding(output_dict_size, DECODER_LSTM_VEC, input_length=max_decoder_output_length, mask_zero=True, name="decoder_embedding")(decoder_input)
     encoder = Bidirectional(LSTM(LSTM_ENCODER_DIM, return_sequences=True, return_state=True), name="encoder_lstm")
     encoder_outputs, efh, efc, ebh, ebc = encoder(encoder_inputs)
     print('decoder_outputs', encoder_outputs)
